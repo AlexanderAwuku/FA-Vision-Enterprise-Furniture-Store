@@ -1,8 +1,23 @@
-# FA Vision Enterprise — Furniture Store
+# FA Vision Enterprise Furniture Store
 
-Quality, handcrafted furniture for homes and offices, made in **Odorkor, Accra, Ghana**.
+Online presence for **FA Vision Enterprise**, a furniture business based in Odorkor, Accra, Ghana.
 
-This repository holds the web presence and business resources for FA Vision Enterprise.
+## About
+
+FA Vision Enterprise makes and sells quality, handcrafted furniture for homes and offices. This repository holds the store's website and related materials: product catalogue, pricing, contact details, and marketing content.
+
+## Project status
+
+The first version of the website is built. It still needs the real WhatsApp number, prices and product photos before going live.
+
+## Planned
+
+- [x] Landing page with business overview and location
+- [x] Product catalogue with prices (GHS), filterable by category
+- [ ] Real product photos
+- [x] Contact and enquiry form (sends via WhatsApp)
+- [ ] Add phone number and email to the contact section
+- [ ] Simple sales and expense tracking
 
 ## What's inside
 
@@ -35,6 +50,10 @@ Open `index.html` in any browser — no build step or installs needed.
 - **Photos:** drop images into `assets/images/` and set each product's `image`
   field to the file name.
 
+## Location
+
+Odorkor, Accra, Ghana
+
 ## License
 
-GPL-3.0 — see [LICENSE](LICENSE).
+This project is licensed under the GNU General Public License v3.0. See [LICENSE](LICENSE) for details.
