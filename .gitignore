@@ -1,0 +1,9 @@
+# Never commit credentials
+*credentials*.json
+*-key.json
+service-account*.json
+.env
+.env.*
+
+.firebase/
+node_modules/
