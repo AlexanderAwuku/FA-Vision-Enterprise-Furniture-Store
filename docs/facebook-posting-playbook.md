@@ -15,10 +15,10 @@ The kit makes each manual post a quick copy and paste.
 1. **Products.** Edit `data/products.json` and give each item:
    - a real `price_ghs`, for example `2500`
    - `dimensions`, `material` and `colors`
-   - `images`: photo URLs, or paths such as `images/fav-001-1.jpg` once photos are added to the repo
+   - `images`: photo paths such as `assets/images/fav-001-sofa.jpg` once photos are added to the repo; the first photo is also used on the website
    - `"placeholder": false` once the details are confirmed
 2. **Groups.** Replace the example rows in `data/groups.csv` with the buy-and-sell and home-decor groups you belong to. Note which days each group allows sales posts.
-3. **Generate.** Run `python3 scripts/generate_listings.py`. It rewrites everything in `output/`.
+3. **Generate.** Run `python3 scripts/generate_listings.py`. It rewrites everything in `output/`, plus the website's product list.
 
 ## Weekly routine (about 30 minutes)
 
@@ -41,7 +41,7 @@ The kit makes each manual post a quick copy and paste.
 
 ## Facebook/Instagram Shop
 
-Once products have prices and photo URLs, `output/meta-catalog.csv` is ready to upload in **Meta Commerce Manager → Catalog → Data sources → Data feed**. Products then appear in the Page's Shop tab and can be tagged in posts.
+Once products have prices and photos, and `website` in `data/business.json` is set to the published site address, `output/meta-catalog.csv` is ready to upload in **Meta Commerce Manager → Catalog → Data sources → Data feed**. Products then appear in the Page's Shop tab and can be tagged in posts.
 
 ## Photo tips
 

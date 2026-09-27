@@ -1,133 +1,112 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>F.A Vision Enterprise | Furniture in Odorkor, Accra</title>
-<meta name="description" content="Furniture for homes, offices and schools. Made to order in Odorkor, Accra, with delivery across Ghana.">
-<style>
-  :root {
-    --bg: #faf7f2; --surface: #ffffff; --text: #2b2118; --muted: #6b5d50;
-    --accent: #8a4b1f; --accent-text: #ffffff; --border: #e6ddd1; --wa: #1f8f4e;
-  }
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --bg: #1b1612; --surface: #26201a; --text: #f2ebe3; --muted: #b8a999;
-      --accent: #d08a4f; --accent-text: #1b1612; --border: #3a3027; --wa: #3fbf73;
-    }
-  }
-  * { box-sizing: border-box; }
-  body { margin: 0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-         background: var(--bg); color: var(--text); line-height: 1.5; }
-  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 16px; }
-  header { padding: 48px 0 32px; border-bottom: 1px solid var(--border); }
-  h1 { font-size: clamp(1.8rem, 5vw, 2.6rem); margin: 0 0 8px; }
-  .tagline { color: var(--muted); font-size: 1.1rem; margin: 0 0 24px; }
-  .btn { display: inline-block; padding: 12px 20px; border-radius: 8px; font-weight: 600;
-         text-decoration: none; background: var(--accent); color: var(--accent-text); }
-  .btn.wa { background: var(--wa); color: #fff; }
-  .actions { display: flex; flex-wrap: wrap; gap: 12px; }
-  section { padding: 32px 0; }
-  h2 { font-size: 1.4rem; margin: 0 0 16px; }
-  .filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
-  .filters button { border: 1px solid var(--border); background: var(--surface); color: var(--text);
-                    padding: 6px 14px; border-radius: 999px; cursor: pointer; font: inherit; }
-  .filters button[aria-pressed="true"] { background: var(--accent); color: var(--accent-text); border-color: var(--accent); }
-  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; }
-  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
-          overflow: hidden; display: flex; flex-direction: column; }
-  .card img, .card .noimg { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; background: var(--border); }
-  .card .noimg { display: grid; place-items: center; color: var(--muted); font-size: .9rem; }
-  .card .body { padding: 14px; display: flex; flex-direction: column; gap: 6px; flex: 1; }
-  .card h3 { margin: 0; font-size: 1.05rem; }
-  .cat { color: var(--muted); font-size: .85rem; }
-  .price { font-weight: 700; color: var(--accent); }
-  .card ul { margin: 0; padding-left: 18px; font-size: .9rem; color: var(--muted); }
-  .card .btn { margin-top: auto; text-align: center; font-size: .9rem; padding: 10px; }
-  footer { border-top: 1px solid var(--border); padding: 24px 0 40px; color: var(--muted); font-size: .95rem; }
-  footer a { color: var(--accent); }
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FA Vision Enterprise | Furniture Store, Odorkor Accra</title>
+  <meta name="description" content="FA Vision Enterprise — quality handcrafted furniture for homes and offices in Odorkor, Accra, Ghana. Sofas, beds, dining sets, office furniture and custom orders.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 <body>
-<header>
-  <div class="wrap">
-    <h1 id="biz-name">F.A Vision Enterprise</h1>
-    <p class="tagline" id="biz-tagline">Bringing love to your Homes, Offices &amp; Schools through Furniture</p>
-    <div class="actions">
-      <a class="btn wa" id="wa-main" href="https://wa.me/233274013717">Order on WhatsApp</a>
-      <a class="btn" href="#catalogue">View catalogue</a>
+  <header class="site-header">
+    <div class="container nav">
+      <a href="#home" class="brand">FA <span>Vision</span></a>
+      <button class="nav-toggle" aria-label="Open menu" aria-expanded="false">&#9776;</button>
+      <nav class="nav-links">
+        <a href="#products">Products</a>
+        <a href="#about">About</a>
+        <a href="#custom">Custom Orders</a>
+        <a href="#contact">Contact</a>
+      </nav>
     </div>
-  </div>
-</header>
+  </header>
 
-<main class="wrap">
-  <section id="catalogue">
-    <h2>Catalogue</h2>
-    <div class="filters" id="filters"></div>
-    <div class="grid" id="grid"><p>Loading products…</p></div>
-  </section>
-</main>
-
-<footer>
-  <div class="wrap">
-    <p><strong>Showroom:</strong> <span id="biz-address">Tarazzo Road, opposite Pacific, Odorkor, Accra</span></p>
-    <p><strong>Call / WhatsApp:</strong> <a id="biz-phone" href="tel:+233274013717">+233 27 401 3717</a></p>
-    <p id="biz-delivery"></p>
-    <p><a href="https://www.facebook.com/FaVisionEnterprise">Facebook</a></p>
-  </div>
-</footer>
-
-<script>
-(async function () {
-  const esc = s => String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
-  const grid = document.getElementById("grid");
-  let business, products;
-  try {
-    [business, products] = await Promise.all([
-      fetch("data/business.json").then(r => r.json()),
-      fetch("data/products.json").then(r => r.json())
-    ]);
-  } catch (e) {
-    grid.innerHTML = "<p>Could not load the catalogue. Please WhatsApp us for current products.</p>";
-    return;
-  }
-
-  const waNumber = business.whatsapp.replace(/\D/g, "");
-  const waLink = text => `https://wa.me/${waNumber}?text=${encodeURIComponent(text)}`;
-  document.getElementById("biz-name").textContent = business.name;
-  document.getElementById("biz-tagline").textContent = business.tagline;
-  document.getElementById("biz-address").textContent = business.address;
-  document.getElementById("biz-delivery").textContent = business.delivery_note;
-  document.getElementById("wa-main").href = waLink(`Hello ${business.name}, I'd like to make an enquiry.`);
-
-  const categories = ["All", ...new Set(products.map(p => p.category))];
-  let active = "All";
-  const filters = document.getElementById("filters");
-
-  function render() {
-    filters.innerHTML = categories.map(c =>
-      `<button type="button" aria-pressed="${c === active}" data-cat="${esc(c)}">${esc(c)}</button>`).join("");
-    const shown = products.filter(p => active === "All" || p.category === active);
-    grid.innerHTML = shown.map(p => `
-      <article class="card">
-        ${p.images && p.images.length
-          ? `<img src="${esc(p.images[0])}" alt="${esc(p.name)}" loading="lazy">`
-          : `<div class="noimg">Photo coming soon</div>`}
-        <div class="body">
-          <span class="cat">${esc(p.category)}${p.custom_order ? " · Made to order" : ""}</span>
-          <h3>${esc(p.name)}</h3>
-          <span class="price">${p.price_ghs ? "GH₵ " + Number(p.price_ghs).toLocaleString() : "Price on request"}</span>
-          <ul>${(p.highlights || []).map(h => `<li>${esc(h)}</li>`).join("")}</ul>
-          <a class="btn wa" href="${waLink(`Hello ${business.name}, I'm interested in the ${p.name} (${p.id}).`)}">Enquire on WhatsApp</a>
+  <main>
+    <section id="home" class="hero">
+      <div class="container hero-inner">
+        <p class="eyebrow">Odorkor &middot; Accra &middot; Ghana</p>
+        <h1>Furniture built to last, designed for how you live.</h1>
+        <p class="lead">FA Vision Enterprise crafts sofas, beds, dining sets and office furniture from quality local hardwood &mdash; made to order and delivered across Accra.</p>
+        <div class="hero-actions">
+          <a href="#products" class="btn btn-primary">Browse Products</a>
+          <a class="btn btn-outline js-whatsapp" data-message="Hello FA Vision, I'd like to make an enquiry.">Chat on WhatsApp</a>
         </div>
-      </article>`).join("");
-  }
-  filters.addEventListener("click", e => {
-    const b = e.target.closest("button");
-    if (b) { active = b.dataset.cat; render(); }
-  });
-  render();
-})();
-</script>
+      </div>
+    </section>
+
+    <section id="products" class="section">
+      <div class="container">
+        <h2>Our Products</h2>
+        <p class="section-sub">Prices are starting prices in Ghana Cedis. Sizes, fabrics and finishes can be customised.</p>
+        <div class="filters" role="tablist" aria-label="Filter products"></div>
+        <div class="product-grid" id="product-grid"></div>
+      </div>
+    </section>
+
+    <section id="about" class="section section-alt">
+      <div class="container two-col">
+        <div>
+          <h2>About FA Vision Enterprise</h2>
+          <p>We are a furniture workshop and showroom in Odorkor, Accra. Every piece is built by skilled local craftsmen using seasoned hardwood, quality foam and durable fabrics.</p>
+          <p>From a single bedside table to fully furnished offices, we focus on solid construction, clean finishing and honest pricing.</p>
+        </div>
+        <ul class="features">
+          <li><strong>Quality materials</strong> Seasoned local hardwood and high-density foam.</li>
+          <li><strong>Made to measure</strong> Custom sizes, colours and fabrics.</li>
+          <li><strong>Delivery &amp; setup</strong> Across Accra and surrounding areas.</li>
+          <li><strong>After-sales support</strong> Repairs and re-upholstery available.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="custom" class="section">
+      <div class="container narrow">
+        <h2>Custom Orders</h2>
+        <p class="section-sub">Tell us what you need and we'll send a quote.</p>
+        <form id="quote-form" class="quote-form">
+          <label>Your name<input name="name" required></label>
+          <label>Furniture type
+            <select name="type" required>
+              <option value="">Select&hellip;</option>
+              <option>Sofa / Living room</option>
+              <option>Bed / Bedroom</option>
+              <option>Dining set</option>
+              <option>Office furniture</option>
+              <option>Other</option>
+            </select>
+          </label>
+          <label>Details (size, colour, quantity, location)<textarea name="details" rows="4" required></textarea></label>
+          <button type="submit" class="btn btn-primary">Send Request via WhatsApp</button>
+        </form>
+      </div>
+    </section>
+
+    <section id="contact" class="section section-alt">
+      <div class="container contact-grid">
+        <div>
+          <h3>Visit the showroom</h3>
+          <p>Tarazzo Road, opposite Pacific, Odorkor, Accra</p>
+        </div>
+        <div>
+          <h3>Call / WhatsApp</h3>
+          <p><a href="tel:+233274013717">+233 27 401 3717</a><br><a class="js-whatsapp" data-message="Hello FA Vision!">Message us on WhatsApp</a></p>
+        </div>
+        <div>
+          <h3>Opening hours</h3>
+          <p>Mon &ndash; Sat: 8:00am &ndash; 6:00pm</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">&copy; <span id="year"></span> FA Vision Enterprise &middot; Odorkor, Accra</div>
+  </footer>
+
+  <script src="assets/js/products-data.js"></script>
+  <script src="assets/js/main.js"></script>
 </body>
 </html>
