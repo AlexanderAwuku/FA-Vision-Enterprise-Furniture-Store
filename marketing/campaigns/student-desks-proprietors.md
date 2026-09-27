@@ -22,7 +22,7 @@ The live version is the `student-desks-2026` block in [`backend/apps-script/Code
 > ✅ Delivery and setup in your classrooms
 > ✅ Repairs whenever needed
 > Reply with the number of desks you need and we'll send a quote today.
-> 👉 https://alexanderawuku.github.io/FA-Vision-Enterprise-Furniture-Store/#product/FAV-014
+> 👉 https://favisionenterprize.github.io/#product/FAV-014
 
 WhatsApp Business "Broadcast lists" only reach people who have saved your number, so ask each proprietor to save it when you first speak.
 
