@@ -39,6 +39,14 @@ def load():
     return business, products, groups
 
 
+def local(number):
+    """+233572646176 -> 057 264 6176, the format Ghanaian buyers dial."""
+    digits = "".join(c for c in number if c.isdigit())
+    if digits.startswith("233"):
+        digits = "0" + digits[3:]
+    return f"{digits[:3]} {digits[3:6]} {digits[6:]}"
+
+
 def price_text(product):
     price = product.get("price_ghs")
     return f"GH₵ {price:,.0f}" if price else "Price on request"
@@ -78,7 +86,8 @@ def marketplace_description(business, product):
         "",
         f"📍 Showroom: {business['address']}",
         f"🚚 {business['delivery_note']}",
-        f"📞 Call / WhatsApp: {business['whatsapp']}",
+        f"💬 WhatsApp: {local(business['whatsapp'])}",
+        f"📞 Call: {' / '.join(local(n) for n in business['phones'])}",
         f"Ref: {product['id']}",
     ]
     return "\n".join(p for p in parts if p is not None).strip()
@@ -92,7 +101,7 @@ def group_captions(business, product):
     highlights = product.get("highlights", [])
     first = highlights[0] if highlights else ""
     bullet_list = "\n".join(f"• {h}" for h in highlights)
-    wa = business["whatsapp"]
+    wa = local(business["whatsapp"])
     return [
         f"🛋️ {product['name']} available now!\n{bullet_list}\n💰 {price}\n"
         f"📍 Odorkor, Accra, delivery available\n📞 WhatsApp {wa}\n{tags}",

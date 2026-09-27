@@ -2,7 +2,7 @@
 
 // Business WhatsApp number, international format without "+" or spaces
 // (e.g. "233241234567"). Leave empty to open WhatsApp without a preset number.
-const WHATSAPP_NUMBER = "233274013717";
+const WHATSAPP_NUMBER = "233572646176";
 
 // Products come from data/products.json. After editing it, run
 // `python3 scripts/generate_listings.py`, which rewrites

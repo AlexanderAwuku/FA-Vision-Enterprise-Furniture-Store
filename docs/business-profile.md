@@ -7,7 +7,8 @@
 | **Location** | Tarazzo Road, opposite Pacific, Odorkor, Accra, Ghana |
 | **Service area** | Greater Accra and surrounding areas (delivery available) |
 | **Opening hours** | Monday – Saturday, 8:00am – 6:00pm |
-| **Phone / WhatsApp** | +233 27 401 3717 |
+| **WhatsApp** | 057 264 6176 |
+| **Phone** | 057 264 6176 · 020 747 3267 · 054 614 8923 |
 | **Email** | _add email_ |
 
 ## Product lines

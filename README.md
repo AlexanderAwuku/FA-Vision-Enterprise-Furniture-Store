@@ -38,7 +38,7 @@ The first version of the website and the Facebook listing kit are built. Product
 
 3. Commit the changed files. The website and the Facebook listings both update.
 
-The phone/WhatsApp number is in `data/business.json` (for listings) and `WHATSAPP_NUMBER` in `assets/js/main.js` (for the site).
+Phone and WhatsApp numbers are in `data/business.json` (for listings), and in `WHATSAPP_NUMBER` in `assets/js/main.js` and the contact section of `index.html` (for the site).
 
 ## Preview locally
 
@@ -67,7 +67,7 @@ Open `index.html` in any browser. There's no build step and nothing to install.
 
 ## Contact
 
-Tarazzo Road, opposite Pacific, Odorkor, Accra · WhatsApp +233 27 401 3717 · [Facebook](https://www.facebook.com/FaVisionEnterprise)
+Tarazzo Road, opposite Pacific, Odorkor, Accra · WhatsApp 057 264 6176 · Call 057 264 6176 / 020 747 3267 / 054 614 8923 · [Facebook](https://www.facebook.com/FaVisionEnterprise)
 
 ## Location
 
