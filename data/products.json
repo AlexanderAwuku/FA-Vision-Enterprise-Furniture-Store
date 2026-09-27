@@ -306,26 +306,37 @@
   },
   {
     "id": "FAV-014",
-    "name": "School Desk and Chair Set",
+    "name": "Student Desk Chair Set — Senior High to Tertiary Level",
     "category": "School",
     "type": "Classroom Desk",
     "marketplace_category": "Home & Garden > Furniture > Desks",
-    "price_ghs": null,
+    "price_ghs": 650,
     "negotiable": true,
     "icon": "🏫",
-    "description": "Durable classroom desk and chair, single or double seater.",
+    "description": "New consignment just arrived. Perfect for classrooms from SHS through university. Anti-slip floor caps on the legs prevent sliding and cut down on distracting noise.\n\nSpecifications\nItem No.: SF-07F\nSize: Standard (custom sizes available on request)\n\nDesk\nMaterial: Multi-layer composite board / ABS / carbon steel frame, high-quality MDF with melamine cover — durable & strong\nColour: Grey frame with yellow (gold) top — other colours available\nDimensions: 70 × 50 × 73–88 cm (L × W × H)\n\nChair\nMaterial: Composite panel / ABS / carbon steel frame with powder-coated iron tube\nDimensions: 48 × 46 × 46–52 cm (L × W × H)\nSeat size: 48 × 46 cm\n\nPacking: Knock-down packing — wood/plastic in carton with bubble wrap; metal wrapped in nylon fabric.\n\nNeed desks for your school? Contact us today for a great bulk discount — GH₵ 640 per set from 50 pieces.",
     "condition": "Brand New",
-    "material": "",
-    "dimensions": "",
-    "colors": [],
+    "material": "MDF with melamine cover, ABS, powder-coated carbon steel frame",
+    "dimensions": "Desk 70 × 50 × 73–88 cm; Chair 48 × 46 × 46–52 cm (height adjustable)",
+    "colors": [
+      "Grey",
+      "Gold"
+    ],
     "custom_order": true,
     "in_stock": true,
-    "images": [],
-    "highlights": [
-      "Durable for daily classroom use",
-      "Single or double seater",
-      "Bulk pricing for schools"
+    "images": [
+      "assets/images/products/fav-014-muk5690f-1.jpg",
+      "assets/images/products/fav-014-muk5690f-2.jpg",
+      "assets/images/products/fav-014-muk5690f-3.jpg",
+      "assets/images/products/fav-014-muk5690f-4.jpg",
+      "assets/images/products/fav-014-muk5690f-5.jpg"
     ],
-    "placeholder": true
+    "highlights": [
+      "Height-adjustable desk (73–88 cm) and chair (46–52 cm)",
+      "Powder-coated carbon steel frame with MDF/melamine top",
+      "Anti-slip floor caps — no sliding, less noise",
+      "Suitable for SHS through university",
+      "Bulk discount: GH₵ 640/set from 50 pieces"
+    ],
+    "placeholder": false
   }
 ]
