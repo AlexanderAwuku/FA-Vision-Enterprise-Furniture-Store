@@ -2,8 +2,8 @@
 
 Online presence for **FA Vision Enterprise**, a furniture business based in Odorkor, Accra, Ghana.
 
-**Live website:** https://alexanderawuku.github.io/FA-Vision-Enterprise-Furniture-Store/
-**Admin (post products):** https://alexanderawuku.github.io/FA-Vision-Enterprise-Furniture-Store/admin/
+**Live website:** https://favisionenterprize.github.io/
+**Admin (post products):** https://favisionenterprize.github.io/admin/
 
 ## About
 
@@ -40,7 +40,7 @@ The admin needs a GitHub token that can only edit this one repository:
 
 1. Open https://github.com/settings/personal-access-tokens/new (Settings → Developer settings → Fine-grained tokens → Generate new token).
 2. **Token name:** FA Vision Admin. **Expiration:** 1 year.
-3. **Repository access:** Only select repositories → `FA-Vision-Enterprise-Furniture-Store`.
+3. **Repository access:** Only select repositories → `favisionenterprize.github.io`.
 4. **Permissions → Repository permissions → Contents:** Read and write.
 5. Generate it, copy it, and paste it into the admin's sign-in box.
 
@@ -87,7 +87,7 @@ Open `index.html` in any browser. There's no build step and nothing to install. 
 2. Under **Build and deployment**, choose **Deploy from a branch**.
 3. Select branch `main` and folder `/ (root)`, then **Save**.
 4. After a minute the site is live at
-   `https://alexanderawuku.github.io/FA-Vision-Enterprise-Furniture-Store/`
+   `https://favisionenterprize.github.io/`
 
 ## How it fits together
 
