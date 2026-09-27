@@ -78,7 +78,7 @@ Open `index.html` in any browser. There's no build step and nothing to install. 
 4. After a minute the site is live at
    `https://alexanderawuku.github.io/FA-Vision-Enterprise-Furniture-Store/`
 
-## Project status
+## How it fits together
 
 - [x] Landing page with business overview and location
 - [x] Product catalogue with prices (GHS), filterable by category
@@ -89,7 +89,19 @@ Open `index.html` in any browser. There's no build step and nothing to install. 
 - [ ] Confirm real prices and dimensions (current prices are estimates)
 - [ ] Real product photos
 - [x] Publish the website on GitHub Pages
-- [ ] Simple sales and expense tracking
+- [x] Simple sales and expense tracking (Google Sheet backend, see [`backend/`](backend/))
+
+## Backend: enquiries, sales, expenses and batch emails
+
+[`backend/`](backend/) is a Google Sheet with Apps Script (free, no server). It:
+
+- saves every **Custom orders** request from the website (as well as opening WhatsApp) and emails you an alert
+- keeps your **client list**, **sales** and **expenses**, with a profit summary by month
+- sends **batch email campaigns** within Gmail's daily limit, with unsubscribe links
+
+Setup takes about 10 minutes: see [`backend/README.md`](backend/README.md). The last step is pasting the Sheet's web app URL into `enquiry_endpoint` in `data/business.json`. Until then the form works exactly as before, WhatsApp only.
+
+The first campaign, student desks for school proprietors, is in [`marketing/campaigns/student-desks-proprietors.md`](marketing/campaigns/student-desks-proprietors.md).
 
 ## Contact
 

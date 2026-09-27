@@ -5,3 +5,10 @@ node_modules/
 .idea/
 *.log
 .env
+.env.*
+
+# Never commit credentials
+*credentials*.json
+*-key.json
+service-account*.json
+
