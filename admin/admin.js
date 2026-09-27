@@ -6,8 +6,8 @@
 // generated assets/js/products-data.js in one commit, and GitHub Pages
 // republishes the site about a minute later.
 (function () {
-  const OWNER = "AlexanderAwuku";
-  const REPO = "FA-Vision-Enterprise-Furniture-Store";
+  const OWNER = "favisionenterprize";
+  const REPO = "favisionenterprize.github.io";
   const BRANCH = "main";
   const API = `https://api.github.com/repos/${OWNER}/${REPO}`;
   const RAW = `https://raw.githubusercontent.com/${OWNER}/${REPO}/${BRANCH}/`;
@@ -86,7 +86,7 @@
   function friendly(err) {
     if (err.status === 401) return "Your token was rejected. It may have expired: sign out and paste a new one.";
     if (err.status === 403) return "Your token can't save changes. On GitHub, give it Contents: Read and write for this repository.";
-    if (err.status === 404) return "Couldn't find the repository with this token. Check that the token has access to FA-Vision-Enterprise-Furniture-Store.";
+    if (err.status === 404) return "Couldn't find the repository with this token. Check that the token has access to favisionenterprize.github.io.";
     if (!navigator.onLine) return "You're offline. Check your internet connection and try again.";
     return "Something went wrong: " + err.message;
   }
