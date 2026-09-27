@@ -4,10 +4,11 @@
 |---|---|
 | **Business name** | FA Vision Enterprise |
 | **Trade** | Furniture manufacturing and retail |
-| **Location** | Odorkor, Accra, Ghana |
+| **Location** | Tarazzo Road, opposite Pacific, Odorkor, Accra, Ghana |
 | **Service area** | Greater Accra and surrounding areas (delivery available) |
 | **Opening hours** | Monday – Saturday, 8:00am – 6:00pm |
-| **Phone / WhatsApp** | _add number_ |
+| **WhatsApp** | 057 264 6176 |
+| **Phone** | 057 264 6176 · 020 747 3267 · 054 614 8923 |
 | **Email** | _add email_ |
 
 ## Product lines
@@ -30,7 +31,7 @@
 ## Online presence checklist
 
 - [ ] Publish website via GitHub Pages (see README)
-- [ ] Add WhatsApp number to `assets/js/main.js`
+- [x] Add WhatsApp number to `assets/js/main.js`
 - [ ] Add real product photos to `assets/images/`
 - [ ] Create / claim Google Business Profile listing
 - [ ] Link Facebook and Instagram pages

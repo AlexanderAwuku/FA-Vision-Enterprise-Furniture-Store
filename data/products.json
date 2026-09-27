@@ -1,0 +1,303 @@
+[
+  {
+    "id": "FAV-001",
+    "name": "3-Seater Fabric Sofa",
+    "category": "Living Room",
+    "marketplace_category": "Home & Garden > Furniture > Sofas",
+    "price_ghs": 4500,
+    "icon": "🛋️",
+    "description": "Hardwood frame, high-density foam, choice of fabric colours.",
+    "condition": "New",
+    "material": "Hardwood frame, high-density foam, fabric upholstery",
+    "dimensions": "",
+    "colors": [
+      "Grey",
+      "Brown",
+      "Cream"
+    ],
+    "custom_order": true,
+    "in_stock": true,
+    "images": [],
+    "highlights": [
+      "Strong hardwood frame",
+      "Comfortable high-density foam",
+      "Colour and fabric can be customised"
+    ],
+    "placeholder": true
+  },
+  {
+    "id": "FAV-002",
+    "name": "L-Shaped Sectional Sofa",
+    "category": "Living Room",
+    "marketplace_category": "Home & Garden > Furniture > Sofas",
+    "price_ghs": 9800,
+    "icon": "🛋️",
+    "description": "Spacious corner sofa, ideal for family living rooms.",
+    "condition": "New",
+    "material": "",
+    "dimensions": "",
+    "colors": [],
+    "custom_order": true,
+    "in_stock": true,
+    "images": [],
+    "highlights": [
+      "Spacious corner sofa",
+      "Ideal for family living rooms"
+    ],
+    "placeholder": true
+  },
+  {
+    "id": "FAV-003",
+    "name": "Wooden Centre Table",
+    "category": "Living Room",
+    "marketplace_category": "Home & Garden > Furniture > Tables",
+    "price_ghs": 1200,
+    "icon": "🪵",
+    "description": "Solid wood coffee table with lower storage shelf.",
+    "condition": "New",
+    "material": "",
+    "dimensions": "",
+    "colors": [],
+    "custom_order": true,
+    "in_stock": true,
+    "images": [],
+    "highlights": [
+      "Solid wood coffee table with lower storage shelf"
+    ],
+    "placeholder": true
+  },
+  {
+    "id": "FAV-004",
+    "name": "TV Stand / Console",
+    "category": "Living Room",
+    "marketplace_category": "Home & Garden > Furniture > TV Stands",
+    "price_ghs": 1800,
+    "icon": "📺",
+    "description": "Cabinet with drawers and cable management.",
+    "condition": "New",
+    "material": "",
+    "dimensions": "",
+    "colors": [],
+    "custom_order": true,
+    "in_stock": true,
+    "images": [],
+    "highlights": [
+      "Cabinet with drawers and cable management"
+    ],
+    "placeholder": true
+  },
+  {
+    "id": "FAV-005",
+    "name": "Queen Size Bed Frame",
+    "category": "Bedroom",
+    "marketplace_category": "Home & Garden > Furniture > Beds & Bed Frames",
+    "price_ghs": 3800,
+    "icon": "🛏️",
+    "description": "Solid hardwood frame with padded headboard.",
+    "condition": "New",
+    "material": "Solid wood",
+    "dimensions": "",
+    "colors": [
+      "Natural Wood",
+      "Dark Brown"
+    ],
+    "custom_order": true,
+    "in_stock": true,
+    "images": [],
+    "highlights": [
+      "Solid wood construction",
+      "Padded or wooden headboard options",
+      "Sizes made to order"
+    ],
+    "placeholder": true
+  },
+  {
+    "id": "FAV-006",
+    "name": "King Size Bed Frame",
+    "category": "Bedroom",
+    "marketplace_category": "Home & Garden > Furniture > Beds & Bed Frames",
+    "price_ghs": 4800,
+    "icon": "🛏️",
+    "description": "Strong slatted base, available in natural or dark finish.",
+    "condition": "New",
+    "material": "",
+    "dimensions": "",
+    "colors": [],
+    "custom_order": true,
+    "in_stock": true,
+    "images": [],
+    "highlights": [
+      "Strong slatted base",
+      "Available in natural or dark finish"
+    ],
+    "placeholder": true
+  },
+  {
+    "id": "FAV-007",
+    "name": "Wardrobe (3-Door)",
+    "category": "Bedroom",
+    "marketplace_category": "Home & Garden > Furniture > Wardrobes",
+    "price_ghs": 5200,
+    "icon": "🚪",
+    "description": "Hanging space, shelves and drawers; custom sizes available.",
+    "condition": "New",
+    "material": "",
+    "dimensions": "",
+    "colors": [],
+    "custom_order": true,
+    "in_stock": true,
+    "images": [],
+    "highlights": [
+      "Hanging space and shelves",
+      "Lockable doors",
+      "Built to your room size"
+    ],
+    "placeholder": true
+  },
+  {
+    "id": "FAV-008",
+    "name": "Bedside Table",
+    "category": "Bedroom",
+    "marketplace_category": "Home & Garden > Furniture > Nightstands",
+    "price_ghs": 650,
+    "icon": "🗄️",
+    "description": "Compact nightstand with drawer.",
+    "condition": "New",
+    "material": "",
+    "dimensions": "",
+    "colors": [],
+    "custom_order": true,
+    "in_stock": true,
+    "images": [],
+    "highlights": [
+      "Compact nightstand with drawer"
+    ],
+    "placeholder": true
+  },
+  {
+    "id": "FAV-009",
+    "name": "6-Seater Dining Set",
+    "category": "Dining",
+    "marketplace_category": "Home & Garden > Furniture > Dining Sets",
+    "price_ghs": 6500,
+    "icon": "🍽️",
+    "description": "Solid wood table with six upholstered chairs.",
+    "condition": "New",
+    "material": "",
+    "dimensions": "",
+    "colors": [],
+    "custom_order": true,
+    "in_stock": true,
+    "images": [],
+    "highlights": [
+      "Table and 6 chairs",
+      "Wood or glass top options",
+      "Made to order"
+    ],
+    "placeholder": true
+  },
+  {
+    "id": "FAV-010",
+    "name": "4-Seater Dining Set",
+    "category": "Dining",
+    "marketplace_category": "Home & Garden > Furniture > Dining Sets",
+    "price_ghs": 4200,
+    "icon": "🍽️",
+    "description": "Space-saving dining set for apartments.",
+    "condition": "New",
+    "material": "",
+    "dimensions": "",
+    "colors": [],
+    "custom_order": true,
+    "in_stock": true,
+    "images": [],
+    "highlights": [
+      "Space-saving dining set for apartments"
+    ],
+    "placeholder": true
+  },
+  {
+    "id": "FAV-011",
+    "name": "Executive Office Desk",
+    "category": "Office",
+    "marketplace_category": "Home & Garden > Furniture > Desks",
+    "price_ghs": 3500,
+    "icon": "🖥️",
+    "description": "Large work surface with lockable drawers.",
+    "condition": "New",
+    "material": "",
+    "dimensions": "",
+    "colors": [],
+    "custom_order": true,
+    "in_stock": true,
+    "images": [],
+    "highlights": [
+      "Spacious work surface",
+      "Drawers with lock",
+      "Bulk orders for offices welcome"
+    ],
+    "placeholder": true
+  },
+  {
+    "id": "FAV-012",
+    "name": "Office Chair",
+    "category": "Office",
+    "marketplace_category": "Home & Garden > Furniture > Chairs",
+    "price_ghs": 1100,
+    "icon": "🪑",
+    "description": "Comfortable padded chair for home and office.",
+    "condition": "New",
+    "material": "",
+    "dimensions": "",
+    "colors": [],
+    "custom_order": true,
+    "in_stock": true,
+    "images": [],
+    "highlights": [
+      "Comfortable padded chair for home and office"
+    ],
+    "placeholder": true
+  },
+  {
+    "id": "FAV-013",
+    "name": "Bookshelf",
+    "category": "Office",
+    "marketplace_category": "Home & Garden > Furniture > Bookcases",
+    "price_ghs": 1500,
+    "icon": "📚",
+    "description": "Five-tier hardwood bookshelf.",
+    "condition": "New",
+    "material": "",
+    "dimensions": "",
+    "colors": [],
+    "custom_order": true,
+    "in_stock": true,
+    "images": [],
+    "highlights": [
+      "Five-tier hardwood bookshelf"
+    ],
+    "placeholder": true
+  },
+  {
+    "id": "FAV-014",
+    "name": "School Desk and Chair Set",
+    "category": "School",
+    "marketplace_category": "Home & Garden > Furniture > Desks",
+    "price_ghs": null,
+    "icon": "🏫",
+    "description": "Durable classroom desk and chair, single or double seater.",
+    "condition": "New",
+    "material": "",
+    "dimensions": "",
+    "colors": [],
+    "custom_order": true,
+    "in_stock": true,
+    "images": [],
+    "highlights": [
+      "Durable for daily classroom use",
+      "Single or double seater",
+      "Bulk pricing for schools"
+    ],
+    "placeholder": true
+  }
+]
