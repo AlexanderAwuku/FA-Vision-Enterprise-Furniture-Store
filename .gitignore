@@ -12,4 +12,3 @@ node_modules/
 *-key.json
 service-account*.json
 
-.firebase/

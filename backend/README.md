@@ -18,8 +18,10 @@ The backend is a Google Sheet with an Apps Script attached. It costs nothing, ne
 3. Click **Project Settings** (gear icon), tick **Show "appsscript.json"**, then replace that file's contents with [`apps-script/appsscript.json`](apps-script/appsscript.json).
 4. Back in the editor, select **`setup`** from the function list and click **Run**. Approve the permissions prompt. This creates all the tabs.
 5. Click **Deploy → New deployment → Web app**. Set *Execute as: Me* and *Who has access: Anyone*, then deploy and copy the **Web app URL**.
-6. Put that URL in [`frontend/config.js`](../frontend/config.js) as `enquiryEndpoint` and commit. The website form now saves into the Sheet.
-7. In **Project Settings → Script properties**, add `SITE_URL` = your website address (for the links in emails). `NOTIFY_EMAIL` is set to your address by `setup`; change it if enquiries should go elsewhere.
+6. Put that URL in [`data/business.json`](../data/business.json) as `"enquiry_endpoint"`, run `python3 scripts/generate_listings.py`, and commit. The website's **Custom orders** form now also saves each request into the **Enquiries** tab (it still opens WhatsApp too).
+7. Optional: `NOTIFY_EMAIL` (in **Project Settings → Script properties**) is set to your address by `setup`; change it if enquiry alerts should go elsewhere. Emails link to the live website; set `SITE_URL` there only if the address changes.
+
+If your phone numbers or address change, update the `BUSINESS` block at the top of `Code.gs` as well as `data/business.json`.
 
 ## Sending a batch email campaign
 
@@ -31,8 +33,8 @@ The backend is a Google Sheet with an Apps Script attached. It costs nothing, ne
 Limits and rules:
 - A free Gmail account can send to about **100 recipients a day** from Apps Script (Google Workspace: 1,500). The script stops at the limit and continues on the next run, and never emails the same person twice for one campaign.
 - Every email includes an **unsubscribe** link. Clicking it marks the client `Unsubscribed` and they are skipped from then on. Only email schools that gave you their address or publish it for business enquiries.
-- Edit the wording in the `CAMPAIGNS` section at the bottom of `Code.gs`. Copy a campaign block and give it a new id for the next promotion.
+- Edit the wording in the `CAMPAIGNS` section of `Code.gs`. Copy a campaign block and give it a new id for the next promotion.
 
 ## Moving to Cloud Run / BigQuery later
 
-When a billing account is linked to the Google Cloud project, the Sheet can feed BigQuery (**Connected Sheets**, or a BigQuery external table on the Sheet) for heavier reporting, and the enquiry endpoint can move to Cloud Run. Nothing on the website changes except `enquiryEndpoint`.
+When a billing account is linked to the Google Cloud project, the Sheet can feed BigQuery (**Connected Sheets**, or a BigQuery external table on the Sheet) for heavier reporting, and the enquiry endpoint can move to Cloud Run. Nothing on the website changes except `enquiry_endpoint`.

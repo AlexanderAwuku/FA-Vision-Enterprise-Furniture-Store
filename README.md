@@ -93,13 +93,15 @@ Open `index.html` in any browser. There's no build step and nothing to install. 
 
 ## Backend: enquiries, sales, expenses and batch emails
 
-[`backend/`](backend/) is a Google Sheet with Apps Script (free, no server). It stores website enquiries, your client list, sales and expenses with a profit summary, and sends batch email campaigns within Gmail's daily limit, with unsubscribe links. Setup takes about 10 minutes: see [`backend/README.md`](backend/README.md). Set its `SITE_URL` script property to the live website address above.
+[`backend/`](backend/) is a Google Sheet with Apps Script (free, no server). It:
+
+- saves every **Custom orders** request from the website (as well as opening WhatsApp) and emails you an alert
+- keeps your **client list**, **sales** and **expenses**, with a profit summary by month
+- sends **batch email campaigns** within Gmail's daily limit, with unsubscribe links
+
+Setup takes about 10 minutes: see [`backend/README.md`](backend/README.md). The last step is pasting the Sheet's web app URL into `enquiry_endpoint` in `data/business.json`. Until then the form works exactly as before, WhatsApp only.
 
 The first campaign, student desks for school proprietors, is in [`marketing/campaigns/student-desks-proprietors.md`](marketing/campaigns/student-desks-proprietors.md).
-
-## Optional: Firebase Hosting on Google Cloud
-
-[`frontend/`](frontend/), [`firebase.json`](firebase.json), [`infra/setup-gcp.sh`](infra/setup-gcp.sh) and [`.github/workflows/deploy-hosting.yml`](.github/workflows/deploy-hosting.yml) are an alternative school-focused landing page that deploys to Firebase Hosting on project `copper-index-509815-k3`. The deploy stays off until `infra/setup-gcp.sh` has been run and its values saved as repository variables. The main website above does not depend on it.
 
 ## Contact
 

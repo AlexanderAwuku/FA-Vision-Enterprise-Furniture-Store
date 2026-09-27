@@ -10,6 +10,15 @@
  * Run setup() once after pasting this file (see backend/README.md).
  */
 
+// Keep in step with data/business.json in the website repository.
+const BUSINESS = {
+  name: 'F.A Vision Enterprise',
+  address: 'Tarazzo Road, opposite Pacific, Odorkor, Accra',
+  whatsapp: '233572646176',
+  phones: '057 264 6176 / 020 747 3267 / 054 614 8923',
+  website: 'https://alexanderawuku.github.io/FA-Vision-Enterprise-Furniture-Store/',
+};
+
 const SHEETS = {
   ENQUIRIES: 'Enquiries',
   CLIENTS: 'Clients',
@@ -83,7 +92,7 @@ function doPost(e) {
     return json_({ ok: false, error: 'bad request' });
   }
   if (data.website) return json_({ ok: true }); // honeypot
-  if (!data.name || !data.phone) return json_({ ok: false, error: 'name and phone required' });
+  if (!data.name) return json_({ ok: false, error: 'name required' });
 
   const clean = (v) => String(v || '').slice(0, 1000).replace(/^[=+\-@]/, "'$&");
   const lock = LockService.getScriptLock();
@@ -99,7 +108,7 @@ function doPost(e) {
 
   const notify = PropertiesService.getScriptProperties().getProperty('NOTIFY_EMAIL');
   if (notify) {
-    MailApp.sendEmail(notify, `New enquiry: ${clean(data.product)} x ${clean(data.quantity)}`,
+    MailApp.sendEmail(notify, `New enquiry: ${clean(data.product) || 'website'} from ${clean(data.name)}`,
       `Name: ${clean(data.name)}\nOrganisation: ${clean(data.organisation)}\nPhone: ${clean(data.phone)}\n` +
       `Email: ${clean(data.email)}\n\n${clean(data.message)}`);
   }
@@ -130,10 +139,10 @@ function json_(obj) {
 const CAMPAIGNS = {
   'student-desks-2026': {
     segment: 'Proprietor',
-    subject: 'Durable student desks for {{organisation}}, bulk pricing for proprietors',
+    subject: 'Durable student desks for {{organisation}}: bulk pricing for proprietors',
     html:
       '<p>Dear {{name}},</p>' +
-      '<p>As {{organisation}} prepares for the new term, FA Vision Enterprise in Odorkor, Accra is making ' +
+      '<p>As {{organisation}} prepares for the new term, F.A Vision Enterprise in Odorkor, Accra is making ' +
       '<b>student desks</b> built for years of classroom use: hardwood tops on welded steel frames, ' +
       'single and double seater.</p>' +
       '<ul>' +
@@ -141,11 +150,13 @@ const CAMPAIGNS = {
       '<li><b>Delivery and setup</b> in your classrooms across Greater Accra</li>' +
       '<li><b>Repairs</b> and replacement parts when you need them</li>' +
       '</ul>' +
-      '<p>Reply to this email with the number of desks you need, or request a quote here: ' +
-      '<a href="{{site}}#quote">{{site}}</a>. We respond the same day.</p>' +
-      '<p>Warm regards,<br>FA Vision Enterprise<br>Odorkor, Accra</p>' +
+      '<p>Reply to this email with the number of desks you need, ' +
+      '<a href="{{whatsapp}}">message us on WhatsApp</a>, or see the desk here: ' +
+      '<a href="{{site}}#product/FAV-014">School Desk and Chair Set</a>. We respond the same day.</p>' +
+      '<p>Warm regards,<br>F.A Vision Enterprise<br>' + BUSINESS.address + '<br>' +
+      'Call ' + BUSINESS.phones + '</p>' +
       '<p style="font-size:12px;color:#777">You are receiving this because your school is listed as a potential ' +
-      'customer of FA Vision Enterprise. <a href="{{unsubscribe}}">Unsubscribe</a>.</p>',
+      'customer of F.A Vision Enterprise. <a href="{{unsubscribe}}">Unsubscribe</a>.</p>',
   },
 };
 
@@ -153,8 +164,8 @@ const CAMPAIGNS = {
 function previewCampaign() {
   const me = Session.getEffectiveUser().getEmail();
   const c = CAMPAIGNS['student-desks-2026'];
-  const vars = { name: 'Proprietor', organisation: 'Your School', unsubscribe: '#', site: siteUrl_() };
-  MailApp.sendEmail({ to: me, subject: '[PREVIEW] ' + fill_(c.subject, vars), htmlBody: fill_(c.html, vars) });
+  const vars = { name: 'Proprietor', organisation: 'Your School', unsubscribe: '#', site: siteUrl_(), whatsapp: whatsappUrl_() };
+  MailApp.sendEmail({ to: me, subject: '[PREVIEW] ' + fill_(c.subject, vars, true), htmlBody: fill_(c.html, vars) });
 }
 
 /**
@@ -194,9 +205,10 @@ function sendCampaign(campaignId) {
       organisation: row[col.Organisation] || 'your school',
       unsubscribe: `${webApp}?action=unsubscribe&token=${token}`,
       site: siteUrl_(),
+      whatsapp: whatsappUrl_(),
     };
     try {
-      MailApp.sendEmail({ to: email, subject: fill_(c.subject, vars), htmlBody: fill_(c.html, vars), name: 'FA Vision Enterprise' });
+      MailApp.sendEmail({ to: email, subject: fill_(c.subject, vars, true), htmlBody: fill_(c.html, vars), name: BUSINESS.name });
       sh.getRange(r + 1, col.LastCampaign + 1, 1, 2).setValues([[campaignId, new Date()]]);
       log.appendRow([new Date(), campaignId, email, 'sent']);
       sent++;
@@ -231,7 +243,12 @@ function markUnsubscribed_(token) {
 }
 
 function siteUrl_() {
-  return PropertiesService.getScriptProperties().getProperty('SITE_URL') || '';
+  return PropertiesService.getScriptProperties().getProperty('SITE_URL') || BUSINESS.website;
+}
+
+function whatsappUrl_() {
+  return 'https://wa.me/' + BUSINESS.whatsapp + '?text=' +
+    encodeURIComponent('Hello F.A Vision, I would like a quote for school desks.');
 }
 
 function indexOf_(header) {
@@ -240,9 +257,10 @@ function indexOf_(header) {
   return m;
 }
 
-function fill_(tpl, vars) {
+/** Fills {{placeholders}}. HTML-escapes client values unless plainText (for subjects). */
+function fill_(tpl, vars, plainText) {
   return tpl.replace(/{{(\w+)}}/g, (_, k) => {
     const v = String(vars[k] == null ? '' : vars[k]);
-    return k === 'unsubscribe' || k === 'site' ? v : v.replace(/[&<>"]/g, (ch) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[ch]));
+    return plainText || k === 'unsubscribe' || k === 'site' || k === 'whatsapp' ? v : v.replace(/[&<>"]/g, (ch) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[ch]));
   });
 }

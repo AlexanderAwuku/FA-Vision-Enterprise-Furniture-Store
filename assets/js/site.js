@@ -77,6 +77,19 @@
     e.preventDefault();
     const d = new FormData(e.target);
     window.open(waLink(`Hello F.A Vision, I'd like a quote.\nName: ${d.get("name")}\nFor: ${d.get("type")}\nDetails: ${d.get("details")}`), "_blank", "noopener");
+    // Also log the request in the backend Sheet (backend/README.md), when configured.
+    // text/plain + no-cors because Apps Script can't answer a CORS preflight.
+    if (business.enquiry_endpoint) {
+      fetch(business.enquiry_endpoint, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify({
+          name: d.get("name"), phone: d.get("phone"), product: d.get("type"),
+          message: d.get("details"), source: "website",
+        }),
+      }).catch(() => {});
+    }
   });
 
   // ---------- catalogue ----------
