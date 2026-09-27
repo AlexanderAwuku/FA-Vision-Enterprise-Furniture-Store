@@ -84,7 +84,7 @@ p { margin: 0; }
 
 /* Product media & placeholder art */
 .media { position: relative; background: var(--cream); overflow: hidden; }
-.media img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s cubic-bezier(.2,.8,.2,1); }
+.media img { width: 100%; height: 100%; object-fit: contain; transition: transform .6s cubic-bezier(.2,.8,.2,1); }
 .ph { position: absolute; inset: 0; display: grid; place-items: center; color: var(--gold); background:
   radial-gradient(120% 90% at 30% 20%, #fff8ec 0%, transparent 60%),
   linear-gradient(145deg, var(--ph-a, #f3e7d6), var(--ph-b, #e4d0b4)); }
