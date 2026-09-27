@@ -88,6 +88,7 @@ def marketplace_description(business, product):
         f"🚚 {business['delivery_note']}",
         f"💬 WhatsApp: {local(business['whatsapp'])}",
         f"📞 Call: {' / '.join(local(n) for n in business['phones'])}",
+        f"🌐 Full catalogue: {business['website']}" if business.get("website") else None,
         f"Ref: {product['id']}",
     ]
     return "\n".join(p for p in parts if p is not None).strip()

@@ -2,11 +2,13 @@
 
 Online presence for **FA Vision Enterprise**, a furniture business based in Odorkor, Accra, Ghana.
 
+**Live website:** https://alexanderawuku.github.io/FA-Vision-Enterprise-Furniture-Store/
+
 ## About
 
 FA Vision Enterprise makes and sells quality, handcrafted furniture for homes and offices. This repository holds the store's website and related materials: product catalogue, pricing, contact details, and marketing content.
 
-The first version of the website and the Facebook listing kit are built. Product prices are starting estimates and there are no product photos yet. Confirm both before going live.
+The website is live and the Facebook listing kit is built. Product prices are still starting estimates and there are no product photos yet. Confirm both before promoting the site widely.
 
 ## What's inside
 
@@ -51,7 +53,6 @@ Open `index.html` in any browser. There's no build step and nothing to install.
 3. Select branch `main` and folder `/ (root)`, then **Save**.
 4. After a minute the site is live at
    `https://alexanderawuku.github.io/FA-Vision-Enterprise-Furniture-Store/`
-5. Put that address in `"website"` in `data/business.json` and re-run the generator, so the Meta catalog gets working photo links.
 
 ## Project status
 
@@ -62,7 +63,7 @@ Open `index.html` in any browser. There's no build step and nothing to install.
 - [x] Facebook Marketplace and group listing kit
 - [ ] Confirm real prices and dimensions (current prices are estimates)
 - [ ] Real product photos
-- [ ] Publish the website on GitHub Pages
+- [x] Publish the website on GitHub Pages
 - [ ] Simple sales and expense tracking
 
 ## Contact

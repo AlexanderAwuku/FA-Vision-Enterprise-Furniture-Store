@@ -41,7 +41,7 @@ The kit makes each manual post a quick copy and paste.
 
 ## Facebook/Instagram Shop
 
-Once products have prices and photos, and `website` in `data/business.json` is set to the published site address, `output/meta-catalog.csv` is ready to upload in **Meta Commerce Manager → Catalog → Data sources → Data feed**. Products then appear in the Page's Shop tab and can be tagged in posts.
+Once products have prices and photos, `output/meta-catalog.csv` is ready to upload in **Meta Commerce Manager → Catalog → Data sources → Data feed**. Products then appear in the Page's Shop tab and can be tagged in posts.
 
 ## Photo tips
 
