@@ -212,7 +212,7 @@ section { padding: 96px 0; }
 .pd-info h2 { font-size: clamp(28px, 3.5vw, 38px); font-weight: 600; }
 .pd-price { font: 700 28px var(--sans); }
 .pd-price small { font-size: 13px; font-weight: 500; color: var(--muted); margin-left: 8px; }
-.pd-desc { color: var(--muted); }
+.pd-desc { color: var(--muted); white-space: pre-line; }
 .specs { display: grid; grid-template-columns: auto 1fr; gap: 8px 20px; font-size: 14px; margin: 4px 0; padding: 16px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
 .specs dt { color: var(--muted); }
 .specs dd { margin: 0; font-weight: 500; }
