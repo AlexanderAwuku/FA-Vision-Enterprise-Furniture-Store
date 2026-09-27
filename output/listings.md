@@ -11,7 +11,7 @@ Generated 2026-09-27. Regenerate after editing `data/products.json`.
 - **Title:** 3-Seater Fabric Sofa - Made to Order
 - **Price:** 4500
 - **Category:** Home & Garden > Furniture > Sofas
-- **Condition:** New
+- **Condition:** Brand New
 - **Location:** Odorkor, Accra
 - **Photos:** ⚠️ add photos
 
@@ -85,7 +85,7 @@ Order: https://wa.me/233572646176?text=Hello%20F.A%20Vision%2C%20I%27m%20interes
 - **Title:** L-Shaped Sectional Sofa - Made to Order
 - **Price:** 9800
 - **Category:** Home & Garden > Furniture > Sofas
-- **Condition:** New
+- **Condition:** Brand New
 - **Location:** Odorkor, Accra
 - **Photos:** ⚠️ add photos
 
@@ -155,7 +155,7 @@ Order: https://wa.me/233572646176?text=Hello%20F.A%20Vision%2C%20I%27m%20interes
 - **Title:** Wooden Centre Table - Made to Order
 - **Price:** 1200
 - **Category:** Home & Garden > Furniture > Tables
-- **Condition:** New
+- **Condition:** Brand New
 - **Location:** Odorkor, Accra
 - **Photos:** ⚠️ add photos
 
@@ -223,7 +223,7 @@ Order: https://wa.me/233572646176?text=Hello%20F.A%20Vision%2C%20I%27m%20interes
 - **Title:** TV Stand / Console - Made to Order
 - **Price:** 1800
 - **Category:** Home & Garden > Furniture > TV Stands
-- **Condition:** New
+- **Condition:** Brand New
 - **Location:** Odorkor, Accra
 - **Photos:** ⚠️ add photos
 
@@ -291,7 +291,7 @@ Order: https://wa.me/233572646176?text=Hello%20F.A%20Vision%2C%20I%27m%20interes
 - **Title:** Queen Size Bed Frame - Made to Order
 - **Price:** 3800
 - **Category:** Home & Garden > Furniture > Beds & Bed Frames
-- **Condition:** New
+- **Condition:** Brand New
 - **Location:** Odorkor, Accra
 - **Photos:** ⚠️ add photos
 
@@ -365,7 +365,7 @@ Order: https://wa.me/233572646176?text=Hello%20F.A%20Vision%2C%20I%27m%20interes
 - **Title:** King Size Bed Frame - Made to Order
 - **Price:** 4800
 - **Category:** Home & Garden > Furniture > Beds & Bed Frames
-- **Condition:** New
+- **Condition:** Brand New
 - **Location:** Odorkor, Accra
 - **Photos:** ⚠️ add photos
 
@@ -435,7 +435,7 @@ Order: https://wa.me/233572646176?text=Hello%20F.A%20Vision%2C%20I%27m%20interes
 - **Title:** Wardrobe (3-Door) - Made to Order
 - **Price:** 5200
 - **Category:** Home & Garden > Furniture > Wardrobes
-- **Condition:** New
+- **Condition:** Brand New
 - **Location:** Odorkor, Accra
 - **Photos:** ⚠️ add photos
 
@@ -507,7 +507,7 @@ Order: https://wa.me/233572646176?text=Hello%20F.A%20Vision%2C%20I%27m%20interes
 - **Title:** Bedside Table - Made to Order
 - **Price:** 650
 - **Category:** Home & Garden > Furniture > Nightstands
-- **Condition:** New
+- **Condition:** Brand New
 - **Location:** Odorkor, Accra
 - **Photos:** ⚠️ add photos
 
@@ -575,7 +575,7 @@ Order: https://wa.me/233572646176?text=Hello%20F.A%20Vision%2C%20I%27m%20interes
 - **Title:** 6-Seater Dining Set - Made to Order
 - **Price:** 6500
 - **Category:** Home & Garden > Furniture > Dining Sets
-- **Condition:** New
+- **Condition:** Brand New
 - **Location:** Odorkor, Accra
 - **Photos:** ⚠️ add photos
 
@@ -647,7 +647,7 @@ Order: https://wa.me/233572646176?text=Hello%20F.A%20Vision%2C%20I%27m%20interes
 - **Title:** 4-Seater Dining Set - Made to Order
 - **Price:** 4200
 - **Category:** Home & Garden > Furniture > Dining Sets
-- **Condition:** New
+- **Condition:** Brand New
 - **Location:** Odorkor, Accra
 - **Photos:** ⚠️ add photos
 
@@ -715,7 +715,7 @@ Order: https://wa.me/233572646176?text=Hello%20F.A%20Vision%2C%20I%27m%20interes
 - **Title:** Executive Office Desk - Made to Order
 - **Price:** 3500
 - **Category:** Home & Garden > Furniture > Desks
-- **Condition:** New
+- **Condition:** Brand New
 - **Location:** Odorkor, Accra
 - **Photos:** ⚠️ add photos
 
@@ -787,7 +787,7 @@ Order: https://wa.me/233572646176?text=Hello%20F.A%20Vision%2C%20I%27m%20interes
 - **Title:** Office Chair - Made to Order
 - **Price:** 1100
 - **Category:** Home & Garden > Furniture > Chairs
-- **Condition:** New
+- **Condition:** Brand New
 - **Location:** Odorkor, Accra
 - **Photos:** ⚠️ add photos
 
@@ -855,7 +855,7 @@ Order: https://wa.me/233572646176?text=Hello%20F.A%20Vision%2C%20I%27m%20interes
 - **Title:** Bookshelf - Made to Order
 - **Price:** 1500
 - **Category:** Home & Garden > Furniture > Bookcases
-- **Condition:** New
+- **Condition:** Brand New
 - **Location:** Odorkor, Accra
 - **Photos:** ⚠️ add photos
 
@@ -923,7 +923,7 @@ Order: https://wa.me/233572646176?text=Hello%20F.A%20Vision%2C%20I%27m%20interes
 - **Title:** School Desk and Chair Set - Made to Order
 - **Price:** ⚠️ set price_ghs
 - **Category:** Home & Garden > Furniture > Desks
-- **Condition:** New
+- **Condition:** Brand New
 - **Location:** Odorkor, Accra
 - **Photos:** ⚠️ add photos
 

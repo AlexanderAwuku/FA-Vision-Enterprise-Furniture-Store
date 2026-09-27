@@ -8,7 +8,7 @@ How to use the listing kit to post on Facebook Marketplace and in groups without
 - **Groups:** Meta removed the Groups API in 2024, so apps can no longer post into groups.
 - **What can be automated:** posts on the F.A Vision **Page** and **Instagram**, which can be scheduled in Meta Business Suite, and the **Facebook/Instagram Shop** catalog (`output/meta-catalog.csv`).
 
-The kit makes each manual post a quick copy and paste.
+The kit makes each manual post a quick copy and paste. The fastest way is the admin page (`/admin/`): open **My products → Share** on any product for one-tap Marketplace text, group post, WhatsApp status and product link.
 
 ## One-time setup
 

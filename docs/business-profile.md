@@ -31,7 +31,7 @@
 ## Online presence checklist
 
 - [x] Publish website via GitHub Pages: https://alexanderawuku.github.io/FA-Vision-Enterprise-Furniture-Store/
-- [x] Add WhatsApp number to `assets/js/main.js`
+- [x] Add phone and WhatsApp numbers to `data/business.json`
 - [ ] Add real product photos to `assets/images/`
 - [ ] Create / claim Google Business Profile listing
 - [ ] Link Facebook and Instagram pages
