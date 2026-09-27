@@ -848,7 +848,10 @@
   }
 
   $("#screen-done").addEventListener("click", async e => {
-    if (e.target.closest("#make-promo") && shareProduct) return PromoMaker.open(shareProduct, business, sharePhoto);
+    if (e.target.closest("#make-promo") && shareProduct) return PromoMaker.open(shareProduct, business, sharePhoto, {
+      link: productUrl(shareProduct),
+      captions: { status: statusText(shareProduct), post: groupText(shareProduct) }
+    });
     const b = e.target.closest("[data-copy]");
     if (!b || !shareProduct) return;
     const text = { link: productUrl(shareProduct), marketplace: marketplaceText(shareProduct), group: groupText(shareProduct), status: statusText(shareProduct) }[b.dataset.copy];

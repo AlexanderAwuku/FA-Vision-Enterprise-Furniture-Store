@@ -92,8 +92,20 @@ window.PromoMaker = (function () {
     roundRect(ctx, M, y, pw, ph, 28); ctx.clip();
     ctx.fillStyle = t.frame; ctx.fillRect(M, y, pw, ph);
     if (photoImg) {
-      const s = Math.max(pw / photoImg.width, ph / photoImg.height);
-      ctx.drawImage(photoImg, M + (pw - photoImg.width * s) / 2, y + (ph - photoImg.height * s) / 2, photoImg.width * s, photoImg.height * s);
+      const iw = photoImg.width, ih = photoImg.height;
+      // soft blurred fill behind, so the frame never looks empty
+      const cover = Math.max(pw / iw, ph / ih) * 1.15;
+      if ("filter" in ctx) {
+        ctx.filter = "blur(28px) brightness(" + (state.theme === "dark" ? .6 : .95) + ")";
+        ctx.drawImage(photoImg, M + (pw - iw * cover) / 2, y + (ph - ih * cover) / 2, iw * cover, ih * cover);
+        ctx.filter = "none";
+      }
+      // whole product visible: fit (contain), never crop
+      const s = Math.min(pw / iw, ph / ih);
+      const dw = iw * s, dh = ih * s, dx = M + (pw - dw) / 2, dy = y + (ph - dh) / 2;
+      ctx.shadowColor = "rgba(0,0,0,.28)"; ctx.shadowBlur = 30;
+      ctx.drawImage(photoImg, dx, dy, dw, dh);
+      ctx.shadowColor = "transparent"; ctx.shadowBlur = 0;
     } else {
       g = ctx.createLinearGradient(M, y, M + pw, y + ph);
       g.addColorStop(0, "#f4e6d4"); g.addColorStop(1, "#dfc3a0");
@@ -176,35 +188,107 @@ window.PromoMaker = (function () {
     dlg.querySelectorAll("[data-theme]").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.theme === state.theme)));
   }
 
+  // Where each platform button sends the image. Browsers can't post straight onto
+  // WhatsApp Status or Instagram, so on phones we hand the image + caption to the
+  // phone's share sheet (which lists "My status", Instagram Stories/Feed, Facebook).
+  // On computers we save the image, copy the caption and open the platform.
+  const PLATFORMS = {
+    wa: { label: "WhatsApp Status", format: "story",  cap: "status", tip: "Pick WhatsApp → My status, then paste the caption.", desktop: () => "https://web.whatsapp.com/" },
+    fb: { label: "Facebook",        format: "square", cap: "post",   tip: "Pick Facebook, then paste the caption.",            desktop: () => "https://www.facebook.com/sharer/sharer.php?u=" + encodeURIComponent(share.link || "") },
+    ig: { label: "Instagram",       format: null,     cap: "post",   tip: "Pick Instagram (Stories or Feed), then paste the caption.", desktop: () => "https://www.instagram.com/" }
+  };
+  const ICONS = {
+    wa: '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3Z"/></svg>',
+    fb: '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M13.5 22v-8h2.7l.4-3.2h-3.1V8.8c0-.9.3-1.5 1.6-1.5h1.7V4.4A22 22 0 0 0 14.3 4c-2.4 0-4 1.5-4 4.1v2.7H7.6V14h2.7v8h3.2Z"/></svg>',
+    ig: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.3" cy="6.7" r="1.2" fill="currentColor"/></svg>'
+  };
+  let share = { link: "", captions: {} };
+
+  function setCaption(key) {
+    const box = dlg.querySelector(".promo-caption");
+    if (box.dataset.edited === "1") return;          // keep the owner's own edits
+    box.value = share.captions[key] || share.captions.post || share.link || product.name;
+  }
+
+  async function copyCaption() {
+    const box = dlg.querySelector(".promo-caption");
+    try { await navigator.clipboard.writeText(box.value); return true; }
+    catch (e) { box.select(); try { return document.execCommand("copy"); } catch (e2) { return false; } }
+  }
+
+  function hint(msg) {
+    const h = dlg.querySelector(".promo-hint");
+    h.textContent = msg; h.hidden = !msg;
+  }
+
+  const fileName = () => `fa-vision-${slug(product.name)}-${state.format}.jpg`;
+  const asFile = () => new File([lastBlob], fileName(), { type: "image/jpeg" });
+  const canShareFiles = f => !!(navigator.canShare && navigator.canShare({ files: [f] }));
+
+  async function nativeShare(file) {
+    try { await navigator.share({ files: [file], text: dlg.querySelector(".promo-caption").value, title: product.name }); }
+    catch (err) { /* share sheet closed */ }
+  }
+
+  async function shareTo(key) {
+    const pf = PLATFORMS[key];
+    if (pf.format && state.format !== pf.format) { state.format = pf.format; await refresh(); }
+    setCaption(pf.cap);
+    const copied = await copyCaption();
+    const file = asFile();
+    if (canShareFiles(file)) {                       // phones: straight into the app's share sheet
+      hint((copied ? "Caption copied. " : "") + pf.tip);
+      return nativeShare(file);
+    }
+    // Computer (or a browser without file sharing): save image, copy caption, open the platform.
+    download(fileName());
+    window.open(pf.desktop(), "_blank", "noopener");
+    hint(`Image saved${copied ? " and caption copied" : ""}. ` +
+      (key === "wa" ? "WhatsApp Status is posted from your phone: open this page on your phone and tap WhatsApp Status, or send the saved image to your phone and post it under Updates → My status."
+        : key === "fb" ? "Facebook opened with your product link — add the saved image and paste the caption."
+        : "Instagram opened — tap Create (+), choose the saved image and paste the caption."));
+  }
+
   function build() {
     dlg = document.createElement("dialog");
     dlg.className = "promo";
     dlg.innerHTML = `
       <div class="st-top"><button type="button" class="st-link" data-act="close">Close</button><b>Promo image</b><span></span></div>
       <div class="promo-body">
-        <img class="promo-preview" alt="Promo image preview">
+        <div class="promo-stage"><img class="promo-preview" alt="Promo image preview"></div>
         <div class="promo-controls">
           <div class="seg">${Object.entries(FORMATS).map(([k, f]) => `<button type="button" data-format="${k}">${f.label}</button>`).join("")}</div>
           <div class="seg">${Object.entries(THEMES).map(([k, t]) => `<button type="button" data-theme="${k}">${t.label}</button>`).join("")}</div>
-          <button type="button" class="btn btn-wa btn-block" data-act="share">Share image</button>
-          <button type="button" class="btn btn-ghost btn-block" data-act="download">Download image</button>
-          <p class="muted small">Post it on Facebook, Instagram or your WhatsApp status. Put the product link in the caption so buyers can order.</p>
+          <p class="promo-label">Share to</p>
+          <div class="promo-share">
+            ${Object.entries(PLATFORMS).map(([k, p]) => `<button type="button" class="pshare pshare-${k}" data-to="${k}">${ICONS[k]}<span>${p.label}</span></button>`).join("")}
+          </div>
+          <p class="promo-hint" role="status" hidden></p>
+          <label class="promo-label" for="promo-caption">Caption <span class="muted">· copied for you when you share</span></label>
+          <textarea id="promo-caption" class="promo-caption" rows="5"></textarea>
+          <div class="promo-row">
+            <button type="button" class="btn btn-ghost" data-act="copy">Copy caption</button>
+            <button type="button" class="btn btn-ghost" data-act="more">More apps…</button>
+            <button type="button" class="btn btn-ghost" data-act="download">Download</button>
+          </div>
         </div>
       </div>`;
     document.body.appendChild(dlg);
+    dlg.querySelector(".promo-caption").addEventListener("input", e => { e.target.dataset.edited = "1"; });
     dlg.addEventListener("click", async e => {
       const b = e.target.closest("button");
       if (!b) return;
-      if (b.dataset.format) { state.format = b.dataset.format; return refresh(); }
+      if (b.dataset.format) { state.format = b.dataset.format; setCaption(state.format === "story" ? "status" : "post"); return refresh(); }
       if (b.dataset.theme) { state.theme = b.dataset.theme; return refresh(); }
-      const name = `fa-vision-${slug(product.name)}-${state.format}.jpg`;
+      if (b.dataset.to) return shareTo(b.dataset.to);
       if (b.dataset.act === "close") return dlg.close();
-      if (b.dataset.act === "download") return download(name);
-      if (b.dataset.act === "share") {
-        const file = new File([lastBlob], name, { type: "image/jpeg" });
-        if (navigator.canShare && navigator.canShare({ files: [file] })) {
-          try { await navigator.share({ files: [file], title: product.name }); } catch (err) { /* share sheet closed */ }
-        } else download(name);
+      if (b.dataset.act === "download") return download(fileName());
+      if (b.dataset.act === "copy") return hint((await copyCaption()) ? "Caption copied." : "Couldn't copy — select the caption and copy it.");
+      if (b.dataset.act === "more") {
+        const copied = await copyCaption();
+        const file = asFile();
+        if (canShareFiles(file)) return nativeShare(file);
+        download(fileName()); hint(`Image saved${copied ? " and caption copied" : ""}.`);
       }
     });
   }
@@ -217,9 +301,13 @@ window.PromoMaker = (function () {
     setTimeout(() => URL.revokeObjectURL(a.href), 2000);
   }
 
-  async function open(p, biz, url) {
+  async function open(p, biz, url, shareInfo) {
     if (!dlg) build();
+    const changed = product !== p;
     product = p; business = biz;
+    share = shareInfo || { link: "", captions: {} };
+    if (changed) { dlg.querySelector(".promo-caption").dataset.edited = ""; hint(""); }
+    setCaption(state.format === "story" ? "status" : "post");
     if (url !== photoUrl) { photoUrl = url; photoImg = await loadImage(url); }
     try { await Promise.all([document.fonts.load(serif(58)), document.fonts.load(sans(34, 800))]); } catch (e) { /* fall back to system fonts */ }
     dlg.showModal();
