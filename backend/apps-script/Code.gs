@@ -16,7 +16,7 @@ const BUSINESS = {
   address: 'Tarazzo Road, opposite Pacific, Odorkor, Accra',
   whatsapp: '233572646176',
   phones: '057 264 6176 / 020 747 3267 / 054 614 8923',
-  website: 'https://alexanderawuku.github.io/FA-Vision-Enterprise-Furniture-Store/',
+  website: 'https://favisionenterprize.github.io/',
 };
 
 const SHEETS = {
