@@ -3,110 +3,179 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>FA Vision Enterprise | Furniture Store, Odorkor Accra</title>
-  <meta name="description" content="FA Vision Enterprise — quality handcrafted furniture for homes and offices in Odorkor, Accra, Ghana. Sofas, beds, dining sets, office furniture and custom orders.">
+  <title>F.A Vision Enterprise | Furniture for Homes, Offices &amp; Schools · Odorkor, Accra</title>
+  <meta name="description" content="Made-to-order sofas, beds, wardrobes, dining sets, office and school furniture from our Odorkor, Accra workshop. Delivery across Ghana. Order on WhatsApp.">
+  <meta name="theme-color" content="#15100c">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="F.A Vision Enterprise">
+  <meta property="og:title" content="F.A Vision Enterprise · Furniture made in Accra">
+  <meta property="og:description" content="Sofas, beds, wardrobes, dining, office and school furniture. Made to order in Odorkor, delivered across Ghana.">
+  <meta property="og:image" content="https://alexanderawuku.github.io/FA-Vision-Enterprise-Furniture-Store/assets/images/og-cover.jpg">
+  <meta property="og:url" content="https://alexanderawuku.github.io/FA-Vision-Enterprise-Furniture-Store/">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2315100c'/%3E%3Ctext x='16' y='22' font-family='Georgia' font-size='16' font-weight='700' text-anchor='middle' fill='%23e2b866'%3EFA%3C/text%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/site.css">
 </head>
 <body>
-  <header class="site-header">
-    <div class="container nav">
-      <a href="#home" class="brand">FA <span>Vision</span></a>
-      <button class="nav-toggle" aria-label="Open menu" aria-expanded="false">&#9776;</button>
-      <nav class="nav-links">
-        <a href="#products">Products</a>
-        <a href="#about">About</a>
-        <a href="#custom">Custom Orders</a>
-        <a href="#contact">Contact</a>
+  <header class="nav" id="top">
+    <div class="wrap nav-inner">
+      <a href="#top" class="logo" aria-label="F.A Vision Enterprise home">
+        <span class="logo-mark">FA</span>
+        <span class="logo-text">Vision<small>Enterprise</small></span>
+      </a>
+      <nav class="nav-links" id="nav-links">
+        <a href="#shop">Shop</a>
+        <a href="#why">Why us</a>
+        <a href="#custom">Custom orders</a>
+        <a href="#visit">Visit</a>
       </nav>
+      <a class="btn btn-gold btn-sm nav-cta js-wa" data-msg="Hello F.A Vision, I'd like to make an enquiry.">WhatsApp us</a>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Menu" aria-expanded="false"><span></span><span></span></button>
     </div>
   </header>
 
   <main>
-    <section id="home" class="hero">
-      <div class="container hero-inner">
-        <p class="eyebrow">Odorkor &middot; Accra &middot; Ghana</p>
-        <h1>Furniture built to last, designed for how you live.</h1>
-        <p class="lead">FA Vision Enterprise crafts sofas, beds, dining sets and office furniture from quality local hardwood &mdash; made to order and delivered across Accra.</p>
-        <div class="hero-actions">
-          <a href="#products" class="btn btn-primary">Browse Products</a>
-          <a class="btn btn-outline js-whatsapp" data-message="Hello FA Vision, I'd like to make an enquiry.">Chat on WhatsApp</a>
+    <section class="hero">
+      <div class="wrap hero-inner">
+        <div class="hero-copy">
+          <p class="eyebrow"><span class="dot"></span> Workshop &amp; showroom · Odorkor, Accra</p>
+          <h1>Furniture that <em>feels</em> like home.</h1>
+          <p class="lead" id="hero-lead">Bringing love to your homes, offices &amp; schools. Sofas, beds, wardrobes, dining and office pieces, made to order by our craftsmen and delivered across Ghana.</p>
+          <div class="hero-actions">
+            <a href="#shop" class="btn btn-gold">Shop the collection</a>
+            <a class="btn btn-ghost js-wa" data-msg="Hello F.A Vision, I'd like to order furniture.">Order on WhatsApp</a>
+          </div>
+          <ul class="hero-points">
+            <li><strong>Made to order</strong><span>Your size, fabric &amp; finish</span></li>
+            <li><strong>Delivered</strong><span>Accra, Tema, Kumasi &amp; more</span></li>
+            <li><strong>Homes · Offices · Schools</strong><span>Single pieces or bulk</span></li>
+          </ul>
         </div>
+        <div class="hero-stack" id="hero-stack" aria-hidden="true"></div>
       </div>
     </section>
 
-    <section id="products" class="section">
-      <div class="container">
-        <h2>Our Products</h2>
-        <p class="section-sub">Prices are starting prices in Ghana Cedis. Sizes, fabrics and finishes can be customised.</p>
-        <div class="filters" role="tablist" aria-label="Filter products"></div>
-        <div class="product-grid" id="product-grid"></div>
-      </div>
-    </section>
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track" id="marquee"></div>
+    </div>
 
-    <section id="about" class="section section-alt">
-      <div class="container two-col">
-        <div>
-          <h2>About FA Vision Enterprise</h2>
-          <p>We are a furniture workshop and showroom in Odorkor, Accra. Every piece is built by skilled local craftsmen using seasoned hardwood, quality foam and durable fabrics.</p>
-          <p>From a single bedside table to fully furnished offices, we focus on solid construction, clean finishing and honest pricing.</p>
+    <section class="shop" id="shop">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="kicker">The collection</p>
+          <h2>Pieces built to last</h2>
+          <p class="section-sub">Prices are starting prices in Ghana Cedis. Every piece can be made in your size, fabric and finish.</p>
         </div>
-        <ul class="features">
-          <li><strong>Quality materials</strong> Seasoned local hardwood and high-density foam.</li>
-          <li><strong>Made to measure</strong> Custom sizes, colours and fabrics.</li>
-          <li><strong>Delivery &amp; setup</strong> Across Accra and surrounding areas.</li>
-          <li><strong>After-sales support</strong> Repairs and re-upholstery available.</li>
-        </ul>
-      </div>
-    </section>
 
-    <section id="custom" class="section">
-      <div class="container narrow">
-        <h2>Custom Orders</h2>
-        <p class="section-sub">Tell us what you need and we'll send a quote.</p>
-        <form id="quote-form" class="quote-form">
-          <label>Your name<input name="name" required></label>
-          <label>Furniture type
-            <select name="type" required>
-              <option value="">Select&hellip;</option>
-              <option>Sofa / Living room</option>
-              <option>Bed / Bedroom</option>
-              <option>Dining set</option>
-              <option>Office furniture</option>
-              <option>Other</option>
-            </select>
+        <div class="toolbar" id="toolbar">
+          <label class="search">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+            <input id="search" type="search" placeholder="Search sofas, beds, desks…" aria-label="Search products">
           </label>
-          <label>Details (size, colour, quantity, location)<textarea name="details" rows="4" required></textarea></label>
-          <button type="submit" class="btn btn-primary">Send Request via WhatsApp</button>
+          <select id="sort" aria-label="Sort products">
+            <option value="featured">Featured</option>
+            <option value="price-asc">Price: low to high</option>
+            <option value="price-desc">Price: high to low</option>
+            <option value="newest">Newest</option>
+          </select>
+        </div>
+        <div class="chips" id="chips" role="tablist" aria-label="Filter by category"></div>
+
+        <div class="grid" id="grid"></div>
+        <p class="empty" id="empty" hidden>No products match your search. <a class="js-wa" data-msg="Hello F.A Vision, I'm looking for a piece that isn't on your site.">Ask us on WhatsApp</a>, since we can make it.</p>
+      </div>
+    </section>
+
+    <section class="why" id="why">
+      <div class="wrap">
+        <div class="section-head light">
+          <p class="kicker">Why F.A Vision</p>
+          <h2>Straight from our workshop to your space</h2>
+        </div>
+        <div class="why-grid">
+          <article><span class="why-ico">01</span><h3>Quality materials</h3><p>Seasoned local hardwood, high-density foam and durable fabrics, chosen to last for years of daily use.</p></article>
+          <article><span class="why-ico">02</span><h3>Made to measure</h3><p>Tell us your room size, colour and fabric. We build it to fit your space and your budget.</p></article>
+          <article><span class="why-ico">03</span><h3>Workshop prices</h3><p>You buy direct from the people who make it: no middlemen and honest pricing.</p></article>
+          <article><span class="why-ico">04</span><h3>Delivery &amp; setup</h3><p>We deliver and set up across Accra and to Tema, Koforidua, the Central Region and Kumasi.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="steps">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="kicker">How to order</p>
+          <h2>Three simple steps</h2>
+        </div>
+        <ol class="steps-grid">
+          <li><span>1</span><h3>Pick a piece</h3><p>Browse the collection or send us a photo of what you want.</p></li>
+          <li><span>2</span><h3>Chat with us</h3><p>Confirm size, colour, fabric and price on WhatsApp or by phone.</p></li>
+          <li><span>3</span><h3>We build &amp; deliver</h3><p>Your furniture is made, finished and delivered to your door.</p></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="custom" id="custom">
+      <div class="wrap custom-inner">
+        <div>
+          <p class="kicker">Custom orders</p>
+          <h2>Have something in mind?</h2>
+          <p class="section-sub">Describe it and we'll reply with a quote on WhatsApp. Bulk orders for offices, schools, hotels and churches are welcome.</p>
+        </div>
+        <form id="quote-form" class="quote-form">
+          <label>Your name<input name="name" required autocomplete="name"></label>
+          <label>What do you need?
+            <select name="type" required id="quote-type"><option value="">Select…</option></select>
+          </label>
+          <label>Details <small>(size, colour, quantity, your location)</small><textarea name="details" rows="4" required></textarea></label>
+          <button type="submit" class="btn btn-gold">Get a quote on WhatsApp</button>
         </form>
       </div>
     </section>
 
-    <section id="contact" class="section section-alt">
-      <div class="container contact-grid">
+    <section class="visit" id="visit">
+      <div class="wrap visit-grid">
         <div>
-          <h3>Visit the showroom</h3>
-          <p>Tarazzo Road, opposite Pacific, Odorkor, Accra</p>
+          <p class="kicker">Visit the showroom</p>
+          <h2>Come see &amp; feel the quality</h2>
+          <p class="address" id="address"></p>
+          <a class="btn btn-dark" id="directions" target="_blank" rel="noopener">Get directions</a>
         </div>
-        <div>
-          <h3>Call / WhatsApp</h3>
-          <p><a href="tel:+233572646176">057 264 6176</a><br><a href="tel:+233207473267">020 747 3267</a><br><a href="tel:+233546148923">054 614 8923</a><br><a class="js-whatsapp" data-message="Hello FA Vision!">Message us on WhatsApp</a></p>
-        </div>
-        <div>
+        <div class="visit-card">
+          <h3>Call us</h3>
+          <ul id="phones" class="phones"></ul>
           <h3>Opening hours</h3>
-          <p>Mon &ndash; Sat: 8:00am &ndash; 6:00pm</p>
+          <p>Monday to Saturday · 8:00am to 6:00pm</p>
+          <h3>Follow us</h3>
+          <p><a href="https://www.facebook.com/FaVisionEnterprise" target="_blank" rel="noopener">Facebook · F.A Vision Enterprise</a></p>
         </div>
       </div>
     </section>
   </main>
 
-  <footer class="site-footer">
-    <div class="container">&copy; <span id="year"></span> FA Vision Enterprise &middot; Odorkor, Accra</div>
+  <footer class="footer">
+    <div class="wrap footer-inner">
+      <span>© <span id="year"></span> F.A Vision Enterprise · Odorkor, Accra</span>
+      <span class="footer-tag">Bringing love to your Homes, Offices &amp; Schools</span>
+    </div>
   </footer>
 
+  <a class="wa-float js-wa" data-msg="Hello F.A Vision!" aria-label="Chat on WhatsApp">
+    <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.9c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.3 2.2 2.2 0 0 0 .2-1.3c-.1-.1-.3-.2-.5-.3z"/></svg>
+  </a>
+
+  <dialog class="pd" id="pd" aria-labelledby="pd-title">
+    <button class="pd-close" id="pd-close" aria-label="Close">×</button>
+    <div class="pd-inner" id="pd-body"></div>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="assets/js/catalog-config.js"></script>
   <script src="assets/js/products-data.js"></script>
-  <script src="assets/js/main.js"></script>
+  <script src="assets/js/site.js"></script>
 </body>
 </html>

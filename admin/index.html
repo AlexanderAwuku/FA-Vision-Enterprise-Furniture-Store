@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Admin · F.A Vision Enterprise</title>
+  <meta name="theme-color" content="#15100c">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2315100c'/%3E%3Ctext x='16' y='22' font-family='Georgia' font-size='16' font-weight='700' text-anchor='middle' fill='%23e2b866'%3EFA%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+  <header class="top">
+    <div class="top-inner">
+      <a class="brand" href="#" data-go="dash"><span class="mark">FA</span> Vision <span class="tag">Admin</span></a>
+      <div class="top-actions" id="top-actions" hidden>
+        <a class="link" href="../" target="_blank" rel="noopener">View site ↗</a>
+        <button class="btn btn-sell" data-go="post">+ Post a product</button>
+        <button class="link" id="signout">Sign out</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============ SIGN IN ============ -->
+  <main class="screen" id="screen-login" hidden>
+    <div class="card narrow">
+      <h1>Sign in to your shop</h1>
+      <p class="muted">Products you post here are saved to your GitHub repository and appear on the website about a minute later.</p>
+      <form id="login-form" class="stack">
+        <label class="field">
+          <span>GitHub access token</span>
+          <input id="token" type="password" autocomplete="off" placeholder="github_pat_…" required>
+        </label>
+        <label class="check"><input type="checkbox" id="remember" checked> Keep me signed in on this device</label>
+        <p class="error" id="login-error" hidden></p>
+        <button class="btn btn-primary btn-block" type="submit">Sign in</button>
+      </form>
+      <details class="help">
+        <summary>How do I get a token? (one-time, 2 minutes)</summary>
+        <ol>
+          <li>On GitHub, open <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">Settings → Developer settings → Fine-grained tokens → Generate new token</a>.</li>
+          <li><b>Token name:</b> FA Vision Admin. <b>Expiration:</b> 1 year.</li>
+          <li><b>Repository access:</b> Only select repositories → <code>FA-Vision-Enterprise-Furniture-Store</code>.</li>
+          <li><b>Permissions → Repository permissions → Contents:</b> Read and write.</li>
+          <li>Click <b>Generate token</b>, copy it and paste it above.</li>
+        </ol>
+        <p class="muted small">The token stays in this browser only. Anyone with it can change your website, so don't share it. If a phone is lost, delete the token on GitHub and make a new one.</p>
+      </details>
+    </div>
+  </main>
+
+  <!-- ============ MY PRODUCTS ============ -->
+  <main class="screen" id="screen-dash" hidden>
+    <div class="dash-head">
+      <div>
+        <h1>My products</h1>
+        <p class="muted" id="dash-sub">Loading…</p>
+      </div>
+      <button class="btn btn-sell" data-go="post">+ Post a product</button>
+    </div>
+    <div class="stats" id="stats"></div>
+    <div class="dash-tools">
+      <input type="search" id="dash-search" placeholder="Search your products…" aria-label="Search products">
+      <select id="dash-filter" aria-label="Filter">
+        <option value="all">All</option>
+        <option value="instock">In stock</option>
+        <option value="sold">Sold out</option>
+        <option value="nophoto">Missing photos</option>
+      </select>
+    </div>
+    <div class="list" id="list"></div>
+  </main>
+
+  <!-- ============ POST / EDIT (Jiji-style) ============ -->
+  <main class="screen" id="screen-post" hidden>
+    <div class="post-layout">
+      <div class="post-main">
+        <div class="post-title">
+          <button class="back" data-go="dash" aria-label="Back to my products">←</button>
+          <h1 id="post-heading">Post a product</h1>
+        </div>
+        <ol class="stepper" id="stepper">
+          <li data-step="1" class="active"><span>1</span>Category &amp; photos</li>
+          <li data-step="2"><span>2</span>Details &amp; price</li>
+          <li data-step="3"><span>3</span>Review &amp; post</li>
+        </ol>
+
+        <!-- Step 1 -->
+        <section class="card step" data-step="1">
+          <h2>Category <b class="req">*</b></h2>
+          <div class="cat-grid" id="cat-grid"></div>
+          <p class="error" data-err="category" hidden>Choose a category</p>
+
+          <div class="field" id="type-wrap" hidden>
+            <span>Type <b class="req">*</b></span>
+            <div class="pills" id="type-pills"></div>
+            <p class="error" data-err="type" hidden>Choose a type</p>
+          </div>
+
+          <h2 class="mt">Add photos <b class="req">*</b></h2>
+          <p class="hint">Add at least 1 photo. <b>The first picture is the main picture.</b> You can change the order of photos: just grab your photos and drag, or use the arrows.</p>
+          <div class="photos" id="photos">
+            <label class="photo-add" id="photo-add">
+              <input type="file" id="photo-input" accept="image/jpeg,image/png,image/webp" multiple hidden>
+              <span class="plus">+</span>
+              <span>Add photo</span>
+            </label>
+          </div>
+          <p class="hint small">Supported formats are *.jpg, *.png and *.webp · up to 10 photos · photos are resized automatically so pages load fast.</p>
+          <p class="error" data-err="photos" hidden>Add at least one photo</p>
+
+          <div class="step-actions">
+            <button class="btn btn-primary" data-next="2" type="button">Next</button>
+          </div>
+        </section>
+
+        <!-- Step 2 -->
+        <section class="card step" data-step="2" hidden>
+          <label class="field">
+            <span>Title <b class="req">*</b></span>
+            <input id="f-name" maxlength="70" placeholder="e.g. 3-Seater Fabric Sofa">
+            <small class="counter" data-for="f-name">0 / 70</small>
+            <p class="error" data-err="name" hidden>Enter a title (at least 5 characters)</p>
+          </label>
+
+          <div class="field">
+            <span>Condition <b class="req">*</b></span>
+            <div class="pills" id="cond-pills"></div>
+          </div>
+
+          <div class="row2">
+            <label class="field"><span>Material</span><input id="f-material" placeholder="e.g. Mahogany, high-density foam"></label>
+            <label class="field"><span>Size</span><input id="f-dimensions" placeholder="e.g. 210 × 90 × 85 cm"></label>
+          </div>
+
+          <div class="field">
+            <span>Colours</span>
+            <div class="pills multi" id="colour-pills"></div>
+          </div>
+
+          <label class="field">
+            <span>Description <b class="req">*</b></span>
+            <textarea id="f-description" rows="5" maxlength="1200" placeholder="What is it made of, what makes it special, what sizes and finishes can you do?"></textarea>
+            <small class="counter" data-for="f-description">0 / 1200</small>
+            <p class="error" data-err="description" hidden>Describe the product (at least 20 characters)</p>
+          </label>
+
+          <label class="field">
+            <span>Key features <small class="muted">(one per line, up to 5, shown as ✓ bullets)</small></span>
+            <textarea id="f-highlights" rows="3" placeholder="Solid hardwood frame&#10;Custom colours available"></textarea>
+          </label>
+
+          <div class="price-box">
+            <label class="field">
+              <span>Price <b class="req">*</b></span>
+              <div class="money"><em>GH₵</em><input id="f-price" type="number" inputmode="numeric" min="1" step="1" placeholder="0"></div>
+              <p class="error" data-err="price" hidden>Enter a price, or tick "Price on request"</p>
+            </label>
+            <div class="radios">
+              <label class="check"><input type="radio" name="neg" value="1" checked> Negotiable</label>
+              <label class="check"><input type="radio" name="neg" value="0"> Not negotiable</label>
+            </div>
+            <label class="check"><input type="checkbox" id="f-onrequest"> Price on request (hide the price)</label>
+          </div>
+
+          <div class="toggles">
+            <label class="switch"><input type="checkbox" id="f-custom" checked><i></i><span><b>Made to order</b><small>Customers can choose size, colour and fabric</small></span></label>
+            <label class="switch"><input type="checkbox" id="f-stock" checked><i></i><span><b>In stock / available</b><small>Turn off to show "Sold out"</small></span></label>
+          </div>
+
+          <div class="step-actions">
+            <button class="btn btn-ghost" data-next="1" type="button">Back</button>
+            <button class="btn btn-primary" data-next="3" type="button">Next</button>
+          </div>
+        </section>
+
+        <!-- Step 3 -->
+        <section class="card step" data-step="3" hidden>
+          <h2>How your product will look</h2>
+          <div class="review" id="review"></div>
+          <h2 class="mt">Facebook Marketplace text</h2>
+          <pre class="caption" id="review-caption"></pre>
+          <div class="step-actions">
+            <button class="btn btn-ghost" data-next="2" type="button">Back</button>
+            <button class="btn btn-sell btn-lg" id="publish" type="button">Post product</button>
+          </div>
+        </section>
+      </div>
+
+      <aside class="tips card">
+        <h3>Tips for a listing that sells</h3>
+        <ul>
+          <li><b>Photos sell furniture.</b> Shoot in daylight, landscape, against a plain wall.</li>
+          <li><b>Show angles.</b> Front, side, a close-up of the fabric or wood grain, and the piece in a room.</li>
+          <li><b>Clear title.</b> Say what it is and its size, e.g. "6-Seater Mahogany Dining Set".</li>
+          <li><b>Honest price.</b> Real prices get more serious buyers than "call for price".</li>
+          <li><b>Say what you can customise:</b> sizes, colours, fabrics and finishes.</li>
+        </ul>
+      </aside>
+    </div>
+  </main>
+
+  <!-- ============ POSTED / SHARE ============ -->
+  <main class="screen" id="screen-done" hidden>
+    <div class="card narrow center">
+      <div class="done-ico">✓</div>
+      <h1 id="done-title">Your product is posted!</h1>
+      <p class="muted" id="done-sub">It will appear on the website in about a minute.</p>
+      <div class="review small-review" id="done-card"></div>
+      <h2 class="mt">Share it now</h2>
+      <div class="share-grid">
+        <a class="btn btn-wa" id="share-wa" target="_blank" rel="noopener">Send on WhatsApp</a>
+        <button class="btn btn-ghost" data-copy="link">Copy product link</button>
+        <button class="btn btn-ghost" data-copy="marketplace">Copy Marketplace text</button>
+        <button class="btn btn-ghost" data-copy="group">Copy group post</button>
+        <button class="btn btn-ghost" data-copy="status">Copy WhatsApp status</button>
+        <a class="btn btn-ghost" id="share-view" target="_blank" rel="noopener">View on website ↗</a>
+      </div>
+      <div class="step-actions center">
+        <button class="btn btn-primary" data-go="post">Post another product</button>
+        <button class="btn btn-ghost" data-go="dash">Back to my products</button>
+      </div>
+    </div>
+  </main>
+
+  <div class="overlay" id="overlay" hidden><div class="spinner"></div><p id="overlay-msg">Saving…</p></div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="../assets/js/catalog-config.js"></script>
+  <script src="admin.js"></script>
+</body>
+</html>
