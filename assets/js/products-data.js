@@ -15,7 +15,7 @@ window.FAV_DATA = {
       "https://www.facebook.com/FaVisionEnterprise",
       "https://www.facebook.com/FaVisionEnt/"
     ],
-    "website": "https://alexanderawuku.github.io/FA-Vision-Enterprise-Furniture-Store/",
+    "website": "https://favisionenterprize.github.io/",
     "enquiry_endpoint": "",
     "service_areas": [
       "Accra",
