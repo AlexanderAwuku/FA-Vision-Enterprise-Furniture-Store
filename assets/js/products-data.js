@@ -366,7 +366,8 @@ window.FAV_DATA = {
         "assets/images/products/fav-014-muk5690f-2.jpg",
         "assets/images/products/fav-014-muk5690f-3.jpg",
         "assets/images/products/fav-014-muk5690f-4.jpg",
-        "assets/images/products/fav-014-muk5690f-5.jpg"
+        "assets/images/products/fav-014-muk5690f-5.jpg",
+        "assets/images/products/fav-014-mukbwfwp-6.jpg"
       ],
       "highlights": [
         "Height-adjustable desk (73–88 cm) and chair (46–52 cm)",
