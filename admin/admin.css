@@ -104,6 +104,35 @@ textarea { resize: vertical; }
 .pill.ok { background: #e3f5ea; color: var(--ok); }
 .pill.sold { background: #fde7e7; color: var(--err); }
 .pill.est { background: #fff1e0; color: #a55a12; }
+/* Quick add photo + inline editing on the dashboard */
+.quick-hint { font-size: 13px; margin: -4px 0 10px; }
+button.thumb { border: 0; padding: 0; cursor: pointer; font: inherit; }
+button.thumb:hover, button.thumb.drag { outline: 2px dashed var(--sell); outline-offset: 2px; }
+.thumb .plus { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -62%); width: 34px; height: 34px; border-radius: 50%; background: var(--sell); color: #fff; font: 700 24px/34px system-ui, sans-serif; text-align: center; box-shadow: 0 2px 6px rgba(0,0,0,.25); }
+.thumb.has-photo .plus { top: auto; left: auto; right: 4px; bottom: 4px; transform: none; width: 24px; height: 24px; font-size: 18px; line-height: 24px; }
+.thumb:not(.has-photo) svg { opacity: .35; }
+.thumb .count { position: absolute; left: 4px; bottom: 4px; background: rgba(0,0,0,.6); color: #fff; font-size: 10px; font-weight: 600; border-radius: 4px; padding: 1px 5px; }
+.item.dirty { box-shadow: 0 0 0 2px var(--gold); }
+.item .ie { font: inherit; width: auto; box-shadow: none; line-height: 1.3; color: inherit; background: transparent; border: 1.5px solid transparent; border-radius: 6px; padding: 2px 6px; margin-left: -7px; min-width: 0; }
+.item .ie:hover { border-color: var(--line); background: #fafafa; }
+.item .ie:focus { box-shadow: 0 0 0 3px rgba(201,151,63,.18); outline: none; border-color: var(--gold); background: #fff; }
+.item .ie-name { font-weight: 600; font-size: 16px; width: 100%; max-width: 460px; }
+.item .item-meta select.ie { font-size: 13px; color: var(--muted); padding: 1px 2px; margin-left: 0; cursor: pointer; max-width: 150px; }
+.item-price { display: flex; align-items: center; gap: 4px; flex-wrap: wrap; }
+.item-price .cur { font-weight: 700; }
+.item .ie-price { font-weight: 700; width: 110px; margin-left: 0; }
+.ie-price::placeholder { font-weight: 500; color: var(--muted); }
+.neg { font-size: 12px; font-weight: 500; color: var(--muted); display: inline-flex; gap: 4px; align-items: center; margin-left: 6px; cursor: pointer; }
+.more-toggle { background: none; border: 0; color: var(--sell); font: 600 12px inherit; font-family: inherit; cursor: pointer; padding: 2px 0; margin-left: 8px; }
+.item-more { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr; gap: 8px 12px; border-top: 1px solid var(--line); padding-top: 10px; }
+.item-more label { font-size: 12px; color: var(--muted); display: grid; gap: 3px; }
+.item-more .full { grid-column: 1 / -1; }
+.item-more input, .item-more textarea { font: 14px/1.4 inherit; box-shadow: none; font-family: inherit; border: 1.5px solid var(--line); border-radius: 8px; padding: 7px 9px; color: var(--ink); width: 100%; }
+.item-more textarea { min-height: 70px; resize: vertical; }
+.item-more input:focus, .item-more textarea:focus { outline: none; border-color: var(--gold); }
+.savebar { position: fixed; left: 50%; bottom: 16px; transform: translateX(-50%); width: min(620px, calc(100% - 24px)); background: var(--espresso); color: #fff; border-radius: 12px; padding: 10px 12px 10px 18px; display: flex; align-items: center; justify-content: space-between; gap: 12px; box-shadow: 0 8px 24px rgba(0,0,0,.25); z-index: 40; font-size: 14px; }
+.savebar[hidden] { display: none; }
+.savebar-actions { display: flex; gap: 8px; }
 .item-actions { display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end; }
 .empty-state { text-align: center; padding: 48px 16px; color: var(--muted); }
 
@@ -265,6 +294,10 @@ textarea { resize: vertical; }
   .item { grid-template-columns: 72px 1fr; }
   .thumb { width: 72px; height: 60px; }
   .item-actions { grid-column: 1 / -1; justify-content: flex-start; }
+  .item-more { grid-template-columns: 1fr; }
+  .thumb .count { display: none; }
+  .savebar { flex-direction: column; align-items: stretch; text-align: center; }
+  .savebar-actions .btn { flex: 1; }
   .cat-grid { grid-template-columns: 1fr 1fr; }
   .row2 { grid-template-columns: 1fr; gap: 0; }
   .stepper li { font-size: 0; justify-content: center; }

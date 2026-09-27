@@ -220,9 +220,66 @@
   // =========================================================== dashboard
   let dashFilter = "all";
 
+  // Unsaved inline edits, keyed by product id: { id: { name, price_ghs, ... } }.
+  // Everything edited on the list is saved together in one commit.
+  const pending = {};
+  const openMore = new Set();
+  const view = p => ({ ...p, ...(pending[p.id] || {}) });
+
   function thumb(p) {
-    const img = (p.images || [])[0];
-    return `<div class="thumb">${img ? `<img src="${esc(imgUrl(img))}" alt="" loading="lazy">` : C.iconSvg(C.categoryIcon(p)) + `<span class="nophoto">No photo</span>`}</div>`;
+    const imgs = p.images || [];
+    const full = imgs.length >= MAX_PHOTOS;
+    const inner = imgs.length
+      ? `<img src="${esc(imgUrl(imgs[0]))}" alt="" loading="lazy">${imgs.length > 1 ? `<span class="count">${imgs.length} photos</span>` : ""}`
+      : C.iconSvg(C.categoryIcon(p)) + `<span class="nophoto">Add photo</span>`;
+    if (full) return `<div class="thumb has-photo">${inner}</div>`;
+    return `<button type="button" class="thumb ${imgs.length ? "has-photo" : ""}" data-act="addphoto" title="${imgs.length ? "Add more photos" : "Add a photo"}" aria-label="Add photos to ${esc(p.name)}">${inner}<span class="plus" aria-hidden="true">+</span></button>`;
+  }
+
+  function catOptions(p) {
+    const cat = C.CATEGORIES.find(c => c.id === p.category);
+    const cats = C.CATEGORIES.map(c => c.id);
+    if (p.category && !cats.includes(p.category)) cats.unshift(p.category);
+    const types = cat ? (cat.types.includes(p.type) || !p.type ? cat.types : [p.type, ...cat.types]) : (p.type ? [p.type] : []);
+    return {
+      cats: cats.map(c => `<option ${c === p.category ? "selected" : ""}>${esc(c)}</option>`).join(""),
+      types: types.map(t => `<option ${t === p.type ? "selected" : ""}>${esc(t)}</option>`).join("")
+    };
+  }
+
+  function itemHtml(orig) {
+    const p = view(orig);
+    const o = catOptions(p);
+    const more = openMore.has(p.id);
+    return `
+      <div class="item ${pending[p.id] ? "dirty" : ""}" data-id="${esc(p.id)}">
+        ${thumb(p)}
+        <div class="item-main">
+          <input class="ie ie-name" data-field="name" value="${esc(p.name)}" maxlength="70" aria-label="Product name">
+          <div class="item-meta">${esc(p.id)} ·
+            <select class="ie" data-field="category" aria-label="Category">${o.cats}</select> ·
+            <select class="ie" data-field="type" aria-label="Type">${o.types}</select>
+            ${p.in_stock ? `<span class="pill ok">Live</span>` : `<span class="pill sold">Sold out</span>`}
+            ${p.placeholder ? `<span class="pill est">Price not confirmed</span>` : ""}</div>
+          <div class="item-price"><span class="cur">GH₵</span>
+            <input class="ie ie-price" data-field="price_ghs" type="number" min="0" step="1" inputmode="numeric" value="${p.price_ghs || ""}" placeholder="On request" aria-label="Price in cedis">
+            <label class="neg"><input type="checkbox" data-field="negotiable" ${p.negotiable ? "checked" : ""}> Negotiable</label>
+            <button type="button" class="more-toggle" data-act="more" aria-expanded="${more}">${more ? "Less ▴" : "More details ▾"}</button>
+          </div>
+        </div>
+        <div class="item-actions">
+          <button class="btn btn-ghost btn-sm" data-act="edit">Full edit</button>
+          <button class="btn btn-ghost btn-sm" data-act="share">Share</button>
+          <button class="btn btn-ghost btn-sm" data-act="stock">${p.in_stock ? "Mark sold" : "Back in stock"}</button>
+          <button class="btn btn-danger btn-sm" data-act="delete">Delete</button>
+        </div>
+        ${more ? `<div class="item-more">
+          <label class="full">Description<textarea data-field="description" maxlength="1000">${esc(p.description || "")}</textarea></label>
+          <label>Material<input data-field="material" value="${esc(p.material || "")}"></label>
+          <label>Size<input data-field="dimensions" value="${esc(p.dimensions || "")}"></label>
+          <label class="full">Highlights (one per line, up to 5)<textarea data-field="highlights">${esc((p.highlights || []).join("\n"))}</textarea></label>
+        </div>` : ""}
+      </div>`;
   }
 
   function renderDash() {
@@ -238,26 +295,17 @@
     const q = $("#dash-search").value.trim().toLowerCase();
     const list = products.filter(p =>
       (dashFilter === "all" || (dashFilter === "instock" && p.in_stock) || (dashFilter === "sold" && !p.in_stock) || (dashFilter === "nophoto" && !(p.images || []).length)) &&
-      (!q || `${p.name} ${p.type} ${p.category} ${p.id}`.toLowerCase().includes(q))
+      (!q || `${view(p).name} ${p.type} ${p.category} ${p.id}`.toLowerCase().includes(q))
     ).slice().reverse();   // newest first
 
-    $("#list").innerHTML = list.length ? list.map(p => `
-      <div class="item" data-id="${esc(p.id)}">
-        ${thumb(p)}
-        <div class="item-main">
-          <div class="item-name">${esc(p.name)}</div>
-          <div class="item-meta">${esc(p.id)} · ${esc(p.category)}${p.type ? " · " + esc(p.type) : ""}
-            ${p.in_stock ? `<span class="pill ok">Live</span>` : `<span class="pill sold">Sold out</span>`}
-            ${p.placeholder ? `<span class="pill est">Price not confirmed</span>` : ""}</div>
-          <div class="item-price">${p.price_ghs ? C.formatPrice(p.price_ghs) : "Price on request"}</div>
-        </div>
-        <div class="item-actions">
-          <button class="btn btn-ghost btn-sm" data-act="edit">Edit</button>
-          <button class="btn btn-ghost btn-sm" data-act="share">Share</button>
-          <button class="btn btn-ghost btn-sm" data-act="stock">${p.in_stock ? "Mark sold" : "Back in stock"}</button>
-          <button class="btn btn-danger btn-sm" data-act="delete">Delete</button>
-        </div>
-      </div>`).join("") : `<div class="empty-state">No products here yet. <button class="btn btn-sell" data-go="post">+ Post a product</button></div>`;
+    $("#list").innerHTML = list.length ? list.map(itemHtml).join("") : `<div class="empty-state">No products here yet. <button class="btn btn-sell" data-go="post">+ Post a product</button></div>`;
+    updateSavebar();
+  }
+
+  function rerenderItem(id) {
+    const row = $(`#list .item[data-id="${CSS.escape(id)}"]`);
+    const p = products.find(x => x.id === id);
+    if (row && p) row.outerHTML = itemHtml(p);
   }
 
   $("#stats").addEventListener("click", e => {
@@ -267,6 +315,144 @@
   $("#dash-filter").addEventListener("change", e => { dashFilter = e.target.value; renderDash(); });
   $("#dash-search").addEventListener("input", renderDash);
 
+  // ---- inline editing
+  function readField(el) {
+    const f = el.dataset.field;
+    if (f === "negotiable") return el.checked;
+    if (f === "price_ghs") { const n = parseInt(el.value, 10); return n > 0 ? n : null; }
+    if (f === "highlights") return el.value.split("\n").map(s => s.trim()).filter(Boolean).slice(0, 5);
+    return f === "description" ? el.value : el.value.trim();
+  }
+
+  function setPending(id, field, value) {
+    const orig = products.find(x => x.id === id);
+    if (!orig) return;
+    const patch = { ...(pending[id] || {}), [field]: value };
+    if (field === "category") {
+      const cat = C.CATEGORIES.find(c => c.id === value);
+      if (cat && !cat.types.includes(view(orig).type)) patch.type = cat.types[0];
+    }
+    if (field === "price_ghs") patch.placeholder = false;   // a price typed in by the owner is confirmed
+    // Drop fields that are back to their saved value.
+    for (const k of Object.keys(patch)) if (JSON.stringify(patch[k]) === JSON.stringify(orig[k] ?? (k === "highlights" ? [] : k === "negotiable" ? false : ""))) delete patch[k];
+    if (Object.keys(patch).length) pending[id] = patch; else delete pending[id];
+    const row = $(`#list .item[data-id="${CSS.escape(id)}"]`);
+    if (row) row.classList.toggle("dirty", !!pending[id]);
+    if (field === "category") rerenderItem(id);
+    updateSavebar();
+  }
+
+  $("#list").addEventListener("input", e => {
+    const el = e.target.closest("[data-field]");
+    if (el && el.tagName !== "SELECT" && el.type !== "checkbox") setPending(el.closest(".item").dataset.id, el.dataset.field, readField(el));
+  });
+  $("#list").addEventListener("change", e => {
+    const el = e.target.closest("[data-field]");
+    if (el) setPending(el.closest(".item").dataset.id, el.dataset.field, readField(el));
+  });
+  $("#list").addEventListener("keydown", e => {
+    if (e.key === "Enter" && e.target.matches("input.ie")) { e.preventDefault(); saveAll(); }
+    if (e.key === "Escape" && e.target.matches(".ie")) e.target.blur();
+  });
+
+  function updateSavebar() {
+    const n = Object.keys(pending).length;
+    $("#savebar").hidden = !n;
+    $("#savebar-msg").textContent = `${n} product${n === 1 ? "" : "s"} changed. Not saved yet.`;
+  }
+
+  async function saveAll() {
+    const ids = Object.keys(pending);
+    if (!ids.length) return;
+    for (const id of ids) {
+      const p = view(products.find(x => x.id === id) || {});
+      if (!p.name || p.name.length < 3) {
+        const row = $(`#list .item[data-id="${CSS.escape(id)}"] .ie-name`);
+        if (row) row.focus();
+        return toast(`Product ${id} needs a name (at least 3 letters)`, true);
+      }
+    }
+    const patches = JSON.parse(JSON.stringify(pending));
+    try {
+      await commit({
+        message: ids.length === 1 ? `Quick edit: ${view(products.find(x => x.id === ids[0])).name} (${ids[0]})` : `Quick edit ${ids.length} products: ${ids.join(", ")}`,
+        mutate: list => list.map(x => {
+          const patch = patches[x.id];
+          if (!patch) return x;
+          const next = { ...x, ...patch };
+          if (!next.price_ghs) next.negotiable = false;
+          if ("type" in patch) next.marketplace_category = C.marketplaceCategory(next.type);
+          return next;
+        })
+      });
+      ids.forEach(id => delete pending[id]);
+      toast(`Saved. Your website updates in about a minute.`);
+      renderDash();
+    } catch (err) {
+      toast(friendly(err), true);
+    } finally { busy(null); }
+  }
+
+  $("#save-all").addEventListener("click", saveAll);
+  $("#discard-all").addEventListener("click", () => {
+    if (!confirm("Discard your unsaved changes?")) return;
+    Object.keys(pending).forEach(id => delete pending[id]);
+    renderDash();
+  });
+  window.addEventListener("beforeunload", e => {
+    if (Object.keys(pending).length) { e.preventDefault(); e.returnValue = ""; }
+  });
+
+  // ---- quick add photos from the list
+  let photoTarget = null;
+
+  async function quickAddPhotos(id, files) {
+    const p = products.find(x => x.id === id);
+    if (!p) return;
+    const room = MAX_PHOTOS - (p.images || []).length;
+    if (room <= 0) return toast(`This product already has ${MAX_PHOTOS} photos`, true);
+    const list = [...files].filter(f => f.type.startsWith("image/")).slice(0, room);
+    if (!list.length) return toast("Please choose a photo file", true);
+    const stamp = Date.now().toString(36);
+    const uploads = [];
+    try {
+      for (let i = 0; i < list.length; i++) {
+        busy(`Preparing photo ${i + 1} of ${list.length}…`);
+        const photo = await PhotoStudio.fromFile(list[i]);
+        const blob = await PhotoStudio.toJpeg(photo, PHOTO_WIDTH);
+        const n = (p.images || []).length + i + 1;
+        uploads.push({ path: `assets/images/products/${id.toLowerCase()}-${stamp}-${n}.jpg`, b64: bytesToB64(new Uint8Array(await blob.arrayBuffer())) });
+      }
+      const paths = uploads.map(u => u.path);
+      await commit({
+        message: `Add ${paths.length} photo${paths.length === 1 ? "" : "s"}: ${p.name} (${id})`,
+        uploads,
+        mutate: all => all.map(x => x.id === id ? { ...x, images: [...(x.images || []), ...paths].slice(0, MAX_PHOTOS) } : x)
+      });
+      toast(`${paths.length} photo${paths.length === 1 ? "" : "s"} added. Live on the website in about a minute.`);
+      if (files.length > room) toast(`Only ${room} photo(s) added (max ${MAX_PHOTOS})`, true);
+      renderDash();
+    } catch (err) {
+      toast(err.status ? friendly(err) : err.message, true);
+    } finally { busy(null); }
+  }
+
+  $("#quick-photo").addEventListener("change", e => {
+    const files = [...e.target.files];
+    e.target.value = "";
+    if (photoTarget && files.length) quickAddPhotos(photoTarget, files);
+  });
+  const listEl = $("#list");
+  ["dragenter", "dragover"].forEach(ev => listEl.addEventListener(ev, e => {
+    const t = e.target.closest("button.thumb");
+    if (t && e.dataTransfer.types.includes("Files")) { e.preventDefault(); t.classList.add("drag"); }
+  }));
+  ["dragleave", "drop"].forEach(ev => listEl.addEventListener(ev, e => { const t = e.target.closest("button.thumb"); if (t) t.classList.remove("drag"); }));
+  listEl.addEventListener("drop", e => {
+    const t = e.target.closest("button.thumb");
+    if (t && e.dataTransfer.files.length) { e.preventDefault(); quickAddPhotos(t.closest(".item").dataset.id, e.dataTransfer.files); }
+  });
+
   $("#list").addEventListener("click", async e => {
     const btn = e.target.closest("[data-act]");
     if (!btn) return;
@@ -274,8 +460,10 @@
     const p = products.find(x => x.id === id);
     if (!p) return;
     const act = btn.dataset.act;
-    if (act === "edit") return startPost(p);
-    if (act === "share") return showDone(p, false);
+    if (act === "addphoto") { photoTarget = id; return $("#quick-photo").click(); }
+    if (act === "more") { openMore.has(id) ? openMore.delete(id) : openMore.add(id); return rerenderItem(id); }
+    if (act === "edit") { const v = view(p); delete pending[id]; updateSavebar(); return startPost(v); }
+    if (act === "share") return showDone(view(p), false);
     try {
       if (act === "stock") {
         await commit({
@@ -291,6 +479,7 @@
           mutate: list => list.filter(x => x.id !== id),
           deletes: (p.images || []).filter(src => src.startsWith("assets/images/products/"))
         });
+        delete pending[id];
         toast("Product deleted");
       }
       renderDash();

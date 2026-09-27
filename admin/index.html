@@ -71,7 +71,16 @@
         <option value="nophoto">Missing photos</option>
       </select>
     </div>
+    <p class="muted quick-hint">Tip: tap a name, price or category below to change it right here. Tap <b>+</b> on a photo to add pictures.</p>
     <div class="list" id="list"></div>
+    <input type="file" id="quick-photo" accept="image/*" multiple hidden>
+    <div class="savebar" id="savebar" hidden>
+      <span id="savebar-msg">1 product changed</span>
+      <div class="savebar-actions">
+        <button class="btn btn-ghost btn-sm" id="discard-all">Discard</button>
+        <button class="btn btn-sell btn-sm" id="save-all">Save changes</button>
+      </div>
+    </div>
   </main>
 
   <!-- ============ POST / EDIT (Jiji-style) ============ -->
