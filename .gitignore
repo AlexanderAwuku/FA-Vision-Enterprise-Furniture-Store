@@ -1,9 +1,15 @@
+.DS_Store
+Thumbs.db
+node_modules/
+.vscode/
+.idea/
+*.log
+.env
+.env.*
+
 # Never commit credentials
 *credentials*.json
 *-key.json
 service-account*.json
-.env
-.env.*
 
 .firebase/
-node_modules/
