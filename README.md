@@ -15,11 +15,22 @@ Product prices are still starting estimates and there are no product photos yet.
 
 Open `/admin/` on your phone or computer. It works like posting an ad on Jiji:
 
-1. **Category & photos.** Pick a category and type, then add photos. The first photo is the main photo; drag or use the arrows to reorder. Photos are shrunk automatically so the site stays fast.
+1. **Category & photos.** Pick a category and type, then add photos. The first photo is the main photo; drag or use the arrows to reorder. Every photo is auto-enhanced and framed to the website's 4:3 shape. Tap **✎ Edit** on a photo to open the photo studio (below).
 2. **Details & price.** Title, condition, material, size, colours, description, key features, price (negotiable or not, or "price on request"), made to order, in stock.
 3. **Review & post.** See the card exactly as customers will, then post.
 
-After posting you get one-tap buttons to send the product on WhatsApp, or copy a Facebook Marketplace listing, a group post or a WhatsApp status. **My products** lets you edit, share, mark sold or delete anything.
+After posting you get one-tap buttons to send the product on WhatsApp, or copy a Facebook Marketplace listing, a group post or a WhatsApp status. **🎨 Create promo image** makes a branded picture (square post or status/story, dark or cream) to share or download. **My products** lets you edit, share, mark sold or delete anything.
+
+### Photo studio (✎ Edit)
+
+Everything runs in the browser, and photos never leave your device until you post.
+
+- **Frame:** *Fill frame* (drag to position, zoom) or *Show whole piece* on a backdrop, straighten (±15°), rotate 90°.
+- **Light & colour:** *Auto-enhance* (on by default) plus brightness, contrast, warmth and colour sliders. Hold **Compare** to see the original.
+- **Background:** *Remove background* cuts the furniture out with on-device AI and puts it in a studio (white, cream, soft grey or showroom dark) with a soft floor shadow. The first use downloads about 55 MB, so use Wi-Fi; it's cached after that. It works best when the furniture is the main thing in the photo.
+- **Use this look on all photos** copies the light, framing style and background to the product's other photos, so a product's photos match.
+
+Background removal uses [@imgly/background-removal](https://github.com/imgly/background-removal-js) (AGPL-3.0), loaded from jsDelivr.
 
 **How it works:** there's no server to pay for. The admin saves products and photos straight into this GitHub repository, and GitHub Pages republishes the site about a minute later.
 
@@ -41,7 +52,7 @@ The token stays in that browser only. Anyone who has it can change the website, 
 |---|---|
 | `index.html` | Storefront: hero, collection with search/filters/sort, product pages (`#product/FAV-001` links), custom-order form, showroom and contacts |
 | `assets/css/site.css`, `assets/js/site.js` | Storefront styling and behaviour |
-| `admin/` | Admin page for posting, editing and sharing products |
+| `admin/` | Admin page for posting, editing and sharing products (`admin.js`), photo studio (`photo-studio.js`, `photo-editor.js`) and promo images (`promo.js`) |
 | `assets/js/catalog-config.js` | Categories, product types, colours and icons shared by the site and admin |
 | `assets/js/products-data.js` | Product and business data the site reads. **Generated, don't edit by hand.** |
 | `assets/images/products/` | Product photos uploaded from the admin |

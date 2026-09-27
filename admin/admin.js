@@ -12,8 +12,7 @@
   const API = `https://api.github.com/repos/${OWNER}/${REPO}`;
   const RAW = `https://raw.githubusercontent.com/${OWNER}/${REPO}/${BRANCH}/`;
   const MAX_PHOTOS = 10;
-  const MAX_EDGE = 1600;         // longest side of uploaded photos, in px
-  const JPEG_QUALITY = 0.82;
+  const PHOTO_WIDTH = 1600;      // uploaded photos are 1600 x 1200 (4:3), finished by the photo studio
   const TOKEN_KEY = "fav_admin_token";
 
   const C = window.FAV_CONFIG;
@@ -380,19 +379,12 @@
   });
 
   // ---- photos
-  async function processImage(file) {
-    if (!/^image\/(jpeg|png|webp)$/.test(file.type)) throw new Error(`${file.name}: only JPG, PNG and WEBP photos are supported`);
-    const bmp = await createImageBitmap(file);
-    const scale = Math.min(1, MAX_EDGE / Math.max(bmp.width, bmp.height));
-    const canvas = document.createElement("canvas");
-    canvas.width = Math.round(bmp.width * scale);
-    canvas.height = Math.round(bmp.height * scale);
-    const ctx = canvas.getContext("2d");
-    ctx.fillStyle = "#fff";                      // PNGs with transparency get a white background
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-    ctx.drawImage(bmp, 0, 0, canvas.width, canvas.height);
-    const blob = await new Promise(r => canvas.toBlob(r, "image/jpeg", JPEG_QUALITY));
-    return { kind: "new", url: URL.createObjectURL(blob), b64: bytesToB64(new Uint8Array(await blob.arrayBuffer())) };
+  // Each new photo keeps its original plus its studio edits (admin/photo-studio.js);
+  // the finished 4:3 JPEG is only produced when the product is posted.
+  async function thumbUrl(ph) {
+    const blob = await new Promise(r => PhotoStudio.render(ph.photo, 480, "preview").toBlob(r, "image/jpeg", 0.8));
+    if (ph.url && ph.url.startsWith("blob:")) URL.revokeObjectURL(ph.url);
+    ph.url = URL.createObjectURL(blob);
   }
 
   async function addFiles(files) {
@@ -401,8 +393,11 @@
     const list = [...files].slice(0, room);
     busy("Preparing photos…");
     for (const f of list) {
-      try { draft.photos.push(await processImage(f)); }
-      catch (err) { toast(err.message, true); }
+      try {
+        const ph = { kind: "new", photo: await PhotoStudio.fromFile(f) };
+        await thumbUrl(ph);
+        draft.photos.push(ph);
+      } catch (err) { toast(err.message, true); }
     }
     busy(null);
     if (files.length > room) toast(`Only the first ${room} photo(s) were added (max ${MAX_PHOTOS})`, true);
@@ -423,6 +418,7 @@
         <img src="${esc(ph.url)}" alt="Photo ${i + 1}">
         ${i === 0 ? `<span class="main-tag">Main</span>` : ""}
         <button type="button" class="del" data-del="${i}" aria-label="Remove photo">×</button>
+        <button type="button" class="edit" data-edit-photo="${i}">✎ Edit</button>
         <div class="moves">
           <button type="button" data-move="${i}" data-dir="-1" aria-label="Move left" ${i === 0 ? "disabled" : ""}>◀</button>
           <button type="button" data-move="${i}" data-dir="1" aria-label="Move right" ${i === draft.photos.length - 1 ? "disabled" : ""}>▶</button>
@@ -444,8 +440,32 @@
     const del = e.target.closest("[data-del]");
     if (del) { draft.photos.splice(+del.dataset.del, 1); return renderPhotos(); }
     const mv = e.target.closest("[data-move]");
-    if (mv) movePhoto(+mv.dataset.move, +mv.dataset.move + +mv.dataset.dir);
+    if (mv) return movePhoto(+mv.dataset.move, +mv.dataset.move + +mv.dataset.dir);
+    const ed = e.target.closest("[data-edit-photo]") || (e.target.closest(".photo") && !e.target.closest("button") && e.target.closest(".photo"));
+    if (ed) editPhoto(+(ed.dataset.editPhoto || ed.dataset.i));
   });
+
+  async function editPhoto(i) {
+    const ph = draft.photos[i];
+    if (ph.kind === "existing") {
+      // Already-uploaded photos are reloaded and become a new upload once edited.
+      busy("Opening photo…");
+      try { ph.photo = await PhotoStudio.fromUrl(ph.url); }
+      catch (err) { busy(null); return toast(err.message, true); }
+      busy(null);
+    }
+    const others = draft.photos.filter((o, j) => j !== i && o.photo).map(o => o.photo);
+    const result = await PhotoEditor.open(ph.photo, { others });
+    if (result === "cancel") return;
+    busy("Updating photos…");
+    const changed = result === "all" ? draft.photos.filter(o => o.photo) : [ph];
+    for (const o of changed) {
+      if (o.kind === "existing") { o.kind = "new"; delete o.path; }
+      await thumbUrl(o);
+    }
+    busy(null);
+    renderPhotos();
+  }
   let dragFrom = null;
   photosEl.addEventListener("dragstart", e => {
     const ph = e.target.closest(".photo");
@@ -590,12 +610,18 @@
     let id = editing || nextId(products);
     const stamp = Date.now().toString(36);
     const uploads = [];
-    const images = draft.photos.map((ph, i) => {
-      if (ph.kind === "existing") return ph.path;
+    const images = [];
+    busy("Finishing photos…");
+    mainPhotoPreview = null;
+    for (let i = 0; i < draft.photos.length; i++) {
+      const ph = draft.photos[i];
+      if (ph.kind === "existing") { images.push(ph.path); continue; }
       const path = `assets/images/products/${id.toLowerCase()}-${stamp}-${i + 1}.jpg`;
-      uploads.push({ path, b64: ph.b64 });
-      return path;
-    });
+      const blob = await PhotoStudio.toJpeg(ph.photo, PHOTO_WIDTH);
+      uploads.push({ path, b64: bytesToB64(new Uint8Array(await blob.arrayBuffer())) });
+      if (i === 0) mainPhotoPreview = URL.createObjectURL(blob);
+      images.push(path);
+    }
     const deletes = old ? (old.images || []).filter(src => src.startsWith("assets/images/products/") && !images.includes(src)) : [];
     try {
       const saved = await commit({
@@ -610,27 +636,30 @@
       });
       const product = saved.find(p => p.id === id);
       draft.photos.forEach(ph => ph.kind === "new" && URL.revokeObjectURL(ph.url));
-      showDone(product, true, editing);
+      showDone(product, true, editing, mainPhotoPreview);
     } catch (err) {
       toast(friendly(err), true);
     } finally { busy(null); }
   });
 
   // =========================================================== done / share
-  let shareProduct = null;
+  let shareProduct = null, sharePhoto = null, mainPhotoPreview = null;
 
-  function showDone(p, justSaved, wasEdit) {
+  // localPhoto: the just-rendered main photo, used until GitHub serves the uploaded copy.
+  function showDone(p, justSaved, wasEdit, localPhoto) {
     shareProduct = p;
+    sharePhoto = localPhoto || ((p.images || [])[0] && imgUrl(p.images[0]));
     $("#done-title").textContent = justSaved ? (wasEdit ? "Changes saved!" : "Your product is posted!") : `Share: ${p.name}`;
     $("#done-sub").textContent = justSaved ? "It will appear on the website in about a minute." : "Copy a ready-made post for Facebook or send it straight to a client.";
     $(".done-ico").hidden = !justSaved;
-    $("#done-card").innerHTML = previewCard(p, (p.images || [])[0] && imgUrl(p.images[0]));
+    $("#done-card").innerHTML = previewCard(p, sharePhoto);
     $("#share-wa").href = "https://wa.me/?text=" + encodeURIComponent(`${p.name} · ${priceText(p)}\n${productUrl(p)}`);
     $("#share-view").href = productUrl(p);
     show("done");
   }
 
   $("#screen-done").addEventListener("click", async e => {
+    if (e.target.closest("#make-promo") && shareProduct) return PromoMaker.open(shareProduct, business, sharePhoto);
     const b = e.target.closest("[data-copy]");
     if (!b || !shareProduct) return;
     const text = { link: productUrl(shareProduct), marketplace: marketplaceText(shareProduct), group: groupText(shareProduct), status: statusText(shareProduct) }[b.dataset.copy];
