@@ -3,14 +3,54 @@ window.FAV_DATA = {
   "business": {
     "name": "F.A Vision Enterprise",
     "tagline": "Bringing love to your Homes, Offices & Schools through Furniture",
+    "services": [
+      "Bulk & wholesale furniture",
+      "Bookstore & stationery",
+      "Upholstery & re-upholstery",
+      "Printing press"
+    ],
     "address": "Tarazzo Road, opposite Pacific, Odorkor, Accra, Greater Accra, Ghana",
     "marketplace_location": "Odorkor, Accra",
+    "locations": [
+      {
+        "name": "Odorkor (main workshop & showroom)",
+        "area": "Odorkor",
+        "address": "Tarazzo Road, opposite Pacific, Odorkor, Accra",
+        "region": "Greater Accra",
+        "maps_url": "https://maps.app.goo.gl/Ct4oYoMkmTPGPX3P6",
+        "lat": 5.5819626,
+        "lng": -0.266215,
+        "google_name": "Fa Vision Enterprise Odorkor Branch"
+      },
+      {
+        "name": "Omanjor",
+        "area": "Omanjor",
+        "address": "Omanjor, Accra",
+        "region": "Greater Accra",
+        "maps_url": "https://maps.app.goo.gl/2czi91wUwRAwXcgd7",
+        "lat": 5.6353341,
+        "lng": -0.2921801,
+        "google_name": "Fa Vision Enterprise - Omanjor Branch"
+      },
+      {
+        "name": "Kasoa",
+        "area": "Kasoa",
+        "address": "Kasoa",
+        "region": "Central Region",
+        "maps_url": "https://maps.app.goo.gl/zrELKCZL1NWdqKiE9",
+        "lat": 5.5009072,
+        "lng": -0.3827996,
+        "google_name": "FA Vision Enterprise Kasoa Branch"
+      }
+    ],
     "whatsapp": "+233572646176",
     "phones": [
       "+233572646176",
       "+233207473267",
       "+233546148923"
     ],
+    "email": "favisionenterprise1@gmail.com",
+    "owner": "Faustina Awuku",
     "facebook_pages": [
       "https://www.facebook.com/FaVisionEnterprise",
       "https://www.facebook.com/FaVisionEnt/"
@@ -31,9 +71,13 @@ window.FAV_DATA = {
       "#FAVisionEnterprise",
       "#FurnitureGhana",
       "#AccraFurniture",
+      "#WholesaleFurnitureGhana",
+      "#UpholsteryAccra",
+      "#PrintingPressAccra",
+      "#BookshopAccra",
       "#Odorkor",
-      "#HomeDecorGhana",
-      "#OfficeFurnitureGhana"
+      "#Omanjor",
+      "#Kasoa"
     ],
     "payments": {
       "paystack_public_key": "",
@@ -41,6 +85,36 @@ window.FAV_DATA = {
       "momo_name": "",
       "momo_network": "MTN",
       "deposit_percent": 50
+    },
+    "seo_keywords": [
+      "FA Vision Enterprise",
+      "F.A Vision Enterprise",
+      "wholesale furniture Accra",
+      "bulk furniture Ghana",
+      "school furniture wholesale Ghana",
+      "office furniture Accra",
+      "furniture shop Odorkor",
+      "furniture Kasoa",
+      "furniture Omanjor",
+      "upholstery Accra",
+      "sofa re-upholstery Odorkor",
+      "bookstore Odorkor",
+      "bookshop Kasoa",
+      "stationery Accra",
+      "printing press Accra",
+      "printing press Odorkor",
+      "printing press Kasoa",
+      "0207473267",
+      "0572646176",
+      "0546148923"
+    ],
+    "invoice": {
+      "tin": "",
+      "vat_registered": false,
+      "taxes": [],
+      "payment_terms_days": 0,
+      "bank_details": "",
+      "terms": "Goods remain the property of F.A Vision Enterprise until paid in full. Custom orders need a deposit before production. Terms and conditions apply."
     }
   },
   "products": [
