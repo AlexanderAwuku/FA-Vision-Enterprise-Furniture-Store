@@ -421,45 +421,40 @@
 
     <section class="promo" id="promo" aria-labelledby="promo-title">
       <div class="wrap promo-inner">
-        <div class="promo-flyer">
-          <a href="assets/images/promo-student-desks.jpg" target="_blank" rel="noopener" aria-label="Open the student desk flyer">
-            <img src="assets/images/promo-student-desks.jpg" alt="F.A Vision Enterprise student desk and chair set flyer: GH₵650 per set, GH₵640 each from 50 sets" width="1080" height="1350" loading="lazy">
-          </a>
+        <div class="promo-photo">
+          <button type="button" class="promo-pic" id="promo-pic" aria-label="Show another photo of the student desk set">
+            <img id="promo-img" src="assets/images/products/fav-014-muk5690f-1.jpg" alt="Yellow-top student desk and chair set with grey steel frame" width="720" height="900">
+            <span class="promo-sticker">New stock!</span>
+            <span class="promo-hint">Tap for another angle ↻</span>
+          </button>
+          <div class="promo-dots" id="promo-dots" aria-hidden="true"></div>
         </div>
         <div class="promo-copy">
           <p class="kicker">Back to school · Student desks</p>
           <h2 id="promo-title">Every student deserves a <em>proper desk</em></h2>
-          <p class="section-sub">Height-adjustable desk and chair sets with a strong powder-coated steel frame, scratch-resistant writing top and anti-slip, quiet floor caps. Built for Senior High to University.</p>
-          <div class="promo-price">
-            <div><b>GH₵650</b><span>per set</span></div>
-            <div><b>GH₵640</b><span>each from 50 sets</span></div>
-          </div>
-          <div class="promo-tabs" role="tablist" aria-label="Who is it for">
-            <button role="tab" aria-selected="true" data-aud="proprietors">School proprietors</button>
-            <button role="tab" aria-selected="false" data-aud="parents">Parents</button>
-            <button role="tab" aria-selected="false" data-aud="everyone">Everyone</button>
-          </div>
-          <div class="promo-panel" data-aud="proprietors">
-            <p><b>Furnish whole classrooms at a bulk price.</b> We deliver and set up at your school, and send a proforma invoice for your board or PTA to approve.</p>
-            <div class="promo-actions">
-              <a class="btn btn-gold js-wa" data-msg="Hello F.A Vision, I'm a school proprietor. I'd like a bulk quote for student desk &amp; chair sets (FAV-014). Number of sets: ">Get a bulk quote</a>
-              <a class="btn btn-ghost" href="#invoice" data-invoice-for="Student Desk Chair Set (FAV-014), bulk order">Request a proforma invoice</a>
+          <p class="section-sub">No wobbles, no squeaks, no more "my desk is shaking" excuses. Height-adjustable steel desk &amp; chair sets for SHS to University.</p>
+
+          <div class="promo-calc">
+            <p class="promo-calc-label">How many sets do you need?</p>
+            <div class="promo-stepper">
+              <button type="button" data-step="-1" aria-label="One less set">−</button>
+              <input id="promo-qty" type="number" min="1" max="2000" value="1" inputmode="numeric" aria-label="Number of sets">
+              <button type="button" data-step="1" aria-label="One more set">+</button>
             </div>
-          </div>
-          <div class="promo-panel" data-aud="parents" hidden>
-            <p><b>Give your child a proper study corner at home,</b> or buy a set for your ward's school. Pay on delivery, or reserve and pay at any of our showrooms.</p>
-            <div class="promo-actions">
-              <a class="btn btn-gold" href="#product/FAV-014">Buy a set</a>
-              <a class="btn btn-ghost js-wa" data-msg="Hello F.A Vision, I'm a parent and I'd like a student desk &amp; chair set (FAV-014).">Ask on WhatsApp</a>
+            <div class="promo-quick">
+              <button type="button" data-qty="1">Just me</button>
+              <button type="button" data-qty="40">A classroom</button>
+              <button type="button" data-qty="200">The whole school</button>
             </div>
+            <p class="promo-total"><span id="promo-each">GH₵650 per set</span> · Total <b id="promo-sum">GH₵650</b></p>
+            <p class="promo-quip" id="promo-quip" aria-live="polite">One proper study corner, coming right up.</p>
           </div>
-          <div class="promo-panel" data-aud="everyone" hidden>
-            <p><b>Churches, tutorial centres, home offices and donors:</b> sturdy desks for anyone who reads, writes or studies. Donating desks to a school? We deliver straight to them.</p>
-            <div class="promo-actions">
-              <a class="btn btn-gold" href="#product/FAV-014">See the desk set</a>
-              <button class="btn btn-ghost" type="button" id="promo-share">Share this flyer</button>
-            </div>
+
+          <div class="promo-actions">
+            <a class="btn btn-gold" id="promo-order" target="_blank" rel="noopener">Order on WhatsApp</a>
+            <button class="btn btn-ghost" type="button" id="promo-share">Share with a friend</button>
           </div>
+          <p class="promo-fine">GH₵640 each from 50 sets · Delivery &amp; school set-up available · <a href="#invoice" data-invoice-for="Student Desk Chair Set (FAV-014), bulk order">Need a proforma invoice?</a></p>
         </div>
       </div>
     </section>
