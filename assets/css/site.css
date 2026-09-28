@@ -222,27 +222,40 @@ section { padding: 96px 0; }
 /* Student desk promo */
 .promo { background: linear-gradient(180deg, #fff9f0, #fff); overflow: hidden; }
 .promo-inner { display: grid; grid-template-columns: .9fr 1.1fr; gap: 56px; align-items: center; }
-.promo-flyer { position: relative; max-width: 460px; justify-self: center; animation: float 5s ease-in-out infinite; }
-@keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
-.promo-flyer img { border-radius: 24px; box-shadow: var(--shadow-lg); transform: rotate(-2deg); transition: transform .3s; }
-.promo-flyer a:hover img { transform: rotate(0) scale(1.01); }
+.promo-photo { max-width: 420px; width: 100%; justify-self: center; }
+.promo-pic { position: relative; display: block; width: 100%; padding: 0; border: 0; background: none; cursor: pointer; border-radius: 24px; transform: rotate(-2deg); transition: transform .35s cubic-bezier(.2,.8,.2,1); }
+.promo-pic:hover, .promo-pic:focus-visible { transform: rotate(0) translateY(-4px); }
+.promo-pic:active { transform: scale(.98); }
+.promo-pic img { width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; border-radius: 24px; box-shadow: var(--shadow-lg); border-top: 8px solid var(--brand-blue); transition: opacity .25s; }
+.promo-pic img.swap { opacity: 0; }
+.promo-sticker { position: absolute; top: -14px; right: -12px; background: var(--brand-red); color: #fff; font: 700 15px/1 var(--serif); padding: 10px 16px; border-radius: 999px; box-shadow: 0 8px 20px rgba(244,44,44,.35); transform: rotate(8deg); animation: wiggle 3s ease-in-out infinite; }
+@keyframes wiggle { 0%, 88%, 100% { transform: rotate(8deg); } 92% { transform: rotate(-4deg) scale(1.08); } 96% { transform: rotate(12deg) scale(1.08); } }
+.promo-hint { position: absolute; left: 50%; bottom: 14px; transform: translateX(-50%); background: rgba(255,255,255,.92); color: var(--ink); font: 600 13px var(--sans); padding: 7px 14px; border-radius: 999px; white-space: nowrap; box-shadow: var(--shadow); }
+.promo-dots { display: flex; gap: 6px; justify-content: center; margin-top: 16px; }
+.promo-dots span { width: 8px; height: 8px; border-radius: 50%; background: var(--line); transition: background .2s, width .2s; }
+.promo-dots span.on { width: 22px; border-radius: 999px; background: var(--brand-blue); }
 .promo h2 { font-size: clamp(32px, 4.2vw, 48px); font-weight: 700; }
 .promo h2 em { font-style: normal; background: var(--brand-ring); -webkit-background-clip: text; background-clip: text; color: transparent; }
-.promo-price { display: flex; gap: 14px; margin: 24px 0; flex-wrap: wrap; }
-.promo-price div { background: #fff; border: 1px solid var(--line); border-radius: 16px; padding: 12px 18px; display: grid; }
-.promo-price div:first-child { border-color: var(--brand-blue); }
-.promo-price div:last-child { border-color: var(--brand-red); }
-.promo-price b { font: 700 28px/1.1 var(--serif); color: var(--brand-blue); }
-.promo-price div:last-child b { color: var(--brand-red); }
-.promo-price span { font-size: 13px; color: var(--muted); }
-.promo-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
-.promo-tabs button { border: 1.5px solid var(--line); background: #fff; border-radius: 999px; padding: 9px 16px; font: 600 14px var(--sans); color: var(--ink); cursor: pointer; }
-.promo-tabs button[aria-selected="true"] { background: #e8f0fe; border-color: var(--brand-blue); color: var(--brand-blue); }
-.promo-panel { background: #fff; border: 1px solid var(--line); border-radius: 18px; padding: 20px; display: grid; gap: 16px; }
-.promo-panel[hidden] { display: none; }
-.promo-panel p { color: var(--muted); }
-.promo-panel p b { color: var(--ink); }
+.promo-calc { background: #fff; border: 1px solid var(--line); border-radius: 20px; padding: 20px; margin: 24px 0 18px; display: grid; gap: 12px; }
+.promo-calc-label { font: 600 15px var(--sans); color: var(--ink); }
+.promo-stepper { display: inline-flex; align-items: center; border: 1.5px solid var(--line); border-radius: 999px; width: max-content; overflow: hidden; }
+.promo-stepper button { width: 44px; height: 44px; border: 0; background: #f1f4f9; font: 600 22px var(--sans); color: var(--brand-blue); cursor: pointer; }
+.promo-stepper button:hover { background: #e8f0fe; }
+.promo-stepper input { width: 72px; height: 44px; border: 0; text-align: center; font: 700 20px var(--serif); color: var(--ink); -moz-appearance: textfield; }
+.promo-stepper input::-webkit-inner-spin-button, .promo-stepper input::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+.promo-quick { display: flex; gap: 8px; flex-wrap: wrap; }
+.promo-quick button { border: 1.5px solid var(--line); background: #fff; border-radius: 999px; padding: 7px 14px; font: 600 13px var(--sans); color: var(--ink); cursor: pointer; transition: border-color .2s, color .2s; }
+.promo-quick button:hover { border-color: var(--brand-blue); color: var(--brand-blue); }
+.promo-total { font-size: 15px; color: var(--muted); }
+.promo-total b { font: 700 24px var(--serif); color: var(--brand-blue); display: inline-block; }
+.promo-total b.bump { animation: bump .3s; }
+@keyframes bump { 50% { transform: scale(1.15); } }
+.promo-total.bulk #promo-each { color: var(--brand-red); font-weight: 600; }
+.promo-quip { font-size: 14px; color: var(--brand-purple); font-weight: 600; min-height: 1.4em; }
 .promo-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+.promo-fine { margin-top: 14px; font-size: 13px; color: var(--muted); }
+.promo-fine a { color: var(--brand-blue); font-weight: 600; }
+@media (prefers-reduced-motion: reduce) { .promo-sticker { animation: none; } .promo-pic { transition: none; } }
 
 /* Invoice request */
 .invoice-req { background: var(--cream); }
@@ -416,7 +429,7 @@ section { padding: 96px 0; }
   .loc-grid { grid-template-columns: 1fr; }
   .footer-grid { grid-template-columns: 1fr 1fr; }
   .custom-inner, .visit-grid, .promo-inner { grid-template-columns: 1fr; gap: 32px; }
-  .promo-flyer { max-width: 420px; margin: 0 auto; }
+  .promo-photo { max-width: 360px; margin: 0 auto; }
   .pd-inner { grid-template-columns: 1fr; }
 }
 @media (max-width: 760px) {
