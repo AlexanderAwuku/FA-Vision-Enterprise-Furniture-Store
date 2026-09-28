@@ -4,7 +4,7 @@
 |---|---|
 | **Business name** | FA Vision Enterprise |
 | **Owner** | Faustina Awuku |
-| **Trade** | Furniture manufacturing, retail & wholesale · Upholstery · Bookstore & stationery · Printing press |
+| **Trade** | Furniture retail & wholesale · Upholstery · Bookstore & stationery · Printing press |
 | **Locations** | [Odorkor](https://maps.app.goo.gl/Ct4oYoMkmTPGPX3P6) (Tarazzo Road, opposite Pacific Filling Station, Accra) · [Omanjor](https://maps.app.goo.gl/2czi91wUwRAwXcgd7) (Accra) · [Kasoa](https://maps.app.goo.gl/zrELKCZL1NWdqKiE9) (Central Region) |
 | **Service area** | Greater Accra and surrounding areas (delivery available) |
 | **Opening hours** | Monday – Saturday, 8:00am – 6:00pm |
@@ -37,7 +37,7 @@
 
 - Solid, seasoned local hardwood and high-density foam
 - Custom sizes, colours and fabrics
-- Honest pricing and direct-from-workshop sales
+- Honest pricing and wholesale pricing
 - Delivery, setup and after-sales support
 
 ## Online presence checklist
