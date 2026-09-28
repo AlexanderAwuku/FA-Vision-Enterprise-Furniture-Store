@@ -55,7 +55,7 @@ Ref: FAV-001
 
 ```
 Looking for a quality 3-seater fabric sofa? Strong hardwood frame.
-We make it right here in Odorkor, Accra. GH₵ 4,500.
+Available at our showroom in Odorkor, Accra. GH₵ 4,500.
 Send us a message or WhatsApp 057 264 6176 to order. #FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
 ```
 
@@ -125,7 +125,7 @@ Ref: FAV-002
 
 ```
 Looking for a quality l-shaped sectional sofa? Spacious corner sofa.
-We make it right here in Odorkor, Accra. GH₵ 9,800.
+Available at our showroom in Odorkor, Accra. GH₵ 9,800.
 Send us a message or WhatsApp 057 264 6176 to order. #FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
 ```
 
@@ -193,7 +193,7 @@ Ref: FAV-003
 
 ```
 Looking for a quality wooden centre table? Solid wood coffee table with lower storage shelf.
-We make it right here in Odorkor, Accra. GH₵ 1,200.
+Available at our showroom in Odorkor, Accra. GH₵ 1,200.
 Send us a message or WhatsApp 057 264 6176 to order. #FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
 ```
 
@@ -261,7 +261,7 @@ Ref: FAV-004
 
 ```
 Looking for a quality tv stand / console? Cabinet with drawers and cable management.
-We make it right here in Odorkor, Accra. GH₵ 1,800.
+Available at our showroom in Odorkor, Accra. GH₵ 1,800.
 Send us a message or WhatsApp 057 264 6176 to order. #FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
 ```
 
@@ -335,7 +335,7 @@ Ref: FAV-005
 
 ```
 Looking for a quality queen size bed frame? Solid wood construction.
-We make it right here in Odorkor, Accra. GH₵ 3,800.
+Available at our showroom in Odorkor, Accra. GH₵ 3,800.
 Send us a message or WhatsApp 057 264 6176 to order. #FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
 ```
 
@@ -405,7 +405,7 @@ Ref: FAV-006
 
 ```
 Looking for a quality king size bed frame? Strong slatted base.
-We make it right here in Odorkor, Accra. GH₵ 4,800.
+Available at our showroom in Odorkor, Accra. GH₵ 4,800.
 Send us a message or WhatsApp 057 264 6176 to order. #FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
 ```
 
@@ -477,7 +477,7 @@ Ref: FAV-007
 
 ```
 Looking for a quality wardrobe (3-door)? Hanging space and shelves.
-We make it right here in Odorkor, Accra. GH₵ 5,200.
+Available at our showroom in Odorkor, Accra. GH₵ 5,200.
 Send us a message or WhatsApp 057 264 6176 to order. #FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
 ```
 
@@ -545,7 +545,7 @@ Ref: FAV-008
 
 ```
 Looking for a quality bedside table? Compact nightstand with drawer.
-We make it right here in Odorkor, Accra. GH₵ 650.
+Available at our showroom in Odorkor, Accra. GH₵ 650.
 Send us a message or WhatsApp 057 264 6176 to order. #FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
 ```
 
@@ -617,7 +617,7 @@ Ref: FAV-009
 
 ```
 Looking for a quality 6-seater dining set? Table and 6 chairs.
-We make it right here in Odorkor, Accra. GH₵ 6,500.
+Available at our showroom in Odorkor, Accra. GH₵ 6,500.
 Send us a message or WhatsApp 057 264 6176 to order. #FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
 ```
 
@@ -685,7 +685,7 @@ Ref: FAV-010
 
 ```
 Looking for a quality 4-seater dining set? Space-saving dining set for apartments.
-We make it right here in Odorkor, Accra. GH₵ 4,200.
+Available at our showroom in Odorkor, Accra. GH₵ 4,200.
 Send us a message or WhatsApp 057 264 6176 to order. #FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
 ```
 
@@ -757,7 +757,7 @@ Ref: FAV-011
 
 ```
 Looking for a quality executive office desk? Spacious work surface.
-We make it right here in Odorkor, Accra. GH₵ 3,500.
+Available at our showroom in Odorkor, Accra. GH₵ 3,500.
 Send us a message or WhatsApp 057 264 6176 to order. #FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
 ```
 
@@ -825,7 +825,7 @@ Ref: FAV-012
 
 ```
 Looking for a quality office chair? Comfortable padded chair for home and office.
-We make it right here in Odorkor, Accra. GH₵ 1,100.
+Available at our showroom in Odorkor, Accra. GH₵ 1,100.
 Send us a message or WhatsApp 057 264 6176 to order. #FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
 ```
 
@@ -893,7 +893,7 @@ Ref: FAV-013
 
 ```
 Looking for a quality bookshelf? Five-tier hardwood bookshelf.
-We make it right here in Odorkor, Accra. GH₵ 1,500.
+Available at our showroom in Odorkor, Accra. GH₵ 1,500.
 Send us a message or WhatsApp 057 264 6176 to order. #FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
 ```
 
@@ -970,7 +970,7 @@ Ref: FAV-014
 
 ```
 Looking for a quality student desk chair set — senior high to tertiary level? Height-adjustable desk (73–88 cm) and chair (46–52 cm).
-We make it right here in Odorkor, Accra. GH₵ 650.
+Available at our showroom in Odorkor, Accra. GH₵ 650.
 Send us a message or WhatsApp 057 264 6176 to order. #FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
 ```
 
