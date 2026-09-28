@@ -46,13 +46,43 @@ The admin needs a GitHub token that can only edit this one repository:
 
 The token stays in that browser only. Anyone who has it can change the website, so don't share it. If a phone is lost, delete the token on GitHub and create a new one.
 
+## Payments (MoMo, Visa/Mastercard, deposit, pay on delivery, walk in)
+
+Every priced, in-stock product has a **Buy now** button. At checkout the customer picks how to pay:
+
+| Option | What happens |
+|---|---|
+| **Pay in full now** | Mobile Money (MTN MoMo, Telecel Cash, AT Money) or Visa / Mastercard |
+| **Pay 50% deposit now** | Deposit online, balance on delivery or pickup (change `deposit_percent` to use another percentage) |
+| **Pay on delivery** | Nothing online; cash or MoMo when the piece arrives |
+| **Walk in & pay at showroom** | Reserves the piece; the customer pays at Odorkor |
+
+Pay on delivery and walk in work straight away. To turn on the **pay now** options, fill in `payments` in `data/business.json` and run `python3 scripts/generate_listings.py`:
+
+```json
+"payments": {
+  "paystack_public_key": "pk_live_…",
+  "momo_number": "+233…",
+  "momo_name": "F.A Vision Enterprise",
+  "momo_network": "MTN",
+  "deposit_percent": 50
+}
+```
+
+- **Paystack (MoMo + Visa/Mastercard).** Sign up free at <https://paystack.com> (Ghana). There's no setup or monthly fee, only a small percentage per successful payment, and money settles to your bank or MoMo wallet. Once your business is activated, copy the **Public key** from *Settings → API Keys & Webhooks* into `paystack_public_key`. Use the `pk_test_…` key first to try it with test cards and test MoMo numbers.
+- **Manual MoMo (no Paystack yet).** Put your MoMo merchant or wallet number in `momo_number`. Customers get your number, the amount and an order reference, pay with *170#, and confirm on WhatsApp. Cards need Paystack.
+- **Never put the Paystack secret key (`sk_…`) in the website.** It goes only in the backend (below).
+
+Every order, paid or not, is saved to the **Orders** tab of the backend Sheet, emailed to you, and listed in the admin under **Orders & payments**, where you can move it along (Confirmed → Delivered → Balance paid). Paystack also notifies the backend directly and an hourly sync catches anything missed, so a payment is recorded even if the customer closes the page. Setup steps: [backend/README.md](backend/README.md#orders--payments). Add `PAYSTACK_SECRET_KEY` to the Apps Script's *Script properties* and the backend checks each online payment with Paystack and re-prices the order from the catalogue, so a tampered or failed payment shows as **UNVERIFIED** or **UNDERPAID**. Always check the Orders tab or your Paystack dashboard before releasing furniture.
+
 ## What's inside
 
 | Path | Purpose |
 |---|---|
 | `index.html` | Storefront: hero, collection with search/filters/sort, product pages (`#product/FAV-001` links), custom-order form, showroom and contacts |
 | `assets/css/site.css`, `assets/js/site.js` | Storefront styling and behaviour |
-| `admin/` | Admin page for posting, editing and sharing products (`admin.js`), photo studio (`photo-studio.js`, `photo-editor.js`) and promo images (`promo.js`) |
+| `assets/js/checkout.js` | Buy now checkout: MoMo / card via Paystack, manual MoMo, deposit, pay on delivery, walk in |
+| `admin/` | Admin page for posting, editing and sharing products (`admin.js`), orders & payments (`orders.js`), photo studio (`photo-studio.js`, `photo-editor.js`) and promo images (`promo.js`) |
 | `assets/js/catalog-config.js` | Categories, product types, colours and icons shared by the site and admin |
 | `assets/js/products-data.js` | Product and business data the site reads. **Generated, don't edit by hand.** |
 | `assets/images/products/` | Product photos uploaded from the admin |
