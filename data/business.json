@@ -13,5 +13,12 @@
   "enquiry_endpoint": "",
   "service_areas": ["Accra", "Weija", "Sowutuom", "Tema", "Koforidua", "Central Region", "Kumasi"],
   "delivery_note": "Delivery available across Accra and to Tema, Koforidua, Central Region and Kumasi (fee depends on location).",
-  "hashtags": ["#FAVisionEnterprise", "#FurnitureGhana", "#AccraFurniture", "#Odorkor", "#HomeDecorGhana", "#OfficeFurnitureGhana"]
+  "hashtags": ["#FAVisionEnterprise", "#FurnitureGhana", "#AccraFurniture", "#Odorkor", "#HomeDecorGhana", "#OfficeFurnitureGhana"],
+  "payments": {
+    "paystack_public_key": "",
+    "momo_number": "",
+    "momo_name": "",
+    "momo_network": "MTN",
+    "deposit_percent": 50
+  }
 }
