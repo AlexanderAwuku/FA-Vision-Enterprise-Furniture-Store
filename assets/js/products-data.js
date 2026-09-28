@@ -13,7 +13,7 @@ window.FAV_DATA = {
     "marketplace_location": "Odorkor, Accra",
     "locations": [
       {
-        "name": "Odorkor (main workshop & showroom)",
+        "name": "Odorkor (main showroom)",
         "area": "Odorkor",
         "address": "Tarazzo Road, opposite Pacific, Odorkor, Accra",
         "region": "Greater Accra",
