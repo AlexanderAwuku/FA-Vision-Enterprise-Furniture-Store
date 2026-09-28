@@ -1,5 +1,6 @@
 (function () {
   const C = window.FAV_CONFIG;
+  const CO = window.FAV_CHECKOUT;
   const { business, products } = window.FAV_DATA;
   const esc = C.escapeHtml;
   const $ = s => document.querySelector(s);
@@ -45,6 +46,7 @@
   $("#year").textContent = new Date().getFullYear();
   $("#address").textContent = business.address;
   $("#directions").href = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent("Tarazzo Road Odorkor Accra");
+  $("#pay-ways").innerHTML = CO.badges();
   $("#phones").innerHTML = (business.phones || [business.whatsapp])
     .map(n => `<li><a href="tel:${esc(n)}">${esc(C.localPhone(n))}</a></li>`).join("");
 
@@ -188,9 +190,11 @@
         <div class="pd-price">${p.price_ghs ? `${C.formatPrice(p.price_ghs)}<small>${p.negotiable ? "Negotiable" : "Fixed price"}</small>` : `<span class="price request">Price on request</span>`}</div>
         <p class="pd-desc">${esc(p.description)}</p>
         ${(p.highlights || []).length ? `<ul class="features">${p.highlights.map(h => `<li>${esc(h)}</li>`).join("")}</ul>` : ""}
+        ${CO.canBuy(p) ? `<div class="pd-pay">${CO.badges()}<small>Pay in full, pay a deposit, pay on delivery or walk in and pay.</small></div>` : ""}
         <dl class="specs">${specs.map(([k, v]) => `<dt>${k}</dt><dd>${esc(v)}</dd>`).join("")}</dl>
         <div class="pd-actions">
-          <a class="btn btn-wa" href="${waLink(enquiry(p))}" target="_blank" rel="noopener">Order on WhatsApp</a>
+          ${CO.canBuy(p) ? `<button class="btn btn-gold pd-buy" id="pd-buy" type="button">Buy now</button>` : ""}
+          <a class="btn btn-wa"href="${waLink(enquiry(p))}" target="_blank" rel="noopener">Order on WhatsApp</a>
           <a class="btn btn-outline" href="tel:${esc(business.phones ? business.phones[0] : business.whatsapp)}">Call</a>
           <button class="btn btn-outline" id="pd-share" type="button">Share</button>
         </div>
@@ -202,6 +206,8 @@
       $("#pd-main").innerHTML = `<img src="${esc(b.dataset.src)}" alt="${esc(p.name)}">`;
       thumbs.querySelectorAll("button").forEach(x => x.setAttribute("aria-current", String(x === b)));
     });
+    const buy = $("#pd-buy");
+    if (buy) buy.addEventListener("click", () => CO.open(p));
     $("#pd-share").addEventListener("click", async () => {
       const data = { title: p.name, text: `${p.name}${p.price_ghs ? " · " + C.formatPrice(p.price_ghs) : ""} from F.A Vision Enterprise`, url: productUrl(p) };
       try {

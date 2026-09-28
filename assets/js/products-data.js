@@ -34,7 +34,14 @@ window.FAV_DATA = {
       "#Odorkor",
       "#HomeDecorGhana",
       "#OfficeFurnitureGhana"
-    ]
+    ],
+    "payments": {
+      "paystack_public_key": "",
+      "momo_number": "",
+      "momo_name": "",
+      "momo_network": "MTN",
+      "deposit_percent": 50
+    }
   },
   "products": [
     {
