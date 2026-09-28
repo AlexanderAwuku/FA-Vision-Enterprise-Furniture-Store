@@ -3,14 +3,15 @@
 | Item | Details |
 |---|---|
 | **Business name** | FA Vision Enterprise |
+| **Owner** | Faustina Awuku |
 | **Trade** | Furniture manufacturing, retail & wholesale · Upholstery · Bookstore & stationery · Printing press |
-| **Locations** | Odorkor (Tarazzo Road, opposite Pacific, Accra) · Omanjor (Accra) · Kasoa (Central Region) |
+| **Locations** | [Odorkor](https://maps.app.goo.gl/Ct4oYoMkmTPGPX3P6) (Tarazzo Road, opposite Pacific Filling Station, Accra) · [Omanjor](https://maps.app.goo.gl/2czi91wUwRAwXcgd7) (Accra) · [Kasoa](https://maps.app.goo.gl/zrELKCZL1NWdqKiE9) (Central Region) |
 | **Service area** | Greater Accra and surrounding areas (delivery available) |
 | **Opening hours** | Monday – Saturday, 8:00am – 6:00pm |
 | **WhatsApp** | 057 264 6176 |
 | **Phone** | 020 747 3267 · 057 264 6176 · 054 614 8923 |
 | **Website** | https://favisionenterprize.github.io/ |
-| **Email** | _add email_ |
+| **Email** | favisionenterprise1@gmail.com |
 
 ## Product lines
 
@@ -46,6 +47,6 @@
 - [ ] Add real product photos to `assets/images/`
 - [x] Website SEO: title, description, structured data (3 locations), sitemap.xml, robots.txt
 - [ ] Verify the site in Google Search Console and submit `sitemap.xml` (see README)
-- [ ] Create / claim a Google Business Profile listing for each location (Odorkor, Omanjor, Kasoa) with website https://favisionenterprize.github.io/
-- [ ] Paste each location's exact Google Maps link into `locations[].maps_url` in `data/business.json`
+- [ ] Claim the three existing Google Maps listings (Odorkor, Omanjor, Kasoa) in Google Business Profile and set website https://favisionenterprize.github.io/
+- [x] Paste each location's exact Google Maps link into `locations[].maps_url` in `data/business.json`
 - [ ] Set https://favisionenterprize.github.io/ as the website on both Facebook pages, WhatsApp Business and Instagram

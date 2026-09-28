@@ -129,6 +129,11 @@
             }
           }
         ]
+      },
+      "email": "favisionenterprise1@gmail.com",
+      "founder": {
+        "@type": "Person",
+        "name": "Faustina Awuku"
       }
     },
     {
@@ -178,7 +183,14 @@
         "Tema",
         "Kumasi",
         "Ghana"
-      ]
+      ],
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 5.5819626,
+        "longitude": -0.266215
+      },
+      "hasMap": "https://maps.app.goo.gl/Ct4oYoMkmTPGPX3P6",
+      "email": "favisionenterprise1@gmail.com"
     },
     {
       "@type": "FurnitureStore",
@@ -227,7 +239,14 @@
         "Tema",
         "Kumasi",
         "Ghana"
-      ]
+      ],
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 5.6353341,
+        "longitude": -0.2921801
+      },
+      "hasMap": "https://maps.app.goo.gl/2czi91wUwRAwXcgd7",
+      "email": "favisionenterprise1@gmail.com"
     },
     {
       "@type": "FurnitureStore",
@@ -276,7 +295,14 @@
         "Tema",
         "Kumasi",
         "Ghana"
-      ]
+      ],
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 5.5009072,
+        "longitude": -0.3827996
+      },
+      "hasMap": "https://maps.app.goo.gl/zrELKCZL1NWdqKiE9",
+      "email": "favisionenterprise1@gmail.com"
     },
     {
       "@type": "WebSite",
@@ -344,6 +370,11 @@
   <link rel="stylesheet" href="assets/css/site.css">
 </head>
 <body>
+  <a class="announce" href="#promo">
+    <span class="announce-tag">NEW</span>
+    <span>Student desk &amp; chair sets <b>GH₵650</b> · <b>GH₵640</b> each from 50 sets</span>
+    <span class="announce-cta">See offer →</span>
+  </a>
   <header class="nav" id="top">
     <div class="wrap nav-inner">
       <a href="#top" class="logo" aria-label="F.A Vision Enterprise home">
@@ -355,6 +386,7 @@
         <a href="#services">Services</a>
         <a href="#why">Why us</a>
         <a href="#custom">Custom orders</a>
+        <a href="#invoice">Invoice</a>
         <a href="#visit">Locations</a>
       </nav>
       <a class="btn btn-gold btn-sm nav-cta js-wa" data-msg="Hello F.A Vision, I'd like to make an enquiry.">WhatsApp us</a>
@@ -386,6 +418,51 @@
     <div class="marquee" aria-hidden="true">
       <div class="marquee-track" id="marquee"></div>
     </div>
+
+    <section class="promo" id="promo" aria-labelledby="promo-title">
+      <div class="wrap promo-inner">
+        <div class="promo-flyer">
+          <a href="assets/images/promo-student-desks.jpg" target="_blank" rel="noopener" aria-label="Open the student desk flyer">
+            <img src="assets/images/promo-student-desks.jpg" alt="F.A Vision Enterprise student desk and chair set flyer: GH₵650 per set, GH₵640 each from 50 sets" width="1080" height="1350" loading="lazy">
+          </a>
+        </div>
+        <div class="promo-copy">
+          <p class="kicker">Back to school · Student desks</p>
+          <h2 id="promo-title">Every student deserves a <em>proper desk</em></h2>
+          <p class="section-sub">Height-adjustable desk and chair sets with a strong powder-coated steel frame, scratch-resistant writing top and anti-slip, quiet floor caps. Built for Senior High to University.</p>
+          <div class="promo-price">
+            <div><b>GH₵650</b><span>per set</span></div>
+            <div><b>GH₵640</b><span>each from 50 sets</span></div>
+          </div>
+          <div class="promo-tabs" role="tablist" aria-label="Who is it for">
+            <button role="tab" aria-selected="true" data-aud="proprietors">School proprietors</button>
+            <button role="tab" aria-selected="false" data-aud="parents">Parents</button>
+            <button role="tab" aria-selected="false" data-aud="everyone">Everyone</button>
+          </div>
+          <div class="promo-panel" data-aud="proprietors">
+            <p><b>Furnish whole classrooms at a bulk price.</b> We deliver and set up at your school, and send a proforma invoice for your board or PTA to approve.</p>
+            <div class="promo-actions">
+              <a class="btn btn-gold js-wa" data-msg="Hello F.A Vision, I'm a school proprietor. I'd like a bulk quote for student desk &amp; chair sets (FAV-014). Number of sets: ">Get a bulk quote</a>
+              <a class="btn btn-ghost" href="#invoice" data-invoice-for="Student Desk Chair Set (FAV-014), bulk order">Request a proforma invoice</a>
+            </div>
+          </div>
+          <div class="promo-panel" data-aud="parents" hidden>
+            <p><b>Give your child a proper study corner at home,</b> or buy a set for your ward's school. Pay on delivery, or reserve and pay at any of our showrooms.</p>
+            <div class="promo-actions">
+              <a class="btn btn-gold" href="#product/FAV-014">Buy a set</a>
+              <a class="btn btn-ghost js-wa" data-msg="Hello F.A Vision, I'm a parent and I'd like a student desk &amp; chair set (FAV-014).">Ask on WhatsApp</a>
+            </div>
+          </div>
+          <div class="promo-panel" data-aud="everyone" hidden>
+            <p><b>Churches, tutorial centres, home offices and donors:</b> sturdy desks for anyone who reads, writes or studies. Donating desks to a school? We deliver straight to them.</p>
+            <div class="promo-actions">
+              <a class="btn btn-gold" href="#product/FAV-014">See the desk set</a>
+              <button class="btn btn-ghost" type="button" id="promo-share">Share this flyer</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
     <section class="shop" id="shop">
       <div class="wrap">
@@ -502,6 +579,45 @@
       </div>
     </section>
 
+    <section class="invoice-req" id="invoice">
+      <div class="wrap custom-inner">
+        <div>
+          <p class="kicker">Invoices</p>
+          <h2>Request an invoice</h2>
+          <p class="section-sub">Need a <b>proforma invoice</b> to get approval from your school board, church or company before paying, or an <b>invoice for an order</b> you've already made? Fill this in and we'll send a proper invoice with our details, your details, the items, prices and payment terms by email and WhatsApp, usually the same working day.</p>
+          <ul class="inv-points">
+            <li>Numbered invoice with date and due date</li>
+            <li>Your organisation name, TIN and PO number if you have them</li>
+            <li>Bulk discounts, deposit paid and balance shown clearly</li>
+          </ul>
+        </div>
+        <form id="invoice-form" class="quote-form" novalidate>
+          <fieldset class="inv-kind">
+            <legend>What do you need?</legend>
+            <label><input type="radio" name="kind" value="proforma" checked> Proforma invoice / quotation <small>before paying</small></label>
+            <label><input type="radio" name="kind" value="order"> Invoice for an order I made</label>
+          </fieldset>
+          <label class="inv-ref" hidden>Order reference <small>(from your order confirmation, e.g. FAV-…)</small><input name="order_ref" autocomplete="off" placeholder="FAV-"></label>
+          <label>Your name<input name="name" required autocomplete="name"></label>
+          <label>School / company / organisation <small>(optional, printed on the invoice)</small><input name="organisation" autocomplete="organization"></label>
+          <div class="inv-row">
+            <label>Phone / WhatsApp<input name="phone" required inputmode="tel" autocomplete="tel"></label>
+            <label>Email <small>(to receive the PDF)</small><input name="email" type="email" autocomplete="email"></label>
+          </div>
+          <label>Billing address / location<input name="address" autocomplete="street-address" placeholder="e.g. Tema Community 25"></label>
+          <div class="inv-row">
+            <label>TIN <small>(optional)</small><input name="tin" autocomplete="off"></label>
+            <label>PO number <small>(optional)</small><input name="po" autocomplete="off"></label>
+          </div>
+          <label>Items and quantities<textarea name="items" rows="4" required placeholder="e.g. 70 student desk &amp; chair sets (FAV-014), delivery to Tema"></textarea></label>
+          <input type="text" name="website" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <p class="co-error" id="invoice-error" role="alert" hidden></p>
+          <button type="submit" class="btn btn-gold">Request invoice</button>
+          <p class="inv-done" id="invoice-done" role="status" hidden></p>
+        </form>
+      </div>
+    </section>
+
     <section class="visit" id="visit">
       <div class="wrap">
         <div class="section-head">
@@ -514,22 +630,22 @@
             <span class="loc-pin"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg></span>
             <span class="tag">Main workshop &amp; showroom</span>
             <h3>Odorkor</h3>
-            <p>Tarazzo Road, opposite Pacific, Odorkor, Accra</p>
-            <a class="btn btn-dark js-dir" href="https://www.google.com/maps/search/?api=1&amp;query=F.A+Vision+Enterprise%2C+Tarazzo+Road%2C+Odorkor%2C+Accra%2C+Ghana" target="_blank" rel="noopener">Get directions</a>
+            <p>Tarazzo Road, opposite Pacific Filling Station, Odorkor, Accra</p>
+            <a class="btn btn-dark js-dir" href="https://maps.app.goo.gl/Ct4oYoMkmTPGPX3P6" target="_blank" rel="noopener">Get directions</a>
           </article>
           <article class="loc" data-loc="1">
             <span class="loc-pin"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg></span>
             <span class="tag">Branch</span>
             <h3>Omanjor</h3>
             <p>Omanjor, Accra</p>
-            <a class="btn btn-dark js-dir" href="https://www.google.com/maps/search/?api=1&amp;query=F.A+Vision+Enterprise%2C+Omanjor%2C+Accra%2C+Ghana" target="_blank" rel="noopener">Get directions</a>
+            <a class="btn btn-dark js-dir" href="https://maps.app.goo.gl/2czi91wUwRAwXcgd7" target="_blank" rel="noopener">Get directions</a>
           </article>
           <article class="loc" data-loc="2">
             <span class="loc-pin"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg></span>
             <span class="tag">Branch</span>
             <h3>Kasoa</h3>
             <p>Kasoa, Central Region</p>
-            <a class="btn btn-dark js-dir" href="https://www.google.com/maps/search/?api=1&amp;query=F.A+Vision+Enterprise%2C+Kasoa%2C+Ghana" target="_blank" rel="noopener">Get directions</a>
+            <a class="btn btn-dark js-dir" href="https://maps.app.goo.gl/zrELKCZL1NWdqKiE9" target="_blank" rel="noopener">Get directions</a>
           </article>
         </div>
         <div class="visit-card">
@@ -539,6 +655,8 @@
             <li><a href="tel:+233572646176">057 264 6176</a> <small>(WhatsApp)</small></li>
             <li><a href="tel:+233546148923">054 614 8923</a></li>
           </ul>
+          <h3>Email</h3>
+          <p><a href="mailto:favisionenterprise1@gmail.com">favisionenterprise1@gmail.com</a></p>
           <h3>Opening hours</h3>
           <p>Monday to Saturday · 8:00am to 6:00pm</p>
           <h3>Ways to pay</h3>
@@ -580,6 +698,7 @@
             <li><a href="#services">Upholstery</a></li>
             <li><a href="#services">Bookstore &amp; stationery</a></li>
             <li><a href="#services">Printing press</a></li>
+            <li><a href="#invoice">Request an invoice</a></li>
           </ul>
         </div>
         <div>
@@ -596,6 +715,7 @@
             <li><a href="tel:+233207473267">020 747 3267</a></li>
             <li><a href="tel:+233572646176">057 264 6176</a></li>
             <li><a href="tel:+233546148923">054 614 8923</a></li>
+            <li><a href="mailto:favisionenterprise1@gmail.com">favisionenterprise1@gmail.com</a></li>
             <li><a href="https://www.facebook.com/FaVisionEnterprise" target="_blank" rel="noopener">Facebook</a></li>
           </ul>
         </div>

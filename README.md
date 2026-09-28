@@ -119,8 +119,8 @@ The website tells Google who we are in three ways:
 To start getting traffic from Google (only the business owner can do these):
 
 1. **Google Search Console:** go to https://search.google.com/search-console, add the property `https://favisionenterprize.github.io/` (URL prefix), choose **HTML tag**, and paste the `<meta name="google-site-verification" ...>` tag into the `<head>` of `index.html` (or send it to Claude to add). Then open **Sitemaps** and submit `sitemap.xml`, and use **URL inspection → Request indexing** on the home page.
-2. **Google Business Profile** (this is what makes you show on Google Maps and "near me" searches): create or claim one listing per location (Odorkor, Omanjor, Kasoa) at https://business.google.com. Use the name **F.A Vision Enterprise**, category *Furniture store* (extra categories: *Furniture wholesaler*, *Upholstery shop*, *Book store*, *Print shop*), the phone numbers above, and set **Website** to `https://favisionenterprize.github.io/`.
-3. **Exact map pins:** once each location has a Google Maps listing or pin, open it in Google Maps, tap **Share → Copy link**, and paste it into that location's `maps_url` in `data/business.json`, then run `python3 scripts/generate_listings.py`. The **Get directions** buttons then open that exact pin instead of a search.
+2. **Google Business Profile** (this is what makes you show on Google Maps and "near me" searches): all three branches are already on Google Maps ("Fa Vision Enterprise Odorkor Branch", "Fa Vision Enterprise - Omanjor Branch", "FA Vision Enterprise Kasoa Branch"). Open each one in Google Maps and tap **Own this business?** / **Claim this business** (or manage it at https://business.google.com if it's already yours). Verify it, then under **Edit profile → Contact** set **Website** to `https://favisionenterprize.github.io/`. Add categories *Furniture store*, *Furniture wholesaler*, *Upholstery shop*, *Book store*, *Print shop*, all three phone numbers, hours, and photos.
+3. **Exact map pins:** done. Each location's Google Maps link and coordinates are in `data/business.json` (`locations[].maps_url`, `lat`, `lng`) and in the website's structured data. If a pin moves, paste the new **Share → Copy link** there and run `python3 scripts/generate_listings.py`.
 4. **Point everything at the website:** put `https://favisionenterprize.github.io/` in the website field of both Facebook pages, WhatsApp Business profile, Instagram bio and any directory listings (Jiji, Tonaton, Ghana Yellow Pages).
 
 ## Changing contact details
@@ -139,7 +139,21 @@ python3 scripts/generate_listings.py
 
 Open `index.html` in any browser. There's no build step and nothing to install. The admin page needs an internet connection because it saves to GitHub.
 
+## Invoices
+
+- **Customers** request an invoice on the website (**Invoice** in the menu, the **Request a proforma invoice** button on the student-desk promo, or **Request an invoice for this order** after checkout). The request goes to the backend Sheet's **Invoices** tab and to WhatsApp, so nothing is lost even before the backend is connected.
+- **You** open `/admin/#invoices` (no GitHub sign-in needed). Each request becomes a draft with the customer's details and a best guess of the lines (e.g. "70 sets FAV-014" → 70 × GH₵650). Adjust quantities, discounts, transport and fixing, deposit or amount already paid, and taxes if you register for VAT, then tap **Generate invoice**.
+- One click: the invoice gets the next number (**PINV100684** for a proforma, **INV…** for an invoice, **RCT…** for a receipt, continuing from the paper series PINV100683), opens ready to **Print / Save as PDF**, and, with the backend connected, is saved as a PDF in your Google Drive folder **FA Vision Invoices**, emailed to the customer and linked in the Sheet. A **Send on WhatsApp** button sends the link.
+- The layout (`assets/js/invoice.js`) follows standard invoice practice: seller and buyer names, addresses, phones, email and TIN; invoice number, date, due date, PO and order reference; currency; itemised rate × quantity − discount; subtotal, discount, taxes, total; amount in words; deposit, paid and balance; how to pay; terms; signature and date.
+- Settings are in `data/business.json` → `invoice`: your **TIN**, `vat_registered`, `taxes` (e.g. `[{"name": "VAT", "rate": 15}]`), `payment_terms_days`, `bank_details` and `terms`. MoMo details come from `payments`.
+
+## Student desk promo
+
+The yellow-and-grey desk set (FAV-014) is promoted with a bar at the very top of every page and a flyer section under the hero, with tabs for **school proprietors** (bulk price, proforma invoice), **parents** (buy one set) and **everyone** (churches, tutorial centres, donors). The flyer image `assets/images/promo-student-desks.jpg` (1080 × 1350) is sized for WhatsApp Status, Instagram and Facebook; **Share this flyer** sends it from a phone.
+
 ## Publish the website free with GitHub Pages
+
+GitHub Pages is already switched on for this repository: every change merged into `main` is live at https://favisionenterprize.github.io/ about a minute later. To check or change it:
 
 1. On GitHub, go to **Settings → Pages**.
 2. Under **Build and deployment**, choose **Deploy from a branch**.

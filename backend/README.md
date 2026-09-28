@@ -44,6 +44,14 @@ Manual MoMo transfers (to your MoMo number, without Paystack) are recorded as or
 
 If your phone numbers or address change, update the `BUSINESS` block at the top of `Code.gs` as well as `data/business.json`.
 
+## Invoices
+
+1. Paste the latest `Code.gs`, save, run **`setup`** again (it adds the **Invoices** tab) and approve the new **Google Drive** permission. The script saves invoice PDFs to a Drive folder called **FA Vision Invoices** and shares each one by link.
+2. **Deploy → Manage deployments → ✎ Edit → Version: New version → Deploy** (same URL).
+3. Invoice numbers continue from **100683** (the paper series PINV100683). To start elsewhere, set the script property **INVOICE_SEQ** to the last number used.
+4. In the website admin open **Invoices**, paste the same **ADMIN_KEY** as for Orders, and requests from the website appear there. **Generate invoice** numbers it, saves the PDF, emails it to the customer (if ticked) and fills in the row.
+
+
 ## Sending a batch email campaign
 
 1. Fill the **Clients** tab. You can paste from [`marketing/clients-template.csv`](../marketing/clients-template.csv). Set **Segment** to `Proprietor` for school owners.

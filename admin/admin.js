@@ -865,13 +865,21 @@
 
   // =========================================================== start
   (async function init() {
+    // Deep links: /admin/#invoices and /admin/#orders open those screens directly.
+    const deepLink = () => {
+      const sel = { "#invoices": "[data-invoices]", "#orders": "[data-orders]" }[location.hash];
+      const el = sel && document.querySelector(sel);
+      if (el) el.click();
+      return !!el;
+    };
     token = store(true);
-    if (!token) return show("login");
+    if (!token) { show("login"); setTimeout(deepLink); return; } // after invoices.js / orders.js have loaded
     busy("Loading your products…");
     try {
       await load();
       renderDash();
       show("dash");
+      deepLink();
     } catch (err) {
       token = "";
       show("login");

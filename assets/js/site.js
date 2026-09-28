@@ -96,6 +96,96 @@
     }
   });
 
+  // ---------- student desk promo ----------
+  const tabs = document.querySelectorAll(".promo-tabs button");
+  tabs.forEach(b => b.addEventListener("click", () => {
+    tabs.forEach(t => t.setAttribute("aria-selected", String(t === b)));
+    document.querySelectorAll(".promo-panel").forEach(p => { p.hidden = p.dataset.aud !== b.dataset.aud; });
+  }));
+  const shareBtn = $("#promo-share");
+  if (shareBtn) shareBtn.addEventListener("click", async () => {
+    const url = SITE + "#promo";
+    const text = "Student desk & chair sets from F.A Vision Enterprise: GH₵650 per set, GH₵640 each from 50 sets.";
+    try {
+      if (navigator.share) {
+        const img = await fetch("assets/images/promo-student-desks.jpg").then(r => r.blob()).catch(() => null);
+        const file = img && new File([img], "fa-vision-student-desks.jpg", { type: "image/jpeg" });
+        if (file && navigator.canShare && navigator.canShare({ files: [file] })) await navigator.share({ files: [file], text: `${text}\n${url}` });
+        else await navigator.share({ title: "F.A Vision student desks", text, url });
+        return;
+      }
+      await navigator.clipboard.writeText(`${text}\n${url}`);
+      toast("Link copied. Paste it in WhatsApp or anywhere.");
+    } catch (err) { /* share sheet dismissed */ }
+  });
+
+  // ---------- invoice requests ----------
+  // Saved in the backend Sheet's "Invoices" tab (when connected) and always sent on WhatsApp,
+  // so no request is lost. The admin's Invoices screen turns a request into a numbered invoice.
+  const inv = $("#invoice-form");
+  const fld = inv.elements;
+  const invRef = inv.querySelector(".inv-ref");
+  const syncKind = () => { invRef.hidden = fld.kind.value !== "order"; };
+  inv.addEventListener("change", e => { if (e.target.name === "kind") syncKind(); });
+
+  // Buttons elsewhere (promo, checkout confirmation) jump here with details filled in.
+  document.addEventListener("click", e => {
+    const a = e.target.closest("[data-invoice-for], [data-invoice-ref]");
+    if (!a) return;
+    e.preventDefault();
+    document.querySelectorAll("dialog[open]").forEach(d => d.close());
+    const d = a.dataset;
+    fld.kind.value = d.invoiceKind || "proforma";
+    if (d.invoiceRef) fld.order_ref.value = d.invoiceRef;
+    if (d.invoiceFor) fld.items.value = d.invoiceFor;
+    if (d.invoiceName) fld.name.value = d.invoiceName;
+    if (d.invoicePhone) fld.phone.value = d.invoicePhone;
+    if (d.invoiceEmail) fld.email.value = d.invoiceEmail;
+    syncKind();
+    history.replaceState(null, "", "#invoice");
+    $("#invoice").scrollIntoView({ behavior: "smooth" });
+    setTimeout(() => (fld.name.value ? fld.items : fld.name).focus({ preventScroll: true }), 500);
+  });
+
+  inv.addEventListener("submit", e => {
+    e.preventDefault();
+    const f = new FormData(inv);
+    const v = k => String(f.get(k) || "").trim();
+    const err = $("#invoice-error");
+    const problem = !v("name") ? "Please enter your name."
+      : v("phone").replace(/\D/g, "").length < 9 ? "Please enter a phone number we can reach you on."
+        : v("email") && !/^\S+@\S+\.\S+$/.test(v("email")) ? "That email address doesn't look right."
+          : !v("items") ? "Please tell us the items and quantities."
+            : v("kind") === "order" && !v("order_ref") ? "Please enter your order reference, or choose proforma invoice." : "";
+    err.hidden = !problem;
+    err.textContent = problem;
+    if (problem) return;
+
+    const id = "IR-" + Date.now().toString(36).toUpperCase();
+    const kindLabel = v("kind") === "order" ? "Invoice for order" : "Proforma invoice";
+    const req = {
+      action: "invoice_request", request_id: id, kind: v("kind"), order_ref: v("order_ref"), name: v("name"),
+      organisation: v("organisation"), phone: v("phone"), email: v("email"), address: v("address"),
+      tin: v("tin"), po: v("po"), items: v("items"), website: v("website"), source: "website"
+    };
+    if (business.enquiry_endpoint) {
+      fetch(business.enquiry_endpoint, {
+        method: "POST", mode: "no-cors", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify(req)
+      }).catch(() => {});
+    }
+    const msg = `Hello F.A Vision, I'd like a ${kindLabel.toLowerCase()}.\nRequest: ${id}\n` +
+      (req.order_ref ? `Order reference: ${req.order_ref}\n` : "") +
+      `Name: ${req.name}\n` + (req.organisation ? `Organisation: ${req.organisation}\n` : "") +
+      `Phone: ${req.phone}\n` + (req.email ? `Email: ${req.email}\n` : "") +
+      (req.address ? `Address: ${req.address}\n` : "") + (req.tin ? `TIN: ${req.tin}\n` : "") + (req.po ? `PO: ${req.po}\n` : "") +
+      `Items: ${req.items}`;
+    window.open(waLink(msg), "_blank", "noopener");
+    const done = $("#invoice-done");
+    done.hidden = false;
+    done.innerHTML = `Thank you, ${esc(req.name.split(" ")[0])}! Your request <b>${esc(id)}</b> has been sent. We'll send your ${esc(kindLabel.toLowerCase())} ${req.email ? `to <b>${esc(req.email)}</b> and ` : ""}on WhatsApp.`;
+    inv.querySelector("button[type=submit]").textContent = "Send another request";
+  });
+
   // ---------- catalogue ----------
   const state = { cat: "All", q: "", sort: "featured" };
   const cats = C.CATEGORIES.filter(c => products.some(p => p.category === c.id));

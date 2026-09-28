@@ -353,6 +353,9 @@ window.FAV_CHECKOUT = (function () {
         <dt>Delivery</dt><dd>${esc(order.area)}</dd>
       </dl>
       <a class="btn btn-wa co-pay" target="_blank" rel="noopener" href="${waLink(receiptText(order, o.wa))}">Send order details on WhatsApp</a>
+      <a class="btn btn-outline co-pay" href="#invoice" data-invoice-kind="order" data-invoice-ref="${esc(order.reference)}"
+        data-invoice-for="${esc(`${order.product} (${order.product_id}) × ${order.quantity}`)}" data-invoice-name="${esc(order.name)}"
+        data-invoice-phone="${esc(order.phone)}" data-invoice-email="${esc(order.email || "")}">Request an invoice for this order</a>
       <p class="co-secure">Keep your reference. It's how we find your order.</p>`;
     bindCopy();
   }

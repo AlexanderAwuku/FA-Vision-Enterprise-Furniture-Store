@@ -5,7 +5,10 @@
  *   orders (MoMo / card / deposit / pay on delivery / walk in) into "Orders",
  *   Paystack webhooks, and order-progress updates from /admin/.
  *   Paystack payments are verified server-side with PAYSTACK_SECRET_KEY.
- * - doGet: unsubscribe links, and the order list for the /admin/ Orders screen.
+ * - doGet: unsubscribe links, and the order and invoice lists for /admin/.
+ * - Invoices: customers request invoices on the website ("Invoices" tab);
+ *   /admin/ turns a request into a numbered invoice, and this script saves it
+ *   as a PDF in Drive ("FA Vision Invoices" folder) and emails it.
  * - syncPaystack: hourly, adds any Paystack payment missing from "Orders".
  * - doGet:  handles unsubscribe links from campaign emails.
  * - Sales / Expenses / Summary tabs: simple finance records.
@@ -19,6 +22,7 @@
 const BUSINESS = {
   name: 'F.A Vision Enterprise',
   address: 'Tarazzo Road, opposite Pacific, Odorkor, Accra',
+  email: 'favisionenterprise1@gmail.com',
   whatsapp: '233572646176',
   phones: '057 264 6176 / 020 747 3267 / 054 614 8923',
   website: 'https://favisionenterprize.github.io/',
@@ -32,6 +36,7 @@ const SHEETS = {
   SUMMARY: 'Summary',
   CAMPAIGN_LOG: 'CampaignLog',
   ORDERS: 'Orders',
+  INVOICES: 'Invoices',
 };
 
 const HEADERS = {
@@ -42,6 +47,8 @@ const HEADERS = {
   CampaignLog: ['Timestamp', 'Campaign', 'Email', 'Result'],
   Orders: ['Timestamp', 'Reference', 'Customer', 'Phone', 'Email', 'Product', 'Quantity', 'UnitPriceGHS', 'TotalGHS',
     'PaymentOption', 'Method', 'PaidNowGHS', 'BalanceGHS', 'Delivery', 'Status', 'Verification', 'Notes', 'Progress'],
+  Invoices: ['Timestamp', 'RequestId', 'Kind', 'OrderRef', 'Customer', 'Organisation', 'Phone', 'Email', 'Address', 'TIN', 'PO',
+    'Items', 'Status', 'InvoiceNo', 'InvoiceDate', 'TotalGHS', 'BalanceGHS', 'PdfUrl', 'Notes'],
 };
 
 // ---------- Setup ----------
@@ -116,7 +123,9 @@ function doPost(e) {
     return json_({ ok: true });
   }
   if (data.action === 'update_order') return updateOrder_(data);
+  if (data.action === 'save_invoice') return saveInvoice_(data);
   if (!data.name) return json_({ ok: false, error: 'name required' });
+  if (data.action === 'invoice_request') return recordInvoiceRequest_(data);
   if (data.action === 'order') return recordOrder_(data);
 
   const clean = (v) => String(v || '').slice(0, 1000).replace(/^[=+\-@]/, "'$&");
@@ -151,6 +160,10 @@ function doGet(e) {
   if (p.action === 'orders') {
     if (!checkAdmin_(p.key)) return json_({ ok: false, error: 'not allowed' });
     return json_({ ok: true, orders: listOrders_(), progress: PROGRESS, sheet: SpreadsheetApp.getActive().getUrl() });
+  }
+  if (p.action === 'invoices') {
+    if (!checkAdmin_(p.key)) return json_({ ok: false, error: 'not allowed' });
+    return json_({ ok: true, requests: listInvoices_(), next: nextInvoiceNumbers_(), sheet: SpreadsheetApp.getActive().getUrl() });
   }
   return json_({ ok: true, service: 'FA Vision Enterprise backend' });
 }
@@ -392,6 +405,145 @@ function findProduct_(id) {
   } catch (err) {
     return null;
   }
+}
+
+// ---------- Invoices ----------
+//
+// 1. A customer fills in "Request an invoice" on the website -> a row in "Invoices".
+// 2. In /admin/ -> Invoices, the owner opens the request, checks the lines and taps
+//    "Generate invoice". The admin sends the finished invoice HTML (from
+//    assets/js/invoice.js) here; this script numbers it, saves a PDF in Drive,
+//    shares it by link, emails it to the customer if asked, and fills in the row.
+// Invoice numbers share one sequence: PINV100684 (proforma), INV100685, ...
+// following on from FA Vision's paper series (PINV100683). Change the start in
+// Project Settings -> Script properties -> INVOICE_SEQ (last number used).
+
+const INVOICE_COL = {};
+HEADERS.Invoices.forEach((h, i) => { INVOICE_COL[h] = i + 1; });
+const INVOICE_FOLDER = 'FA Vision Invoices';
+
+function invoicesSheet_() {
+  return SpreadsheetApp.getActive().getSheetByName(SHEETS.INVOICES) || createSheet_(SHEETS.INVOICES);
+}
+
+function recordInvoiceRequest_(data) {
+  const id = cleanCell_(data.request_id);
+  if (!/^IR-[A-Z0-9]{4,20}$/.test(id)) return json_({ ok: false, error: 'bad request id' });
+  const row = [
+    new Date(), id, data.kind === 'order' ? 'Invoice for order' : 'Proforma', cleanCell_(data.order_ref),
+    cleanCell_(data.name), cleanCell_(data.organisation), cleanCell_(data.phone), cleanCell_(data.email),
+    cleanCell_(data.address), cleanCell_(data.tin), cleanCell_(data.po), cleanCell_(data.items),
+    'Requested', '', '', '', '', '', '',
+  ];
+  const lock = LockService.getScriptLock();
+  lock.waitLock(10000);
+  try {
+    const sh = invoicesSheet_();
+    if (!findRow_(sh, INVOICE_COL.RequestId, id)) sh.appendRow(row);
+  } finally {
+    lock.releaseLock();
+  }
+  const notify = PropertiesService.getScriptProperties().getProperty('NOTIFY_EMAIL');
+  if (notify) {
+    MailApp.sendEmail(notify, `Invoice request ${id} from ${cleanCell_(data.organisation || data.name)}`,
+      `${row[2]}${data.order_ref ? ' (order ' + cleanCell_(data.order_ref) + ')' : ''}\n` +
+      `Name: ${cleanCell_(data.name)}\nOrganisation: ${cleanCell_(data.organisation)}\nPhone: ${cleanCell_(data.phone)}\n` +
+      `Email: ${cleanCell_(data.email)}\nAddress: ${cleanCell_(data.address)}\nTIN: ${cleanCell_(data.tin)}  PO: ${cleanCell_(data.po)}\n\n` +
+      `Items: ${cleanCell_(data.items)}\n\nCreate it in ${siteUrl_()}admin/#invoices`);
+  }
+  return json_({ ok: true });
+}
+
+function findRow_(sh, col, value) {
+  if (!value || sh.getLastRow() < 2) return 0;
+  const vals = sh.getRange(2, col, sh.getLastRow() - 1, 1).getValues();
+  for (let i = 0; i < vals.length; i++) if (String(vals[i][0]) === String(value)) return i + 2;
+  return 0;
+}
+
+function listInvoices_() {
+  const sh = invoicesSheet_();
+  if (sh.getLastRow() < 2) return [];
+  const rows = sh.getRange(2, 1, sh.getLastRow() - 1, HEADERS.Invoices.length).getValues();
+  return rows.slice(-500).reverse().map((r) => {
+    const o = {};
+    HEADERS.Invoices.forEach((h, i) => { o[h] = r[i] instanceof Date ? r[i].toISOString() : r[i]; });
+    return o;
+  });
+}
+
+function invoiceSeq_() {
+  return parseInt(PropertiesService.getScriptProperties().getProperty('INVOICE_SEQ') || '100683', 10);
+}
+
+function nextInvoiceNumbers_() {
+  const n = invoiceSeq_() + 1;
+  return { proforma: 'PINV' + n, invoice: 'INV' + n, tax: 'INV' + n, receipt: 'RCT' + n };
+}
+
+function saveInvoice_(data) {
+  if (!checkAdmin_(data.key)) return json_({ ok: false, error: 'not allowed' });
+  const inv = data.invoice || {};
+  const html = String(data.html || '');
+  if (!html || html.length > 500000) return json_({ ok: false, error: 'no invoice' });
+  const props = PropertiesService.getScriptProperties();
+  const lock = LockService.getScriptLock();
+  lock.waitLock(15000);
+  let number, url, row;
+  try {
+    const sh = invoicesSheet_();
+    // Keep numbers unique: if the number the admin used is already taken by a
+    // different invoice, give this one the next free number.
+    number = cleanCell_(inv.number);
+    const taken = findRow_(sh, INVOICE_COL.InvoiceNo, number);
+    const same = taken && data.request_id && sh.getRange(taken, INVOICE_COL.RequestId).getValue() === data.request_id;
+    const digits = parseInt(String(number).replace(/\D/g, ''), 10) || 0;
+    if (!number || (taken && !same)) {
+      const prefix = String(number).replace(/\d+$/, '') || 'INV';
+      number = prefix + (invoiceSeq_() + 1);
+    }
+    const used = parseInt(number.replace(/\D/g, ''), 10) || digits;
+    if (used > invoiceSeq_()) props.setProperty('INVOICE_SEQ', String(used));
+
+    const finalHtml = html.split(cleanCell_(inv.number)).join(number);
+    const pdf = Utilities.newBlob(finalHtml, 'text/html', number + '.html').getAs('application/pdf').setName(`${number} - ${cleanCell_(inv.customer_name || 'invoice')}.pdf`);
+    const folders = DriveApp.getFoldersByName(INVOICE_FOLDER);
+    const folder = folders.hasNext() ? folders.next() : DriveApp.createFolder(INVOICE_FOLDER);
+    const file = folder.createFile(pdf);
+    file.setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW);
+    url = file.getUrl();
+
+    const values = {
+      Kind: inv.kind_label, OrderRef: inv.order_ref, Customer: inv.customer_name, Organisation: inv.organisation,
+      Phone: inv.phone, Email: inv.email, Address: inv.address, TIN: inv.tin, PO: inv.po, Status: 'Invoice sent',
+      InvoiceNo: number, InvoiceDate: inv.issue_date, TotalGHS: Number(inv.total) || 0, BalanceGHS: Number(inv.balance) || 0, PdfUrl: url,
+    };
+    row = findRow_(sh, INVOICE_COL.RequestId, data.request_id);
+    if (!row) {
+      sh.appendRow(HEADERS.Invoices.map((h) => (h === 'Timestamp' ? new Date() : h === 'RequestId' ? cleanCell_(data.request_id || 'ADMIN-' + number) : '')));
+      row = sh.getLastRow();
+    }
+    Object.keys(values).forEach((h) => {
+      if (values[h] !== undefined && values[h] !== '') sh.getRange(row, INVOICE_COL[h]).setValue(typeof values[h] === 'number' ? values[h] : cleanCell_(values[h]));
+    });
+
+    if (data.email_customer && /^\S+@\S+\.\S+$/.test(inv.email || '')) {
+      MailApp.sendEmail({
+        to: inv.email,
+        replyTo: BUSINESS.email,
+        name: BUSINESS.name,
+        subject: `${inv.kind_label || 'Invoice'} ${number} from ${BUSINESS.name}`,
+        htmlBody: `<p>Dear ${cleanCell_(inv.customer_name || 'Customer')},</p><p>Please find attached ${cleanCell_(inv.kind_label || 'invoice').toLowerCase()} <b>${number}</b> ` +
+          `for GHS ${Number(inv.total).toFixed(2)}${Number(inv.balance) && Number(inv.balance) !== Number(inv.total) ? ` (balance due GHS ${Number(inv.balance).toFixed(2)})` : ''}.</p>` +
+          `<p>You can also view it here: <a href="${url}">${url}</a></p><p>Thank you for choosing ${BUSINESS.name}.<br>${BUSINESS.phones}<br>${BUSINESS.website}</p>`,
+        attachments: [pdf],
+      });
+      sh.getRange(row, INVOICE_COL.Notes).setValue('Emailed ' + new Date().toISOString().slice(0, 10));
+    }
+  } finally {
+    lock.releaseLock();
+  }
+  return json_({ ok: true, number, url });
 }
 
 // ---------- Batch email campaigns ----------
