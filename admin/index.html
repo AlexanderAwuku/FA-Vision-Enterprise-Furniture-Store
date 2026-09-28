@@ -59,7 +59,10 @@
         <h1>My products</h1>
         <p class="muted" id="dash-sub">Loading…</p>
       </div>
-      <button class="btn btn-sell" data-go="post">+ Post a product</button>
+      <div class="dash-head-actions">
+        <button class="btn btn-ghost" data-orders>Orders &amp; payments</button>
+        <button class="btn btn-sell" data-go="post">+ Post a product</button>
+      </div>
     </div>
     <div class="stats" id="stats"></div>
     <div class="dash-tools">
@@ -81,6 +84,22 @@
         <button class="btn btn-sell btn-sm" id="save-all">Save changes</button>
       </div>
     </div>
+  </main>
+
+  <!-- ============ ORDERS & PAYMENTS ============ -->
+  <main class="screen" id="screen-orders" hidden>
+    <div class="dash-head">
+      <div>
+        <h1>Orders &amp; payments</h1>
+        <p class="muted">Every website order, MoMo and card payment, deposit, pay-on-delivery and walk-in reservation, from your backend Sheet.</p>
+      </div>
+      <div class="dash-head-actions">
+        <button class="btn btn-ghost btn-sm" data-go="dash">← My products</button>
+        <button class="btn btn-ghost btn-sm" id="orders-refresh">Refresh</button>
+        <button class="btn btn-ghost btn-sm" id="orders-forget">Forget key</button>
+      </div>
+    </div>
+    <div id="orders-body"></div>
   </main>
 
   <!-- ============ POST / EDIT (Jiji-style) ============ -->
@@ -232,6 +251,7 @@
       <div class="step-actions center">
         <button class="btn btn-primary" data-go="post">Post another product</button>
         <button class="btn btn-ghost" data-go="dash">Back to my products</button>
+        <button class="btn btn-ghost" data-orders>Orders &amp; payments</button>
       </div>
     </div>
   </main>
@@ -244,5 +264,6 @@
   <script src="photo-editor.js"></script>
   <script src="promo.js"></script>
   <script src="admin.js"></script>
+  <script src="orders.js"></script>
 </body>
 </html>
