@@ -7,7 +7,7 @@ Online presence for **F.A Vision Enterprise**: bulk & wholesale furniture, uphol
 
 ## About
 
-FA Vision Enterprise makes and sells quality, handcrafted furniture for homes, offices and schools, in single pieces or in bulk at wholesale prices. It also does upholstery and re-upholstery, runs a bookstore (books and stationery) and a printing press. This repository holds the store's website, its admin page and the Facebook listing kit.
+FA Vision Enterprise sells quality furniture for homes, offices and schools, in single pieces or in bulk at wholesale prices. It also does upholstery and re-upholstery, runs a bookstore (books and stationery) and a printing press. This repository holds the store's website, its admin page and the Facebook listing kit.
 
 Product prices are still starting estimates and there are no product photos yet. Post real photos and prices from the admin page before promoting the site widely.
 
@@ -192,7 +192,7 @@ WhatsApp 057 264 6176 · Call 020 747 3267 / 057 264 6176 / 054 614 8923 · [Fac
 
 ## Locations
 
-- **Odorkor** (main workshop & showroom): Tarazzo Road, opposite Pacific, Odorkor, Accra
+- **Odorkor** (main showroom): Tarazzo Road, opposite Pacific, Odorkor, Accra
 - **Omanjor**: Omanjor, Accra
 - **Kasoa**: Kasoa, Central Region
 
