@@ -56,7 +56,7 @@ window.FAV_DATA = {
       "https://www.facebook.com/FaVisionEnt/"
     ],
     "website": "https://favisionenterprize.github.io/",
-    "enquiry_endpoint": "",
+    "enquiry_endpoint": "https://script.google.com/macros/s/AKfycbz1P-CLRGiswKLWYDJMPTaOZNhtwH55qIhhCfqNKJllNRZ5Dpro_wcbR7NAVmDFVdjU2w/exec",
     "service_areas": [
       "Accra",
       "Weija",
