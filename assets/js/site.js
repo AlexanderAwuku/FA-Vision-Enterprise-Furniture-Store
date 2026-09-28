@@ -97,11 +97,48 @@
   });
 
   // ---------- student desk promo ----------
-  const tabs = document.querySelectorAll(".promo-tabs button");
-  tabs.forEach(b => b.addEventListener("click", () => {
-    tabs.forEach(t => t.setAttribute("aria-selected", String(t === b)));
-    document.querySelectorAll(".promo-panel").forEach(p => { p.hidden = p.dataset.aud !== b.dataset.aud; });
-  }));
+  const promoPics = ["fav-014-muk5690f-1.jpg", "fav-014-muk5690f-3.jpg", "fav-014-muk5690f-4.jpg", "fav-014-muk5690f-5.jpg"]
+    .map(f => "assets/images/products/" + f);
+  const pImg = $("#promo-img"), pDots = $("#promo-dots");
+  let pIdx = 0;
+  if (pImg && pDots) {
+    pDots.innerHTML = promoPics.map((_, i) => `<span class="${i ? "" : "on"}"></span>`).join("");
+    promoPics.slice(1).forEach(src => { const i = new Image(); i.src = src; });
+    $("#promo-pic").addEventListener("click", () => {
+      pIdx = (pIdx + 1) % promoPics.length;
+      pImg.classList.add("swap");
+      setTimeout(() => { pImg.src = promoPics[pIdx]; pImg.classList.remove("swap"); }, 200);
+      [...pDots.children].forEach((d, i) => d.classList.toggle("on", i === pIdx));
+    });
+  }
+  const pQty = $("#promo-qty");
+  if (pQty) {
+    const cedis = n => "GH₵" + n.toLocaleString("en-GH");
+    const quip = n => n === 1 ? "One proper study corner, coming right up."
+      : n < 10 ? "A few happy students. Nice!"
+      : n < 50 ? `${50 - n} more set${50 - n === 1 ? "" : "s"} and you unlock the bulk price.`
+      : n < 150 ? "Bulk price unlocked! A whole classroom, sorted."
+      : "Okay, Headmaster! We'll bring the truck.";
+    const render = () => {
+      let n = Math.max(1, Math.min(2000, parseInt(pQty.value, 10) || 1));
+      pQty.value = n;
+      const each = n >= 50 ? 640 : 650;
+      $("#promo-each").textContent = `${cedis(each)} per set`;
+      $(".promo-total").classList.toggle("bulk", n >= 50);
+      const sum = $("#promo-sum");
+      sum.textContent = cedis(each * n);
+      sum.classList.remove("bump"); void sum.offsetWidth; sum.classList.add("bump");
+      $("#promo-quip").textContent = quip(n);
+      $("#promo-order").href = waLink(`Hello F.A Vision, I'd like ${n} student desk & chair set${n > 1 ? "s" : ""} (FAV-014) at ${cedis(each)} each, total ${cedis(each * n)}.`);
+    };
+    document.querySelectorAll(".promo-stepper button").forEach(b => b.addEventListener("click", () => {
+      pQty.value = (parseInt(pQty.value, 10) || 1) + Number(b.dataset.step); render();
+    }));
+    document.querySelectorAll(".promo-quick button").forEach(b => b.addEventListener("click", () => { pQty.value = b.dataset.qty; render(); }));
+    pQty.addEventListener("input", () => { if (pQty.value !== "") render(); });
+    pQty.addEventListener("blur", render);
+    render();
+  }
   const shareBtn = $("#promo-share");
   if (shareBtn) shareBtn.addEventListener("click", async () => {
     const url = SITE + "#promo";
