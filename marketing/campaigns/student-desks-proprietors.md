@@ -17,7 +17,7 @@ The live version is the `student-desks-2026` block in [`backend/apps-script/Code
 
 > Good day Sir/Madam 🙏🏾
 > This is F.A Vision Enterprise, furniture makers on Tarazzo Road, opposite Pacific, Odorkor.
-> We make **strong student desks** (hardwood top, steel frame) for schools, single and double seater.
+> We sell **strong student desks** (hardwood top, steel frame) for schools, single and double seater.
 > ✅ Discount for 20 desks and above
 > ✅ Delivery and setup in your classrooms
 > ✅ Repairs whenever needed
@@ -31,7 +31,7 @@ WhatsApp Business "Broadcast lists" only reach people who have saved your number
 - Past customers and school contacts you already have
 - Ghana Education Service / GNACOPS (private schools association) district directories
 - Google Maps: search "school" around each target area and note the listed phone and email
-- Walk-ins: visit schools near the workshop with a flyer and the website address
+- Walk-ins: visit schools near the showroom with a flyer and the website address
 - Before sending: add a price and real photos to **School Desk and Chair Set** (FAV-014) from the admin page, because the email links straight to it
 
 Put every contact in the **Clients** tab of the backend Sheet with `Segment = Proprietor`.
