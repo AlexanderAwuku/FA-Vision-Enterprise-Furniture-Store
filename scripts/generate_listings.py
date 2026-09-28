@@ -111,7 +111,7 @@ def group_captions(business, product):
         f"🛋️ {product['name']} available now!\n{bullet_list}\n💰 {price}\n"
         f"📍 Odorkor, Accra, delivery available\n📞 WhatsApp {wa}\n{tags}",
         f"Looking for a quality {product['name'].lower()}? {first}.\n"
-        f"We make it right here in Odorkor, Accra. {price}.\n"
+        f"Available at our showroom in Odorkor, Accra. {price}.\n"
         f"Send us a message or WhatsApp {wa} to order. {tags}",
         f"NEW FROM F.A VISION ✨ {product['name']}\n{price} | "
         f"{'Made to order in your size and colour' if product.get('custom_order') else 'Ready for pickup'}\n"
