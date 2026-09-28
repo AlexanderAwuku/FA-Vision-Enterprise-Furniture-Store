@@ -1,7 +1,12 @@
 /**
  * FA Vision Enterprise backend (Google Apps Script, bound to a Google Sheet).
  *
- * - doPost: receives website enquiries into the "Enquiries" tab.
+ * - doPost: receives website enquiries into the "Enquiries" tab, website
+ *   orders (MoMo / card / deposit / pay on delivery / walk in) into "Orders",
+ *   Paystack webhooks, and order-progress updates from /admin/.
+ *   Paystack payments are verified server-side with PAYSTACK_SECRET_KEY.
+ * - doGet: unsubscribe links, and the order list for the /admin/ Orders screen.
+ * - syncPaystack: hourly, adds any Paystack payment missing from "Orders".
  * - doGet:  handles unsubscribe links from campaign emails.
  * - Sales / Expenses / Summary tabs: simple finance records.
  * - sendCampaign: batch-mails clients in the "Clients" tab, within the
@@ -26,6 +31,7 @@ const SHEETS = {
   EXPENSES: 'Expenses',
   SUMMARY: 'Summary',
   CAMPAIGN_LOG: 'CampaignLog',
+  ORDERS: 'Orders',
 };
 
 const HEADERS = {
@@ -34,6 +40,8 @@ const HEADERS = {
   Sales: ['Date', 'Customer', 'Product', 'Quantity', 'UnitPriceGHS', 'TotalGHS', 'AmountPaidGHS', 'BalanceGHS', 'Notes'],
   Expenses: ['Date', 'Category', 'Description', 'AmountGHS', 'PaidTo', 'Notes'],
   CampaignLog: ['Timestamp', 'Campaign', 'Email', 'Result'],
+  Orders: ['Timestamp', 'Reference', 'Customer', 'Phone', 'Email', 'Product', 'Quantity', 'UnitPriceGHS', 'TotalGHS',
+    'PaymentOption', 'Method', 'PaidNowGHS', 'BalanceGHS', 'Delivery', 'Status', 'Verification', 'Notes', 'Progress'],
 };
 
 // ---------- Setup ----------
@@ -80,6 +88,15 @@ function setup() {
   if (!props.getProperty('NOTIFY_EMAIL')) {
     props.setProperty('NOTIFY_EMAIL', Session.getEffectiveUser().getEmail());
   }
+  // Admin key for the website's /admin/ Orders screen.
+  if (!props.getProperty('ADMIN_KEY')) {
+    props.setProperty('ADMIN_KEY', Utilities.getUuid().replace(/-/g, '').slice(0, 20));
+  }
+  // Hourly Paystack sync (safety net for payments whose customer closed the page).
+  if (!ScriptApp.getProjectTriggers().some((t) => t.getHandlerFunction() === 'syncPaystack')) {
+    ScriptApp.newTrigger('syncPaystack').timeBased().everyHours(1).create();
+  }
+  Logger.log('Admin key for the Orders screen: ' + props.getProperty('ADMIN_KEY'));
 }
 
 // ---------- Web endpoints ----------
@@ -92,7 +109,15 @@ function doPost(e) {
     return json_({ ok: false, error: 'bad request' });
   }
   if (data.website) return json_({ ok: true }); // honeypot
+  // Paystack webhook. Apps Script can't read the signature header, so the
+  // payment is re-checked with Paystack's API before anything is recorded.
+  if (data.event) {
+    if (data.event === 'charge.success' && data.data && data.data.reference) upsertPaystackPayment_(data.data.reference);
+    return json_({ ok: true });
+  }
+  if (data.action === 'update_order') return updateOrder_(data);
   if (!data.name) return json_({ ok: false, error: 'name required' });
+  if (data.action === 'order') return recordOrder_(data);
 
   const clean = (v) => String(v || '').slice(0, 1000).replace(/^[=+\-@]/, "'$&");
   const lock = LockService.getScriptLock();
@@ -123,11 +148,250 @@ function doGet(e) {
       ? '<p style="font-family:sans-serif">You have been unsubscribed from FA Vision Enterprise emails.</p>'
       : '<p style="font-family:sans-serif">This link is no longer valid.</p>');
   }
+  if (p.action === 'orders') {
+    if (!checkAdmin_(p.key)) return json_({ ok: false, error: 'not allowed' });
+    return json_({ ok: true, orders: listOrders_(), progress: PROGRESS, sheet: SpreadsheetApp.getActive().getUrl() });
+  }
   return json_({ ok: true, service: 'FA Vision Enterprise backend' });
 }
 
 function json_(obj) {
   return ContentService.createTextOutput(JSON.stringify(obj)).setMimeType(ContentService.MimeType.JSON);
+}
+
+// ---------- Website orders & payments ----------
+//
+// Every order and payment lands in the "Orders" tab, whichever way it arrives:
+//   1. the website posts the order when the customer finishes checkout;
+//   2. Paystack calls this web app (webhook) when a payment succeeds, even if
+//      the customer closed the page;
+//   3. syncPaystack() runs every hour and adds any Paystack payment still missing.
+// Online payments are always confirmed with Paystack's API before they count.
+
+const ORDER_COL = {};
+HEADERS.Orders.forEach((h, i) => { ORDER_COL[h] = i + 1; });
+const PROGRESS = ['New', 'Confirmed', 'In production', 'Ready', 'Delivered', 'Balance paid', 'Cancelled'];
+
+const cleanCell_ = (v) => String(v == null ? '' : v).slice(0, 500).replace(/^[=+\-@]/, "'$&");
+
+function ordersSheet_() {
+  return SpreadsheetApp.getActive().getSheetByName(SHEETS.ORDERS) || createSheet_(SHEETS.ORDERS);
+}
+
+function findOrderRow_(sh, ref) {
+  if (sh.getLastRow() < 2) return 0;
+  const refs = sh.getRange(2, ORDER_COL.Reference, sh.getLastRow() - 1, 1).getValues();
+  for (let i = 0; i < refs.length; i++) if (refs[i][0] === ref) return i + 2;
+  return 0;
+}
+
+function recordOrder_(data) {
+  const ref = cleanCell_(data.reference);
+  if (!/^FAV-[A-Z0-9]{6,20}$/.test(ref)) return json_({ ok: false, error: 'bad reference' });
+
+  // Re-price from the live catalogue: the browser's numbers are never trusted.
+  const product = findProduct_(data.product_id);
+  const qty = Math.max(1, Math.min(500, parseInt(data.quantity, 10) || 1));
+  const unit = product && product.price_ghs ? Number(product.price_ghs) : Number(data.unit_price) || 0;
+  const total = unit * qty;
+  const notes = [];
+  if (!product) notes.push('Product not found in catalogue; price from website.');
+  if (Number(data.total) !== total) notes.push(`Website total ${data.total} vs catalogue ${total}.`);
+
+  let verification = 'Not required (nothing paid online)';
+  let paidNow = 0;
+  let method = cleanCell_(data.method);
+  if (Number(data.amount_due) > 0) {
+    const v = verifyPaystack_(ref);
+    verification = v.note;
+    paidNow = v.amount;
+    if (v.channel) method = v.channel;
+    if (!v.ok && !v.configured) verification = 'UNVERIFIED: check your MoMo wallet / Paystack dashboard';
+  }
+  if (paidNow && data.plan === 'full' && paidNow + 0.01 < total) notes.push(`UNDERPAID: expected GHS ${total}.`);
+
+  const row = [
+    new Date(), ref, cleanCell_(data.name), cleanCell_(data.phone), cleanCell_(data.email),
+    cleanCell_(`${data.product} (${data.product_id})`), qty, unit, total,
+    cleanCell_(data.plan_label || data.plan), method, paidNow, Math.max(0, total - paidNow),
+    cleanCell_(data.area), cleanCell_(data.status), verification, notes.join(' '), 'New',
+  ];
+
+  const lock = LockService.getScriptLock();
+  lock.waitLock(10000);
+  let isNew = true;
+  try {
+    const sh = ordersSheet_();
+    const r = findOrderRow_(sh, ref);
+    if (r) {
+      // The webhook or hourly sync got here first: fill in the customer's details, keep payment facts.
+      isNew = false;
+      const cur = sh.getRange(r, 1, 1, row.length).getValues()[0];
+      const merged = row.map((v, i) => {
+        const h = HEADERS.Orders[i];
+        if (h === 'Timestamp' || h === 'Progress') return cur[i] || v;
+        if (h === 'Notes' || h === 'Status') return v;
+        if (h === 'PaidNowGHS' || h === 'BalanceGHS' || h === 'Verification' || h === 'Method') return cur[ORDER_COL.PaidNowGHS - 1] ? cur[i] : v;
+        return v || cur[i];
+      });
+      sh.getRange(r, 1, 1, merged.length).setValues([merged]);
+    } else {
+      sh.appendRow(row);
+    }
+  } finally {
+    lock.releaseLock();
+  }
+
+  if (isNew) notifyOrder_(ref, data.name, data.phone, `${data.product} × ${qty}`, total, data.plan_label || data.plan, paidNow, verification, data.area, notes);
+  return json_({ ok: true });
+}
+
+function notifyOrder_(ref, name, phone, item, total, plan, paid, verification, area, notes) {
+  const notify = PropertiesService.getScriptProperties().getProperty('NOTIFY_EMAIL');
+  if (!notify) return;
+  const wa = String(phone || '').replace(/\D/g, '').replace(/^0/, '233');
+  MailApp.sendEmail(notify, `New order ${ref}: ${cleanCell_(item)} (${cleanCell_(plan)})`,
+    `Customer: ${cleanCell_(name)}\nPhone: ${cleanCell_(phone)}\nItem: ${cleanCell_(item)}\nOrder total: GHS ${total}\n` +
+    `Payment: ${cleanCell_(plan)}\nPaid online: GHS ${paid} (${verification})\nBalance: GHS ${Math.max(0, total - paid)}\n` +
+    `Delivery: ${cleanCell_(area)}\n` + ((notes || []).length ? `\nNOTES: ${notes.join(' ')}\n` : '') +
+    (wa ? `\nWhatsApp the customer: https://wa.me/${wa}\n` : '') +
+    `Orders sheet: ${SpreadsheetApp.getActive().getUrl()}`);
+}
+
+// Asks Paystack directly whether the payment with this reference succeeded.
+// Set PAYSTACK_SECRET_KEY (sk_live_… / sk_test_…) in Project Settings -> Script properties.
+// Never put the secret key in the website.
+function verifyPaystack_(reference) {
+  const key = PropertiesService.getScriptProperties().getProperty('PAYSTACK_SECRET_KEY');
+  if (!key) return { ok: false, configured: false, amount: 0, note: 'UNVERIFIED: set PAYSTACK_SECRET_KEY' };
+  try {
+    const res = UrlFetchApp.fetch('https://api.paystack.co/transaction/verify/' + encodeURIComponent(reference), {
+      headers: { Authorization: 'Bearer ' + key }, muteHttpExceptions: true,
+    });
+    const body = JSON.parse(res.getContentText());
+    const tx = body && body.data;
+    if (!body.status || !tx) return { ok: false, configured: true, amount: 0, note: 'NOT FOUND on Paystack (manual MoMo? check your wallet)' };
+    if (tx.status !== 'success' || tx.currency !== 'GHS') return { ok: false, configured: true, amount: 0, note: `Paystack: ${tx.status} ${tx.currency}` };
+    const amount = (tx.amount || 0) / 100;
+    return { ok: true, configured: true, amount, channel: channelName_(tx), tx, note: `VERIFIED by Paystack: GHS ${amount}` };
+  } catch (err) {
+    return { ok: false, configured: true, amount: 0, note: 'Verification error: ' + err };
+  }
+}
+
+function channelName_(tx) {
+  if (tx.channel === 'card') return 'Card' + (tx.authorization && tx.authorization.brand ? ` (${tx.authorization.brand})` : '');
+  if (tx.channel === 'mobile_money') return 'Mobile Money' + (tx.authorization && tx.authorization.bank ? ` (${tx.authorization.bank})` : '');
+  return tx.channel || '';
+}
+
+// Records a Paystack payment that isn't in the sheet yet, or marks an existing order verified.
+function upsertPaystackPayment_(reference) {
+  if (!/^FAV-[A-Z0-9]{6,20}$/.test(String(reference))) return false; // not a website payment
+  const v = verifyPaystack_(reference);
+  if (!v.ok) return false;
+  const lock = LockService.getScriptLock();
+  lock.waitLock(10000);
+  try {
+    const sh = ordersSheet_();
+    const r = findOrderRow_(sh, reference);
+    if (r) {
+      const range = sh.getRange(r, 1, 1, HEADERS.Orders.length);
+      const cur = range.getValues()[0];
+      if (String(cur[ORDER_COL.Verification - 1]).indexOf('VERIFIED') === 0) return false;
+      const total = Number(cur[ORDER_COL.TotalGHS - 1]) || v.amount;
+      cur[ORDER_COL.PaidNowGHS - 1] = v.amount;
+      cur[ORDER_COL.BalanceGHS - 1] = Math.max(0, total - v.amount);
+      cur[ORDER_COL.Method - 1] = v.channel;
+      cur[ORDER_COL.Verification - 1] = v.note;
+      range.setValues([cur]);
+      return true;
+    }
+    const f = {};
+    ((v.tx.metadata && v.tx.metadata.custom_fields) || []).forEach((c) => { f[c.variable_name] = c.value; });
+    sh.appendRow([
+      new Date(v.tx.paid_at || v.tx.created_at || Date.now()), reference, cleanCell_(f.customer),
+      cleanCell_(f.phone), cleanCell_(v.tx.customer && v.tx.customer.email), cleanCell_(f.product), '', '', '',
+      cleanCell_(f.plan), v.channel, v.amount, '', cleanCell_(f.delivery), 'Paid (recorded by Paystack)', v.note,
+      'Customer did not return to the website after paying; confirm the order details.', 'New',
+    ]);
+    notifyOrder_(reference, f.customer, f.phone, f.product, v.amount, f.plan, v.amount, v.note, f.delivery,
+      ['Recorded from Paystack; the customer did not return to the site.']);
+    return true;
+  } finally {
+    lock.releaseLock();
+  }
+}
+
+// Hourly safety net: pulls the last 3 days of successful Paystack payments.
+function syncPaystack() {
+  const key = PropertiesService.getScriptProperties().getProperty('PAYSTACK_SECRET_KEY');
+  if (!key) return 0;
+  const from = new Date(Date.now() - 3 * 864e5).toISOString();
+  const res = UrlFetchApp.fetch(`https://api.paystack.co/transaction?status=success&perPage=100&from=${encodeURIComponent(from)}`, {
+    headers: { Authorization: 'Bearer ' + key }, muteHttpExceptions: true,
+  });
+  const list = (JSON.parse(res.getContentText()).data) || [];
+  let added = 0;
+  list.forEach((tx) => { if (upsertPaystackPayment_(tx.reference)) added++; });
+  return added;
+}
+
+// ---------- Admin API (used by the website's /admin/ Orders screen) ----------
+
+function checkAdmin_(key) {
+  const want = PropertiesService.getScriptProperties().getProperty('ADMIN_KEY');
+  return !!want && String(key || '') === want;
+}
+
+function listOrders_() {
+  const sh = ordersSheet_();
+  if (sh.getLastRow() < 2) return [];
+  const rows = sh.getRange(2, 1, sh.getLastRow() - 1, HEADERS.Orders.length).getValues();
+  return rows.slice(-500).reverse().map((r) => {
+    const o = {};
+    HEADERS.Orders.forEach((h, i) => { o[h] = r[i] instanceof Date ? r[i].toISOString() : r[i]; });
+    return o;
+  });
+}
+
+function updateOrder_(data) {
+  if (!checkAdmin_(data.key)) return json_({ ok: false, error: 'not allowed' });
+  const ref = String(data.reference || '');
+  const lock = LockService.getScriptLock();
+  lock.waitLock(10000);
+  try {
+    const sh = ordersSheet_();
+    const r = findOrderRow_(sh, ref);
+    if (!r) return json_({ ok: false, error: 'order not found' });
+    if (data.progress && PROGRESS.indexOf(data.progress) !== -1) sh.getRange(r, ORDER_COL.Progress).setValue(data.progress);
+    if (data.progress === 'Balance paid') sh.getRange(r, ORDER_COL.BalanceGHS).setValue(0);
+    if (data.note) {
+      const cell = sh.getRange(r, ORDER_COL.Notes);
+      cell.setValue([cell.getValue(), cleanCell_(data.note)].filter(String).join(' | '));
+    }
+  } finally {
+    lock.releaseLock();
+  }
+  return json_({ ok: true });
+}
+
+function createSheet_(name) {
+  const sh = SpreadsheetApp.getActive().insertSheet(name);
+  sh.appendRow(HEADERS[name]);
+  sh.setFrozenRows(1);
+  sh.getRange(1, 1, 1, HEADERS[name].length).setFontWeight('bold');
+  return sh;
+}
+
+function findProduct_(id) {
+  try {
+    const url = (PropertiesService.getScriptProperties().getProperty('SITE_URL') || BUSINESS.website).replace(/\/?$/, '/');
+    const list = JSON.parse(UrlFetchApp.fetch(url + 'data/products.json', { muteHttpExceptions: true }).getContentText());
+    return (Array.isArray(list) ? list : list.products || []).find((p) => p.id === id) || null;
+  } catch (err) {
+    return null;
+  }
 }
 
 // ---------- Batch email campaigns ----------
