@@ -1,13 +1,13 @@
 # FA Vision Enterprise Furniture Store
 
-Online presence for **FA Vision Enterprise**, a furniture business based in Odorkor, Accra, Ghana.
+Online presence for **F.A Vision Enterprise**: bulk & wholesale furniture, upholstery, a bookstore and a printing press in **Odorkor, Omanjor and Kasoa** (Accra / Central Region, Ghana).
 
 **Live website:** https://favisionenterprize.github.io/
 **Admin (post products):** https://favisionenterprize.github.io/admin/
 
 ## About
 
-FA Vision Enterprise makes and sells quality, handcrafted furniture for homes, offices and schools. This repository holds the store's website, its admin page and the Facebook listing kit.
+FA Vision Enterprise makes and sells quality, handcrafted furniture for homes, offices and schools, in single pieces or in bulk at wholesale prices. It also does upholstery and re-upholstery, runs a bookstore (books and stationery) and a printing press. This repository holds the store's website, its admin page and the Facebook listing kit.
 
 Product prices are still starting estimates and there are no product photos yet. Post real photos and prices from the admin page before promoting the site widely.
 
@@ -95,9 +95,37 @@ Every order, paid or not, is saved to the **Orders** tab of the backend Sheet, e
 | `docs/facebook-posting-playbook.md` | Weekly posting routine and rules for staying within Facebook's limits |
 | `docs/business-profile.md` | Business profile, product lines and operating details |
 
+## Brand
+
+The site uses the F.A Vision logo from Canva ("FA VISION ENT LOGO") and its colours:
+
+| Colour | Hex | From the logo |
+|---|---|---|
+| Blue | `#0d55af` | "Vision" (main buttons, links) |
+| Red | `#f42c2c` | "FA", "ENTERPRISE" (labels, directions buttons) |
+| Pink | `#e6506e` | Ring, top left |
+| Purple | `#b03ea6` | Ring, right |
+
+The colours are CSS variables at the top of `assets/css/site.css` (`--brand-*`). Logo files: `assets/images/logo.png` (header), `logo-512.png` (Google), `favicon.png`, `apple-touch-icon.png`. The share picture for WhatsApp/Facebook is `assets/images/og-cover.jpg`.
+
+## Google search (SEO) and getting found
+
+The website tells Google who we are in three ways:
+
+- **Page title and description** mention wholesale furniture, upholstery, bookstore, printing press, Odorkor, Omanjor, Kasoa and all three phone numbers.
+- **Structured data** (the `application/ld+json` blocks in `index.html`) lists the business, its three locations as furniture stores, opening hours, phone numbers, services and Facebook pages, plus the FAQ.
+- **`robots.txt` and `sitemap.xml`** point search engines at `https://favisionenterprize.github.io/`.
+
+To start getting traffic from Google (only the business owner can do these):
+
+1. **Google Search Console:** go to https://search.google.com/search-console, add the property `https://favisionenterprize.github.io/` (URL prefix), choose **HTML tag**, and paste the `<meta name="google-site-verification" ...>` tag into the `<head>` of `index.html` (or send it to Claude to add). Then open **Sitemaps** and submit `sitemap.xml`, and use **URL inspection → Request indexing** on the home page.
+2. **Google Business Profile** (this is what makes you show on Google Maps and "near me" searches): create or claim one listing per location (Odorkor, Omanjor, Kasoa) at https://business.google.com. Use the name **F.A Vision Enterprise**, category *Furniture store* (extra categories: *Furniture wholesaler*, *Upholstery shop*, *Book store*, *Print shop*), the phone numbers above, and set **Website** to `https://favisionenterprize.github.io/`.
+3. **Exact map pins:** once each location has a Google Maps listing or pin, open it in Google Maps, tap **Share → Copy link**, and paste it into that location's `maps_url` in `data/business.json`, then run `python3 scripts/generate_listings.py`. The **Get directions** buttons then open that exact pin instead of a search.
+4. **Point everything at the website:** put `https://favisionenterprize.github.io/` in the website field of both Facebook pages, WhatsApp Business profile, Instagram bio and any directory listings (Jiji, Tonaton, Ghana Yellow Pages).
+
 ## Changing contact details
 
-Phone and WhatsApp numbers, the address and hashtags live in `data/business.json`. After editing it, run `python3 scripts/generate_listings.py` and commit, and the site and listings pick up the change.
+Phone and WhatsApp numbers, the address, the three `locations`, `services`, `seo_keywords` and hashtags live in `data/business.json`. After editing it, run `python3 scripts/generate_listings.py` and commit, and the site and listings pick up the change.
 
 ## Bulk listing files
 
@@ -146,11 +174,13 @@ The first campaign, student desks for school proprietors, is in [`marketing/camp
 
 ## Contact
 
-Tarazzo Road, opposite Pacific, Odorkor, Accra · WhatsApp 057 264 6176 · Call 057 264 6176 / 020 747 3267 / 054 614 8923 · [Facebook](https://www.facebook.com/FaVisionEnterprise)
+WhatsApp 057 264 6176 · Call 020 747 3267 / 057 264 6176 / 054 614 8923 · [Facebook](https://www.facebook.com/FaVisionEnterprise) · https://favisionenterprize.github.io/
 
-## Location
+## Locations
 
-Odorkor, Accra, Ghana
+- **Odorkor** (main workshop & showroom): Tarazzo Road, opposite Pacific, Odorkor, Accra
+- **Omanjor**: Omanjor, Accra
+- **Kasoa**: Kasoa, Central Region
 
 ## License
 

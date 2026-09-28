@@ -3,8 +3,40 @@ window.FAV_DATA = {
   "business": {
     "name": "F.A Vision Enterprise",
     "tagline": "Bringing love to your Homes, Offices & Schools through Furniture",
+    "services": [
+      "Bulk & wholesale furniture",
+      "Bookstore & stationery",
+      "Upholstery & re-upholstery",
+      "Printing press"
+    ],
     "address": "Tarazzo Road, opposite Pacific, Odorkor, Accra, Greater Accra, Ghana",
     "marketplace_location": "Odorkor, Accra",
+    "locations": [
+      {
+        "name": "Odorkor (main workshop & showroom)",
+        "area": "Odorkor",
+        "address": "Tarazzo Road, opposite Pacific, Odorkor, Accra",
+        "region": "Greater Accra",
+        "maps_query": "F.A Vision Enterprise, Tarazzo Road, Odorkor, Accra, Ghana",
+        "maps_url": ""
+      },
+      {
+        "name": "Omanjor",
+        "area": "Omanjor",
+        "address": "Omanjor, Accra",
+        "region": "Greater Accra",
+        "maps_query": "F.A Vision Enterprise, Omanjor, Accra, Ghana",
+        "maps_url": ""
+      },
+      {
+        "name": "Kasoa",
+        "area": "Kasoa",
+        "address": "Kasoa",
+        "region": "Central Region",
+        "maps_query": "F.A Vision Enterprise, Kasoa, Ghana",
+        "maps_url": ""
+      }
+    ],
     "whatsapp": "+233572646176",
     "phones": [
       "+233572646176",
@@ -31,9 +63,13 @@ window.FAV_DATA = {
       "#FAVisionEnterprise",
       "#FurnitureGhana",
       "#AccraFurniture",
+      "#WholesaleFurnitureGhana",
+      "#UpholsteryAccra",
+      "#PrintingPressAccra",
+      "#BookshopAccra",
       "#Odorkor",
-      "#HomeDecorGhana",
-      "#OfficeFurnitureGhana"
+      "#Omanjor",
+      "#Kasoa"
     ],
     "payments": {
       "paystack_public_key": "",
@@ -41,7 +77,29 @@ window.FAV_DATA = {
       "momo_name": "",
       "momo_network": "MTN",
       "deposit_percent": 50
-    }
+    },
+    "seo_keywords": [
+      "FA Vision Enterprise",
+      "F.A Vision Enterprise",
+      "wholesale furniture Accra",
+      "bulk furniture Ghana",
+      "school furniture wholesale Ghana",
+      "office furniture Accra",
+      "furniture shop Odorkor",
+      "furniture Kasoa",
+      "furniture Omanjor",
+      "upholstery Accra",
+      "sofa re-upholstery Odorkor",
+      "bookstore Odorkor",
+      "bookshop Kasoa",
+      "stationery Accra",
+      "printing press Accra",
+      "printing press Odorkor",
+      "printing press Kasoa",
+      "0207473267",
+      "0572646176",
+      "0546148923"
+    ]
   },
   "products": [
     {

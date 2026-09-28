@@ -4,7 +4,7 @@
 //   Pay in full now       Mobile Money (MTN MoMo, Telecel Cash, AT Money) or Visa / Mastercard
 //   Pay a deposit now     deposit_percent (default 50%) now, balance on delivery / pickup
 //   Pay on delivery       nothing now; cash or MoMo when the piece is delivered
-//   Walk in & pay         reserve online, pay at the Odorkor showroom
+//   Walk in & pay         reserve online, pay at one of our showrooms
 //
 // Configure in data/business.json -> "payments":
 //   paystack_public_key  pk_live_… (or pk_test_… while testing). Turns on online
@@ -34,7 +34,7 @@ window.FAV_CHECKOUT = (function () {
     full: { label: "Pay in full now", sub: "Mobile Money or card", now: 1 },
     deposit: { label: `Pay ${DEPOSIT}% deposit now`, sub: "Balance on delivery or pickup", now: DEPOSIT / 100 },
     delivery: { label: "Pay on delivery", sub: "Cash or MoMo when it arrives", now: 0 },
-    walkin: { label: "Walk in & pay at showroom", sub: "Reserve now, pay at Odorkor", now: 0 }
+    walkin: { label: "Walk in & pay at showroom", sub: "Reserve now, pay at our showroom", now: 0 }
   };
   const METHODS = {
     momo: { label: "Mobile Money", sub: "MTN MoMo · Telecel Cash · AT Money", channels: ["mobile_money"] },
@@ -47,7 +47,10 @@ window.FAV_CHECKOUT = (function () {
     lock: '<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>'
   };
 
-  const SHOWROOM = "Pick up at showroom (Odorkor)";
+  // One pickup option per location in data/business.json (Odorkor, Omanjor, Kasoa).
+  const SHOWROOMS = (business.locations || []).length
+    ? business.locations.map(l => `Pick up at showroom (${l.area})`)
+    : ["Pick up at showroom (Odorkor)"];
 
   // Accepted-payment badges, reused on the product page and the Visit section.
   function badges() {
@@ -77,7 +80,7 @@ window.FAV_CHECKOUT = (function () {
     });
   }
 
-  const areas = () => [SHOWROOM, ...(business.service_areas || []), "Other (tell us on WhatsApp)"];
+  const areas = () => [...SHOWROOMS, ...(business.service_areas || []), "Other (tell us on WhatsApp)"];
   const pesewaRound = n => Math.round(n * 100) / 100;
 
   function renderForm() {
@@ -145,7 +148,7 @@ window.FAV_CHECKOUT = (function () {
       const now = pesewaRound(tot * PLANS[plan].now);
       const later = pesewaRound(tot - now);
       $("#co-methods").hidden = !payNow || now === 0;
-      if (plan === "walkin") $("#co-area").value = SHOWROOM;
+      if (plan === "walkin" && !SHOWROOMS.includes($("#co-area").value)) $("#co-area").value = SHOWROOMS[0];
       const laterLabel = plan === "walkin" || /showroom/i.test($("#co-area").value) ? "Pay at showroom" : "Pay on delivery";
       $("#co-lines").innerHTML =
         `<div><span>Order total</span><span>${C.formatPrice(tot)}</span></div>` +
@@ -210,6 +213,12 @@ window.FAV_CHECKOUT = (function () {
     else manualMomo(order);
   }
 
+  function showroomName(area) {
+    const loc = (business.locations || []).find(l => area === `Pick up at showroom (${l.area})`) || (business.locations || [])[0];
+    if (!loc) return "Odorkor showroom on Tarazzo Road";
+    return `${loc.area} showroom` + (loc.address && !loc.address.startsWith(loc.area) ? ` on ${loc.address}` : "");
+  }
+
   // ---------- Pay on delivery / walk in ----------
   function placeOrder(order) {
     order.status = order.plan === "walkin" ? "Reserved, pay at showroom" : "Pay on delivery";
@@ -217,7 +226,7 @@ window.FAV_CHECKOUT = (function () {
     renderDone(order, {
       kicker: "Order placed",
       lead: order.plan === "walkin"
-        ? `Your ${esc(order.product)} is reserved. Visit our showroom on Tarazzo Road, Odorkor (Mon to Sat, 8am to 6pm) and pay ${C.formatPrice(order.total)} by cash, MoMo or card.`
+        ? `Your ${esc(order.product)} is reserved. Visit our ${esc(showroomName(order.area))} (Mon to Sat, 8am to 6pm) and pay ${C.formatPrice(order.total)} by cash, MoMo or card.`
         : `We'll call you on ${esc(order.phone)} to confirm and arrange delivery. Pay ${C.formatPrice(order.total)} by cash or MoMo when it arrives.`,
       wa: "I've just placed an order on your website."
     });

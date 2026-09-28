@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://favisionenterprize.github.io/sitemap.xml

@@ -44,11 +44,13 @@
     a.rel = "noopener";
   });
   $("#year").textContent = new Date().getFullYear();
-  $("#address").textContent = business.address;
-  $("#directions").href = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent("Tarazzo Road Odorkor Accra");
   $("#pay-ways").innerHTML = CO.badges();
-  $("#phones").innerHTML = (business.phones || [business.whatsapp])
-    .map(n => `<li><a href="tel:${esc(n)}">${esc(C.localPhone(n))}</a></li>`).join("");
+  // Locations and phones are written into index.html so search engines see them.
+  // An exact Google Maps pin saved in data/business.json (locations[].maps_url) wins over the search link.
+  (business.locations || []).forEach((loc, i) => {
+    const a = document.querySelector(`.loc[data-loc="${i}"] .js-dir`);
+    if (a && loc.maps_url) a.href = loc.maps_url;
+  });
 
   const toggle = $("#nav-toggle"), links = $("#nav-links");
   toggle.addEventListener("click", () => {
@@ -167,6 +169,7 @@
 
   // ---------- product detail (deep-linkable: #product/FAV-001) ----------
   const dlg = $("#pd");
+  const HOME_TITLE = document.title;
 
   function openProduct(p) {
     const imgs = p.images || [];
@@ -232,7 +235,7 @@
   }
 
   dlg.addEventListener("close", () => {
-    document.title = "F.A Vision Enterprise | Furniture for Homes, Offices & Schools · Odorkor, Accra";
+    document.title = HOME_TITLE;
     if (location.hash.startsWith("#product/")) history.replaceState(null, "", "#shop");
   });
   $("#pd-close").addEventListener("click", closeProduct);

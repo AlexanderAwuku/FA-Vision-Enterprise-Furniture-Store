@@ -3,12 +3,13 @@
 | Item | Details |
 |---|---|
 | **Business name** | FA Vision Enterprise |
-| **Trade** | Furniture manufacturing and retail |
-| **Location** | Tarazzo Road, opposite Pacific, Odorkor, Accra, Ghana |
+| **Trade** | Furniture manufacturing, retail & wholesale · Upholstery · Bookstore & stationery · Printing press |
+| **Locations** | Odorkor (Tarazzo Road, opposite Pacific, Accra) · Omanjor (Accra) · Kasoa (Central Region) |
 | **Service area** | Greater Accra and surrounding areas (delivery available) |
 | **Opening hours** | Monday – Saturday, 8:00am – 6:00pm |
 | **WhatsApp** | 057 264 6176 |
-| **Phone** | 057 264 6176 · 020 747 3267 · 054 614 8923 |
+| **Phone** | 020 747 3267 · 057 264 6176 · 054 614 8923 |
+| **Website** | https://favisionenterprize.github.io/ |
 | **Email** | _add email_ |
 
 ## Product lines
@@ -19,7 +20,17 @@
 | Bedroom | Bed frames (queen/king), wardrobes, bedside tables |
 | Dining | 4- and 6-seater dining sets |
 | Office | Executive desks, office chairs, bookshelves |
+| School (bulk) | Student desk & chair sets, teacher tables |
 | Custom | Made-to-measure pieces, re-upholstery, repairs |
+
+## Other services
+
+| Service | Examples |
+|---|---|
+| Bulk & wholesale | Schools, offices, churches, hotels, resellers |
+| Upholstery | New upholstery, re-covering, foam replacement, repairs |
+| Bookstore | Textbooks, exercise books, school supplies, stationery |
+| Printing press | Flyers, banners, stickers, business cards, branded exercise books |
 
 ## Value proposition
 
@@ -33,5 +44,8 @@
 - [x] Publish website via GitHub Pages: https://favisionenterprize.github.io/
 - [x] Add phone and WhatsApp numbers to `data/business.json`
 - [ ] Add real product photos to `assets/images/`
-- [ ] Create / claim Google Business Profile listing
-- [ ] Link Facebook and Instagram pages
+- [x] Website SEO: title, description, structured data (3 locations), sitemap.xml, robots.txt
+- [ ] Verify the site in Google Search Console and submit `sitemap.xml` (see README)
+- [ ] Create / claim a Google Business Profile listing for each location (Odorkor, Omanjor, Kasoa) with website https://favisionenterprize.github.io/
+- [ ] Paste each location's exact Google Maps link into `locations[].maps_url` in `data/business.json`
+- [ ] Set https://favisionenterprize.github.io/ as the website on both Facebook pages, WhatsApp Business and Instagram
