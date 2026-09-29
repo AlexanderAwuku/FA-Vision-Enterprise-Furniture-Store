@@ -400,12 +400,10 @@ Order: https://wa.me/233572646176?text=Hello%20F.A%20Vision%2C%20I%27m%20interes
 
 ## FAV-006 · Executive Director Chair — Leather, High Back
 
-> ⚠️ Placeholder product: confirm details, price and photos before posting.
-
 ### Facebook Marketplace
 
 - **Title:** Executive Director Chair — Leather, High Back
-- **Price:** 1500
+- **Price:** 9500
 - **Category:** Home & Garden > Furniture > Chairs
 - **Condition:** Brand New
 - **Location:** Odorkor, Accra
@@ -448,7 +446,7 @@ Ref: FAV-006
 • Gas-lift height adjustment, tilt and 360° swivel
 • Chrome base with smooth castors
 • Bulk prices for offices
-💰 GH₵ 1,500
+💰 GH₵ 9,500
 📍 Odorkor, Accra, delivery available
 📞 WhatsApp 057 264 6176
 #FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
@@ -458,7 +456,7 @@ Ref: FAV-006
 
 ```
 Looking for a quality executive director chair — leather, high back? High back with thick padding.
-Available at our showroom in Odorkor, Accra. GH₵ 1,500.
+Available at our showroom in Odorkor, Accra. GH₵ 9,500.
 Send us a message or WhatsApp 057 264 6176 to order. #FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
 ```
 
@@ -466,7 +464,7 @@ Send us a message or WhatsApp 057 264 6176 to order. #FAVisionEnterprise #Furnit
 
 ```
 NEW FROM F.A VISION ✨ Executive Director Chair — Leather, High Back
-GH₵ 1,500 | Ready for pickup
+GH₵ 9,500 | Ready for pickup
 Homes • Offices • Schools
 DM or call 057 264 6176 #FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
 ```
@@ -475,7 +473,7 @@ DM or call 057 264 6176 #FAVisionEnterprise #FurnitureGhana #AccraFurniture #Who
 
 ```
 Executive Director Chair — Leather, High Back 🔥
-GH₵ 1,500
+GH₵ 9,500
 Order: https://wa.me/233572646176?text=Hello%20F.A%20Vision%2C%20I%27m%20interested%20in%20the%20Executive%20Director%20Chair%20%E2%80%94%20Leather%2C%20High%20Back%20%28FAV-006%29.
 ```
 
