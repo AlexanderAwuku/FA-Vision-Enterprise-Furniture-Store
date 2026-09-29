@@ -1108,7 +1108,7 @@ window.FAV_DATA = {
         "Matching padded stool included",
         "Perfect for bedrooms and campus rooms"
       ],
-      "placeholder": true,
+      "placeholder": false,
       "facebook_listings": [
         {
           "id": "1067452355735921",
