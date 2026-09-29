@@ -198,8 +198,8 @@ window.FAV_DATA = {
               "in the showroom"
             ],
             [
-              "Seats 6",
-              "every design"
+              "Seats 4–6",
+              "by design"
             ],
             [
               "50%",
@@ -724,44 +724,51 @@ window.FAV_DATA = {
         {
           "id": "1311767852009968",
           "title": "Dinning Set with Chairs",
-          "price": 4000,
-          "checked": "2026-09-29"
+          "price": 12600,
+          "checked": "2026-09-29",
+          "synced": "2026-09-29"
         },
         {
           "id": "1603407604448580",
           "title": "Dinning Set with Chairs",
-          "price": 4000,
-          "checked": "2026-09-29"
+          "price": 12600,
+          "checked": "2026-09-29",
+          "synced": "2026-09-29"
         },
         {
           "id": "2013308532646791",
           "title": "Dinning Set with Chairs",
-          "price": 4000,
-          "checked": "2026-09-29"
+          "price": 12600,
+          "checked": "2026-09-29",
+          "synced": "2026-09-29"
         },
         {
           "id": "2014254805941890",
           "title": "Dinning Set with Chairs",
-          "price": 4000,
-          "checked": "2026-09-29"
+          "price": 12600,
+          "checked": "2026-09-29",
+          "synced": "2026-09-29"
         },
         {
           "id": "2035660797321715",
           "title": "Dinning Set with Chairs",
-          "price": 4000,
-          "checked": "2026-09-29"
+          "price": 12600,
+          "checked": "2026-09-29",
+          "synced": "2026-09-29"
         },
         {
           "id": "2448932802255359",
           "title": "Dinning Set with Chairs",
-          "price": 4000,
-          "checked": "2026-09-29"
+          "price": 12600,
+          "checked": "2026-09-29",
+          "synced": "2026-09-29"
         },
         {
           "id": "1744732466544259",
           "title": "Dinning Set with Chairs",
           "price": 12600,
-          "checked": "2026-09-29"
+          "checked": "2026-09-29",
+          "synced": "2026-09-29"
         }
       ]
     },
@@ -800,7 +807,8 @@ window.FAV_DATA = {
           "id": "2065160547702285",
           "title": "Dinning Set",
           "price": 4900,
-          "checked": "2026-09-29"
+          "checked": "2026-09-29",
+          "synced": "2026-09-29"
         }
       ]
     },
@@ -813,10 +821,10 @@ window.FAV_DATA = {
       "price_ghs": 12600,
       "negotiable": true,
       "icon": "🍽️",
-      "description": "Five showroom designs to choose from, all seating six: black marble-effect with chrome chairs, black glass with quilted high-back chairs, frosted white-top, cream marble with gold legs, and a compact black set with a lace runner. Tell us which design you like on WhatsApp and we'll confirm today's price, colour and delivery date.",
+      "description": "Five showroom designs to choose from, seating four to six: black marble-effect with chrome chairs, black glass with quilted high-back chairs, frosted white-top, cream marble with gold legs, and a compact black set with a lace runner. Tell us which design you like on WhatsApp and we'll confirm today's price, colour and delivery date.",
       "condition": "Brand New",
       "material": "Glass or marble-effect tops, chrome, gold or powder-coated frames, padded chairs",
-      "dimensions": "Seats 6",
+      "dimensions": "Seats 4–6",
       "colors": [
         "Black",
         "White",
@@ -834,7 +842,7 @@ window.FAV_DATA = {
       ],
       "highlights": [
         "5 designs in the showroom",
-        "All seat 6",
+        "Seat 4 to 6",
         "Glass and marble-effect tops",
         "Delivery and assembly in Accra"
       ],
@@ -843,14 +851,16 @@ window.FAV_DATA = {
         {
           "id": "2109442323303440",
           "title": "Dinning Table and Chairs",
-          "price": 6500,
-          "checked": "2026-09-29"
+          "price": 12600,
+          "checked": "2026-09-29",
+          "synced": "2026-09-29"
         },
         {
           "id": "1764658334886015",
           "title": "Dinning Table and Chairs",
-          "price": 7500,
-          "checked": "2026-09-29"
+          "price": 12600,
+          "checked": "2026-09-29",
+          "synced": "2026-09-29"
         }
       ]
     },
@@ -888,9 +898,9 @@ window.FAV_DATA = {
         {
           "id": "1594121875660402",
           "title": "6 Seater Dinning Table and Chairs 2",
-          "price": 4500,
+          "price": 12600,
           "checked": "2026-09-29",
-          "currency": "USD"
+          "synced": "2026-09-29"
         }
       ]
     },
@@ -926,20 +936,23 @@ window.FAV_DATA = {
         {
           "id": "2034544120477816",
           "title": "Foldable Dinning set",
-          "price": 1900,
-          "checked": "2026-09-29"
+          "price": 11900,
+          "checked": "2026-09-29",
+          "synced": "2026-09-29"
         },
         {
           "id": "2210222543093179",
           "title": "Foldable Dinning set",
           "price": 11900,
-          "checked": "2026-09-29"
+          "checked": "2026-09-29",
+          "synced": "2026-09-29"
         },
         {
           "id": "2430673257456563",
           "title": "Foldable Dinning set",
-          "price": 1900,
-          "checked": "2026-09-29"
+          "price": 11900,
+          "checked": "2026-09-29",
+          "synced": "2026-09-29"
         }
       ]
     },
@@ -979,14 +992,16 @@ window.FAV_DATA = {
         {
           "id": "1731868418004032",
           "title": "EXECUTIVE DIRECTOR CHAIR",
-          "price": 1500,
-          "checked": "2026-09-29"
+          "price": 9500,
+          "checked": "2026-09-29",
+          "synced": "2026-09-29"
         },
         {
           "id": "2079527839369779",
           "title": "EXECUTIVE DIRECTOR CHAIR",
-          "price": 9450,
-          "checked": "2026-09-29"
+          "price": 9500,
+          "checked": "2026-09-29",
+          "synced": "2026-09-29"
         }
       ]
     },
@@ -1025,20 +1040,23 @@ window.FAV_DATA = {
         {
           "id": "1383440223751492",
           "title": "Secretary Chair",
-          "price": 1500,
-          "checked": "2026-09-29"
+          "price": 9500,
+          "checked": "2026-09-29",
+          "synced": "2026-09-29"
         },
         {
           "id": "1603444211161872",
           "title": "Secretary Chair",
-          "price": 1500,
-          "checked": "2026-09-29"
+          "price": 9500,
+          "checked": "2026-09-29",
+          "synced": "2026-09-29"
         },
         {
           "id": "1444293004167566",
           "title": "Premium Ergonomic Executive Chairs for Office Use: Luxurious Comfort, Adjustable Features & Stylish.",
           "price": 9500,
-          "checked": "2026-09-29"
+          "checked": "2026-09-29",
+          "synced": "2026-09-29"
         }
       ]
     },
@@ -1075,7 +1093,8 @@ window.FAV_DATA = {
           "id": "1458005823024498",
           "title": "1.2m Desk for GH4500 in a flat pack",
           "price": 4500,
-          "checked": "2026-09-29"
+          "checked": "2026-09-29",
+          "synced": "2026-09-29"
         }
       ]
     },
@@ -1114,26 +1133,30 @@ window.FAV_DATA = {
         {
           "id": "1067452355735921",
           "title": "Dressing Mirror & Chair",
-          "price": 7650,
-          "checked": "2026-09-29"
+          "price": 7450,
+          "checked": "2026-09-29",
+          "synced": "2026-09-29"
         },
         {
           "id": "1241817175679311",
           "title": "Dressing Mirror & Chair",
-          "price": 2500,
-          "checked": "2026-09-29"
+          "price": 7450,
+          "checked": "2026-09-29",
+          "synced": "2026-09-29"
         },
         {
           "id": "27757506730566659",
           "title": "Dressing Mirror & Chair",
           "price": 7450,
-          "checked": "2026-09-29"
+          "checked": "2026-09-29",
+          "synced": "2026-09-29"
         },
         {
           "id": "28733668472887481",
           "title": "Dressing Mirror & Chair",
           "price": 7450,
-          "checked": "2026-09-29"
+          "checked": "2026-09-29",
+          "synced": "2026-09-29"
         }
       ]
     },
@@ -1175,7 +1198,8 @@ window.FAV_DATA = {
           "id": "1785884179255536",
           "title": "Wardrobes very strong and durable",
           "price": 9800,
-          "checked": "2026-09-29"
+          "checked": "2026-09-29",
+          "synced": "2026-09-29"
         }
       ]
     },
@@ -1214,7 +1238,8 @@ window.FAV_DATA = {
           "id": "993925170304987",
           "title": "Living room sofa",
           "price": 15500,
-          "checked": "2026-09-29"
+          "checked": "2026-09-29",
+          "synced": "2026-09-29"
         }
       ]
     },
@@ -1257,13 +1282,15 @@ window.FAV_DATA = {
           "id": "1556071675833395",
           "title": "Classroom Desk- Metal Wood Frame Packing Tertiary SHS School Seating",
           "price": 650,
-          "checked": "2026-09-29"
+          "checked": "2026-09-29",
+          "synced": "2026-09-29"
         },
         {
           "id": "1761804398173847",
           "title": "School Furniture That Inspires Achievement",
           "price": 650,
-          "checked": "2026-09-29"
+          "checked": "2026-09-29",
+          "synced": "2026-09-29"
         }
       ]
     }

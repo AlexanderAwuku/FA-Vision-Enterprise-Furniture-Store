@@ -176,17 +176,17 @@ Order: https://wa.me/233572646176?text=Hello%20F.A%20Vision%2C%20I%27m%20interes
 ```
 Dining Set Collection — 5 Designs, 6 Chairs by F.A Vision Enterprise.
 
-Five showroom designs to choose from, all seating six: black marble-effect with chrome chairs, black glass with quilted high-back chairs, frosted white-top, cream marble with gold legs, and a compact black set with a lace runner. Tell us which design you like on WhatsApp and we'll confirm today's price, colour and delivery date.
+Five showroom designs to choose from, seating four to six: black marble-effect with chrome chairs, black glass with quilted high-back chairs, frosted white-top, cream marble with gold legs, and a compact black set with a lace runner. Tell us which design you like on WhatsApp and we'll confirm today's price, colour and delivery date.
 
 👉 See all photos, price and order online: https://favisionenterprize.github.io/#product/FAV-003
 
 ✔ 5 designs in the showroom
-✔ All seat 6
+✔ Seat 4 to 6
 ✔ Glass and marble-effect tops
 ✔ Delivery and assembly in Accra
 
 Material: Glass or marble-effect tops, chrome, gold or powder-coated frames, padded chairs
-Size: Seats 6
+Size: Seats 4–6
 Colours: Black, White, Cream, Gold
 Custom sizes, colours and finishes available.
 
@@ -206,7 +206,7 @@ Ref: FAV-003
 ```
 🛋️ Dining Set Collection — 5 Designs, 6 Chairs available now!
 • 5 designs in the showroom
-• All seat 6
+• Seat 4 to 6
 • Glass and marble-effect tops
 • Delivery and assembly in Accra
 💰 GH₵ 12,600
