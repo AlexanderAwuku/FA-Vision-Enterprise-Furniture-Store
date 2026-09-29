@@ -140,6 +140,9 @@ function doPost(e) {
     lock.releaseLock();
   }
 
+  sendSms_(data.source === 'whatsapp'
+    ? `FA Vision: WhatsApp chat opened${data.product ? ' (' + clean(data.product) + ')' : ''}: ${clean(data.message)}`
+    : `FA Vision: New enquiry from ${clean(data.name)} ${clean(data.phone)}: ${clean(data.product)} ${clean(data.message)}`);
   const notify = PropertiesService.getScriptProperties().getProperty('NOTIFY_EMAIL');
   if (notify) {
     MailApp.sendEmail(notify, `New enquiry: ${clean(data.product) || 'website'} from ${clean(data.name)}`,
@@ -147,6 +150,45 @@ function doPost(e) {
       `Email: ${clean(data.email)}\n\n${clean(data.message)}`);
   }
   return json_({ ok: true });
+}
+
+// ---------- SMS alerts ----------
+// Texts the owner for every customer request: enquiries, WhatsApp taps, promo orders,
+// checkout orders (incl. walk in / pay on delivery) and invoice requests.
+// Uses Arkesel (arkesel.com, Ghana). Script properties:
+//   SMS_API_KEY  your Arkesel API key (Dashboard -> SMS API -> API keys)
+//   SMS_TO       number(s) to alert, comma separated, e.g. 233572646176,233207473267
+//   SMS_SENDER   approved sender ID, max 11 characters (default FAVision)
+// Nothing is sent until SMS_API_KEY and SMS_TO are set. Capped at 40 texts an hour.
+function sendSms_(text) {
+  try {
+    const props = PropertiesService.getScriptProperties();
+    const key = props.getProperty('SMS_API_KEY');
+    const to = String(props.getProperty('SMS_TO') || '').split(',')
+      .map((n) => n.replace(/\D/g, '').replace(/^0/, '233')).filter((n) => n.length >= 12);
+    if (!key || !to.length) return;
+    const cache = CacheService.getScriptCache();
+    const slot = 'sms_' + Utilities.formatDate(new Date(), 'GMT', 'yyyyMMddHH');
+    const count = Number(cache.get(slot) || 0);
+    if (count >= 40) return;
+    cache.put(slot, String(count + 1), 3600);
+    const message = String(text).replace(/\s+/g, ' ').replace(/^'/, '').trim().slice(0, 300);
+    const res = UrlFetchApp.fetch('https://sms.arkesel.com/api/v2/sms/send', {
+      method: 'post',
+      contentType: 'application/json',
+      headers: { 'api-key': key },
+      payload: JSON.stringify({ sender: (props.getProperty('SMS_SENDER') || 'FAVision').slice(0, 11), message, recipients: to }),
+      muteHttpExceptions: true,
+    });
+    if (res.getResponseCode() >= 300) Logger.log('SMS failed: ' + res.getContentText());
+  } catch (err) {
+    Logger.log('SMS error: ' + err); // never block the request because of SMS
+  }
+}
+
+// Run once from the editor to check SMS alerts reach your phone.
+function testSms() {
+  sendSms_('FA Vision: test alert. SMS alerts are working.');
 }
 
 function doGet(e) {
@@ -260,6 +302,8 @@ function recordOrder_(data) {
 }
 
 function notifyOrder_(ref, name, phone, item, total, plan, paid, verification, area, notes) {
+  sendSms_(`FA Vision: New order ${ref}: ${cleanCell_(item)}, GHS ${total}, ${cleanCell_(plan)}. ` +
+    `Paid GHS ${paid}. ${cleanCell_(name)} ${cleanCell_(phone)}`);
   const notify = PropertiesService.getScriptProperties().getProperty('NOTIFY_EMAIL');
   if (!notify) return;
   const wa = String(phone || '').replace(/\D/g, '').replace(/^0/, '233');
@@ -443,6 +487,7 @@ function recordInvoiceRequest_(data) {
   } finally {
     lock.releaseLock();
   }
+  sendSms_(`FA Vision: ${row[2]} request ${id} from ${cleanCell_(data.organisation || data.name)} ${cleanCell_(data.phone)}: ${cleanCell_(data.items)}`);
   const notify = PropertiesService.getScriptProperties().getProperty('NOTIFY_EMAIL');
   if (notify) {
     MailApp.sendEmail(notify, `Invoice request ${id} from ${cleanCell_(data.organisation || data.name)}`,
