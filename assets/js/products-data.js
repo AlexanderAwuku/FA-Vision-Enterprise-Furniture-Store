@@ -995,7 +995,7 @@ window.FAV_DATA = {
       "category": "Office",
       "type": "Office Chair",
       "marketplace_category": "Home & Garden > Furniture > Chairs",
-      "price_ghs": 1500,
+      "price_ghs": 9500,
       "negotiable": true,
       "icon": "🪑",
       "description": "Your team spends long hours in these seats, so make them good ones. A breathable mesh back with lumbar support, a soft padded seat, fixed armrests, height adjustment and 360° swivel. Choose blue or green seat colour.",
@@ -1019,7 +1019,7 @@ window.FAV_DATA = {
         "Blue or green seat",
         "Bulk discounts for offices and schools"
       ],
-      "placeholder": true,
+      "placeholder": false,
       "facebook_listings": [
         {
           "id": "1383440223751492",
