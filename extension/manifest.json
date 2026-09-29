@@ -1,0 +1,19 @@
+{
+  "manifest_version": 3,
+  "name": "FA Vision Price Sync",
+  "version": "1.0.0",
+  "description": "Applies the prices you set in your FA Vision admin (Price sync) to your Facebook Marketplace listings.",
+  "content_scripts": [
+    {
+      "matches": ["https://*.facebook.com/marketplace/*"],
+      "js": ["facebook.js"],
+      "run_at": "document_idle",
+      "world": "MAIN"
+    },
+    {
+      "matches": ["https://favisionenterprize.github.io/admin/*"],
+      "js": ["admin.js"],
+      "run_at": "document_start"
+    }
+  ]
+}

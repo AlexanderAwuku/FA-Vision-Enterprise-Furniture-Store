@@ -19,6 +19,11 @@
   const fbEdit = id => `${FB}/marketplace/edit/?listing_id=${encodeURIComponent(id)}`;
   const todayStr = () => new Date().toISOString().slice(0, 10);
   let filter = "out";
+  const hasAddon = () => document.documentElement.dataset.favsyncExt === "1";
+  // Listings sent to Facebook from this tab and not yet confirmed.
+  const syncing = new Set((() => { try { return JSON.parse(sessionStorage.getItem("favsync-pending") || "[]"); } catch (e) { return []; } })());
+  const keepSyncing = () => { try { sessionStorage.setItem("favsync-pending", JSON.stringify([...syncing])); } catch (e) { /* ignore */ } };
+  const channel = "BroadcastChannel" in window ? new BroadcastChannel("favsync") : null;
 
   // ------------------------------------------------------------------ data
   function rows() {
@@ -136,19 +141,22 @@
 
       <div class="ps-sync">
         <div>
-          <b>${q.length ? `${q.length} Facebook listing${q.length === 1 ? "" : "s"} ready to update` : "Facebook is up to date"}</b>
-          <p class="muted small">Change a price below and it's saved to your website at once. Then tap <b>Start Facebook sync</b> and click the <b>FA Vision price sync</b> bookmark on each listing that opens: it types the new price in and saves it for you.</p>
+          <b>${q.length ? `${q.length} Facebook listing${q.length === 1 ? "" : "s"} to update` : "Facebook is up to date"}</b>
+          <p class="muted small">${hasAddon()
+            ? "Tap <b>Sync</b> on a row, or <b>Sync all</b>. A Facebook tab opens, updates the prices by itself and closes; the rows here turn green."
+            : "Install the FA Vision sync add-on once (below) and the Sync buttons will update Facebook for you."}</p>
         </div>
-        <button class="btn btn-sell" id="ps-start" ${q.length ? "" : "disabled"}>Start Facebook sync${q.length ? ` (${q.length})` : ""}</button>
+        <button class="btn btn-sell" id="ps-start" ${q.length ? "" : "disabled"}>Sync all${q.length ? ` (${q.length})` : ""}</button>
       </div>
-      <details class="ps-setup">
-        <summary>One-time setup: add the “FA Vision price sync” bookmark</summary>
+      <details class="ps-setup" ${hasAddon() ? "" : "open"}>
+        <summary>${hasAddon() ? "✓ FA Vision sync add-on is installed in this browser" : "One-time setup: install the FA Vision sync add-on"}</summary>
         <ol>
-          <li>Show your bookmarks bar: press <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>B</kbd> (Mac: <kbd>⌘</kbd> + <kbd>Shift</kbd> + <kbd>B</kbd>).</li>
-          <li>Drag this button onto the bookmarks bar: <a class="ps-bookmark" href="${bookmarkHref}" title="Drag me to your bookmarks bar">⟳ FA Vision price sync</a></li>
-          <li>Can't drag on this device? <button class="link" type="button" id="ps-copy-bm">Copy the bookmark code</button>, add any page as a bookmark, edit it, and paste the code as its URL.</li>
+          <li>Open the add-ons page: type <code>edge://extensions</code> (Edge) or <code>chrome://extensions</code> (Chrome) in the address bar and press Enter.</li>
+          <li>Turn on <b>Developer mode</b> (a switch on that page).</li>
+          <li>Click <b>Load unpacked</b> and choose the folder <b>Downloads → fa-vision-sync-extension</b>.</li>
+          <li>Come back here and reload this page. This box then shows a tick.</li>
         </ol>
-        <p class="muted small">The bookmark only works on your Facebook listing pages, and only changes the price you set here. On a phone, ask Claude to “sync my Facebook prices” instead.</p>
+        <p class="muted small">The add-on only works on your Facebook Marketplace edit pages and only when this admin sends it prices. No add-on on this device? Drag <a class="ps-bookmark" href="${bookmarkHref}" title="Drag me to your bookmarks bar">⟳ FA Vision price sync</a> to your bookmarks bar and click it on each listing that opens, or ask Claude to “sync my Facebook prices”.</p>
       </details>
 
       ${shown.length ? "" : `<p class="ps-empty">${filter === "out" ? "🎉 Every linked Facebook listing matches your website price." : "Nothing here yet."}</p>`}
@@ -172,8 +180,9 @@
               <tr class="ps-${status}">
                 <td><a href="${fbUrl(l.id)}" target="_blank" rel="noopener">${esc(l.title || l.id)}</a><small>Checked ${esc(l.checked || "–")}${l.synced ? ` · synced ${esc(l.synced)}` : ""}</small></td>
                 <td>${l.price ? (l.currency && l.currency !== "GHS" ? esc(l.currency) + " " + Number(l.price).toLocaleString() : C.formatPrice(l.price)) : "–"}</td>
-                <td><span class="ps-pill ${status}">${status === "ok" ? "In sync" : status === "unset" ? "No website price" : "Out of sync"}</span>${why && status !== "ok" ? `<small>${esc(why)}</small>` : ""}</td>
+                <td><span class="ps-pill ${syncing.has(l.id) && status === "out" ? "busy" : status}">${status === "ok" ? "In sync" : status === "unset" ? "No website price" : syncing.has(l.id) ? "Syncing…" : "Out of sync"}</span>${why && status !== "ok" ? `<small>${esc(why)}</small>` : ""}</td>
                 <td class="ps-actions">${status !== "ok" ? `
+                  ${status === "out" && !(l.currency && l.currency !== "GHS") ? `<button class="btn btn-sell btn-sm" data-ps-sync="${esc(l.id)}" ${syncing.has(l.id) ? "disabled" : ""}>${syncing.has(l.id) ? "Syncing…" : "Sync"}</button>` : ""}
                   ${l.price && (!l.currency || l.currency === "GHS") && Number(l.price) !== Number(p.price_ghs) ? `<button class="btn btn-ghost btn-sm" data-ps-adopt="${esc(p.id)}|${esc(l.price)}">Use ${esc(C.formatPrice(l.price))} everywhere</button>` : ""}
                   <a class="btn btn-ghost btn-sm" href="${fbEdit(l.id)}" target="_blank" rel="noopener">Edit on Facebook ↗</a>
                   ${status === "out" ? `<button class="btn btn-ghost btn-sm" data-ps-mark="${esc(p.id)}|${esc(l.id)}">Mark synced</button>` : ""}` : ""}
@@ -229,12 +238,18 @@
     const f = e.target.closest("[data-psf]");
     if (f) { filter = f.dataset.psf; return render(); }
 
-    if (e.target.closest("#ps-start")) {
-      const q = queue();
+    const one = e.target.closest("[data-ps-sync]");
+    if (e.target.closest("#ps-start") || one) {
+      const q = queue().filter(j => !one || j.id === one.dataset.psSync);
       if (!q.length) return;
+      if (!hasAddon()) {
+        const box = $(".ps-setup"); if (box) { box.open = true; box.scrollIntoView({ behavior: "smooth", block: "center" }); }
+        return A.toast("Install the FA Vision sync add-on first (one time), then tap Sync again.", true);
+      }
       const payload = { q: q.map(({ id, price }) => ({ id, price })), back: location.origin + location.pathname };
-      window.open(`${fbEdit(q[0].id)}#favsync=${encodeURIComponent(JSON.stringify(payload))}`, "_blank", "noopener");
-      A.toast("Facebook opened in a new tab. Click the “FA Vision price sync” bookmark there once the listing loads.");
+      window.open(`${fbEdit(q[0].id)}#favsync=${encodeURIComponent(JSON.stringify(payload))}`, "favsync");
+      q.forEach(j => syncing.add(j.id)); keepSyncing(); render();
+      A.toast(`Updating ${q.length} Facebook listing${q.length === 1 ? "" : "s"} in a new tab. Rows turn green here as soon as Facebook confirms.`);
       return;
     }
     if (e.target.closest("#ps-copy-bm")) {
@@ -305,6 +320,15 @@
   }
   window.FAV_PRICESYNC = { open, nudge, updateBadge };
 
+  if (channel) channel.onmessage = async ev => {
+    if (!ev.data || ev.data.type !== "done") return;
+    [...ev.data.done, ...ev.data.skip].forEach(id => syncing.delete(id)); keepSyncing();
+    try { await A.reload(); } catch (err) { /* keep what we have */ }
+    if (!screen.hidden) render(); else updateBadge();
+    const n = ev.data.done.length, k = ev.data.skip.length;
+    A.toast(`${n} Facebook listing${n === 1 ? "" : "s"} synced.${k ? ` ${k} couldn't be set and ${k === 1 ? "is" : "are"} still red.` : ""}`, !!k && !n);
+  };
+
   const list = $("#list");
   if (list) new MutationObserver(updateBadge).observe(list, { childList: true });
 
@@ -322,6 +346,9 @@
       if (result.done && result.done.length) await run("Recording the Facebook updates…", () => markSynced(result.done),
         `${result.done.length} Facebook listing${result.done.length === 1 ? "" : "s"} updated.${result.skip && result.skip.length ? ` ${result.skip.length} need${result.skip.length === 1 ? "s" : ""} fixing by hand.` : ""}`);
       history.replaceState(null, "", "#pricesync");
+      // Tell the admin tab that started the sync, then close this helper tab.
+      if (channel) channel.postMessage({ type: "done", done: (result.done || []).map(d => d[0]), skip: result.skip || [] });
+      if (window.name === "favsync") setTimeout(() => window.close(), 1500);
     }, 300);
     setTimeout(() => clearInterval(wait), 20000);
   }

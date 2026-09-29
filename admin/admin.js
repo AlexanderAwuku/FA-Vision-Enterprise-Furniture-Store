@@ -872,7 +872,8 @@
     business: () => business,
     signedIn: () => !!token,
     toast, busy, marketplaceText, show,
-    refreshDash: () => renderDash()
+    refreshDash: () => renderDash(),
+    reload: async () => { await load(); renderDash(); }
   };
 
   // =========================================================== start
