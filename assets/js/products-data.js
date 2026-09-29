@@ -688,7 +688,7 @@ window.FAV_DATA = {
       "category": "Dining",
       "type": "Dining Set",
       "marketplace_category": "Home & Garden > Furniture > Dining Sets",
-      "price_ghs": 4000,
+      "price_ghs": 12600,
       "negotiable": true,
       "icon": "🍽️",
       "description": "Bring colour to every meal. A tempered-glass table with a playful printed top, paired with six fully upholstered chairs in bold rainbow fabric. Easy to wipe clean, sturdy chrome legs, and a showpiece in any dining room, restaurant or lounge.\n\nDelivered flat-packed and assembled for you on request within Accra.",
