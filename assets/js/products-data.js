@@ -80,7 +80,7 @@ window.FAV_DATA = {
       "#Kasoa"
     ],
     "payments": {
-      "paystack_public_key": "",
+      "paystack_public_key": "pk_test_1cc8ec90743e4bbd4674e82af76152978b4e2e50",
       "momo_number": "+233572646176",
       "momo_name": "Alexander Awuku",
       "momo_network": "MTN",

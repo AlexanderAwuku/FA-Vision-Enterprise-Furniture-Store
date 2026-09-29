@@ -24,7 +24,17 @@ window.FAV_CHECKOUT = (function () {
   const MOMO_NUMBER = (pay.momo_number || "").trim();
   const NETWORK = pay.momo_network || "MTN";
   const DEPOSIT = Math.min(90, Math.max(10, Number(pay.deposit_percent) || 50));
-  const online = /^pk_(live|test)_/.test(PAYSTACK_KEY);
+  // A pk_test_ key only runs for you on the private test link (?paytest=1), so real
+  // customers never land in Paystack's test mode. A pk_live_ key runs for everyone.
+  const TESTING = (() => {
+    try {
+      if (/[?&]paytest=1\b/.test(location.search)) sessionStorage.setItem("fav-paytest", "1");
+      if (/[?&]paytest=0\b/.test(location.search)) sessionStorage.removeItem("fav-paytest");
+      return sessionStorage.getItem("fav-paytest") === "1";
+    } catch (e) { return /[?&]paytest=1\b/.test(location.search); }
+  })();
+  const testKey = /^pk_test_/.test(PAYSTACK_KEY);
+  const online = /^pk_live_/.test(PAYSTACK_KEY) || (testKey && TESTING);
   const manual = !online && !!MOMO_NUMBER;
   const payNow = online || manual;
   const WA = business.whatsapp.replace(/\D/g, "");
@@ -156,7 +166,7 @@ window.FAV_CHECKOUT = (function () {
         `<div class="due"><span>${now ? "Pay now" : laterLabel}</span><strong>${C.formatPrice(now || tot)}</strong></div>`;
       $("#co-pay").textContent = now ? "Pay " + C.formatPrice(now) : "Place order";
       $("#co-secure").innerHTML = now
-        ? `${ICON.lock} ${online ? "Processed securely by Paystack. We never see your card details or MoMo PIN." : "You'll get our MoMo number and a payment reference on the next step."}`
+        ? `${ICON.lock} ${online ? (testKey ? "<b>TEST MODE</b>: no real money moves. Use Paystack's test card or test MoMo number." : "Processed securely by Paystack. We never see your card details or MoMo PIN.") : "You'll get our MoMo number and a payment reference on the next step."}`
         : `${ICON.lock} Nothing to pay now. We'll call to confirm your order.`;
       return q;
     };
@@ -283,7 +293,7 @@ window.FAV_CHECKOUT = (function () {
         ]
       },
       onSuccess: () => {
-        order.status = order.balance ? "Deposit paid" : "Paid";
+        order.status = (testKey ? "TEST " : "") + (order.balance ? "Deposit paid" : "Paid");
         record(order);
         dlg.showModal();
         renderDone(order, {
