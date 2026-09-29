@@ -809,7 +809,7 @@ window.FAV_DATA = {
       "category": "Dining",
       "type": "Dining Set",
       "marketplace_category": "Home & Garden > Furniture > Dining Sets",
-      "price_ghs": null,
+      "price_ghs": 12600,
       "negotiable": true,
       "icon": "🍽️",
       "description": "Five showroom designs to choose from, all seating six: black marble-effect with chrome chairs, black glass with quilted high-back chairs, frosted white-top, cream marble with gold legs, and a compact black set with a lace runner. Tell us which design you like on WhatsApp and we'll confirm today's price, colour and delivery date.",
@@ -837,7 +837,7 @@ window.FAV_DATA = {
         "Glass and marble-effect tops",
         "Delivery and assembly in Accra"
       ],
-      "placeholder": true,
+      "placeholder": false,
       "facebook_listings": [
         {
           "id": "2109442323303440",
