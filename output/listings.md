@@ -245,7 +245,7 @@ Order: https://wa.me/233572646176?text=Hello%20F.A%20Vision%2C%20I%27m%20interes
 ### Facebook Marketplace
 
 - **Title:** Red Glass Dining Set — 6 Chairs
-- **Price:** 4500
+- **Price:** 12600
 - **Category:** Home & Garden > Furniture > Dining Sets
 - **Condition:** Brand New
 - **Location:** Odorkor, Accra
@@ -288,7 +288,7 @@ Ref: FAV-004
 • 6 curved high-back chairs
 • Sturdy steel frame
 • Stands out in any dining room
-💰 GH₵ 4,500
+💰 GH₵ 12,600
 📍 Odorkor, Accra, delivery available
 📞 WhatsApp 057 264 6176
 #FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
@@ -298,7 +298,7 @@ Ref: FAV-004
 
 ```
 Looking for a quality red glass dining set — 6 chairs? Glossy red-brown glass top.
-Available at our showroom in Odorkor, Accra. GH₵ 4,500.
+Available at our showroom in Odorkor, Accra. GH₵ 12,600.
 Send us a message or WhatsApp 057 264 6176 to order. #FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
 ```
 
@@ -306,7 +306,7 @@ Send us a message or WhatsApp 057 264 6176 to order. #FAVisionEnterprise #Furnit
 
 ```
 NEW FROM F.A VISION ✨ Red Glass Dining Set — 6 Chairs
-GH₵ 4,500 | Ready for pickup
+GH₵ 12,600 | Ready for pickup
 Homes • Offices • Schools
 DM or call 057 264 6176 #FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
 ```
@@ -315,7 +315,7 @@ DM or call 057 264 6176 #FAVisionEnterprise #FurnitureGhana #AccraFurniture #Who
 
 ```
 Red Glass Dining Set — 6 Chairs 🔥
-GH₵ 4,500
+GH₵ 12,600
 Order: https://wa.me/233572646176?text=Hello%20F.A%20Vision%2C%20I%27m%20interested%20in%20the%20Red%20Glass%20Dining%20Set%20%E2%80%94%206%20Chairs%20%28FAV-004%29.
 ```
 
