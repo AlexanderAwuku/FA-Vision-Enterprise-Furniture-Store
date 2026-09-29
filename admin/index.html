@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="admin.css">
+  <link rel="stylesheet" href="admin.css?v=20260929b">
 </head>
 <body>
   <header class="top">
@@ -63,11 +63,13 @@
         <p class="muted" id="dash-sub">Loading…</p>
       </div>
       <div class="dash-head-actions">
+        <button class="btn btn-ghost" data-pricesync>Price sync <span class="ps-badge" id="ps-badge" hidden></span></button>
         <button class="btn btn-ghost" data-orders>Orders &amp; payments</button>
         <button class="btn btn-ghost" data-invoices>Invoices</button>
         <button class="btn btn-sell" data-go="post">+ Post a product</button>
       </div>
     </div>
+    <a class="ps-alert" id="ps-alert" href="#pricesync" data-pricesync hidden></a>
     <div class="stats" id="stats"></div>
     <div class="dash-tools">
       <input type="search" id="dash-search" placeholder="Search your products…" aria-label="Search products">
@@ -105,6 +107,20 @@
       </div>
     </div>
     <div id="orders-body"></div>
+  </main>
+
+  <!-- ============ PRICE SYNC (website vs Facebook Marketplace) ============ -->
+  <main class="screen" id="screen-pricesync" hidden>
+    <div class="dash-head">
+      <div>
+        <h1>Price sync</h1>
+        <p class="muted">Your website price next to every linked Facebook Marketplace listing. Red rows need updating on Facebook.</p>
+      </div>
+      <div class="dash-head-actions">
+        <button class="btn btn-ghost btn-sm" data-go="dash">← My products</button>
+      </div>
+    </div>
+    <div id="ps-body"></div>
   </main>
 
   <!-- ============ INVOICES ============ -->
@@ -285,8 +301,9 @@
   <script src="photo-studio.js"></script>
   <script src="photo-editor.js"></script>
   <script src="promo.js"></script>
-  <script src="admin.js"></script>
+  <script src="admin.js?v=20260929b"></script>
   <script src="orders.js"></script>
+  <script src="pricesync.js?v=1"></script>
   <script src="../assets/js/invoice.js"></script>
   <script src="invoices.js"></script>
 </body>

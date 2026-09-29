@@ -483,3 +483,17 @@ section { padding: 96px 0; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
 }
+
+/* ---------- deals: strategy ads (business.promos) ---------- */
+.deals { background: #fff; }
+.deals .section-head h2 em { font-style: normal; background: var(--brand-ring); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.deals-track { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(240px, 300px); gap: 20px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 6px 4px 18px; margin: 0 -4px; scrollbar-width: thin; }
+.deal { scroll-snap-align: start; display: flex; flex-direction: column; gap: 12px; }
+.deal-img { position: relative; display: block; border-radius: 18px; overflow: hidden; box-shadow: var(--shadow); transition: transform .25s, box-shadow .25s; }
+.deal-img:hover, .deal-img:focus-visible { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+.deal-img img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; }
+.deal.hot .deal-img { outline: 3px solid var(--brand-pink); outline-offset: 3px; }
+.deal-flag { position: absolute; right: 12px; top: 50%; background: var(--brand-red); color: #fff; font: 700 12px/1 var(--serif); padding: 8px 12px; border-radius: 999px; letter-spacing: .02em; box-shadow: 0 6px 16px rgba(244,44,44,.35); }
+.deal-actions { display: flex; gap: 8px; }
+.deal-actions .btn { flex: 1; }
+@media (max-width: 560px) { .deals-track { grid-auto-columns: 78%; } }

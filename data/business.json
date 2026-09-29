@@ -79,8 +79,8 @@
   ],
   "payments": {
     "paystack_public_key": "",
-    "momo_number": "",
-    "momo_name": "",
+    "momo_number": "+233572646176",
+    "momo_name": "Alexander Awuku",
     "momo_network": "MTN",
     "deposit_percent": 50
   },
@@ -107,11 +107,575 @@
     "0546148923"
   ],
   "invoice": {
-    "tin": "",
+    "tin": "P0017237653",
     "vat_registered": false,
     "taxes": [],
     "payment_terms_days": 0,
     "bank_details": "",
     "terms": "Goods remain the property of F.A Vision Enterprise until paid in full. Custom orders need a deposit before production. Terms and conditions apply."
+  },
+  "promos": {
+    "note": "Edit wording here, then run: python3 scripts/make_ads.py && python3 scripts/generate_listings.py",
+    "ads": [
+      {
+        "id": "fav-001",
+        "product": "FAV-001",
+        "kicker": "Dining · Seats 6",
+        "headline": "Make every meal a",
+        "accent": "celebration",
+        "sub": "Rainbow glass-top dining set with six fully upholstered chairs.",
+        "facts": [
+          [
+            "GH₵4,000",
+            "complete set"
+          ],
+          [
+            "6 chairs",
+            "padded & upholstered"
+          ],
+          [
+            "50%",
+            "deposit, rest on delivery"
+          ],
+          [
+            "Accra",
+            "delivery & set-up"
+          ]
+        ],
+        "cta": "Shop now",
+        "tag": "IN STOCK",
+        "seal": [
+          "GH₵4,000",
+          "table + 6 chairs"
+        ],
+        "photo": "assets/images/ads/src/fav-001.jpg"
+      },
+      {
+        "id": "fav-002",
+        "product": "FAV-002",
+        "kicker": "Dining · Seats 6",
+        "headline": "Dinner, but make it",
+        "accent": "elegant",
+        "sub": "Black glass table with six tall, padded high-back chairs.",
+        "facts": [
+          [
+            "GH₵4,900",
+            "complete set"
+          ],
+          [
+            "6 chairs",
+            "high-back leatherette"
+          ],
+          [
+            "Wipe-clean",
+            "glass & leatherette"
+          ],
+          [
+            "Delivered",
+            "to home or office"
+          ]
+        ],
+        "cta": "Shop now",
+        "tag": "IN STOCK",
+        "seal": [
+          "GH₵4,900",
+          "table + 6 chairs"
+        ],
+        "photo": "assets/images/ads/src/fav-002.jpg"
+      },
+      {
+        "id": "fav-003",
+        "product": "FAV-003",
+        "kicker": "Dining · 5 designs",
+        "headline": "Five designs.",
+        "accent": "One perfect table.",
+        "sub": "Marble-effect, glass, white and gold. See them all in our Odorkor showroom.",
+        "facts": [
+          [
+            "5 designs",
+            "in the showroom"
+          ],
+          [
+            "Seats 6",
+            "every design"
+          ],
+          [
+            "50%",
+            "deposit, rest on delivery"
+          ],
+          [
+            "WhatsApp",
+            "for today's price"
+          ]
+        ],
+        "cta": "See all designs",
+        "tag": "5 DESIGNS",
+        "photo": "assets/images/ads/src/fav-003.jpg"
+      },
+      {
+        "id": "fav-004",
+        "product": "FAV-004",
+        "kicker": "Dining · Seats 6",
+        "headline": "Bold colour,",
+        "accent": "warm welcomes",
+        "sub": "Glossy red glass table with six curved high-back chairs.",
+        "facts": [
+          [
+            "GH₵4,500",
+            "complete set"
+          ],
+          [
+            "6 chairs",
+            "curved high-back"
+          ],
+          [
+            "Steel",
+            "sturdy frame"
+          ],
+          [
+            "Delivered",
+            "across Accra"
+          ]
+        ],
+        "cta": "Shop now",
+        "tag": "IN STOCK",
+        "seal": [
+          "GH₵4,500",
+          "table + 6 chairs"
+        ],
+        "photo": "assets/images/ads/src/fav-004.jpg"
+      },
+      {
+        "id": "fav-005",
+        "product": "FAV-005",
+        "kicker": "Dining · Space-saving",
+        "headline": "Big table.",
+        "accent": "Small space.",
+        "sub": "Wood-grain dining table that folds away, with six cushioned chairs.",
+        "facts": [
+          [
+            "Folds",
+            "away in seconds"
+          ],
+          [
+            "6 chairs",
+            "cushioned"
+          ],
+          [
+            "Events",
+            "canteens & flats"
+          ],
+          [
+            "WhatsApp",
+            "for today's price"
+          ]
+        ],
+        "cta": "Ask for price",
+        "tag": "SPACE SAVER",
+        "photo": "assets/images/ads/src/fav-005.jpg",
+        "focus_y": 0.3
+      },
+      {
+        "id": "fav-006",
+        "product": "FAV-006",
+        "kicker": "Office · Executive",
+        "headline": "Lead from a",
+        "accent": "better seat",
+        "sub": "High-back leather executive chair with tilt, 360° swivel and gas-lift height.",
+        "facts": [
+          [
+            "GH₵1,500",
+            "per chair"
+          ],
+          [
+            "360°",
+            "swivel & tilt"
+          ],
+          [
+            "Bulk",
+            "office prices"
+          ],
+          [
+            "Delivered",
+            "to your office"
+          ]
+        ],
+        "cta": "Shop now",
+        "tag": "IN STOCK",
+        "seal": [
+          "GH₵1,500",
+          "per chair"
+        ],
+        "photo": "assets/images/ads/src/fav-006.jpg",
+        "fit": "contain"
+      },
+      {
+        "id": "fav-007",
+        "product": "FAV-007",
+        "kicker": "Office · Ergonomic",
+        "headline": "Work longer.",
+        "accent": "Sit better.",
+        "sub": "Breathable mesh back, padded seat and height adjustment. Blue or green.",
+        "facts": [
+          [
+            "GH₵1,500",
+            "per chair"
+          ],
+          [
+            "Mesh",
+            "breathable back"
+          ],
+          [
+            "2 colours",
+            "blue or green"
+          ],
+          [
+            "Bulk",
+            "for offices & schools"
+          ]
+        ],
+        "cta": "Shop now",
+        "tag": "IN STOCK",
+        "seal": [
+          "GH₵1,500",
+          "per chair"
+        ],
+        "photo": "assets/images/ads/src/fav-007.jpg",
+        "fit": "contain"
+      },
+      {
+        "id": "fav-008",
+        "product": "FAV-008",
+        "kicker": "Office · Desk",
+        "headline": "Your office,",
+        "accent": "sorted.",
+        "sub": "1.2 m desk with a detachable three-drawer unit, flat-packed for easy delivery.",
+        "facts": [
+          [
+            "GH₵4,500",
+            "desk + drawers"
+          ],
+          [
+            "1.2 m",
+            "work surface"
+          ],
+          [
+            "3 drawers",
+            "detachable unit"
+          ],
+          [
+            "Flat-pack",
+            "assembled on site"
+          ]
+        ],
+        "cta": "Shop now",
+        "tag": "IN STOCK",
+        "seal": [
+          "GH₵4,500",
+          "desk + drawers"
+        ],
+        "photo": "assets/images/ads/src/fav-008.jpg",
+        "fit": "contain"
+      },
+      {
+        "id": "fav-009",
+        "product": "FAV-009",
+        "kicker": "Bedroom · Vanity",
+        "headline": "Stay fabulous,",
+        "accent": "stay organised.",
+        "sub": "White dressing table with arched mirror, shelves, drawers and a matching stool.",
+        "facts": [
+          [
+            "GH₵7,450",
+            "with stool"
+          ],
+          [
+            "Mirror",
+            "arched, with shelves"
+          ],
+          [
+            "Storage",
+            "drawers & cabinet"
+          ],
+          [
+            "Campus",
+            "& home delivery"
+          ]
+        ],
+        "cta": "Shop now",
+        "tag": "IN STOCK",
+        "seal": [
+          "GH₵7,450",
+          "mirror + stool"
+        ],
+        "focus_y": 0.4,
+        "photo": "assets/images/ads/src/fav-009.jpg"
+      },
+      {
+        "id": "fav-010",
+        "product": "FAV-010",
+        "kicker": "Bedroom · Wardrobe",
+        "headline": "Room for",
+        "accent": "two.",
+        "sub": "Tall four-door wardrobe with top cabinets, hanging space and shelves.",
+        "facts": [
+          [
+            "GH₵9,800",
+            "4-door wardrobe"
+          ],
+          [
+            "Top",
+            "storage cabinets"
+          ],
+          [
+            "Colours",
+            "cream, white, wood"
+          ],
+          [
+            "Assembled",
+            "in your room"
+          ]
+        ],
+        "cta": "Shop now",
+        "tag": "IN STOCK",
+        "seal": [
+          "GH₵9,800",
+          "delivered"
+        ],
+        "focus_y": 0.45,
+        "photo": "assets/images/ads/src/fav-010.jpg"
+      },
+      {
+        "id": "fav-011",
+        "product": "FAV-011",
+        "kicker": "Living room · Sectional",
+        "headline": "The whole family,",
+        "accent": "one sofa.",
+        "sub": "Grey L-shaped sectional with deep cushions, chaise end and scatter pillows.",
+        "facts": [
+          [
+            "GH₵15,500",
+            "full sectional"
+          ],
+          [
+            "Seats 5–6",
+            "deep cushions"
+          ],
+          [
+            "Wholesale",
+            "hotels & lounges"
+          ],
+          [
+            "50%",
+            "deposit, rest on delivery"
+          ]
+        ],
+        "cta": "Shop now",
+        "tag": "IN STOCK",
+        "seal": [
+          "GH₵15,500",
+          "full set"
+        ],
+        "photo": "assets/images/ads/src/fav-011.jpg"
+      },
+      {
+        "id": "fav-014-arriving",
+        "product": "FAV-014",
+        "kicker": "Back to school · Student desks",
+        "headline": "New consignment arrives",
+        "accent": "15 October",
+        "sub": "Height-adjustable desk & chair sets for SHS to university. Reserve yours now.",
+        "facts": [
+          [
+            "GH₵650",
+            "per set"
+          ],
+          [
+            "GH₵640",
+            "each from 50 sets"
+          ],
+          [
+            "Proforma",
+            "invoice for schools"
+          ],
+          [
+            "Delivery",
+            "& school set-up"
+          ]
+        ],
+        "cta": "Reserve now",
+        "tag": "ARRIVES 15 OCT",
+        "seal": [
+          "GH₵650",
+          "per set"
+        ]
+      },
+      {
+        "id": "fav-014-arrived",
+        "product": "FAV-014",
+        "kicker": "Back to school · Student desks",
+        "headline": "Fresh stock, just",
+        "accent": "arrived!",
+        "sub": "New consignment of height-adjustable desk & chair sets for SHS to university.",
+        "facts": [
+          [
+            "GH₵650",
+            "per set"
+          ],
+          [
+            "GH₵640",
+            "each from 50 sets"
+          ],
+          [
+            "Proforma",
+            "invoice for schools"
+          ],
+          [
+            "Delivery",
+            "& school set-up"
+          ]
+        ],
+        "cta": "Order now",
+        "tag": "JUST ARRIVED",
+        "seal": [
+          "GH₵650",
+          "per set"
+        ]
+      },
+      {
+        "id": "fav-014",
+        "product": "FAV-014",
+        "kicker": "School · Student desks",
+        "headline": "Every student deserves a",
+        "accent": "proper desk",
+        "sub": "Height-adjustable steel desk & chair sets for SHS to university.",
+        "facts": [
+          [
+            "GH₵650",
+            "per set"
+          ],
+          [
+            "GH₵640",
+            "each from 50 sets"
+          ],
+          [
+            "Proforma",
+            "invoice for schools"
+          ],
+          [
+            "Delivery",
+            "& school set-up"
+          ]
+        ],
+        "cta": "Shop now",
+        "tag": "IN STOCK",
+        "seal": [
+          "GH₵650",
+          "per set"
+        ]
+      }
+    ],
+    "schedule": [
+      {
+        "id": "desks-arriving-2026",
+        "from": "2026-09-29",
+        "to": "2026-10-14",
+        "ad": "fav-014-arriving",
+        "link": "#promo",
+        "sticker": "Arrives 15 Oct",
+        "bar": "New student desk consignment arrives <b>15 October</b> · <b>GH₵650</b> a set · reserve yours now"
+      },
+      {
+        "id": "desks-arrived-2026",
+        "from": "2026-10-15",
+        "to": "2026-11-15",
+        "ad": "fav-014-arrived",
+        "link": "#promo",
+        "sticker": "Just arrived!",
+        "bar": "New student desks <b>just arrived</b> · <b>GH₵650</b> a set · <b>GH₵640</b> each from 50"
+      },
+      {
+        "id": "festive",
+        "from": "11-16",
+        "to": "12-31",
+        "ad": "fav-001",
+        "also": [
+          "fav-011",
+          "fav-003"
+        ],
+        "link": "#deals",
+        "bar": "<b>Festive season:</b> host in style with dining sets from <b>GH₵4,000</b> · pay 50% now, rest on delivery"
+      },
+      {
+        "id": "new-year-office",
+        "from": "01-01",
+        "to": "01-31",
+        "ad": "fav-006",
+        "also": [
+          "fav-007",
+          "fav-008"
+        ],
+        "link": "#deals",
+        "bar": "<b>New year, new office:</b> executive &amp; mesh chairs from <b>GH₵1,500</b> · bulk prices for offices"
+      },
+      {
+        "id": "valentines",
+        "from": "02-01",
+        "to": "02-29",
+        "ad": "fav-010",
+        "also": [
+          "fav-009"
+        ],
+        "link": "#deals",
+        "bar": "<b>Valentine's month:</b> wardrobes for two &amp; dressing tables · delivered and assembled"
+      },
+      {
+        "id": "easter-hosting",
+        "from": "03-01",
+        "to": "04-30",
+        "ad": "fav-003",
+        "also": [
+          "fav-002",
+          "fav-004"
+        ],
+        "link": "#deals",
+        "bar": "<b>Easter hosting:</b> 5 dining designs in our Odorkor showroom · pay 50% now, rest on delivery"
+      },
+      {
+        "id": "mid-year-office",
+        "from": "05-01",
+        "to": "06-30",
+        "ad": "fav-008",
+        "also": [
+          "fav-007",
+          "fav-006"
+        ],
+        "link": "#deals",
+        "bar": "<b>Mid-year office upgrade:</b> desks &amp; chairs with bulk prices · proforma invoices for companies"
+      },
+      {
+        "id": "back-to-school",
+        "from": "07-01",
+        "to": "10-31",
+        "ad": "fav-014",
+        "also": [
+          "fav-009"
+        ],
+        "link": "#promo",
+        "sticker": "Back to school",
+        "bar": "Student desk &amp; chair sets <b>GH₵650</b> · <b>GH₵640</b> each from 50 sets"
+      },
+      {
+        "id": "home-refresh",
+        "from": "11-01",
+        "to": "11-15",
+        "ad": "fav-011",
+        "also": [
+          "fav-010"
+        ],
+        "link": "#deals",
+        "bar": "<b>Home refresh:</b> sofas, wardrobes &amp; dining sets · pay on delivery within Accra"
+      }
+    ]
   }
 }

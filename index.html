@@ -367,12 +367,12 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/site.css?v=20260929">
+  <link rel="stylesheet" href="assets/css/site.css?v=20260929b">
 </head>
 <body>
-  <a class="announce" href="#promo">
+  <a class="announce" id="announce" href="#promo">
     <span class="announce-tag">NEW</span>
-    <span>Student desk &amp; chair sets <b>GH₵650</b> · <b>GH₵640</b> each from 50 sets</span>
+    <span id="announce-text">Student desk &amp; chair sets <b>GH₵650</b> · <b>GH₵640</b> each from 50 sets</span>
     <span class="announce-cta">See offer →</span>
   </a>
   <header class="nav" id="top">
@@ -382,6 +382,7 @@
         <span class="logo-text"><span><b>F.A</b> Vision</span><small>Enterprise</small></span>
       </a>
       <nav class="nav-links" id="nav-links">
+        <a href="#deals">Deals</a>
         <a href="#shop">Shop</a>
         <a href="#services">Services</a>
         <a href="#why">Why us</a>
@@ -424,7 +425,7 @@
         <div class="promo-photo">
           <button type="button" class="promo-pic" id="promo-pic" aria-label="Show another photo of the student desk set">
             <img id="promo-img" src="assets/images/products/fav-014-muk5690f-1.jpg" alt="Yellow-top student desk and chair set with grey steel frame" width="720" height="900">
-            <span class="promo-sticker">New stock!</span>
+            <span class="promo-sticker" id="promo-sticker">In stock</span>
             <span class="promo-hint">Tap for another angle ↻</span>
           </button>
           <div class="promo-dots" id="promo-dots" aria-hidden="true"></div>
@@ -462,12 +463,23 @@
       </div>
     </section>
 
+    <section class="deals" id="deals" aria-labelledby="deals-title">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="kicker" id="deals-kicker">Deals</p>
+          <h2 id="deals-title">This season's <em>offers</em></h2>
+          <p class="section-sub">Tap an offer to see the piece, or share it with someone who needs it. Pay 50% now and the rest on delivery, or pay when it arrives within Accra.</p>
+        </div>
+        <div class="deals-track" id="deals-track"></div>
+      </div>
+    </section>
+
     <section class="shop" id="shop">
       <div class="wrap">
         <div class="section-head">
           <p class="kicker">The collection</p>
           <h2>Pieces built to last</h2>
-          <p class="section-sub">Prices are starting prices in Ghana Cedis. Every piece can be made in your size, fabric and finish.</p>
+          <p class="section-sub">Prices in Ghana Cedis. Bulk and wholesale prices for schools, offices, churches and hotels. Ask about other sizes, colours and finishes.</p>
         </div>
 
         <div class="toolbar" id="toolbar">
@@ -737,8 +749,8 @@
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <script src="assets/js/catalog-config.js"></script>
-  <script src="assets/js/products-data.js"></script>
+  <script src="assets/js/products-data.js?v=20260929b"></script>
   <script src="assets/js/checkout.js"></script>
-  <script src="assets/js/site.js?v=20260929"></script>
+  <script src="assets/js/site.js?v=20260929b"></script>
 </body>
 </html>

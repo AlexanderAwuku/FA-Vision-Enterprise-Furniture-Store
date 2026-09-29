@@ -171,7 +171,8 @@
     const text = "Student desk & chair sets from F.A Vision Enterprise: GH₵650 per set, GH₵640 each from 50 sets.";
     try {
       if (navigator.share) {
-        const img = await fetch("assets/images/promo-student-desks.jpg").then(r => r.blob()).catch(() => null);
+        const flyer = active && /^fav-014-/.test(active.ad) ? `assets/images/ads/${active.ad}.jpg` : "assets/images/promo-student-desks.jpg";
+        const img = await fetch(flyer).then(r => r.blob()).catch(() => null);
         const file = img && new File([img], "fa-vision-student-desks.jpg", { type: "image/jpeg" });
         if (file && navigator.canShare && navigator.canShare({ files: [file] })) await navigator.share({ files: [file], text: `${text}\n${url}` });
         else await navigator.share({ title: "F.A Vision student desks", text, url });
@@ -181,6 +182,71 @@
       toast("Link copied. Paste it in WhatsApp or anywhere.");
     } catch (err) { /* share sheet dismissed */ }
   });
+
+  // ---------- promo calendar & strategy ads ----------
+  // business.promos.schedule: the first entry whose dates include today wins. "from"/"to" are
+  // YYYY-MM-DD (one-off, e.g. the 15 Oct 2026 consignment) or MM-DD (repeats every year), so
+  // dated promos drop off by themselves and the year-round calendar takes over.
+  const promoCfg = business.promos || { ads: [], schedule: [] };
+  const adById = Object.fromEntries((promoCfg.ads || []).map(a => [a.id, a]));
+  const now = new Date();
+  const pad = n => String(n).padStart(2, "0");
+  const ymd = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}`, md = ymd.slice(5);
+  const inWindow = s => {
+    const t = s.from.length === 10 ? ymd : md;
+    return s.from <= s.to ? (t >= s.from && t <= s.to) : (t >= s.from || t <= s.to);
+  };
+  const active = (promoCfg.schedule || []).find(inWindow);
+  if (active) {
+    const bar = $("#announce"), text = $("#announce-text");
+    if (bar && text && active.bar) { text.innerHTML = active.bar; bar.href = active.link || "#deals"; }
+    const sticker = $("#promo-sticker");
+    if (sticker && active.sticker && (adById[active.ad] || {}).product === "FAV-014") sticker.textContent = active.sticker;
+  }
+  // Dated ads show only inside their own window; every other product ad is always on.
+  const dated = new Set((promoCfg.schedule || []).filter(s => s.from.length === 10).map(s => s.ad));
+  const seasonal = active ? [active.ad, ...(active.also || [])] : [];
+  let deckIds = [...new Set([...seasonal, ...(promoCfg.ads || []).map(a => a.id)])]
+    .filter(id => adById[id] && (!dated.has(id) || (active && active.ad === id)));
+  if (deckIds.some(id => dated.has(id))) deckIds = deckIds.filter(id => id !== "fav-014");  // one desk ad at a time
+  const adImg = a => `assets/images/ads/${a.id}.jpg`;
+  const track = $("#deals-track");
+  if (track && deckIds.length) {
+    const pById = Object.fromEntries(products.map(p => [p.id, p]));
+    track.innerHTML = deckIds.map(id => {
+      const a = adById[id], p = pById[a.product] || {};
+      const hot = seasonal.includes(id);
+      return `<article class="deal${hot ? " hot" : ""}">
+        <a class="deal-img" href="#product/${esc(a.product)}" aria-label="${esc(p.name || a.headline)}">
+          <img src="${esc(adImg(a))}" alt="${esc(`${a.headline} ${a.accent}: ${p.name || ""}`)}" loading="lazy" width="1080" height="1350">
+          ${hot ? `<span class="deal-flag">This season</span>` : ""}
+        </a>
+        <div class="deal-actions">
+          <a class="btn btn-gold btn-sm" href="#product/${esc(a.product)}">View</a>
+          <button class="btn btn-ghost btn-sm" type="button" data-share-ad="${esc(id)}">Share</button>
+        </div>
+      </article>`;
+    }).join("");
+    track.addEventListener("click", async e => {
+      const b = e.target.closest("[data-share-ad]");
+      if (!b) return;
+      const a = adById[b.dataset.shareAd], p = pById[a.product] || {};
+      const url = `${SITE}#product/${a.product}`;
+      const text = `${p.name || a.headline}${p.price_ghs ? " · " + C.formatPrice(p.price_ghs) : ""} from F.A Vision Enterprise`;
+      try {
+        if (navigator.share) {
+          const blob = await fetch(adImg(a)).then(r => r.blob()).catch(() => null);
+          const file = blob && new File([blob], `fa-vision-${a.id}.jpg`, { type: "image/jpeg" });
+          if (file && navigator.canShare && navigator.canShare({ files: [file] })) await navigator.share({ files: [file], text: `${text}\n${url}` });
+          else await navigator.share({ title: text, text, url });
+          return;
+        }
+        window.open(waLink(`${text}\n${url}`), "_blank", "noopener");
+      } catch (err) { /* share sheet dismissed */ }
+    });
+  } else if (track) {
+    track.closest("section").hidden = true;
+  }
 
   // ---------- invoice requests ----------
   // Saved in the backend Sheet's "Invoices" tab (when connected) and always sent on WhatsApp,

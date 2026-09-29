@@ -1,32 +1,31 @@
 # F.A Vision Enterprise: ready-to-paste listings
 
-Generated 2026-09-28. Regenerate after editing `data/products.json`.
+Generated 2026-09-29. Regenerate after editing `data/products.json`.
 
-## FAV-001 · 3-Seater Fabric Sofa
-
-> ⚠️ Placeholder product: confirm details, price and photos before posting.
+## FAV-001 · Rainbow Glass-Top Dining Set — 6 Chairs
 
 ### Facebook Marketplace
 
-- **Title:** 3-Seater Fabric Sofa - Made to Order
-- **Price:** 4500
-- **Category:** Home & Garden > Furniture > Sofas
+- **Title:** Rainbow Glass-Top Dining Set — 6 Chairs
+- **Price:** 4000
+- **Category:** Home & Garden > Furniture > Dining Sets
 - **Condition:** Brand New
 - **Location:** Odorkor, Accra
-- **Photos:** ⚠️ add photos
+- **Photos:** assets/images/products/fav-001-1.jpg, assets/images/products/fav-001-2.jpg, assets/images/products/fav-001-3.jpg, assets/images/products/fav-001-4.jpg
 
 **Description:**
 
 ```
-3-Seater Fabric Sofa by F.A Vision Enterprise.
+Rainbow Glass-Top Dining Set — 6 Chairs by F.A Vision Enterprise.
 
-✔ Strong hardwood frame
-✔ Comfortable high-density foam
-✔ Colour and fabric can be customised
+✔ Tempered-glass top, easy to wipe clean
+✔ 6 padded, fully upholstered chairs
+✔ Chrome steel legs — stable and rust-resistant
+✔ Great for homes, restaurants and lounges
 
-Material: Hardwood frame, high-density foam, fabric upholstery
-Colours: Grey, Brown, Cream
-Custom sizes, colours and finishes available.
+Material: Tempered glass top, chrome-plated steel legs, upholstered fabric chairs
+Size: Seats 6 — ask us for exact table size
+Colours: Multi-colour
 
 📍 Showroom: Tarazzo Road, opposite Pacific, Odorkor, Accra, Greater Accra, Ghana
 🚚 Delivery available across Accra and to Tema, Koforidua, Central Region and Kumasi (fee depends on location).
@@ -41,11 +40,12 @@ Ref: FAV-001
 **Variant 1**
 
 ```
-🛋️ 3-Seater Fabric Sofa available now!
-• Strong hardwood frame
-• Comfortable high-density foam
-• Colour and fabric can be customised
-💰 GH₵ 4,500
+🛋️ Rainbow Glass-Top Dining Set — 6 Chairs available now!
+• Tempered-glass top, easy to wipe clean
+• 6 padded, fully upholstered chairs
+• Chrome steel legs — stable and rust-resistant
+• Great for homes, restaurants and lounges
+💰 GH₵ 4,000
 📍 Odorkor, Accra, delivery available
 📞 WhatsApp 057 264 6176
 #FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
@@ -54,16 +54,16 @@ Ref: FAV-001
 **Variant 2**
 
 ```
-Looking for a quality 3-seater fabric sofa? Strong hardwood frame.
-Available at our showroom in Odorkor, Accra. GH₵ 4,500.
+Looking for a quality rainbow glass-top dining set — 6 chairs? Tempered-glass top, easy to wipe clean.
+Available at our showroom in Odorkor, Accra. GH₵ 4,000.
 Send us a message or WhatsApp 057 264 6176 to order. #FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
 ```
 
 **Variant 3**
 
 ```
-NEW FROM F.A VISION ✨ 3-Seater Fabric Sofa
-GH₵ 4,500 | Made to order in your size and colour
+NEW FROM F.A VISION ✨ Rainbow Glass-Top Dining Set — 6 Chairs
+GH₵ 4,000 | Ready for pickup
 Homes • Offices • Schools
 DM or call 057 264 6176 #FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
 ```
@@ -71,33 +71,35 @@ DM or call 057 264 6176 #FAVisionEnterprise #FurnitureGhana #AccraFurniture #Who
 ### WhatsApp status
 
 ```
-3-Seater Fabric Sofa 🔥
-GH₵ 4,500
-Order: https://wa.me/233572646176?text=Hello%20F.A%20Vision%2C%20I%27m%20interested%20in%20the%203-Seater%20Fabric%20Sofa%20%28FAV-001%29.
+Rainbow Glass-Top Dining Set — 6 Chairs 🔥
+GH₵ 4,000
+Order: https://wa.me/233572646176?text=Hello%20F.A%20Vision%2C%20I%27m%20interested%20in%20the%20Rainbow%20Glass-Top%20Dining%20Set%20%E2%80%94%206%20Chairs%20%28FAV-001%29.
 ```
 
-## FAV-002 · L-Shaped Sectional Sofa
-
-> ⚠️ Placeholder product: confirm details, price and photos before posting.
+## FAV-002 · Black Glass Dining Set — 6 High-Back Chairs
 
 ### Facebook Marketplace
 
-- **Title:** L-Shaped Sectional Sofa - Made to Order
-- **Price:** 9800
-- **Category:** Home & Garden > Furniture > Sofas
+- **Title:** Black Glass Dining Set — 6 High-Back Chairs
+- **Price:** 4900
+- **Category:** Home & Garden > Furniture > Dining Sets
 - **Condition:** Brand New
 - **Location:** Odorkor, Accra
-- **Photos:** ⚠️ add photos
+- **Photos:** assets/images/products/fav-002-1.jpg, assets/images/products/fav-002-2.jpg, assets/images/products/fav-002-3.jpg
 
 **Description:**
 
 ```
-L-Shaped Sectional Sofa by F.A Vision Enterprise.
+Black Glass Dining Set — 6 High-Back Chairs by F.A Vision Enterprise.
 
-✔ Spacious corner sofa
-✔ Ideal for family living rooms
+✔ Black tempered-glass top
+✔ 6 padded high-back chairs
+✔ Wipe-clean leatherette
+✔ Modern look for homes and offices
 
-Custom sizes, colours and finishes available.
+Material: Tempered glass top, chrome base, leatherette high-back chairs
+Size: Seats 6
+Colours: Black
 
 📍 Showroom: Tarazzo Road, opposite Pacific, Odorkor, Accra, Greater Accra, Ghana
 🚚 Delivery available across Accra and to Tema, Koforidua, Central Region and Kumasi (fee depends on location).
@@ -112,10 +114,12 @@ Ref: FAV-002
 **Variant 1**
 
 ```
-🛋️ L-Shaped Sectional Sofa available now!
-• Spacious corner sofa
-• Ideal for family living rooms
-💰 GH₵ 9,800
+🛋️ Black Glass Dining Set — 6 High-Back Chairs available now!
+• Black tempered-glass top
+• 6 padded high-back chairs
+• Wipe-clean leatherette
+• Modern look for homes and offices
+💰 GH₵ 4,900
 📍 Odorkor, Accra, delivery available
 📞 WhatsApp 057 264 6176
 #FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
@@ -124,16 +128,16 @@ Ref: FAV-002
 **Variant 2**
 
 ```
-Looking for a quality l-shaped sectional sofa? Spacious corner sofa.
-Available at our showroom in Odorkor, Accra. GH₵ 9,800.
+Looking for a quality black glass dining set — 6 high-back chairs? Black tempered-glass top.
+Available at our showroom in Odorkor, Accra. GH₵ 4,900.
 Send us a message or WhatsApp 057 264 6176 to order. #FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
 ```
 
 **Variant 3**
 
 ```
-NEW FROM F.A VISION ✨ L-Shaped Sectional Sofa
-GH₵ 9,800 | Made to order in your size and colour
+NEW FROM F.A VISION ✨ Black Glass Dining Set — 6 High-Back Chairs
+GH₵ 4,900 | Ready for pickup
 Homes • Offices • Schools
 DM or call 057 264 6176 #FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
 ```
@@ -141,31 +145,37 @@ DM or call 057 264 6176 #FAVisionEnterprise #FurnitureGhana #AccraFurniture #Who
 ### WhatsApp status
 
 ```
-L-Shaped Sectional Sofa 🔥
-GH₵ 9,800
-Order: https://wa.me/233572646176?text=Hello%20F.A%20Vision%2C%20I%27m%20interested%20in%20the%20L-Shaped%20Sectional%20Sofa%20%28FAV-002%29.
+Black Glass Dining Set — 6 High-Back Chairs 🔥
+GH₵ 4,900
+Order: https://wa.me/233572646176?text=Hello%20F.A%20Vision%2C%20I%27m%20interested%20in%20the%20Black%20Glass%20Dining%20Set%20%E2%80%94%206%20High-Back%20Chairs%20%28FAV-002%29.
 ```
 
-## FAV-003 · Wooden Centre Table
+## FAV-003 · Dining Set Collection — 5 Designs, 6 Chairs
 
 > ⚠️ Placeholder product: confirm details, price and photos before posting.
 
 ### Facebook Marketplace
 
-- **Title:** Wooden Centre Table - Made to Order
-- **Price:** 1200
-- **Category:** Home & Garden > Furniture > Tables
+- **Title:** Dining Set Collection — 5 Designs, 6 Chairs - Made to Order
+- **Price:** ⚠️ set price_ghs
+- **Category:** Home & Garden > Furniture > Dining Sets
 - **Condition:** Brand New
 - **Location:** Odorkor, Accra
-- **Photos:** ⚠️ add photos
+- **Photos:** assets/images/products/fav-003-1.jpg, assets/images/products/fav-003-2.jpg, assets/images/products/fav-003-3.jpg, assets/images/products/fav-003-4.jpg, assets/images/products/fav-003-5.jpg
 
 **Description:**
 
 ```
-Wooden Centre Table by F.A Vision Enterprise.
+Dining Set Collection — 5 Designs, 6 Chairs by F.A Vision Enterprise.
 
-✔ Solid wood coffee table with lower storage shelf
+✔ 5 designs in the showroom
+✔ All seat 6
+✔ Glass and marble-effect tops
+✔ Delivery and assembly in Accra
 
+Material: Glass or marble-effect tops, chrome, gold or powder-coated frames, padded chairs
+Size: Seats 6
+Colours: Black, White, Cream, Gold
 Custom sizes, colours and finishes available.
 
 📍 Showroom: Tarazzo Road, opposite Pacific, Odorkor, Accra, Greater Accra, Ghana
@@ -181,9 +191,12 @@ Ref: FAV-003
 **Variant 1**
 
 ```
-🛋️ Wooden Centre Table available now!
-• Solid wood coffee table with lower storage shelf
-💰 GH₵ 1,200
+🛋️ Dining Set Collection — 5 Designs, 6 Chairs available now!
+• 5 designs in the showroom
+• All seat 6
+• Glass and marble-effect tops
+• Delivery and assembly in Accra
+💰 Price on request
 📍 Odorkor, Accra, delivery available
 📞 WhatsApp 057 264 6176
 #FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
@@ -192,16 +205,16 @@ Ref: FAV-003
 **Variant 2**
 
 ```
-Looking for a quality wooden centre table? Solid wood coffee table with lower storage shelf.
-Available at our showroom in Odorkor, Accra. GH₵ 1,200.
+Looking for a quality dining set collection — 5 designs, 6 chairs? 5 designs in the showroom.
+Available at our showroom in Odorkor, Accra. Price on request.
 Send us a message or WhatsApp 057 264 6176 to order. #FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
 ```
 
 **Variant 3**
 
 ```
-NEW FROM F.A VISION ✨ Wooden Centre Table
-GH₵ 1,200 | Made to order in your size and colour
+NEW FROM F.A VISION ✨ Dining Set Collection — 5 Designs, 6 Chairs
+Price on request | Made to order in your size and colour
 Homes • Offices • Schools
 DM or call 057 264 6176 #FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
 ```
@@ -209,32 +222,35 @@ DM or call 057 264 6176 #FAVisionEnterprise #FurnitureGhana #AccraFurniture #Who
 ### WhatsApp status
 
 ```
-Wooden Centre Table 🔥
-GH₵ 1,200
-Order: https://wa.me/233572646176?text=Hello%20F.A%20Vision%2C%20I%27m%20interested%20in%20the%20Wooden%20Centre%20Table%20%28FAV-003%29.
+Dining Set Collection — 5 Designs, 6 Chairs 🔥
+Price on request
+Order: https://wa.me/233572646176?text=Hello%20F.A%20Vision%2C%20I%27m%20interested%20in%20the%20Dining%20Set%20Collection%20%E2%80%94%205%20Designs%2C%206%20Chairs%20%28FAV-003%29.
 ```
 
-## FAV-004 · TV Stand / Console
-
-> ⚠️ Placeholder product: confirm details, price and photos before posting.
+## FAV-004 · Red Glass Dining Set — 6 Chairs
 
 ### Facebook Marketplace
 
-- **Title:** TV Stand / Console - Made to Order
-- **Price:** 1800
-- **Category:** Home & Garden > Furniture > TV Stands
+- **Title:** Red Glass Dining Set — 6 Chairs
+- **Price:** 4500
+- **Category:** Home & Garden > Furniture > Dining Sets
 - **Condition:** Brand New
 - **Location:** Odorkor, Accra
-- **Photos:** ⚠️ add photos
+- **Photos:** assets/images/products/fav-004-1.jpg
 
 **Description:**
 
 ```
-TV Stand / Console by F.A Vision Enterprise.
+Red Glass Dining Set — 6 Chairs by F.A Vision Enterprise.
 
-✔ Cabinet with drawers and cable management
+✔ Glossy red-brown glass top
+✔ 6 curved high-back chairs
+✔ Sturdy steel frame
+✔ Stands out in any dining room
 
-Custom sizes, colours and finishes available.
+Material: Glass table, steel frame, padded high-back chairs
+Size: Seats 6
+Colours: Red, Dark Brown, Black
 
 📍 Showroom: Tarazzo Road, opposite Pacific, Odorkor, Accra, Greater Accra, Ghana
 🚚 Delivery available across Accra and to Tema, Koforidua, Central Region and Kumasi (fee depends on location).
@@ -249,9 +265,12 @@ Ref: FAV-004
 **Variant 1**
 
 ```
-🛋️ TV Stand / Console available now!
-• Cabinet with drawers and cable management
-💰 GH₵ 1,800
+🛋️ Red Glass Dining Set — 6 Chairs available now!
+• Glossy red-brown glass top
+• 6 curved high-back chairs
+• Sturdy steel frame
+• Stands out in any dining room
+💰 GH₵ 4,500
 📍 Odorkor, Accra, delivery available
 📞 WhatsApp 057 264 6176
 #FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
@@ -260,16 +279,16 @@ Ref: FAV-004
 **Variant 2**
 
 ```
-Looking for a quality tv stand / console? Cabinet with drawers and cable management.
-Available at our showroom in Odorkor, Accra. GH₵ 1,800.
+Looking for a quality red glass dining set — 6 chairs? Glossy red-brown glass top.
+Available at our showroom in Odorkor, Accra. GH₵ 4,500.
 Send us a message or WhatsApp 057 264 6176 to order. #FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
 ```
 
 **Variant 3**
 
 ```
-NEW FROM F.A VISION ✨ TV Stand / Console
-GH₵ 1,800 | Made to order in your size and colour
+NEW FROM F.A VISION ✨ Red Glass Dining Set — 6 Chairs
+GH₵ 4,500 | Ready for pickup
 Homes • Offices • Schools
 DM or call 057 264 6176 #FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
 ```
@@ -277,36 +296,37 @@ DM or call 057 264 6176 #FAVisionEnterprise #FurnitureGhana #AccraFurniture #Who
 ### WhatsApp status
 
 ```
-TV Stand / Console 🔥
-GH₵ 1,800
-Order: https://wa.me/233572646176?text=Hello%20F.A%20Vision%2C%20I%27m%20interested%20in%20the%20TV%20Stand%20/%20Console%20%28FAV-004%29.
+Red Glass Dining Set — 6 Chairs 🔥
+GH₵ 4,500
+Order: https://wa.me/233572646176?text=Hello%20F.A%20Vision%2C%20I%27m%20interested%20in%20the%20Red%20Glass%20Dining%20Set%20%E2%80%94%206%20Chairs%20%28FAV-004%29.
 ```
 
-## FAV-005 · Queen Size Bed Frame
+## FAV-005 · Foldable Wood-Grain Dining Set — 6 Chairs
 
 > ⚠️ Placeholder product: confirm details, price and photos before posting.
 
 ### Facebook Marketplace
 
-- **Title:** Queen Size Bed Frame - Made to Order
-- **Price:** 3800
-- **Category:** Home & Garden > Furniture > Beds & Bed Frames
+- **Title:** Foldable Wood-Grain Dining Set — 6 Chairs
+- **Price:** ⚠️ set price_ghs
+- **Category:** Home & Garden > Furniture > Dining Sets
 - **Condition:** Brand New
 - **Location:** Odorkor, Accra
-- **Photos:** ⚠️ add photos
+- **Photos:** assets/images/products/fav-005-1.jpg
 
 **Description:**
 
 ```
-Queen Size Bed Frame by F.A Vision Enterprise.
+Foldable Wood-Grain Dining Set — 6 Chairs by F.A Vision Enterprise.
 
-✔ Solid wood construction
-✔ Padded or wooden headboard options
-✔ Sizes made to order
+✔ Folds away to save space
+✔ 6 cushioned chairs included
+✔ Strong steel frame
+✔ Perfect for apartments and events
 
-Material: Solid wood
-Colours: Natural Wood, Dark Brown
-Custom sizes, colours and finishes available.
+Material: Wood-grain finish top, steel frame, cushioned chairs
+Size: Seats 6 — folds for storage
+Colours: Dark Brown
 
 📍 Showroom: Tarazzo Road, opposite Pacific, Odorkor, Accra, Greater Accra, Ghana
 🚚 Delivery available across Accra and to Tema, Koforidua, Central Region and Kumasi (fee depends on location).
@@ -321,11 +341,12 @@ Ref: FAV-005
 **Variant 1**
 
 ```
-🛋️ Queen Size Bed Frame available now!
-• Solid wood construction
-• Padded or wooden headboard options
-• Sizes made to order
-💰 GH₵ 3,800
+🛋️ Foldable Wood-Grain Dining Set — 6 Chairs available now!
+• Folds away to save space
+• 6 cushioned chairs included
+• Strong steel frame
+• Perfect for apartments and events
+💰 Price on request
 📍 Odorkor, Accra, delivery available
 📞 WhatsApp 057 264 6176
 #FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
@@ -334,16 +355,16 @@ Ref: FAV-005
 **Variant 2**
 
 ```
-Looking for a quality queen size bed frame? Solid wood construction.
-Available at our showroom in Odorkor, Accra. GH₵ 3,800.
+Looking for a quality foldable wood-grain dining set — 6 chairs? Folds away to save space.
+Available at our showroom in Odorkor, Accra. Price on request.
 Send us a message or WhatsApp 057 264 6176 to order. #FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
 ```
 
 **Variant 3**
 
 ```
-NEW FROM F.A VISION ✨ Queen Size Bed Frame
-GH₵ 3,800 | Made to order in your size and colour
+NEW FROM F.A VISION ✨ Foldable Wood-Grain Dining Set — 6 Chairs
+Price on request | Ready for pickup
 Homes • Offices • Schools
 DM or call 057 264 6176 #FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
 ```
@@ -351,33 +372,37 @@ DM or call 057 264 6176 #FAVisionEnterprise #FurnitureGhana #AccraFurniture #Who
 ### WhatsApp status
 
 ```
-Queen Size Bed Frame 🔥
-GH₵ 3,800
-Order: https://wa.me/233572646176?text=Hello%20F.A%20Vision%2C%20I%27m%20interested%20in%20the%20Queen%20Size%20Bed%20Frame%20%28FAV-005%29.
+Foldable Wood-Grain Dining Set — 6 Chairs 🔥
+Price on request
+Order: https://wa.me/233572646176?text=Hello%20F.A%20Vision%2C%20I%27m%20interested%20in%20the%20Foldable%20Wood-Grain%20Dining%20Set%20%E2%80%94%206%20Chairs%20%28FAV-005%29.
 ```
 
-## FAV-006 · King Size Bed Frame
+## FAV-006 · Executive Director Chair — Leather, High Back
 
 > ⚠️ Placeholder product: confirm details, price and photos before posting.
 
 ### Facebook Marketplace
 
-- **Title:** King Size Bed Frame - Made to Order
-- **Price:** 4800
-- **Category:** Home & Garden > Furniture > Beds & Bed Frames
+- **Title:** Executive Director Chair — Leather, High Back
+- **Price:** 1500
+- **Category:** Home & Garden > Furniture > Chairs
 - **Condition:** Brand New
 - **Location:** Odorkor, Accra
-- **Photos:** ⚠️ add photos
+- **Photos:** assets/images/products/fav-006-1.jpg, assets/images/products/fav-006-2.jpg, assets/images/products/fav-006-3.jpg, assets/images/products/fav-006-4.jpg, assets/images/products/fav-006-5.jpg
 
 **Description:**
 
 ```
-King Size Bed Frame by F.A Vision Enterprise.
+Executive Director Chair — Leather, High Back by F.A Vision Enterprise.
 
-✔ Strong slatted base
-✔ Available in natural or dark finish
+✔ High back with thick padding
+✔ Gas-lift height adjustment, tilt and 360° swivel
+✔ Chrome base with smooth castors
+✔ Bulk prices for offices
 
-Custom sizes, colours and finishes available.
+Material: Leatherette upholstery, padded armrests, chrome five-star base
+Size: Standard executive size, height adjustable
+Colours: Black
 
 📍 Showroom: Tarazzo Road, opposite Pacific, Odorkor, Accra, Greater Accra, Ghana
 🚚 Delivery available across Accra and to Tema, Koforidua, Central Region and Kumasi (fee depends on location).
@@ -392,10 +417,12 @@ Ref: FAV-006
 **Variant 1**
 
 ```
-🛋️ King Size Bed Frame available now!
-• Strong slatted base
-• Available in natural or dark finish
-💰 GH₵ 4,800
+🛋️ Executive Director Chair — Leather, High Back available now!
+• High back with thick padding
+• Gas-lift height adjustment, tilt and 360° swivel
+• Chrome base with smooth castors
+• Bulk prices for offices
+💰 GH₵ 1,500
 📍 Odorkor, Accra, delivery available
 📞 WhatsApp 057 264 6176
 #FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
@@ -404,16 +431,16 @@ Ref: FAV-006
 **Variant 2**
 
 ```
-Looking for a quality king size bed frame? Strong slatted base.
-Available at our showroom in Odorkor, Accra. GH₵ 4,800.
+Looking for a quality executive director chair — leather, high back? High back with thick padding.
+Available at our showroom in Odorkor, Accra. GH₵ 1,500.
 Send us a message or WhatsApp 057 264 6176 to order. #FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
 ```
 
 **Variant 3**
 
 ```
-NEW FROM F.A VISION ✨ King Size Bed Frame
-GH₵ 4,800 | Made to order in your size and colour
+NEW FROM F.A VISION ✨ Executive Director Chair — Leather, High Back
+GH₵ 1,500 | Ready for pickup
 Homes • Offices • Schools
 DM or call 057 264 6176 #FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
 ```
@@ -421,34 +448,37 @@ DM or call 057 264 6176 #FAVisionEnterprise #FurnitureGhana #AccraFurniture #Who
 ### WhatsApp status
 
 ```
-King Size Bed Frame 🔥
-GH₵ 4,800
-Order: https://wa.me/233572646176?text=Hello%20F.A%20Vision%2C%20I%27m%20interested%20in%20the%20King%20Size%20Bed%20Frame%20%28FAV-006%29.
+Executive Director Chair — Leather, High Back 🔥
+GH₵ 1,500
+Order: https://wa.me/233572646176?text=Hello%20F.A%20Vision%2C%20I%27m%20interested%20in%20the%20Executive%20Director%20Chair%20%E2%80%94%20Leather%2C%20High%20Back%20%28FAV-006%29.
 ```
 
-## FAV-007 · Wardrobe (3-Door)
+## FAV-007 · Mesh Secretary Chair — Ergonomic Swivel
 
 > ⚠️ Placeholder product: confirm details, price and photos before posting.
 
 ### Facebook Marketplace
 
-- **Title:** Wardrobe (3-Door) - Made to Order
-- **Price:** 5200
-- **Category:** Home & Garden > Furniture > Wardrobes
+- **Title:** Mesh Secretary Chair — Ergonomic Swivel
+- **Price:** 1500
+- **Category:** Home & Garden > Furniture > Chairs
 - **Condition:** Brand New
 - **Location:** Odorkor, Accra
-- **Photos:** ⚠️ add photos
+- **Photos:** assets/images/products/fav-007-1.jpg, assets/images/products/fav-007-2.jpg
 
 **Description:**
 
 ```
-Wardrobe (3-Door) by F.A Vision Enterprise.
+Mesh Secretary Chair — Ergonomic Swivel by F.A Vision Enterprise.
 
-✔ Hanging space and shelves
-✔ Lockable doors
-✔ Built to your room size
+✔ Breathable mesh back with lumbar support
+✔ Height adjustable, 360° swivel
+✔ Blue or green seat
+✔ Bulk discounts for offices and schools
 
-Custom sizes, colours and finishes available.
+Material: Breathable mesh back, padded fabric seat, chrome or nylon base
+Size: Standard task-chair size, height adjustable
+Colours: Grey, Blue, Green
 
 📍 Showroom: Tarazzo Road, opposite Pacific, Odorkor, Accra, Greater Accra, Ghana
 🚚 Delivery available across Accra and to Tema, Koforidua, Central Region and Kumasi (fee depends on location).
@@ -463,11 +493,12 @@ Ref: FAV-007
 **Variant 1**
 
 ```
-🛋️ Wardrobe (3-Door) available now!
-• Hanging space and shelves
-• Lockable doors
-• Built to your room size
-💰 GH₵ 5,200
+🛋️ Mesh Secretary Chair — Ergonomic Swivel available now!
+• Breathable mesh back with lumbar support
+• Height adjustable, 360° swivel
+• Blue or green seat
+• Bulk discounts for offices and schools
+💰 GH₵ 1,500
 📍 Odorkor, Accra, delivery available
 📞 WhatsApp 057 264 6176
 #FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
@@ -476,16 +507,16 @@ Ref: FAV-007
 **Variant 2**
 
 ```
-Looking for a quality wardrobe (3-door)? Hanging space and shelves.
-Available at our showroom in Odorkor, Accra. GH₵ 5,200.
+Looking for a quality mesh secretary chair — ergonomic swivel? Breathable mesh back with lumbar support.
+Available at our showroom in Odorkor, Accra. GH₵ 1,500.
 Send us a message or WhatsApp 057 264 6176 to order. #FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
 ```
 
 **Variant 3**
 
 ```
-NEW FROM F.A VISION ✨ Wardrobe (3-Door)
-GH₵ 5,200 | Made to order in your size and colour
+NEW FROM F.A VISION ✨ Mesh Secretary Chair — Ergonomic Swivel
+GH₵ 1,500 | Ready for pickup
 Homes • Offices • Schools
 DM or call 057 264 6176 #FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
 ```
@@ -493,32 +524,35 @@ DM or call 057 264 6176 #FAVisionEnterprise #FurnitureGhana #AccraFurniture #Who
 ### WhatsApp status
 
 ```
-Wardrobe (3-Door) 🔥
-GH₵ 5,200
-Order: https://wa.me/233572646176?text=Hello%20F.A%20Vision%2C%20I%27m%20interested%20in%20the%20Wardrobe%20%283-Door%29%20%28FAV-007%29.
+Mesh Secretary Chair — Ergonomic Swivel 🔥
+GH₵ 1,500
+Order: https://wa.me/233572646176?text=Hello%20F.A%20Vision%2C%20I%27m%20interested%20in%20the%20Mesh%20Secretary%20Chair%20%E2%80%94%20Ergonomic%20Swivel%20%28FAV-007%29.
 ```
 
-## FAV-008 · Bedside Table
-
-> ⚠️ Placeholder product: confirm details, price and photos before posting.
+## FAV-008 · 1.2 m Office Desk with Drawer Unit
 
 ### Facebook Marketplace
 
-- **Title:** Bedside Table - Made to Order
-- **Price:** 650
-- **Category:** Home & Garden > Furniture > Nightstands
+- **Title:** 1.2 m Office Desk with Drawer Unit
+- **Price:** 4500
+- **Category:** Home & Garden > Furniture > Desks
 - **Condition:** Brand New
 - **Location:** Odorkor, Accra
-- **Photos:** ⚠️ add photos
+- **Photos:** assets/images/products/fav-008-1.jpg
 
 **Description:**
 
 ```
-Bedside Table by F.A Vision Enterprise.
+1.2 m Office Desk with Drawer Unit by F.A Vision Enterprise.
 
-✔ Compact nightstand with drawer
+✔ 1.2 m work surface
+✔ Detachable 3-drawer unit
+✔ Flat-packed for easy delivery
+✔ Ideal for home offices and workstations
 
-Custom sizes, colours and finishes available.
+Material: Engineered wood with wood-grain finish
+Size: 1.2 m wide
+Colours: Dark Brown
 
 📍 Showroom: Tarazzo Road, opposite Pacific, Odorkor, Accra, Greater Accra, Ghana
 🚚 Delivery available across Accra and to Tema, Koforidua, Central Region and Kumasi (fee depends on location).
@@ -533,9 +567,12 @@ Ref: FAV-008
 **Variant 1**
 
 ```
-🛋️ Bedside Table available now!
-• Compact nightstand with drawer
-💰 GH₵ 650
+🛋️ 1.2 m Office Desk with Drawer Unit available now!
+• 1.2 m work surface
+• Detachable 3-drawer unit
+• Flat-packed for easy delivery
+• Ideal for home offices and workstations
+💰 GH₵ 4,500
 📍 Odorkor, Accra, delivery available
 📞 WhatsApp 057 264 6176
 #FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
@@ -544,16 +581,16 @@ Ref: FAV-008
 **Variant 2**
 
 ```
-Looking for a quality bedside table? Compact nightstand with drawer.
-Available at our showroom in Odorkor, Accra. GH₵ 650.
+Looking for a quality 1.2 m office desk with drawer unit? 1.2 m work surface.
+Available at our showroom in Odorkor, Accra. GH₵ 4,500.
 Send us a message or WhatsApp 057 264 6176 to order. #FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
 ```
 
 **Variant 3**
 
 ```
-NEW FROM F.A VISION ✨ Bedside Table
-GH₵ 650 | Made to order in your size and colour
+NEW FROM F.A VISION ✨ 1.2 m Office Desk with Drawer Unit
+GH₵ 4,500 | Ready for pickup
 Homes • Offices • Schools
 DM or call 057 264 6176 #FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
 ```
@@ -561,34 +598,37 @@ DM or call 057 264 6176 #FAVisionEnterprise #FurnitureGhana #AccraFurniture #Who
 ### WhatsApp status
 
 ```
-Bedside Table 🔥
-GH₵ 650
-Order: https://wa.me/233572646176?text=Hello%20F.A%20Vision%2C%20I%27m%20interested%20in%20the%20Bedside%20Table%20%28FAV-008%29.
+1.2 m Office Desk with Drawer Unit 🔥
+GH₵ 4,500
+Order: https://wa.me/233572646176?text=Hello%20F.A%20Vision%2C%20I%27m%20interested%20in%20the%201.2%20m%20Office%20Desk%20with%20Drawer%20Unit%20%28FAV-008%29.
 ```
 
-## FAV-009 · 6-Seater Dining Set
+## FAV-009 · White Dressing Table with Mirror & Stool
 
 > ⚠️ Placeholder product: confirm details, price and photos before posting.
 
 ### Facebook Marketplace
 
-- **Title:** 6-Seater Dining Set - Made to Order
-- **Price:** 6500
-- **Category:** Home & Garden > Furniture > Dining Sets
+- **Title:** White Dressing Table with Mirror & Stool
+- **Price:** 7450
+- **Category:** Home & Garden > Furniture > Mirrors
 - **Condition:** Brand New
 - **Location:** Odorkor, Accra
-- **Photos:** ⚠️ add photos
+- **Photos:** assets/images/products/fav-009-1.jpg, assets/images/products/fav-009-2.jpg, assets/images/products/fav-009-3.jpg, assets/images/products/fav-009-4.jpg
 
 **Description:**
 
 ```
-6-Seater Dining Set by F.A Vision Enterprise.
+White Dressing Table with Mirror & Stool by F.A Vision Enterprise.
 
-✔ Table and 6 chairs
-✔ Wood or glass top options
-✔ Made to order
+✔ Arched mirror with side shelves
+✔ Drawers plus storage cabinet
+✔ Matching padded stool included
+✔ Perfect for bedrooms and campus rooms
 
-Custom sizes, colours and finishes available.
+Material: Engineered wood, white finish, glass mirror
+Size: Ask us for exact size
+Colours: White
 
 📍 Showroom: Tarazzo Road, opposite Pacific, Odorkor, Accra, Greater Accra, Ghana
 🚚 Delivery available across Accra and to Tema, Koforidua, Central Region and Kumasi (fee depends on location).
@@ -603,11 +643,12 @@ Ref: FAV-009
 **Variant 1**
 
 ```
-🛋️ 6-Seater Dining Set available now!
-• Table and 6 chairs
-• Wood or glass top options
-• Made to order
-💰 GH₵ 6,500
+🛋️ White Dressing Table with Mirror & Stool available now!
+• Arched mirror with side shelves
+• Drawers plus storage cabinet
+• Matching padded stool included
+• Perfect for bedrooms and campus rooms
+💰 GH₵ 7,450
 📍 Odorkor, Accra, delivery available
 📞 WhatsApp 057 264 6176
 #FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
@@ -616,16 +657,16 @@ Ref: FAV-009
 **Variant 2**
 
 ```
-Looking for a quality 6-seater dining set? Table and 6 chairs.
-Available at our showroom in Odorkor, Accra. GH₵ 6,500.
+Looking for a quality white dressing table with mirror & stool? Arched mirror with side shelves.
+Available at our showroom in Odorkor, Accra. GH₵ 7,450.
 Send us a message or WhatsApp 057 264 6176 to order. #FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
 ```
 
 **Variant 3**
 
 ```
-NEW FROM F.A VISION ✨ 6-Seater Dining Set
-GH₵ 6,500 | Made to order in your size and colour
+NEW FROM F.A VISION ✨ White Dressing Table with Mirror & Stool
+GH₵ 7,450 | Ready for pickup
 Homes • Offices • Schools
 DM or call 057 264 6176 #FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
 ```
@@ -633,31 +674,35 @@ DM or call 057 264 6176 #FAVisionEnterprise #FurnitureGhana #AccraFurniture #Who
 ### WhatsApp status
 
 ```
-6-Seater Dining Set 🔥
-GH₵ 6,500
-Order: https://wa.me/233572646176?text=Hello%20F.A%20Vision%2C%20I%27m%20interested%20in%20the%206-Seater%20Dining%20Set%20%28FAV-009%29.
+White Dressing Table with Mirror & Stool 🔥
+GH₵ 7,450
+Order: https://wa.me/233572646176?text=Hello%20F.A%20Vision%2C%20I%27m%20interested%20in%20the%20White%20Dressing%20Table%20with%20Mirror%20%26%20Stool%20%28FAV-009%29.
 ```
 
-## FAV-010 · 4-Seater Dining Set
-
-> ⚠️ Placeholder product: confirm details, price and photos before posting.
+## FAV-010 · Wardrobe — 4-Door with Top Cabinets
 
 ### Facebook Marketplace
 
-- **Title:** 4-Seater Dining Set - Made to Order
-- **Price:** 4200
-- **Category:** Home & Garden > Furniture > Dining Sets
+- **Title:** Wardrobe — 4-Door with Top Cabinets - Made to Order
+- **Price:** 9800
+- **Category:** Home & Garden > Furniture > Wardrobes
 - **Condition:** Brand New
 - **Location:** Odorkor, Accra
-- **Photos:** ⚠️ add photos
+- **Photos:** assets/images/products/fav-010-1.jpg, assets/images/products/fav-010-2.jpg, assets/images/products/fav-010-3.jpg, assets/images/products/fav-010-4.jpg
 
 **Description:**
 
 ```
-4-Seater Dining Set by F.A Vision Enterprise.
+Wardrobe — 4-Door with Top Cabinets by F.A Vision Enterprise.
 
-✔ Space-saving dining set for apartments
+✔ 4 doors plus top cabinets
+✔ Hanging space and shelves
+✔ Several colours and designs
+✔ Delivered and assembled
 
+Material: Engineered wood with decorative quilted doors
+Size: Full height, 4 doors plus top cabinets
+Colours: Cream, White, Dark Brown
 Custom sizes, colours and finishes available.
 
 📍 Showroom: Tarazzo Road, opposite Pacific, Odorkor, Accra, Greater Accra, Ghana
@@ -673,9 +718,12 @@ Ref: FAV-010
 **Variant 1**
 
 ```
-🛋️ 4-Seater Dining Set available now!
-• Space-saving dining set for apartments
-💰 GH₵ 4,200
+🛋️ Wardrobe — 4-Door with Top Cabinets available now!
+• 4 doors plus top cabinets
+• Hanging space and shelves
+• Several colours and designs
+• Delivered and assembled
+💰 GH₵ 9,800
 📍 Odorkor, Accra, delivery available
 📞 WhatsApp 057 264 6176
 #FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
@@ -684,16 +732,16 @@ Ref: FAV-010
 **Variant 2**
 
 ```
-Looking for a quality 4-seater dining set? Space-saving dining set for apartments.
-Available at our showroom in Odorkor, Accra. GH₵ 4,200.
+Looking for a quality wardrobe — 4-door with top cabinets? 4 doors plus top cabinets.
+Available at our showroom in Odorkor, Accra. GH₵ 9,800.
 Send us a message or WhatsApp 057 264 6176 to order. #FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
 ```
 
 **Variant 3**
 
 ```
-NEW FROM F.A VISION ✨ 4-Seater Dining Set
-GH₵ 4,200 | Made to order in your size and colour
+NEW FROM F.A VISION ✨ Wardrobe — 4-Door with Top Cabinets
+GH₵ 9,800 | Made to order in your size and colour
 Homes • Offices • Schools
 DM or call 057 264 6176 #FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
 ```
@@ -701,33 +749,35 @@ DM or call 057 264 6176 #FAVisionEnterprise #FurnitureGhana #AccraFurniture #Who
 ### WhatsApp status
 
 ```
-4-Seater Dining Set 🔥
-GH₵ 4,200
-Order: https://wa.me/233572646176?text=Hello%20F.A%20Vision%2C%20I%27m%20interested%20in%20the%204-Seater%20Dining%20Set%20%28FAV-010%29.
+Wardrobe — 4-Door with Top Cabinets 🔥
+GH₵ 9,800
+Order: https://wa.me/233572646176?text=Hello%20F.A%20Vision%2C%20I%27m%20interested%20in%20the%20Wardrobe%20%E2%80%94%204-Door%20with%20Top%20Cabinets%20%28FAV-010%29.
 ```
 
-## FAV-011 · Executive Office Desk
-
-> ⚠️ Placeholder product: confirm details, price and photos before posting.
+## FAV-011 · L-Shaped Sectional Sofa — Grey Fabric
 
 ### Facebook Marketplace
 
-- **Title:** Executive Office Desk - Made to Order
-- **Price:** 3500
-- **Category:** Home & Garden > Furniture > Desks
+- **Title:** L-Shaped Sectional Sofa — Grey Fabric - Made to Order
+- **Price:** 15500
+- **Category:** Home & Garden > Furniture > Sofas
 - **Condition:** Brand New
 - **Location:** Odorkor, Accra
-- **Photos:** ⚠️ add photos
+- **Photos:** assets/images/products/fav-011-1.jpg, assets/images/products/fav-011-2.jpg, assets/images/products/fav-011-3.jpg
 
 **Description:**
 
 ```
-Executive Office Desk by F.A Vision Enterprise.
+L-Shaped Sectional Sofa — Grey Fabric by F.A Vision Enterprise.
 
-✔ Spacious work surface
-✔ Drawers with lock
-✔ Bulk orders for offices welcome
+✔ Seats 5–6 comfortably
+✔ Deep, high-density foam cushions
+✔ Chaise end plus scatter pillows
+✔ Wholesale prices for bulk orders
 
+Material: Fabric upholstery, high-density foam, solid frame
+Size: L-shaped sectional, seats 5–6
+Colours: Grey
 Custom sizes, colours and finishes available.
 
 📍 Showroom: Tarazzo Road, opposite Pacific, Odorkor, Accra, Greater Accra, Ghana
@@ -743,11 +793,12 @@ Ref: FAV-011
 **Variant 1**
 
 ```
-🛋️ Executive Office Desk available now!
-• Spacious work surface
-• Drawers with lock
-• Bulk orders for offices welcome
-💰 GH₵ 3,500
+🛋️ L-Shaped Sectional Sofa — Grey Fabric available now!
+• Seats 5–6 comfortably
+• Deep, high-density foam cushions
+• Chaise end plus scatter pillows
+• Wholesale prices for bulk orders
+💰 GH₵ 15,500
 📍 Odorkor, Accra, delivery available
 📞 WhatsApp 057 264 6176
 #FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
@@ -756,16 +807,16 @@ Ref: FAV-011
 **Variant 2**
 
 ```
-Looking for a quality executive office desk? Spacious work surface.
-Available at our showroom in Odorkor, Accra. GH₵ 3,500.
+Looking for a quality l-shaped sectional sofa — grey fabric? Seats 5–6 comfortably.
+Available at our showroom in Odorkor, Accra. GH₵ 15,500.
 Send us a message or WhatsApp 057 264 6176 to order. #FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
 ```
 
 **Variant 3**
 
 ```
-NEW FROM F.A VISION ✨ Executive Office Desk
-GH₵ 3,500 | Made to order in your size and colour
+NEW FROM F.A VISION ✨ L-Shaped Sectional Sofa — Grey Fabric
+GH₵ 15,500 | Made to order in your size and colour
 Homes • Offices • Schools
 DM or call 057 264 6176 #FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
 ```
@@ -773,145 +824,9 @@ DM or call 057 264 6176 #FAVisionEnterprise #FurnitureGhana #AccraFurniture #Who
 ### WhatsApp status
 
 ```
-Executive Office Desk 🔥
-GH₵ 3,500
-Order: https://wa.me/233572646176?text=Hello%20F.A%20Vision%2C%20I%27m%20interested%20in%20the%20Executive%20Office%20Desk%20%28FAV-011%29.
-```
-
-## FAV-012 · Office Chair
-
-> ⚠️ Placeholder product: confirm details, price and photos before posting.
-
-### Facebook Marketplace
-
-- **Title:** Office Chair - Made to Order
-- **Price:** 1100
-- **Category:** Home & Garden > Furniture > Chairs
-- **Condition:** Brand New
-- **Location:** Odorkor, Accra
-- **Photos:** ⚠️ add photos
-
-**Description:**
-
-```
-Office Chair by F.A Vision Enterprise.
-
-✔ Comfortable padded chair for home and office
-
-Custom sizes, colours and finishes available.
-
-📍 Showroom: Tarazzo Road, opposite Pacific, Odorkor, Accra, Greater Accra, Ghana
-🚚 Delivery available across Accra and to Tema, Koforidua, Central Region and Kumasi (fee depends on location).
-💬 WhatsApp: 057 264 6176
-📞 Call: 057 264 6176 / 020 747 3267 / 054 614 8923
-🌐 Full catalogue: https://favisionenterprize.github.io/
-Ref: FAV-012
-```
-
-### Group posts (use a different variant in each group)
-
-**Variant 1**
-
-```
-🛋️ Office Chair available now!
-• Comfortable padded chair for home and office
-💰 GH₵ 1,100
-📍 Odorkor, Accra, delivery available
-📞 WhatsApp 057 264 6176
-#FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
-```
-
-**Variant 2**
-
-```
-Looking for a quality office chair? Comfortable padded chair for home and office.
-Available at our showroom in Odorkor, Accra. GH₵ 1,100.
-Send us a message or WhatsApp 057 264 6176 to order. #FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
-```
-
-**Variant 3**
-
-```
-NEW FROM F.A VISION ✨ Office Chair
-GH₵ 1,100 | Made to order in your size and colour
-Homes • Offices • Schools
-DM or call 057 264 6176 #FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
-```
-
-### WhatsApp status
-
-```
-Office Chair 🔥
-GH₵ 1,100
-Order: https://wa.me/233572646176?text=Hello%20F.A%20Vision%2C%20I%27m%20interested%20in%20the%20Office%20Chair%20%28FAV-012%29.
-```
-
-## FAV-013 · Bookshelf
-
-> ⚠️ Placeholder product: confirm details, price and photos before posting.
-
-### Facebook Marketplace
-
-- **Title:** Bookshelf - Made to Order
-- **Price:** 1500
-- **Category:** Home & Garden > Furniture > Bookcases
-- **Condition:** Brand New
-- **Location:** Odorkor, Accra
-- **Photos:** ⚠️ add photos
-
-**Description:**
-
-```
-Bookshelf by F.A Vision Enterprise.
-
-✔ Five-tier hardwood bookshelf
-
-Custom sizes, colours and finishes available.
-
-📍 Showroom: Tarazzo Road, opposite Pacific, Odorkor, Accra, Greater Accra, Ghana
-🚚 Delivery available across Accra and to Tema, Koforidua, Central Region and Kumasi (fee depends on location).
-💬 WhatsApp: 057 264 6176
-📞 Call: 057 264 6176 / 020 747 3267 / 054 614 8923
-🌐 Full catalogue: https://favisionenterprize.github.io/
-Ref: FAV-013
-```
-
-### Group posts (use a different variant in each group)
-
-**Variant 1**
-
-```
-🛋️ Bookshelf available now!
-• Five-tier hardwood bookshelf
-💰 GH₵ 1,500
-📍 Odorkor, Accra, delivery available
-📞 WhatsApp 057 264 6176
-#FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
-```
-
-**Variant 2**
-
-```
-Looking for a quality bookshelf? Five-tier hardwood bookshelf.
-Available at our showroom in Odorkor, Accra. GH₵ 1,500.
-Send us a message or WhatsApp 057 264 6176 to order. #FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
-```
-
-**Variant 3**
-
-```
-NEW FROM F.A VISION ✨ Bookshelf
-GH₵ 1,500 | Made to order in your size and colour
-Homes • Offices • Schools
-DM or call 057 264 6176 #FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
-```
-
-### WhatsApp status
-
-```
-Bookshelf 🔥
-GH₵ 1,500
-Order: https://wa.me/233572646176?text=Hello%20F.A%20Vision%2C%20I%27m%20interested%20in%20the%20Bookshelf%20%28FAV-013%29.
+L-Shaped Sectional Sofa — Grey Fabric 🔥
+GH₵ 15,500
+Order: https://wa.me/233572646176?text=Hello%20F.A%20Vision%2C%20I%27m%20interested%20in%20the%20L-Shaped%20Sectional%20Sofa%20%E2%80%94%20Grey%20Fabric%20%28FAV-011%29.
 ```
 
 ## FAV-014 · Student Desk Chair Set — Senior High to Tertiary Level

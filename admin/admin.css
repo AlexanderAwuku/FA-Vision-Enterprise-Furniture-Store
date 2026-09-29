@@ -387,3 +387,39 @@ button.thumb:hover, button.thumb.drag { outline: 2px dashed var(--sell); outline
   .inv-line .amt { text-align: left; }
   .inv-line { border-bottom: 1px solid var(--line); padding-bottom: 10px; }
 }
+
+/* ---------- price sync (website vs Facebook) ---------- */
+.ps-badge { display: inline-grid; place-items: center; min-width: 20px; height: 20px; padding: 0 6px; margin-left: 4px; border-radius: 999px; background: var(--sell); color: #fff; font: 700 12px/1 "Inter", sans-serif; }
+.ps-alert { display: block; margin: 0 0 16px; padding: 12px 16px; border-radius: var(--radius); background: #fdecec; border: 1px solid #f5c2c2; color: #8a1c1c; text-decoration: none; }
+.ps-alert:hover { background: #fbe0e0; }
+.ps-summary { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin: 8px 0 12px; }
+.ps-stat { background: #fff; border: 1.5px solid var(--line); border-radius: var(--radius); padding: 14px 16px; text-align: left; cursor: pointer; font: inherit; display: flex; flex-direction: column; gap: 2px; }
+.ps-stat b { font: 700 28px/1 "Poppins", sans-serif; }
+.ps-stat span { color: var(--muted); font-size: 13px; }
+.ps-stat.bad b { color: var(--err); }
+.ps-stat.good b { color: var(--ok); }
+.ps-stat.on { border-color: var(--brand-blue); box-shadow: 0 0 0 3px rgba(13,85,175,.12); }
+.ps-how { margin: 0 0 18px; font-size: 14px; }
+.ps-empty { background: #fff; border: 1px dashed var(--line); border-radius: var(--radius); padding: 24px; text-align: center; }
+.ps-product { background: #fff; border: 1px solid var(--line); border-radius: var(--radius); margin-bottom: 16px; overflow: hidden; }
+.ps-product header { display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-bottom: 1px solid var(--line); }
+.ps-product header img { width: 64px; height: 48px; object-fit: cover; border-radius: 8px; }
+.ps-product header div { flex: 1; display: flex; flex-direction: column; }
+.ps-product header small { color: var(--muted); }
+.ps-scroll { overflow-x: auto; }
+.ps-table { width: 100%; border-collapse: collapse; font-size: 14px; min-width: 640px; }
+.ps-table th { text-align: left; font-size: 12px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); padding: 8px 14px; background: #fafbfd; }
+.ps-table td { padding: 10px 14px; border-top: 1px solid #eef0f4; vertical-align: top; }
+.ps-table td small { display: block; color: var(--muted); font-size: 12px; margin-top: 2px; }
+.ps-table tr.ps-out td { background: #fff7f7; }
+.ps-pill { display: inline-block; padding: 3px 10px; border-radius: 999px; font-size: 12px; font-weight: 700; }
+.ps-pill.ok { background: #e6f5ec; color: var(--ok); }
+.ps-pill.out { background: #fdecec; color: var(--err); }
+.ps-pill.unset { background: #fff4e0; color: #9a5b00; }
+.ps-actions { display: flex; flex-wrap: wrap; gap: 6px; justify-content: flex-end; }
+.ps-link { margin-top: 18px; background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: 12px 14px; }
+.ps-link summary { cursor: pointer; font-weight: 600; }
+.ps-link-form { display: grid; grid-template-columns: 1.2fr 1.4fr .8fr auto; gap: 10px; align-items: end; margin-top: 12px; }
+.ps-link-form label { display: flex; flex-direction: column; gap: 4px; font-size: 13px; color: var(--muted); }
+.ps-link-form input, .ps-link-form select { font: inherit; padding: 9px 10px; border: 1px solid var(--line); border-radius: 8px; }
+@media (max-width: 720px) { .ps-summary { grid-template-columns: 1fr 1fr 1fr; } .ps-link-form { grid-template-columns: 1fr; } }

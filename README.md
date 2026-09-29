@@ -9,7 +9,7 @@ Online presence for **F.A Vision Enterprise**: bulk & wholesale furniture, uphol
 
 FA Vision Enterprise sells quality furniture for homes, offices and schools, in single pieces or in bulk at wholesale prices. It also does upholstery and re-upholstery, runs a bookstore (books and stationery) and a printing press. This repository holds the store's website, its admin page and the Facebook listing kit.
 
-Product prices are still starting estimates and there are no product photos yet. Post real photos and prices from the admin page before promoting the site widely.
+The catalogue holds the real products from the Facebook Marketplace listings (photos cleaned up and framed to 4:3). Products marked **Price not confirmed** in the admin had different prices on different Facebook listings: set the right price in the admin, then use **Price sync** to bring Facebook in line.
 
 ## Posting products (admin)
 
@@ -75,6 +75,17 @@ Pay on delivery and walk in work straight away. To turn on the **pay now** optio
 
 Every order, paid or not, is saved to the **Orders** tab of the backend Sheet, emailed to you, and listed in the admin under **Orders & payments**, where you can move it along (Confirmed → Delivered → Balance paid). Paystack also notifies the backend directly and an hourly sync catches anything missed, so a payment is recorded even if the customer closes the page. Setup steps: [backend/README.md](backend/README.md#orders--payments). Add `PAYSTACK_SECRET_KEY` to the Apps Script's *Script properties* and the backend checks each online payment with Paystack and re-prices the order from the catalogue, so a tampered or failed payment shows as **UNVERIFIED** or **UNDERPAID**. Always check the Orders tab or your Paystack dashboard before releasing furniture.
 
+## Strategy ads and the promo calendar
+
+Every product has a designed strategy ad (1080 × 1350, the size Facebook, Instagram and WhatsApp Status show uncropped) in `assets/images/ads/`. They appear on the website under **Deals** with **View** and **Share** buttons, and can be posted as they are.
+
+- Wording lives in `data/business.json` → `promos.ads` (headline, accent word, facts row, price seal, tag). Rebuild after editing: `python3 scripts/make_ads.py && python3 scripts/generate_listings.py`.
+- `promos.schedule` decides the announcement bar, the desk promo sticker and which ads lead the Deals row. The first entry whose dates include today wins. `YYYY-MM-DD` dates run once (the student desk consignment arriving **15 October 2026**, then "just arrived" until 15 November); `MM-DD` dates repeat every year (festive, new-year office, Valentine's, Easter, mid-year office, back to school, home refresh). Nothing needs switching off by hand.
+
+## Price sync (website ↔ Facebook Marketplace)
+
+`/admin/#pricesync` compares each product's website price with every Facebook listing linked to it (`facebook_listings` in `data/products.json`). The dashboard shows a red alert and a badge when any listing is out of sync, and saving a new price in the admin tells you straight away which Facebook listings still show the old one. Facebook doesn't let websites change Marketplace prices, so each red row has **Copy price**, **Copy listing text**, **Open on Facebook** and **Mark synced** buttons (or ask Claude to sync them in Chrome). Link new listings at the bottom of the screen.
+
 ## What's inside
 
 | Path | Purpose |
@@ -90,6 +101,8 @@ Every order, paid or not, is saved to the **Orders** tab of the backend Sheet, e
 | `data/products.json` | The product list. The admin edits this for you. |
 | `data/business.json` | Name, tagline, address, phone/WhatsApp numbers, service areas, hashtags |
 | `data/groups.csv` | Facebook groups you post in |
+| `scripts/make_ads.py` | Builds the strategy ads in `assets/images/ads/` from `promos.ads` |
+| `admin/pricesync.js` | Price sync screen: website vs Facebook Marketplace prices |
 | `scripts/generate_listings.py` | Rebuilds `assets/js/products-data.js` and the bulk listing files in `output/` |
 | `output/` | Bulk Marketplace/group/WhatsApp texts, posting tracker and Meta catalog feed |
 | `docs/facebook-posting-playbook.md` | Weekly posting routine and rules for staying within Facebook's limits |
@@ -169,8 +182,8 @@ GitHub Pages is already switched on for this repository: every change merged int
 - [x] Phone / WhatsApp number in the contact section
 - [x] Facebook Marketplace and group listing kit
 - [x] Admin page for posting products with photos
-- [ ] Confirm real prices and dimensions (current prices are estimates)
-- [ ] Real product photos
+- [x] Real products and photos (from Facebook Marketplace)
+- [ ] Confirm prices marked "Price not confirmed" in the admin
 - [x] Publish the website on GitHub Pages
 - [x] Simple sales and expense tracking (Google Sheet backend, see [`backend/`](backend/))
 

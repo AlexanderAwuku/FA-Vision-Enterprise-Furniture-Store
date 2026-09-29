@@ -388,6 +388,8 @@
       ids.forEach(id => delete pending[id]);
       toast(`Saved. Your website updates in about a minute.`);
       renderDash();
+      // A price change leaves the linked Facebook listings behind: point straight at Price sync.
+      if (ids.some(id => patches[id] && "price_ghs" in patches[id]) && window.FAV_PRICESYNC) window.FAV_PRICESYNC.nudge(ids);
     } catch (err) {
       toast(friendly(err), true);
     } finally { busy(null); }
@@ -862,6 +864,16 @@
       prompt("Copy this text:", text);
     }
   });
+
+  // Shared with admin/pricesync.js (Facebook price sync screen).
+  window.FAV_ADMIN = {
+    commit: opts => commit(opts),
+    products: () => products,
+    business: () => business,
+    signedIn: () => !!token,
+    toast, busy, marketplaceText, show,
+    refreshDash: () => renderDash()
+  };
 
   // =========================================================== start
   (async function init() {
