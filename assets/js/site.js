@@ -37,6 +37,25 @@
     .sort((a, b) => (!!(b.p.images || []).length - !!(a.p.images || []).length) || (b.p.in_stock - a.p.in_stock) || a.i - b.i)
     .map(x => x.p);
 
+  // ---------- WhatsApp tap alerts ----------
+  // Every tap on a WhatsApp link is logged in the backend Sheet, which texts the owner (SMS alerts,
+  // backend/README.md). Throttled to one ping per link per visit so it can't flood.
+  const pinged = new Set();
+  document.addEventListener("click", e => {
+    const a = e.target.closest('a[href^="https://wa.me/"]');
+    // Checkout's own WhatsApp buttons (.co-pay) are skipped: that order is already recorded and alerted.
+    if (!a || a.classList.contains("co-pay") || !business.enquiry_endpoint) return;
+    let msg = "";
+    try { msg = new URL(a.href).searchParams.get("text") || ""; } catch (err) { /* ignore */ }
+    const key = msg.slice(0, 80);
+    if (pinged.has(key) || pinged.size >= 5) return;
+    pinged.add(key);
+    fetch(business.enquiry_endpoint, {
+      method: "POST", mode: "no-cors", keepalive: true, headers: { "Content-Type": "text/plain;charset=utf-8" },
+      body: JSON.stringify({ name: "WhatsApp visitor", product: a.id === "promo-order" ? "Student desk promo" : "", message: msg, source: "whatsapp" })
+    }).catch(() => {});
+  });
+
   // ---------- static bits ----------
   document.querySelectorAll(".js-wa").forEach(a => {
     a.href = waLink(a.dataset.msg || "Hello F.A Vision!");
@@ -129,6 +148,7 @@
       sum.textContent = cedis(each * n);
       sum.classList.remove("bump"); void sum.offsetWidth; sum.classList.add("bump");
       $("#promo-quip").textContent = quip(n);
+      document.querySelectorAll(".promo-quick button").forEach(b => b.setAttribute("aria-pressed", String(Number(b.dataset.qty) === n)));
       $("#promo-order").href = waLink(`Hello F.A Vision, I'd like ${n} student desk & chair set${n > 1 ? "s" : ""} (FAV-014) at ${cedis(each)} each, total ${cedis(each * n)}.`);
     };
     document.querySelectorAll(".promo-stepper button").forEach(b => b.addEventListener("click", () => {
@@ -139,9 +159,15 @@
     pQty.addEventListener("blur", render);
     render();
   }
+  // Pointer on the order button: hides once the visitor taps order.
+  const pointer = $(".order-pointer");
+  const pOrder = $("#promo-order");
+  if (pointer && pOrder) pOrder.addEventListener("click", () => pointer.classList.add("gone"));
+
   const shareBtn = $("#promo-share");
   if (shareBtn) shareBtn.addEventListener("click", async () => {
-    const url = SITE + "#promo";
+    // desks/ carries its own preview (photo, title, price) for WhatsApp/Facebook, then opens #promo.
+    const url = SITE + "desks/";
     const text = "Student desk & chair sets from F.A Vision Enterprise: GH₵650 per set, GH₵640 each from 50 sets.";
     try {
       if (navigator.share) {
