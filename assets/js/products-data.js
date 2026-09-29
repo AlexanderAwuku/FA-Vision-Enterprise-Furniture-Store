@@ -717,8 +717,9 @@ window.FAV_DATA = {
         {
           "id": "1595893511884601",
           "title": "Dinning Sets with Chairs",
-          "price": 4000,
-          "checked": "2026-09-29"
+          "price": 12600,
+          "checked": "2026-09-29",
+          "synced": "2026-09-29"
         },
         {
           "id": "1311767852009968",
