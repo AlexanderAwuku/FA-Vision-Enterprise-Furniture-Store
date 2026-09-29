@@ -44,6 +44,21 @@ Manual MoMo transfers (to your MoMo number, without Paystack) are recorded as or
 
 If your phone numbers or address change, update the `BUSINESS` block at the top of `Code.gs` as well as `data/business.json`.
 
+## SMS alerts to your phone
+
+The backend texts you for every customer request: website enquiries, taps on any WhatsApp button (including the student-desk promo order), checkout orders (MoMo, card, deposit, pay on delivery, walk in) and invoice requests. Email alerts keep working as before.
+
+1. Create an account at [arkesel.com](https://arkesel.com) (Ghana SMS provider) and top up a small amount. Texts are paid per message, roughly a few pesewas each.
+2. Request a sender ID such as `FAVision` (max 11 characters) and wait for approval.
+3. In **Apps Script → Project Settings → Script properties**, add:
+   - `SMS_API_KEY`: your Arkesel API key
+   - `SMS_TO`: the number(s) to alert, comma separated, e.g. `233572646176,233207473267`
+   - `SMS_SENDER`: your approved sender ID (defaults to `FAVision`)
+4. Paste the updated `Code.gs`, then **Deploy → Manage deployments → Edit → New version → Deploy** so the website uses it.
+5. Run `testSms` once from the editor. You should get a test text within a minute.
+
+Nothing is sent until `SMS_API_KEY` and `SMS_TO` are set, and alerts are capped at 40 texts an hour.
+
 ## Invoices
 
 1. Paste the latest `Code.gs`, save, run **`setup`** again (it adds the **Invoices** tab) and approve the new **Google Drive** permission. The script saves invoice PDFs to a Drive folder called **FA Vision Invoices** and shares each one by link.
