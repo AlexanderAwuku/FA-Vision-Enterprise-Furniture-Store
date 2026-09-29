@@ -117,7 +117,7 @@ window.FAV_DATA = {
       "terms": "Goods remain the property of F.A Vision Enterprise until paid in full. Custom orders need a deposit before production. Terms and conditions apply."
     },
     "promos": {
-      "note": "Edit wording here, then run: python3 scripts/make_ads.py && python3 scripts/generate_listings.py",
+      "note": "Edit wording here. {price} in an ad = that product's current price; {price:FAV-001} in a bar = that product's price. Ads and listing texts rebuild automatically on GitHub after any change.",
       "ads": [
         {
           "id": "fav-001",
@@ -128,7 +128,7 @@ window.FAV_DATA = {
           "sub": "Rainbow glass-top dining set with six fully upholstered chairs.",
           "facts": [
             [
-              "GH₵4,000",
+              "{price}",
               "complete set"
             ],
             [
@@ -147,7 +147,7 @@ window.FAV_DATA = {
           "cta": "Shop now",
           "tag": "IN STOCK",
           "seal": [
-            "GH₵4,000",
+            "{price}",
             "table + 6 chairs"
           ],
           "photo": "assets/images/ads/src/fav-001.jpg"
@@ -161,7 +161,7 @@ window.FAV_DATA = {
           "sub": "Black glass table with six tall, padded high-back chairs.",
           "facts": [
             [
-              "GH₵4,900",
+              "{price}",
               "complete set"
             ],
             [
@@ -180,7 +180,7 @@ window.FAV_DATA = {
           "cta": "Shop now",
           "tag": "IN STOCK",
           "seal": [
-            "GH₵4,900",
+            "{price}",
             "table + 6 chairs"
           ],
           "photo": "assets/images/ads/src/fav-002.jpg"
@@ -223,7 +223,7 @@ window.FAV_DATA = {
           "sub": "Glossy red glass table with six curved high-back chairs.",
           "facts": [
             [
-              "GH₵4,500",
+              "{price}",
               "complete set"
             ],
             [
@@ -242,7 +242,7 @@ window.FAV_DATA = {
           "cta": "Shop now",
           "tag": "IN STOCK",
           "seal": [
-            "GH₵4,500",
+            "{price}",
             "table + 6 chairs"
           ],
           "photo": "assets/images/ads/src/fav-004.jpg"
@@ -286,7 +286,7 @@ window.FAV_DATA = {
           "sub": "High-back leather executive chair with tilt, 360° swivel and gas-lift height.",
           "facts": [
             [
-              "GH₵1,500",
+              "{price}",
               "per chair"
             ],
             [
@@ -305,7 +305,7 @@ window.FAV_DATA = {
           "cta": "Shop now",
           "tag": "IN STOCK",
           "seal": [
-            "GH₵1,500",
+            "{price}",
             "per chair"
           ],
           "photo": "assets/images/ads/src/fav-006.jpg",
@@ -320,7 +320,7 @@ window.FAV_DATA = {
           "sub": "Breathable mesh back, padded seat and height adjustment. Blue or green.",
           "facts": [
             [
-              "GH₵1,500",
+              "{price}",
               "per chair"
             ],
             [
@@ -339,7 +339,7 @@ window.FAV_DATA = {
           "cta": "Shop now",
           "tag": "IN STOCK",
           "seal": [
-            "GH₵1,500",
+            "{price}",
             "per chair"
           ],
           "photo": "assets/images/ads/src/fav-007.jpg",
@@ -354,7 +354,7 @@ window.FAV_DATA = {
           "sub": "1.2 m desk with a detachable three-drawer unit, flat-packed for easy delivery.",
           "facts": [
             [
-              "GH₵4,500",
+              "{price}",
               "desk + drawers"
             ],
             [
@@ -373,7 +373,7 @@ window.FAV_DATA = {
           "cta": "Shop now",
           "tag": "IN STOCK",
           "seal": [
-            "GH₵4,500",
+            "{price}",
             "desk + drawers"
           ],
           "photo": "assets/images/ads/src/fav-008.jpg",
@@ -388,7 +388,7 @@ window.FAV_DATA = {
           "sub": "White dressing table with arched mirror, shelves, drawers and a matching stool.",
           "facts": [
             [
-              "GH₵7,450",
+              "{price}",
               "with stool"
             ],
             [
@@ -407,7 +407,7 @@ window.FAV_DATA = {
           "cta": "Shop now",
           "tag": "IN STOCK",
           "seal": [
-            "GH₵7,450",
+            "{price}",
             "mirror + stool"
           ],
           "focus_y": 0.4,
@@ -422,7 +422,7 @@ window.FAV_DATA = {
           "sub": "Tall four-door wardrobe with top cabinets, hanging space and shelves.",
           "facts": [
             [
-              "GH₵9,800",
+              "{price}",
               "4-door wardrobe"
             ],
             [
@@ -441,7 +441,7 @@ window.FAV_DATA = {
           "cta": "Shop now",
           "tag": "IN STOCK",
           "seal": [
-            "GH₵9,800",
+            "{price}",
             "delivered"
           ],
           "focus_y": 0.45,
@@ -456,7 +456,7 @@ window.FAV_DATA = {
           "sub": "Grey L-shaped sectional with deep cushions, chaise end and scatter pillows.",
           "facts": [
             [
-              "GH₵15,500",
+              "{price}",
               "full sectional"
             ],
             [
@@ -475,7 +475,7 @@ window.FAV_DATA = {
           "cta": "Shop now",
           "tag": "IN STOCK",
           "seal": [
-            "GH₵15,500",
+            "{price}",
             "full set"
           ],
           "photo": "assets/images/ads/src/fav-011.jpg"
@@ -489,7 +489,7 @@ window.FAV_DATA = {
           "sub": "Height-adjustable desk & chair sets for SHS to university. Reserve yours now.",
           "facts": [
             [
-              "GH₵650",
+              "{price}",
               "per set"
             ],
             [
@@ -508,7 +508,7 @@ window.FAV_DATA = {
           "cta": "Reserve now",
           "tag": "ARRIVES 15 OCT",
           "seal": [
-            "GH₵650",
+            "{price}",
             "per set"
           ]
         },
@@ -521,7 +521,7 @@ window.FAV_DATA = {
           "sub": "New consignment of height-adjustable desk & chair sets for SHS to university.",
           "facts": [
             [
-              "GH₵650",
+              "{price}",
               "per set"
             ],
             [
@@ -540,7 +540,7 @@ window.FAV_DATA = {
           "cta": "Order now",
           "tag": "JUST ARRIVED",
           "seal": [
-            "GH₵650",
+            "{price}",
             "per set"
           ]
         },
@@ -553,7 +553,7 @@ window.FAV_DATA = {
           "sub": "Height-adjustable steel desk & chair sets for SHS to university.",
           "facts": [
             [
-              "GH₵650",
+              "{price}",
               "per set"
             ],
             [
@@ -572,7 +572,7 @@ window.FAV_DATA = {
           "cta": "Shop now",
           "tag": "IN STOCK",
           "seal": [
-            "GH₵650",
+            "{price}",
             "per set"
           ]
         }
@@ -585,7 +585,7 @@ window.FAV_DATA = {
           "ad": "fav-014-arriving",
           "link": "#promo",
           "sticker": "Arrives 15 Oct",
-          "bar": "New student desk consignment arrives <b>15 October</b> · <b>GH₵650</b> a set · reserve yours now"
+          "bar": "New student desk consignment arrives <b>15 October</b> · <b>{price:FAV-014}</b> a set · reserve yours now"
         },
         {
           "id": "desks-arrived-2026",
@@ -594,7 +594,7 @@ window.FAV_DATA = {
           "ad": "fav-014-arrived",
           "link": "#promo",
           "sticker": "Just arrived!",
-          "bar": "New student desks <b>just arrived</b> · <b>GH₵650</b> a set · <b>GH₵640</b> each from 50"
+          "bar": "New student desks <b>just arrived</b> · <b>{price:FAV-014}</b> a set · <b>GH₵640</b> each from 50"
         },
         {
           "id": "festive",
@@ -606,7 +606,7 @@ window.FAV_DATA = {
             "fav-003"
           ],
           "link": "#deals",
-          "bar": "<b>Festive season:</b> host in style with dining sets from <b>GH₵4,000</b> · pay 50% now, rest on delivery"
+          "bar": "<b>Festive season:</b> host in style with dining sets from <b>{price:FAV-001}</b> · pay 50% now, rest on delivery"
         },
         {
           "id": "new-year-office",
@@ -618,7 +618,7 @@ window.FAV_DATA = {
             "fav-008"
           ],
           "link": "#deals",
-          "bar": "<b>New year, new office:</b> executive &amp; mesh chairs from <b>GH₵1,500</b> · bulk prices for offices"
+          "bar": "<b>New year, new office:</b> executive &amp; mesh chairs from <b>{price:FAV-006}</b> · bulk prices for offices"
         },
         {
           "id": "valentines",
@@ -665,7 +665,7 @@ window.FAV_DATA = {
           ],
           "link": "#promo",
           "sticker": "Back to school",
-          "bar": "Student desk &amp; chair sets <b>GH₵650</b> · <b>GH₵640</b> each from 50 sets"
+          "bar": "Student desk &amp; chair sets <b>{price:FAV-014}</b> · <b>GH₵640</b> each from 50 sets"
         },
         {
           "id": "home-refresh",
