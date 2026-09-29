@@ -637,8 +637,6 @@ Order: https://wa.me/233572646176?text=Hello%20F.A%20Vision%2C%20I%27m%20interes
 
 ## FAV-009 · White Dressing Table with Mirror & Stool
 
-> ⚠️ Placeholder product: confirm details, price and photos before posting.
-
 ### Facebook Marketplace
 
 - **Title:** White Dressing Table with Mirror & Stool
