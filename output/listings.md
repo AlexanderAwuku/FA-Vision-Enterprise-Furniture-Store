@@ -7,7 +7,7 @@ Generated 2026-09-29. Regenerate after editing `data/products.json`.
 ### Facebook Marketplace
 
 - **Title:** Rainbow Glass-Top Dining Set — 6 Chairs
-- **Price:** 4000
+- **Price:** 12600
 - **Category:** Home & Garden > Furniture > Dining Sets
 - **Condition:** Brand New
 - **Location:** Odorkor, Accra
@@ -50,7 +50,7 @@ Ref: FAV-001
 • 6 padded, fully upholstered chairs
 • Chrome steel legs — stable and rust-resistant
 • Great for homes, restaurants and lounges
-💰 GH₵ 4,000
+💰 GH₵ 12,600
 📍 Odorkor, Accra, delivery available
 📞 WhatsApp 057 264 6176
 #FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
@@ -60,7 +60,7 @@ Ref: FAV-001
 
 ```
 Looking for a quality rainbow glass-top dining set — 6 chairs? Tempered-glass top, easy to wipe clean.
-Available at our showroom in Odorkor, Accra. GH₵ 4,000.
+Available at our showroom in Odorkor, Accra. GH₵ 12,600.
 Send us a message or WhatsApp 057 264 6176 to order. #FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
 ```
 
@@ -68,7 +68,7 @@ Send us a message or WhatsApp 057 264 6176 to order. #FAVisionEnterprise #Furnit
 
 ```
 NEW FROM F.A VISION ✨ Rainbow Glass-Top Dining Set — 6 Chairs
-GH₵ 4,000 | Ready for pickup
+GH₵ 12,600 | Ready for pickup
 Homes • Offices • Schools
 DM or call 057 264 6176 #FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
 ```
@@ -77,7 +77,7 @@ DM or call 057 264 6176 #FAVisionEnterprise #FurnitureGhana #AccraFurniture #Who
 
 ```
 Rainbow Glass-Top Dining Set — 6 Chairs 🔥
-GH₵ 4,000
+GH₵ 12,600
 Order: https://wa.me/233572646176?text=Hello%20F.A%20Vision%2C%20I%27m%20interested%20in%20the%20Rainbow%20Glass-Top%20Dining%20Set%20%E2%80%94%206%20Chairs%20%28FAV-001%29.
 ```
 
