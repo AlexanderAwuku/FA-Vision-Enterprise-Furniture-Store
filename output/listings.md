@@ -321,12 +321,10 @@ Order: https://wa.me/233572646176?text=Hello%20F.A%20Vision%2C%20I%27m%20interes
 
 ## FAV-005 · Foldable Wood-Grain Dining Set — 6 Chairs
 
-> ⚠️ Placeholder product: confirm details, price and photos before posting.
-
 ### Facebook Marketplace
 
 - **Title:** Foldable Wood-Grain Dining Set — 6 Chairs
-- **Price:** ⚠️ set price_ghs
+- **Price:** 11900
 - **Category:** Home & Garden > Furniture > Dining Sets
 - **Condition:** Brand New
 - **Location:** Odorkor, Accra
@@ -369,7 +367,7 @@ Ref: FAV-005
 • 6 cushioned chairs included
 • Strong steel frame
 • Perfect for apartments and events
-💰 Price on request
+💰 GH₵ 11,900
 📍 Odorkor, Accra, delivery available
 📞 WhatsApp 057 264 6176
 #FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
@@ -379,7 +377,7 @@ Ref: FAV-005
 
 ```
 Looking for a quality foldable wood-grain dining set — 6 chairs? Folds away to save space.
-Available at our showroom in Odorkor, Accra. Price on request.
+Available at our showroom in Odorkor, Accra. GH₵ 11,900.
 Send us a message or WhatsApp 057 264 6176 to order. #FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
 ```
 
@@ -387,7 +385,7 @@ Send us a message or WhatsApp 057 264 6176 to order. #FAVisionEnterprise #Furnit
 
 ```
 NEW FROM F.A VISION ✨ Foldable Wood-Grain Dining Set — 6 Chairs
-Price on request | Ready for pickup
+GH₵ 11,900 | Ready for pickup
 Homes • Offices • Schools
 DM or call 057 264 6176 #FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
 ```
@@ -396,7 +394,7 @@ DM or call 057 264 6176 #FAVisionEnterprise #FurnitureGhana #AccraFurniture #Who
 
 ```
 Foldable Wood-Grain Dining Set — 6 Chairs 🔥
-Price on request
+GH₵ 11,900
 Order: https://wa.me/233572646176?text=Hello%20F.A%20Vision%2C%20I%27m%20interested%20in%20the%20Foldable%20Wood-Grain%20Dining%20Set%20%E2%80%94%206%20Chairs%20%28FAV-005%29.
 ```
 
