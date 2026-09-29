@@ -479,12 +479,10 @@ Order: https://wa.me/233572646176?text=Hello%20F.A%20Vision%2C%20I%27m%20interes
 
 ## FAV-007 · Mesh Secretary Chair — Ergonomic Swivel
 
-> ⚠️ Placeholder product: confirm details, price and photos before posting.
-
 ### Facebook Marketplace
 
 - **Title:** Mesh Secretary Chair — Ergonomic Swivel
-- **Price:** 1500
+- **Price:** 9500
 - **Category:** Home & Garden > Furniture > Chairs
 - **Condition:** Brand New
 - **Location:** Odorkor, Accra
@@ -527,7 +525,7 @@ Ref: FAV-007
 • Height adjustable, 360° swivel
 • Blue or green seat
 • Bulk discounts for offices and schools
-💰 GH₵ 1,500
+💰 GH₵ 9,500
 📍 Odorkor, Accra, delivery available
 📞 WhatsApp 057 264 6176
 #FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
@@ -537,7 +535,7 @@ Ref: FAV-007
 
 ```
 Looking for a quality mesh secretary chair — ergonomic swivel? Breathable mesh back with lumbar support.
-Available at our showroom in Odorkor, Accra. GH₵ 1,500.
+Available at our showroom in Odorkor, Accra. GH₵ 9,500.
 Send us a message or WhatsApp 057 264 6176 to order. #FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
 ```
 
@@ -545,7 +543,7 @@ Send us a message or WhatsApp 057 264 6176 to order. #FAVisionEnterprise #Furnit
 
 ```
 NEW FROM F.A VISION ✨ Mesh Secretary Chair — Ergonomic Swivel
-GH₵ 1,500 | Ready for pickup
+GH₵ 9,500 | Ready for pickup
 Homes • Offices • Schools
 DM or call 057 264 6176 #FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
 ```
@@ -554,7 +552,7 @@ DM or call 057 264 6176 #FAVisionEnterprise #FurnitureGhana #AccraFurniture #Who
 
 ```
 Mesh Secretary Chair — Ergonomic Swivel 🔥
-GH₵ 1,500
+GH₵ 9,500
 Order: https://wa.me/233572646176?text=Hello%20F.A%20Vision%2C%20I%27m%20interested%20in%20the%20Mesh%20Secretary%20Chair%20%E2%80%94%20Ergonomic%20Swivel%20%28FAV-007%29.
 ```
 
