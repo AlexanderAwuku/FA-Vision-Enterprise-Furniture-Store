@@ -899,7 +899,7 @@ window.FAV_DATA = {
       "category": "Dining",
       "type": "Dining Set",
       "marketplace_category": "Home & Garden > Furniture > Dining Sets",
-      "price_ghs": null,
+      "price_ghs": 11900,
       "negotiable": true,
       "icon": "🍽️",
       "description": "Space-saving and strong. A wood-grain dining table that folds away when you need the room, with six matching cushioned chairs. Ideal for apartments, compact dining rooms, canteens and events.",
@@ -920,7 +920,7 @@ window.FAV_DATA = {
         "Strong steel frame",
         "Perfect for apartments and events"
       ],
-      "placeholder": true,
+      "placeholder": false,
       "facebook_listings": [
         {
           "id": "2034544120477816",
