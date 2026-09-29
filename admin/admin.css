@@ -423,3 +423,21 @@ button.thumb:hover, button.thumb.drag { outline: 2px dashed var(--sell); outline
 .ps-link-form label { display: flex; flex-direction: column; gap: 4px; font-size: 13px; color: var(--muted); }
 .ps-link-form input, .ps-link-form select { font: inherit; padding: 9px 10px; border: 1px solid var(--line); border-radius: 8px; }
 @media (max-width: 720px) { .ps-summary { grid-template-columns: 1fr 1fr 1fr; } .ps-link-form { grid-template-columns: 1fr; } }
+.ps-sync { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 20px; background: #fff; border: 1.5px solid var(--brand-blue); border-radius: var(--radius); padding: 14px 16px; margin-bottom: 10px; }
+.ps-sync > div { flex: 1 1 320px; min-width: 0; display: grid; gap: 4px; }
+.ps-sync p { margin: 0; }
+.ps-sync .btn[disabled] { opacity: .5; cursor: default; }
+.ps-setup { background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: 12px 14px; margin-bottom: 18px; }
+.ps-setup summary { cursor: pointer; font-weight: 600; }
+.ps-setup ol { margin: 10px 0 6px; padding-left: 20px; display: grid; gap: 8px; }
+.ps-setup p { margin: 0; }
+.ps-bookmark { display: inline-block; margin-left: 6px; padding: 6px 12px; border-radius: 999px; background: var(--brand-blue); color: #fff; font-weight: 700; text-decoration: none; cursor: grab; }
+kbd { font: 600 12px ui-monospace, monospace; border: 1px solid var(--line); border-bottom-width: 2px; border-radius: 5px; padding: 1px 5px; background: #fafbfd; }
+.ps-product header { flex-wrap: wrap; }
+.ps-name { flex: 1 1 220px; min-width: 0; display: flex; flex-direction: column; }
+.ps-price { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.ps-price label { font-size: 12px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; }
+.ps-cedi { display: inline-flex; align-items: center; gap: 4px; border: 1.5px solid var(--line); border-radius: 8px; padding: 0 8px; background: #fff; font-weight: 700; }
+.ps-cedi:focus-within { border-color: var(--brand-blue); }
+.ps-cedi input { width: 110px; border: 0; outline: 0; font: 700 16px "Inter", sans-serif; padding: 8px 0; background: transparent; }
+.ps-foot { margin: 0; padding: 8px 14px 12px; border-top: 1px solid #eef0f4; }

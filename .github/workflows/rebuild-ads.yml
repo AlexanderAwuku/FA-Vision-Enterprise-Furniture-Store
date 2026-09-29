@@ -1,0 +1,67 @@
+# Keeps everything that shows a price in step with data/products.json and
+# data/business.json. After any change to those files (for example a price
+# saved in the admin's Price sync screen) it rebuilds the strategy ads
+# (assets/images/ads/) and the listing texts (output/, assets/js/products-data.js),
+# commits them, and asks GitHub Pages to republish.
+name: Rebuild ads and listings
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "data/products.json"
+      - "data/business.json"
+      - "scripts/make_ads.py"
+      - "scripts/generate_listings.py"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+
+concurrency:
+  group: rebuild-ads
+  cancel-in-progress: false
+
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install Pillow and the DejaVu font (for the ₵ sign)
+        run: |
+          pip install --quiet pillow
+          sudo apt-get install -y --no-install-recommends fonts-dejavu-core >/dev/null
+
+      - name: Rebuild ads and listing texts
+        run: |
+          python3 scripts/make_ads.py
+          python3 scripts/generate_listings.py
+
+      - name: Commit if anything changed
+        id: commit
+        run: |
+          git add -A assets/images/ads output assets/js/products-data.js
+          if git diff --cached --quiet; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Rebuild ads and listing texts after a price or promo change"
+          for i in 1 2 3; do
+            git pull --rebase --quiet origin main && git push --quiet origin HEAD:main && break
+            sleep 5
+          done
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+
+      - name: Republish the website
+        if: steps.commit.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh api -X POST "repos/${{ github.repository }}/pages/builds" >/dev/null || echo "Pages will pick the change up on its next build"

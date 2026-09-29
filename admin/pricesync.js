@@ -1,11 +1,12 @@
-// Price sync screen: website price vs every linked Facebook Marketplace listing.
+// Price sync screen: one place to set a product's price for every platform.
 //
-// Facebook gives personal Marketplace sellers no API, so a website can't change
-// listing prices by itself. This screen is the one place to watch: it compares
-// products.json -> price_ghs with products.json -> facebook_listings[].price,
-// shows what's out of sync, and gives one-tap steps to fix each listing
-// (copy the new price or full listing text, open the listing on Facebook, then
-// "Mark synced", which saves the new Facebook price back to products.json).
+// Set the price here once (or tap "Use this price everywhere" on a Facebook
+// row). It saves to the website, and every linked Facebook Marketplace listing
+// that now differs is queued. Facebook gives personal sellers no API, so the
+// queue is pushed by the "FA Vision price sync" bookmark: "Start Facebook sync"
+// opens the first listing's edit page, each click of the bookmark types the
+// price in, taps Update and moves to the next listing, and the last one brings
+// you back here, where the synced listings are recorded in products.json.
 (function () {
   const C = window.FAV_CONFIG;
   const A = window.FAV_ADMIN;
@@ -13,19 +14,20 @@
   const esc = C.escapeHtml;
   const $ = s => document.querySelector(s);
   const screen = $("#screen-pricesync");
-  const fbUrl = id => `https://www.facebook.com/marketplace/item/${encodeURIComponent(id)}/`;
-  const fbEdit = id => `https://www.facebook.com/marketplace/edit/?listing_id=${encodeURIComponent(id)}`;
+  const FB = "https://www.facebook.com";
+  const fbUrl = id => `${FB}/marketplace/item/${encodeURIComponent(id)}/`;
+  const fbEdit = id => `${FB}/marketplace/edit/?listing_id=${encodeURIComponent(id)}`;
   const todayStr = () => new Date().toISOString().slice(0, 10);
   let filter = "out";
 
-  // One row per linked listing, with its status.
+  // ------------------------------------------------------------------ data
   function rows() {
     const out = [];
     for (const p of A.products()) {
       for (const l of p.facebook_listings || []) {
         let status = "ok", why = "";
-        if (!p.price_ghs) { status = "unset"; why = "Set a website price first"; }
-        else if (l.currency && l.currency !== "GHS") { status = "out"; why = `Listed in ${l.currency} on Facebook. Change the currency to GH₵`; }
+        if (!p.price_ghs) { status = "unset"; why = "Set the price above first"; }
+        else if (l.currency && l.currency !== "GHS") { status = "out"; why = `Listed in ${l.currency}. Switch the currency to GH₵ on Facebook`; }
         else if (Number(l.price) !== Number(p.price_ghs)) { status = "out"; why = `Facebook shows ${l.price ? C.formatPrice(l.price) : "no price"}`; }
         out.push({ p, l, status, why });
       }
@@ -33,6 +35,8 @@
     return out;
   }
   const tally = list => list.reduce((c, r) => (c[r.status]++, c), { ok: 0, out: 0, unset: 0 });
+  const queue = () => rows().filter(r => r.status === "out" && !(r.l.currency && r.l.currency !== "GHS"))
+    .map(r => ({ id: r.l.id, price: r.p.price_ghs, pid: r.p.id }));
 
   function updateBadge() {
     const t = tally(rows()), n = t.out + t.unset;
@@ -44,9 +48,80 @@
     }
   }
 
+  // ------------------------------------------------------------------ the bookmark
+  // Runs on facebook.com when the owner clicks the "FA Vision price sync" bookmark.
+  // Kept self-contained: it is turned into a javascript: link below.
+  function helper() {
+    (async () => {
+      const KEY = "favsync";
+      const box = (msg, bad) => {
+        let d = document.getElementById("favsyncbox");
+        if (!d) {
+          d = document.createElement("div");
+          d.id = "favsyncbox";
+          d.style.cssText = "position:fixed;z-index:2147483647;left:16px;bottom:16px;max-width:380px;padding:14px 18px;border-radius:12px;font:600 15px/1.4 system-ui,sans-serif;color:#fff;box-shadow:0 10px 30px rgba(0,0,0,.35)";
+          document.body.appendChild(d);
+        }
+        d.style.background = bad ? "#c62828" : "#0d55af";
+        d.textContent = msg;
+      };
+      const m = location.hash.match(/favsync=([^&]+)/);
+      let s = null;
+      try {
+        const stored = JSON.parse(sessionStorage.getItem(KEY) || "null");
+        const fresh = m ? JSON.parse(decodeURIComponent(m[1])) : null;
+        // A second click on the first page keeps the progress already made.
+        s = fresh && !(stored && JSON.stringify(stored.q) === JSON.stringify(fresh.q)) ? fresh : stored;
+      } catch (e) { s = null; }
+      if (!s || !s.q) { box("Start from FA Vision Admin → Price sync → Start Facebook sync, then click this bookmark.", true); return; }
+      s.done = s.done || []; s.skip = s.skip || [];
+      const save = () => sessionStorage.setItem(KEY, JSON.stringify(s));
+      save();
+      const next = () => {
+        const n = s.q.find(j => !s.done.includes(j.id) && !s.skip.includes(j.id));
+        if (n) { save(); location.href = `${location.origin}/marketplace/edit/?listing_id=${n.id}`; return; }
+        const result = { done: s.q.filter(j => s.done.includes(j.id)).map(j => [j.id, j.price]), skip: s.skip };
+        sessionStorage.removeItem(KEY);
+        location.href = s.back + "#pricesync-done=" + encodeURIComponent(JSON.stringify(result));
+      };
+      const id = new URLSearchParams(location.search).get("listing_id");
+      const job = s.q.find(j => j.id === id);
+      if (!job || s.done.includes(id) || s.skip.includes(id)) { box("Opening the next listing…"); next(); return; }
+      const nth = s.done.length + s.skip.length + 1;
+      box(`Listing ${nth} of ${s.q.length}: setting GH₵${Number(job.price).toLocaleString()}…`);
+      let pi = null;
+      for (let t = 0; t < 60 && !pi; t++) {
+        pi = [...document.querySelectorAll("input[type=text]")].find(i => ((i.closest("label") || {}).innerText || "").trim().startsWith("Price"));
+        if (!pi) await new Promise(r => setTimeout(r, 250));
+      }
+      if (!pi) { box("The price box hasn't loaded yet. Wait a moment and click the bookmark again.", true); return; }
+      Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, "value").set.call(pi, String(job.price));
+      pi.dispatchEvent(new Event("input", { bubbles: true }));
+      await new Promise(r => setTimeout(r, 600));
+      if (pi.value.replace(/\D/g, "") !== String(job.price) || !/^GH/.test(pi.value)) {
+        s.skip.push(id); save();
+        box(`This listing shows "${pi.value}". Fix its price or currency by hand, then click the bookmark again to carry on.`, true);
+        return;
+      }
+      const btn = [...document.querySelectorAll('[role=button],button')].find(b => (b.innerText || "").trim() === "Update");
+      if (!btn) { box("Couldn't find Facebook's Update button on this page.", true); return; }
+      btn.click();
+      box(`Listing ${nth} of ${s.q.length}: saving…`);
+      for (let t = 0; t < 80 && location.pathname.includes("/edit"); t++) await new Promise(r => setTimeout(r, 250));
+      if (location.pathname.includes("/edit")) { box("Facebook didn't confirm the save. Check the page, then click the bookmark again.", true); return; }
+      s.done.push(id);
+      const left = s.q.length - s.done.length - s.skip.length;
+      box(left ? `Saved. Opening the next listing (${left} left) — click the bookmark again when it loads.` : "All done. Taking you back to your admin…");
+      setTimeout(next, 800);
+    })();
+  }
+  const bookmarkHref = "javascript:" + encodeURIComponent("(" + helper.toString() + ")()");
+
+  // ------------------------------------------------------------------ render
   function render() {
     const all = rows();
     const c = tally(all);
+    const q = queue();
     const unlinked = A.products().filter(p => !(p.facebook_listings || []).length);
     const shown = all.filter(r => filter === "all" || r.status === filter || (filter === "out" && r.status === "unset"));
     const byProduct = new Map();
@@ -58,7 +133,24 @@
         <button class="ps-stat good ${filter === "ok" ? "on" : ""}" data-psf="ok"><b>${c.ok}</b><span>In sync</span></button>
         <button class="ps-stat ${filter === "all" ? "on" : ""}" data-psf="all"><b>${all.length}</b><span>Linked listings</span></button>
       </div>
-      <p class="ps-how muted">How to sync: tap <b>Copy price</b> (or <b>Copy listing text</b>), then <b>Edit on Facebook</b>, paste into the price box and tap <b>Update</b>. Come back and tap <b>Mark synced</b>. Prefer not to do it by hand? Ask Claude to “sync my Facebook prices”.</p>
+
+      <div class="ps-sync">
+        <div>
+          <b>${q.length ? `${q.length} Facebook listing${q.length === 1 ? "" : "s"} ready to update` : "Facebook is up to date"}</b>
+          <p class="muted small">Change a price below and it's saved to your website at once. Then tap <b>Start Facebook sync</b> and click the <b>FA Vision price sync</b> bookmark on each listing that opens: it types the new price in and saves it for you.</p>
+        </div>
+        <button class="btn btn-sell" id="ps-start" ${q.length ? "" : "disabled"}>Start Facebook sync${q.length ? ` (${q.length})` : ""}</button>
+      </div>
+      <details class="ps-setup">
+        <summary>One-time setup: add the “FA Vision price sync” bookmark</summary>
+        <ol>
+          <li>Show your bookmarks bar: press <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>B</kbd> (Mac: <kbd>⌘</kbd> + <kbd>Shift</kbd> + <kbd>B</kbd>).</li>
+          <li>Drag this button onto the bookmarks bar: <a class="ps-bookmark" href="${bookmarkHref}" title="Drag me to your bookmarks bar">⟳ FA Vision price sync</a></li>
+          <li>Can't drag on this device? <button class="link" type="button" id="ps-copy-bm">Copy the bookmark code</button>, add any page as a bookmark, edit it, and paste the code as its URL.</li>
+        </ol>
+        <p class="muted small">The bookmark only works on your Facebook listing pages, and only changes the price you set here. On a phone, ask Claude to “sync my Facebook prices” instead.</p>
+      </details>
+
       ${shown.length ? "" : `<p class="ps-empty">${filter === "out" ? "🎉 Every linked Facebook listing matches your website price." : "Nothing here yet."}</p>`}
       ${[...byProduct.values()].map(list => {
         const p = list[0].p;
@@ -67,8 +159,12 @@
         return `<section class="ps-product">
           <header>
             ${img ? `<img src="../${esc(img)}" alt="" width="64" height="48">` : ""}
-            <div><b>${esc(p.name)}</b><small>${esc(p.id)} · Website price <strong>${p.price_ghs ? C.formatPrice(p.price_ghs) : "not set"}</strong></small></div>
-            ${outN > 1 ? `<button class="btn btn-ghost btn-sm" data-ps-all="${esc(p.id)}">Mark all ${outN} synced</button>` : ""}
+            <div class="ps-name"><b>${esc(p.name)}</b><small>${esc(p.id)}${p.placeholder ? ` · <span class="ps-pill unset">Price not confirmed</span>` : ""}</small></div>
+            <form class="ps-price" data-ps-price="${esc(p.id)}">
+              <label for="ps-in-${esc(p.id)}">Price everywhere</label>
+              <span class="ps-cedi">GH₵<input id="ps-in-${esc(p.id)}" name="price" type="number" min="1" step="1" inputmode="numeric" value="${p.price_ghs || ""}" placeholder="e.g. 4500" required></span>
+              <button class="btn btn-primary btn-sm" type="submit">Save</button>
+            </form>
           </header>
           <div class="ps-scroll"><table class="ps-table">
             <thead><tr><th>Facebook listing</th><th>Facebook price</th><th>Status</th><th></th></tr></thead>
@@ -77,15 +173,15 @@
                 <td><a href="${fbUrl(l.id)}" target="_blank" rel="noopener">${esc(l.title || l.id)}</a><small>Checked ${esc(l.checked || "–")}${l.synced ? ` · synced ${esc(l.synced)}` : ""}</small></td>
                 <td>${l.price ? (l.currency && l.currency !== "GHS" ? esc(l.currency) + " " + Number(l.price).toLocaleString() : C.formatPrice(l.price)) : "–"}</td>
                 <td><span class="ps-pill ${status}">${status === "ok" ? "In sync" : status === "unset" ? "No website price" : "Out of sync"}</span>${why && status !== "ok" ? `<small>${esc(why)}</small>` : ""}</td>
-                <td class="ps-actions">${status === "out" ? `
-                  <button class="btn btn-ghost btn-sm" data-ps-copy="${esc(p.id)}">Copy price</button>
-                  <button class="btn btn-ghost btn-sm" data-ps-text="${esc(p.id)}">Copy listing text</button>
+                <td class="ps-actions">${status !== "ok" ? `
+                  ${l.price && (!l.currency || l.currency === "GHS") && Number(l.price) !== Number(p.price_ghs) ? `<button class="btn btn-ghost btn-sm" data-ps-adopt="${esc(p.id)}|${esc(l.price)}">Use ${esc(C.formatPrice(l.price))} everywhere</button>` : ""}
                   <a class="btn btn-ghost btn-sm" href="${fbEdit(l.id)}" target="_blank" rel="noopener">Edit on Facebook ↗</a>
-                  <button class="btn btn-sell btn-sm" data-ps-mark="${esc(p.id)}|${esc(l.id)}">Mark synced</button>` : ""}
+                  ${status === "out" ? `<button class="btn btn-ghost btn-sm" data-ps-mark="${esc(p.id)}|${esc(l.id)}">Mark synced</button>` : ""}` : ""}
                 </td>
               </tr>`).join("")}
             </tbody>
           </table></div>
+          ${outN > 1 ? `<p class="ps-foot"><button class="link" data-ps-all="${esc(p.id)}">I've updated all ${outN} on Facebook: mark them synced</button></p>` : ""}
         </section>`;
       }).join("")}
       <details class="ps-link">
@@ -100,65 +196,92 @@
     updateBadge();
   }
 
+  // ------------------------------------------------------------------ saving
   async function save(message, change) {
     await A.commit({ message, mutate: list => list.map(p => change(p)) });
     A.refreshDash();
     render();
   }
+  const setPrice = (pid, price) => save(`Price: ${pid} is now GH₵${price.toLocaleString()} on every platform`, p =>
+    p.id !== pid ? p : { ...p, price_ghs: price, placeholder: false });
+  const markSynced = (pairs) => {
+    const map = new Map(pairs.map(([id, price]) => [String(id), price]));
+    return save(`Price sync: ${map.size} Facebook listing${map.size === 1 ? "" : "s"} updated`, p => {
+      if (!(p.facebook_listings || []).some(l => map.has(l.id))) return p;
+      return {
+        ...p, facebook_listings: p.facebook_listings.map(l => {
+          if (!map.has(l.id)) return l;
+          const { currency, ...rest } = l;
+          return { ...rest, price: map.get(l.id), checked: todayStr(), synced: todayStr() };
+        })
+      };
+    });
+  };
+
+  async function run(label, fn, ok) {
+    A.busy(label);
+    try { await fn(); if (ok) A.toast(ok); }
+    catch (err) { A.toast(err.message || "Couldn't save. Check your connection and try again.", true); }
+    finally { A.busy(null); }
+  }
 
   screen.addEventListener("click", async e => {
     const f = e.target.closest("[data-psf]");
     if (f) { filter = f.dataset.psf; return render(); }
-    const pc = e.target.closest("[data-ps-copy]");
-    const pt = e.target.closest("[data-ps-text]");
-    if (pc || pt) {
-      const p = A.products().find(x => x.id === (pc ? pc.dataset.psCopy : pt.dataset.psText));
-      const text = pc ? String(p.price_ghs) : `${A.marketplaceText(p)}\n\n🌐 Order online: https://favisionenterprize.github.io/#product/${p.id}`;
-      try {
-        await navigator.clipboard.writeText(text);
-        A.toast(pc ? `Copied ${C.formatPrice(p.price_ghs)}. Paste it into the Facebook price box.` : "Listing text copied. Paste it into the Facebook description.");
-      } catch (err) { prompt("Copy this:", text); }
+
+    if (e.target.closest("#ps-start")) {
+      const q = queue();
+      if (!q.length) return;
+      const payload = { q: q.map(({ id, price }) => ({ id, price })), back: location.origin + location.pathname };
+      window.open(`${fbEdit(q[0].id)}#favsync=${encodeURIComponent(JSON.stringify(payload))}`, "_blank", "noopener");
+      A.toast("Facebook opened in a new tab. Click the “FA Vision price sync” bookmark there once the listing loads.");
       return;
     }
+    if (e.target.closest("#ps-copy-bm")) {
+      try { await navigator.clipboard.writeText(bookmarkHref); A.toast("Bookmark code copied."); }
+      catch (err) { prompt("Copy this bookmark code:", bookmarkHref); }
+      return;
+    }
+    const ad = e.target.closest("[data-ps-adopt]");
+    if (ad) {
+      const [pid, price] = ad.dataset.psAdopt.split("|");
+      return run("Saving…", () => setPrice(pid, Number(price)), `GH₵${Number(price).toLocaleString()} is now the price on your website. Start Facebook sync to update the other listings.`);
+    }
     const m = e.target.closest("[data-ps-mark]");
+    if (m) {
+      const [pid, lid] = m.dataset.psMark.split("|");
+      const p = A.products().find(x => x.id === pid);
+      return run("Saving…", () => markSynced([[lid, p.price_ghs]]), "Marked as synced.");
+    }
     const all = e.target.closest("[data-ps-all]");
-    if (m || all) {
-      const [pid, lid] = m ? m.dataset.psMark.split("|") : [all.dataset.psAll, null];
-      A.busy("Saving…");
-      try {
-        await save(`Price sync: Facebook ${lid ? "listing " + lid : "listings"} of ${pid} now match the website`, p => {
-          if (p.id !== pid) return p;
-          return {
-            ...p, facebook_listings: p.facebook_listings.map(l => {
-              if (lid && l.id !== lid) return l;
-              const { currency, ...rest } = l;
-              return { ...rest, price: p.price_ghs, checked: todayStr(), synced: todayStr() };
-            })
-          };
-        });
-        A.toast("Marked as synced.");
-      } catch (err) { A.toast(err.message || "Couldn't save", true); }
-      finally { A.busy(null); }
+    if (all) {
+      const p = A.products().find(x => x.id === all.dataset.psAll);
+      return run("Saving…", () => markSynced(p.facebook_listings.map(l => [l.id, p.price_ghs])), "Marked as synced.");
     }
   });
 
   screen.addEventListener("submit", async e => {
+    const pf = e.target.closest("[data-ps-price]");
+    if (pf) {
+      e.preventDefault();
+      const price = parseInt(pf.elements.price.value, 10);
+      if (!(price > 0)) return A.toast("Enter a price in cedis", true);
+      const pid = pf.dataset.psPrice;
+      const n = (A.products().find(p => p.id === pid).facebook_listings || []).length;
+      return run("Saving…", () => setPrice(pid, price), `Saved on your website.${n ? " Start Facebook sync to update Facebook." : ""}`);
+    }
     if (e.target.id !== "ps-link-form") return;
     e.preventDefault();
     const d = new FormData(e.target);
     const m = String(d.get("url")).match(/(\d{8,})/);
     if (!m) return A.toast("That doesn't look like a Marketplace listing link", true);
     const lid = m[1], pid = d.get("pid"), price = parseInt(d.get("price"), 10) || null;
-    A.busy("Linking…");
-    try {
-      await save(`Price sync: link Facebook listing ${lid} to ${pid}`, p => p.id !== pid ? p : {
-        ...p, facebook_listings: [...(p.facebook_listings || []).filter(l => l.id !== lid), { id: lid, title: p.name, price, checked: todayStr() }]
-      });
-      A.toast("Listing linked.");
-    } catch (err) { A.toast(err.message || "Couldn't save", true); }
-    finally { A.busy(null); }
+    run("Linking…", () => save(`Price sync: link Facebook listing ${lid} to ${pid}`, p => p.id !== pid ? p : {
+      ...p, facebook_listings: [...(p.facebook_listings || []).filter(l => l.id !== lid), { id: lid, title: p.name, price, checked: todayStr() }]
+    }), "Listing linked.");
   });
 
+  // ------------------------------------------------------------------ navigation
   function open() {
     if (!A.signedIn()) return A.show("login");
     document.querySelectorAll(".screen").forEach(s => { s.hidden = s !== screen; });
@@ -175,19 +298,31 @@
     open();
   });
 
-  // Called by admin.js right after a price is saved.
   function nudge(ids) {
     const n = rows().filter(r => ids.includes(r.p.id) && r.status === "out").length;
     updateBadge();
-    if (n) setTimeout(() => A.toast(`Price saved. ${n} Facebook listing${n === 1 ? " still shows" : "s still show"} the old price. Open Price sync to update ${n === 1 ? "it" : "them"}.`), 2600);
+    if (n) setTimeout(() => A.toast(`Price saved. ${n} Facebook listing${n === 1 ? " still shows" : "s still show"} the old price. Open Price sync → Start Facebook sync.`), 2600);
   }
   window.FAV_PRICESYNC = { open, nudge, updateBadge };
 
-  // Keep the dashboard badge current whenever the product list re-renders.
   const list = $("#list");
   if (list) new MutationObserver(updateBadge).observe(list, { childList: true });
-  if (location.hash === "#pricesync") {
-    const wait = setInterval(() => { if (A.products().length) { clearInterval(wait); open(); } }, 300);
-    setTimeout(() => clearInterval(wait), 15000);
+
+  // Back from Facebook: the bookmark returns here with what it saved.
+  const doneMatch = location.hash.match(/^#pricesync-done=(.+)$/);
+  if (location.hash === "#pricesync" || doneMatch) {
+    const wait = setInterval(async () => {
+      if (!A.products().length) return;
+      clearInterval(wait);
+      open();
+      if (!doneMatch) return;
+      let result = null;
+      try { result = JSON.parse(decodeURIComponent(doneMatch[1])); } catch (err) { /* ignore */ }
+      if (!result) return;
+      if (result.done && result.done.length) await run("Recording the Facebook updates…", () => markSynced(result.done),
+        `${result.done.length} Facebook listing${result.done.length === 1 ? "" : "s"} updated.${result.skip && result.skip.length ? ` ${result.skip.length} need${result.skip.length === 1 ? "s" : ""} fixing by hand.` : ""}`);
+      history.replaceState(null, "", "#pricesync");
+    }, 300);
+    setTimeout(() => clearInterval(wait), 20000);
   }
 })();

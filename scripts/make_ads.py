@@ -23,7 +23,7 @@ W, H = 1080, 1350
 BLUE, RED, PINK, PURPLE = (13, 85, 175), (244, 44, 44), (230, 80, 110), (176, 62, 166)
 INK, GREY, CREAM, NAVY = (24, 24, 32), (92, 96, 110), (255, 248, 240), (9, 45, 104)
 LINE = (222, 214, 232)
-FONT_DIRS = ["/usr/share/fonts/truetype/google-fonts", str(ROOT / "assets" / "fonts")]
+FONT_DIRS = [str(ROOT / "assets" / "fonts"), "/usr/share/fonts/truetype/google-fonts"]
 
 
 def font(weight, size):
@@ -150,8 +150,20 @@ def local_phone(n):
     return f"{n[:3]} {n[3:6]} {n[6:]}"
 
 
+def fill_prices(ad, product):
+    """Swap the {price} placeholder for the product's current price, so a price
+    change in the admin flows into the ad the next time the ads are rebuilt."""
+    price = product.get("price_ghs")
+    text = f"GH₵{price:,}" if price else "Ask us"
+    ad = json.loads(json.dumps(ad).replace("{price}", text))
+    if not price and ad.get("seal"):
+        ad.pop("seal")
+    return ad
+
+
 def make(ad, products, business):
     p = products[ad["product"]]
+    ad = fill_prices(ad, p)
     img = Image.new("RGB", (W, H), CREAM)
     d = ImageDraw.Draw(img)
 

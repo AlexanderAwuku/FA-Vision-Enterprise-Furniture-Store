@@ -199,7 +199,14 @@
   const active = (promoCfg.schedule || []).find(inWindow);
   if (active) {
     const bar = $("#announce"), text = $("#announce-text");
-    if (bar && text && active.bar) { text.innerHTML = active.bar; bar.href = active.link || "#deals"; }
+    if (bar && text && active.bar) {
+      // {price:FAV-001} placeholders show the product's current price.
+      text.innerHTML = active.bar.replace(/\{price:([A-Z]+-\d+)\}/g, (m, id) => {
+        const p = products.find(x => x.id === id);
+        return p && p.price_ghs ? C.formatPrice(p.price_ghs).replace(" ", "") : "great prices";
+      });
+      bar.href = active.link || "#deals";
+    }
     const sticker = $("#promo-sticker");
     if (sticker && active.sticker && (adById[active.ad] || {}).product === "FAV-014") sticker.textContent = active.sticker;
   }
