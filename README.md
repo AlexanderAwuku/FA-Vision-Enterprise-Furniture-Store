@@ -82,13 +82,11 @@ Every product has a designed strategy ad (1080 × 1350, the size Facebook, Insta
 - Wording lives in `data/business.json` → `promos.ads` (headline, accent word, facts row, price seal, tag). Rebuild after editing: `python3 scripts/make_ads.py && python3 scripts/generate_listings.py`.
 - `promos.schedule` decides the announcement bar, the desk promo sticker and which ads lead the Deals row. The first entry whose dates include today wins. `YYYY-MM-DD` dates run once (the student desk consignment arriving **15 October 2026**, then "just arrived" until 15 November); `MM-DD` dates repeat every year (festive, new-year office, Valentine's, Easter, mid-year office, back to school, home refresh). Nothing needs switching off by hand.
 
-## Price sync: one price for every platform
+## Price sync (website ↔ Facebook Marketplace)
 
-`/admin/#pricesync` is where prices are set. Each product has a **Price everywhere** box: saving it updates the website at once and queues every linked Facebook listing (`facebook_listings` in `data/products.json`) that now differs. A Facebook row can also be promoted with **Use GH₵… everywhere**.
+`/admin/#pricesync` lists every Facebook listing linked to a product (`facebook_listings` in `data/products.json`) next to the website price. Facebook has no API for personal Marketplace listings, so the website can't change Facebook prices itself. The screen is built for speed instead: changing a price or tapping **✓ Done** updates the screen instantly and saves to GitHub in the background (quick taps are bundled into one save). Red rows need their price changed on Facebook: **Copy** → **Edit ↗** → paste → Update → **✓ Done**, or ask Claude to "sync my Facebook prices".
 
-Facebook gives personal Marketplace sellers no API, so the queue is pushed by the **FA Vision price sync** bookmark (drag it from the one-time setup box on that screen to the bookmarks bar). **Start Facebook sync** opens the first listing's edit page; each click of the bookmark types the new price in, taps **Update** and opens the next listing, and after the last one it returns to the admin, which records the listings as synced. A listing it can't set (for example one priced in US$) is skipped and left red for a hand fix. On a phone, ask Claude to "sync my Facebook prices".
-
-Everything else that shows a price follows automatically: ad copy and promo bars in `business.json` use `{price}` / `{price:FAV-001}` placeholders, and `.github/workflows/rebuild-ads.yml` rebuilds the ads and listing texts on GitHub after every change to `data/`.
+Ad copy and promo bars in `business.json` use `{price}` / `{price:FAV-001}` placeholders, and `.github/workflows/rebuild-ads.yml` rebuilds the ads and listing texts after every change to `data/`.
 
 ## What's inside
 
@@ -106,7 +104,7 @@ Everything else that shows a price follows automatically: ad copy and promo bars
 | `data/business.json` | Name, tagline, address, phone/WhatsApp numbers, service areas, hashtags |
 | `data/groups.csv` | Facebook groups you post in |
 | `scripts/make_ads.py` | Builds the strategy ads in `assets/images/ads/` from `promos.ads` |
-| `admin/pricesync.js` | Price sync screen: one price for the website and every Facebook listing, plus the Facebook sync bookmark |
+| `admin/pricesync.js` | Price sync screen: website vs Facebook Marketplace prices |
 | `.github/workflows/rebuild-ads.yml` | Rebuilds ads and listing texts on GitHub whenever data changes |
 | `scripts/generate_listings.py` | Rebuilds `assets/js/products-data.js` and the bulk listing files in `output/` |
 | `output/` | Bulk Marketplace/group/WhatsApp texts, posting tracker and Meta catalog feed |
