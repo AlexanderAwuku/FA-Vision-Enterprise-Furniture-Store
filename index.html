@@ -367,7 +367,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/site.css?v=20260928">
+  <link rel="stylesheet" href="assets/css/site.css?v=20260929">
 </head>
 <body>
   <a class="announce" href="#promo">
@@ -441,17 +441,20 @@
               <input id="promo-qty" type="number" min="1" max="2000" value="1" inputmode="numeric" aria-label="Number of sets">
               <button type="button" data-step="1" aria-label="One more set">+</button>
             </div>
-            <div class="promo-quick">
-              <button type="button" data-qty="1">Just me</button>
-              <button type="button" data-qty="40">A classroom</button>
-              <button type="button" data-qty="200">The whole school</button>
+            <div class="promo-quick" role="group" aria-label="Quick picks">
+              <button type="button" data-qty="1" aria-pressed="true"><b>1</b><span>Just me</span><small>GH₵650</small></button>
+              <button type="button" data-qty="40" aria-pressed="false"><b>40</b><span>A classroom</span><small>GH₵26,000</small></button>
+              <button type="button" data-qty="200" aria-pressed="false"><b>200</b><span>The whole school</span><small>GH₵128,000</small></button>
             </div>
             <p class="promo-total"><span id="promo-each">GH₵650 per set</span> · Total <b id="promo-sum">GH₵650</b></p>
             <p class="promo-quip" id="promo-quip" aria-live="polite">One proper study corner, coming right up.</p>
           </div>
 
           <div class="promo-actions">
-            <a class="btn btn-gold" id="promo-order" target="_blank" rel="noopener">Order on WhatsApp</a>
+            <span class="promo-order-wrap">
+              <a class="btn btn-gold" id="promo-order" target="_blank" rel="noopener">Order on WhatsApp</a>
+              <span class="order-pointer" aria-hidden="true"><svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v15M5 12l7 7 7-7"/></svg><em>Tap here to order</em></span>
+            </span>
             <button class="btn btn-ghost" type="button" id="promo-share">Share with a friend</button>
           </div>
           <p class="promo-fine">GH₵640 each from 50 sets · Delivery &amp; school set-up available · <a href="#invoice" data-invoice-for="Student Desk Chair Set (FAV-014), bulk order">Need a proforma invoice?</a></p>
@@ -736,6 +739,6 @@
   <script src="assets/js/catalog-config.js"></script>
   <script src="assets/js/products-data.js"></script>
   <script src="assets/js/checkout.js"></script>
-  <script src="assets/js/site.js?v=20260928"></script>
+  <script src="assets/js/site.js?v=20260929"></script>
 </body>
 </html>
