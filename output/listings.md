@@ -18,6 +18,10 @@ Generated 2026-09-29. Regenerate after editing `data/products.json`.
 ```
 Rainbow Glass-Top Dining Set — 6 Chairs by F.A Vision Enterprise.
 
+Bring colour to every meal. A tempered-glass table with a playful printed top, paired with six fully upholstered chairs in bold rainbow fabric. Easy to wipe clean, sturdy chrome legs, and a showpiece in any dining room, restaurant or lounge.
+
+👉 See all photos, price and order online: https://favisionenterprize.github.io/#product/FAV-001
+
 ✔ Tempered-glass top, easy to wipe clean
 ✔ 6 padded, fully upholstered chairs
 ✔ Chrome steel legs — stable and rust-resistant
@@ -27,11 +31,12 @@ Material: Tempered glass top, chrome-plated steel legs, upholstered fabric chair
 Size: Seats 6 — ask us for exact table size
 Colours: Multi-colour
 
-📍 Showroom: Tarazzo Road, opposite Pacific, Odorkor, Accra, Greater Accra, Ghana
+Price negotiable for bulk orders.
+💳 Pay in full, pay 50% now and the rest on delivery, pay on delivery in Accra, or walk in and pay at the showroom.
 🚚 Delivery available across Accra and to Tema, Koforidua, Central Region and Kumasi (fee depends on location).
-💬 WhatsApp: 057 264 6176
-📞 Call: 057 264 6176 / 020 747 3267 / 054 614 8923
-🌐 Full catalogue: https://favisionenterprize.github.io/
+📍 Showroom: Tarazzo Road, opposite Pacific, Odorkor, Accra, Greater Accra, Ghana (also Omanjor and Kasoa)
+📞 Call / WhatsApp: 057 264 6176 / 020 747 3267 / 054 614 8923
+🌐 https://favisionenterprize.github.io/
 Ref: FAV-001
 ```
 
@@ -92,6 +97,10 @@ Order: https://wa.me/233572646176?text=Hello%20F.A%20Vision%2C%20I%27m%20interes
 ```
 Black Glass Dining Set — 6 High-Back Chairs by F.A Vision Enterprise.
 
+Sleek, modern and made for entertaining. A black tempered-glass table on a chrome base with six tall, padded high-back chairs in black leatherette. It looks premium in any home and wipes clean in seconds.
+
+👉 See all photos, price and order online: https://favisionenterprize.github.io/#product/FAV-002
+
 ✔ Black tempered-glass top
 ✔ 6 padded high-back chairs
 ✔ Wipe-clean leatherette
@@ -101,11 +110,12 @@ Material: Tempered glass top, chrome base, leatherette high-back chairs
 Size: Seats 6
 Colours: Black
 
-📍 Showroom: Tarazzo Road, opposite Pacific, Odorkor, Accra, Greater Accra, Ghana
+Price negotiable for bulk orders.
+💳 Pay in full, pay 50% now and the rest on delivery, pay on delivery in Accra, or walk in and pay at the showroom.
 🚚 Delivery available across Accra and to Tema, Koforidua, Central Region and Kumasi (fee depends on location).
-💬 WhatsApp: 057 264 6176
-📞 Call: 057 264 6176 / 020 747 3267 / 054 614 8923
-🌐 Full catalogue: https://favisionenterprize.github.io/
+📍 Showroom: Tarazzo Road, opposite Pacific, Odorkor, Accra, Greater Accra, Ghana (also Omanjor and Kasoa)
+📞 Call / WhatsApp: 057 264 6176 / 020 747 3267 / 054 614 8923
+🌐 https://favisionenterprize.github.io/
 Ref: FAV-002
 ```
 
@@ -168,6 +178,10 @@ Order: https://wa.me/233572646176?text=Hello%20F.A%20Vision%2C%20I%27m%20interes
 ```
 Dining Set Collection — 5 Designs, 6 Chairs by F.A Vision Enterprise.
 
+Five showroom designs to choose from, all seating six: black marble-effect with chrome chairs, black glass with quilted high-back chairs, frosted white-top, cream marble with gold legs, and a compact black set with a lace runner. Tell us which design you like on WhatsApp and we'll confirm today's price, colour and delivery date.
+
+👉 See all photos, price and order online: https://favisionenterprize.github.io/#product/FAV-003
+
 ✔ 5 designs in the showroom
 ✔ All seat 6
 ✔ Glass and marble-effect tops
@@ -178,11 +192,12 @@ Size: Seats 6
 Colours: Black, White, Cream, Gold
 Custom sizes, colours and finishes available.
 
-📍 Showroom: Tarazzo Road, opposite Pacific, Odorkor, Accra, Greater Accra, Ghana
+Price negotiable for bulk orders.
+💳 Pay in full, pay 50% now and the rest on delivery, pay on delivery in Accra, or walk in and pay at the showroom.
 🚚 Delivery available across Accra and to Tema, Koforidua, Central Region and Kumasi (fee depends on location).
-💬 WhatsApp: 057 264 6176
-📞 Call: 057 264 6176 / 020 747 3267 / 054 614 8923
-🌐 Full catalogue: https://favisionenterprize.github.io/
+📍 Showroom: Tarazzo Road, opposite Pacific, Odorkor, Accra, Greater Accra, Ghana (also Omanjor and Kasoa)
+📞 Call / WhatsApp: 057 264 6176 / 020 747 3267 / 054 614 8923
+🌐 https://favisionenterprize.github.io/
 Ref: FAV-003
 ```
 
@@ -243,6 +258,10 @@ Order: https://wa.me/233572646176?text=Hello%20F.A%20Vision%2C%20I%27m%20interes
 ```
 Red Glass Dining Set — 6 Chairs by F.A Vision Enterprise.
 
+Warm and elegant: a glossy red-brown glass table with six curved high-back chairs finished in brown and black. A bold centrepiece for family dinners and special occasions.
+
+👉 See all photos, price and order online: https://favisionenterprize.github.io/#product/FAV-004
+
 ✔ Glossy red-brown glass top
 ✔ 6 curved high-back chairs
 ✔ Sturdy steel frame
@@ -252,11 +271,12 @@ Material: Glass table, steel frame, padded high-back chairs
 Size: Seats 6
 Colours: Red, Dark Brown, Black
 
-📍 Showroom: Tarazzo Road, opposite Pacific, Odorkor, Accra, Greater Accra, Ghana
+Price negotiable for bulk orders.
+💳 Pay in full, pay 50% now and the rest on delivery, pay on delivery in Accra, or walk in and pay at the showroom.
 🚚 Delivery available across Accra and to Tema, Koforidua, Central Region and Kumasi (fee depends on location).
-💬 WhatsApp: 057 264 6176
-📞 Call: 057 264 6176 / 020 747 3267 / 054 614 8923
-🌐 Full catalogue: https://favisionenterprize.github.io/
+📍 Showroom: Tarazzo Road, opposite Pacific, Odorkor, Accra, Greater Accra, Ghana (also Omanjor and Kasoa)
+📞 Call / WhatsApp: 057 264 6176 / 020 747 3267 / 054 614 8923
+🌐 https://favisionenterprize.github.io/
 Ref: FAV-004
 ```
 
@@ -319,6 +339,10 @@ Order: https://wa.me/233572646176?text=Hello%20F.A%20Vision%2C%20I%27m%20interes
 ```
 Foldable Wood-Grain Dining Set — 6 Chairs by F.A Vision Enterprise.
 
+Space-saving and strong. A wood-grain dining table that folds away when you need the room, with six matching cushioned chairs. Ideal for apartments, compact dining rooms, canteens and events.
+
+👉 See all photos, price and order online: https://favisionenterprize.github.io/#product/FAV-005
+
 ✔ Folds away to save space
 ✔ 6 cushioned chairs included
 ✔ Strong steel frame
@@ -328,11 +352,12 @@ Material: Wood-grain finish top, steel frame, cushioned chairs
 Size: Seats 6 — folds for storage
 Colours: Dark Brown
 
-📍 Showroom: Tarazzo Road, opposite Pacific, Odorkor, Accra, Greater Accra, Ghana
+Price negotiable for bulk orders.
+💳 Pay in full, pay 50% now and the rest on delivery, pay on delivery in Accra, or walk in and pay at the showroom.
 🚚 Delivery available across Accra and to Tema, Koforidua, Central Region and Kumasi (fee depends on location).
-💬 WhatsApp: 057 264 6176
-📞 Call: 057 264 6176 / 020 747 3267 / 054 614 8923
-🌐 Full catalogue: https://favisionenterprize.github.io/
+📍 Showroom: Tarazzo Road, opposite Pacific, Odorkor, Accra, Greater Accra, Ghana (also Omanjor and Kasoa)
+📞 Call / WhatsApp: 057 264 6176 / 020 747 3267 / 054 614 8923
+🌐 https://favisionenterprize.github.io/
 Ref: FAV-005
 ```
 
@@ -395,6 +420,10 @@ Order: https://wa.me/233572646176?text=Hello%20F.A%20Vision%2C%20I%27m%20interes
 ```
 Executive Director Chair — Leather, High Back by F.A Vision Enterprise.
 
+Look the part and sit comfortably all day. A high-back executive chair in black leatherette with thick padding, padded armrests, smooth gas-lift height adjustment, tilt, 360° swivel and a chrome five-star base. Mesh and high-back ergonomic models are also in stock.
+
+👉 See all photos, price and order online: https://favisionenterprize.github.io/#product/FAV-006
+
 ✔ High back with thick padding
 ✔ Gas-lift height adjustment, tilt and 360° swivel
 ✔ Chrome base with smooth castors
@@ -404,11 +433,12 @@ Material: Leatherette upholstery, padded armrests, chrome five-star base
 Size: Standard executive size, height adjustable
 Colours: Black
 
-📍 Showroom: Tarazzo Road, opposite Pacific, Odorkor, Accra, Greater Accra, Ghana
+Price negotiable for bulk orders.
+💳 Pay in full, pay 50% now and the rest on delivery, pay on delivery in Accra, or walk in and pay at the showroom.
 🚚 Delivery available across Accra and to Tema, Koforidua, Central Region and Kumasi (fee depends on location).
-💬 WhatsApp: 057 264 6176
-📞 Call: 057 264 6176 / 020 747 3267 / 054 614 8923
-🌐 Full catalogue: https://favisionenterprize.github.io/
+📍 Showroom: Tarazzo Road, opposite Pacific, Odorkor, Accra, Greater Accra, Ghana (also Omanjor and Kasoa)
+📞 Call / WhatsApp: 057 264 6176 / 020 747 3267 / 054 614 8923
+🌐 https://favisionenterprize.github.io/
 Ref: FAV-006
 ```
 
@@ -471,6 +501,10 @@ Order: https://wa.me/233572646176?text=Hello%20F.A%20Vision%2C%20I%27m%20interes
 ```
 Mesh Secretary Chair — Ergonomic Swivel by F.A Vision Enterprise.
 
+Your team spends long hours in these seats, so make them good ones. A breathable mesh back with lumbar support, a soft padded seat, fixed armrests, height adjustment and 360° swivel. Choose blue or green seat colour.
+
+👉 See all photos, price and order online: https://favisionenterprize.github.io/#product/FAV-007
+
 ✔ Breathable mesh back with lumbar support
 ✔ Height adjustable, 360° swivel
 ✔ Blue or green seat
@@ -480,11 +514,12 @@ Material: Breathable mesh back, padded fabric seat, chrome or nylon base
 Size: Standard task-chair size, height adjustable
 Colours: Grey, Blue, Green
 
-📍 Showroom: Tarazzo Road, opposite Pacific, Odorkor, Accra, Greater Accra, Ghana
+Price negotiable for bulk orders.
+💳 Pay in full, pay 50% now and the rest on delivery, pay on delivery in Accra, or walk in and pay at the showroom.
 🚚 Delivery available across Accra and to Tema, Koforidua, Central Region and Kumasi (fee depends on location).
-💬 WhatsApp: 057 264 6176
-📞 Call: 057 264 6176 / 020 747 3267 / 054 614 8923
-🌐 Full catalogue: https://favisionenterprize.github.io/
+📍 Showroom: Tarazzo Road, opposite Pacific, Odorkor, Accra, Greater Accra, Ghana (also Omanjor and Kasoa)
+📞 Call / WhatsApp: 057 264 6176 / 020 747 3267 / 054 614 8923
+🌐 https://favisionenterprize.github.io/
 Ref: FAV-007
 ```
 
@@ -545,6 +580,10 @@ Order: https://wa.me/233572646176?text=Hello%20F.A%20Vision%2C%20I%27m%20interes
 ```
 1.2 m Office Desk with Drawer Unit by F.A Vision Enterprise.
 
+A practical 1.2 m office desk in a warm wood finish with a detachable three-drawer unit and keyboard/cable space. Supplied flat-packed so it's easy to move into any office, then assembled on site.
+
+👉 See all photos, price and order online: https://favisionenterprize.github.io/#product/FAV-008
+
 ✔ 1.2 m work surface
 ✔ Detachable 3-drawer unit
 ✔ Flat-packed for easy delivery
@@ -554,11 +593,12 @@ Material: Engineered wood with wood-grain finish
 Size: 1.2 m wide
 Colours: Dark Brown
 
-📍 Showroom: Tarazzo Road, opposite Pacific, Odorkor, Accra, Greater Accra, Ghana
+Price negotiable for bulk orders.
+💳 Pay in full, pay 50% now and the rest on delivery, pay on delivery in Accra, or walk in and pay at the showroom.
 🚚 Delivery available across Accra and to Tema, Koforidua, Central Region and Kumasi (fee depends on location).
-💬 WhatsApp: 057 264 6176
-📞 Call: 057 264 6176 / 020 747 3267 / 054 614 8923
-🌐 Full catalogue: https://favisionenterprize.github.io/
+📍 Showroom: Tarazzo Road, opposite Pacific, Odorkor, Accra, Greater Accra, Ghana (also Omanjor and Kasoa)
+📞 Call / WhatsApp: 057 264 6176 / 020 747 3267 / 054 614 8923
+🌐 https://favisionenterprize.github.io/
 Ref: FAV-008
 ```
 
@@ -621,6 +661,10 @@ Order: https://wa.me/233572646176?text=Hello%20F.A%20Vision%2C%20I%27m%20interes
 ```
 White Dressing Table with Mirror & Stool by F.A Vision Enterprise.
 
+Get ready in style. A white dressing table with an arched mirror, side display shelves, drawers, a storage cabinet and a matching padded stool. Stay fabulous, stay organised, at home or in the hostel.
+
+👉 See all photos, price and order online: https://favisionenterprize.github.io/#product/FAV-009
+
 ✔ Arched mirror with side shelves
 ✔ Drawers plus storage cabinet
 ✔ Matching padded stool included
@@ -630,11 +674,12 @@ Material: Engineered wood, white finish, glass mirror
 Size: Ask us for exact size
 Colours: White
 
-📍 Showroom: Tarazzo Road, opposite Pacific, Odorkor, Accra, Greater Accra, Ghana
+Price negotiable for bulk orders.
+💳 Pay in full, pay 50% now and the rest on delivery, pay on delivery in Accra, or walk in and pay at the showroom.
 🚚 Delivery available across Accra and to Tema, Koforidua, Central Region and Kumasi (fee depends on location).
-💬 WhatsApp: 057 264 6176
-📞 Call: 057 264 6176 / 020 747 3267 / 054 614 8923
-🌐 Full catalogue: https://favisionenterprize.github.io/
+📍 Showroom: Tarazzo Road, opposite Pacific, Odorkor, Accra, Greater Accra, Ghana (also Omanjor and Kasoa)
+📞 Call / WhatsApp: 057 264 6176 / 020 747 3267 / 054 614 8923
+🌐 https://favisionenterprize.github.io/
 Ref: FAV-009
 ```
 
@@ -695,6 +740,10 @@ Order: https://wa.me/233572646176?text=Hello%20F.A%20Vision%2C%20I%27m%20interes
 ```
 Wardrobe — 4-Door with Top Cabinets by F.A Vision Enterprise.
 
+Spacious, stylish and strong. A tall four-door wardrobe with quilted-pattern doors, top storage cabinets, hanging space and shelves: room for two. Several colours and designs available, including cream, white and dark wood.
+
+👉 See all photos, price and order online: https://favisionenterprize.github.io/#product/FAV-010
+
 ✔ 4 doors plus top cabinets
 ✔ Hanging space and shelves
 ✔ Several colours and designs
@@ -705,11 +754,12 @@ Size: Full height, 4 doors plus top cabinets
 Colours: Cream, White, Dark Brown
 Custom sizes, colours and finishes available.
 
-📍 Showroom: Tarazzo Road, opposite Pacific, Odorkor, Accra, Greater Accra, Ghana
+Price negotiable for bulk orders.
+💳 Pay in full, pay 50% now and the rest on delivery, pay on delivery in Accra, or walk in and pay at the showroom.
 🚚 Delivery available across Accra and to Tema, Koforidua, Central Region and Kumasi (fee depends on location).
-💬 WhatsApp: 057 264 6176
-📞 Call: 057 264 6176 / 020 747 3267 / 054 614 8923
-🌐 Full catalogue: https://favisionenterprize.github.io/
+📍 Showroom: Tarazzo Road, opposite Pacific, Odorkor, Accra, Greater Accra, Ghana (also Omanjor and Kasoa)
+📞 Call / WhatsApp: 057 264 6176 / 020 747 3267 / 054 614 8923
+🌐 https://favisionenterprize.github.io/
 Ref: FAV-010
 ```
 
@@ -770,6 +820,10 @@ Order: https://wa.me/233572646176?text=Hello%20F.A%20Vision%2C%20I%27m%20interes
 ```
 L-Shaped Sectional Sofa — Grey Fabric by F.A Vision Enterprise.
 
+Room for the whole family. A large L-shaped sectional in soft grey fabric with deep cushions, a chaise end and matching scatter pillows. Wholesale and bulk prices available for hotels, lounges and offices.
+
+👉 See all photos, price and order online: https://favisionenterprize.github.io/#product/FAV-011
+
 ✔ Seats 5–6 comfortably
 ✔ Deep, high-density foam cushions
 ✔ Chaise end plus scatter pillows
@@ -780,11 +834,12 @@ Size: L-shaped sectional, seats 5–6
 Colours: Grey
 Custom sizes, colours and finishes available.
 
-📍 Showroom: Tarazzo Road, opposite Pacific, Odorkor, Accra, Greater Accra, Ghana
+Price negotiable for bulk orders.
+💳 Pay in full, pay 50% now and the rest on delivery, pay on delivery in Accra, or walk in and pay at the showroom.
 🚚 Delivery available across Accra and to Tema, Koforidua, Central Region and Kumasi (fee depends on location).
-💬 WhatsApp: 057 264 6176
-📞 Call: 057 264 6176 / 020 747 3267 / 054 614 8923
-🌐 Full catalogue: https://favisionenterprize.github.io/
+📍 Showroom: Tarazzo Road, opposite Pacific, Odorkor, Accra, Greater Accra, Ghana (also Omanjor and Kasoa)
+📞 Call / WhatsApp: 057 264 6176 / 020 747 3267 / 054 614 8923
+🌐 https://favisionenterprize.github.io/
 Ref: FAV-011
 ```
 
@@ -845,6 +900,10 @@ Order: https://wa.me/233572646176?text=Hello%20F.A%20Vision%2C%20I%27m%20interes
 ```
 Student Desk Chair Set — Senior High to Tertiary Level by F.A Vision Enterprise.
 
+Height-adjustable desk and chair sets, perfect for classrooms from SHS through university. Anti-slip floor caps on the legs prevent sliding and cut down on distracting noise.
+
+👉 See all photos, price and order online: https://favisionenterprize.github.io/#product/FAV-014
+
 ✔ Height-adjustable desk (73–88 cm) and chair (46–52 cm)
 ✔ Powder-coated carbon steel frame with MDF/melamine top
 ✔ Anti-slip floor caps — no sliding, less noise
@@ -856,11 +915,12 @@ Size: Desk 70 × 50 × 73–88 cm; Chair 48 × 46 × 46–52 cm (height adjustab
 Colours: Grey, Gold
 Custom sizes, colours and finishes available.
 
-📍 Showroom: Tarazzo Road, opposite Pacific, Odorkor, Accra, Greater Accra, Ghana
+Price negotiable for bulk orders.
+💳 Pay in full, pay 50% now and the rest on delivery, pay on delivery in Accra, or walk in and pay at the showroom.
 🚚 Delivery available across Accra and to Tema, Koforidua, Central Region and Kumasi (fee depends on location).
-💬 WhatsApp: 057 264 6176
-📞 Call: 057 264 6176 / 020 747 3267 / 054 614 8923
-🌐 Full catalogue: https://favisionenterprize.github.io/
+📍 Showroom: Tarazzo Road, opposite Pacific, Odorkor, Accra, Greater Accra, Ghana (also Omanjor and Kasoa)
+📞 Call / WhatsApp: 057 264 6176 / 020 747 3267 / 054 614 8923
+🌐 https://favisionenterprize.github.io/
 Ref: FAV-014
 ```
 

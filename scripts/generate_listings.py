@@ -81,18 +81,27 @@ def marketplace_title(product):
 
 
 def marketplace_description(business, product):
+    """The one Facebook Marketplace description every listing of this product uses."""
+    site = business.get("website")
+    link = f"{site}#product/{product['id']}" if site else None
+    lead = (product.get("description") or "").split("\n\n")[0].strip()
     parts = [f"{product['name']} by {business['name']}.", ""]
+    if lead:
+        parts += [lead, ""]
+    if link:
+        parts += [f"👉 See all photos, price and order online: {link}", ""]
     parts += [f"✔ {h}" for h in product.get("highlights", [])]
     parts += [""] + details(product)
     if product.get("custom_order"):
         parts.append("Custom sizes, colours and finishes available.")
     parts += [
         "",
-        f"📍 Showroom: {business['address']}",
+        "Price negotiable for bulk orders." if product.get("negotiable") else None,
+        "💳 Pay in full, pay 50% now and the rest on delivery, pay on delivery in Accra, or walk in and pay at the showroom.",
         f"🚚 {business['delivery_note']}",
-        f"💬 WhatsApp: {local(business['whatsapp'])}",
-        f"📞 Call: {' / '.join(local(n) for n in business['phones'])}",
-        f"🌐 Full catalogue: {business['website']}" if business.get("website") else None,
+        f"📍 Showroom: {business['address']} (also Omanjor and Kasoa)",
+        f"📞 Call / WhatsApp: {' / '.join(local(n) for n in business['phones'])}",
+        f"🌐 {site}" if site else None,
         f"Ref: {product['id']}",
     ]
     return "\n".join(p for p in parts if p is not None).strip()

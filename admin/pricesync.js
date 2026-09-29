@@ -14,6 +14,7 @@
   const $ = s => document.querySelector(s);
   const screen = $("#screen-pricesync");
   const fbUrl = id => `https://www.facebook.com/marketplace/item/${encodeURIComponent(id)}/`;
+  const fbEdit = id => `https://www.facebook.com/marketplace/edit/?listing_id=${encodeURIComponent(id)}`;
   const todayStr = () => new Date().toISOString().slice(0, 10);
   let filter = "out";
 
@@ -57,7 +58,7 @@
         <button class="ps-stat good ${filter === "ok" ? "on" : ""}" data-psf="ok"><b>${c.ok}</b><span>In sync</span></button>
         <button class="ps-stat ${filter === "all" ? "on" : ""}" data-psf="all"><b>${all.length}</b><span>Linked listings</span></button>
       </div>
-      <p class="ps-how muted">How to sync: tap <b>Copy price</b> (or <b>Copy listing text</b>), then <b>Open on Facebook</b> → <b>Edit listing</b>, paste and save. Come back and tap <b>Mark synced</b>. Prefer not to do it by hand? Ask Claude to “sync my Facebook prices”.</p>
+      <p class="ps-how muted">How to sync: tap <b>Copy price</b> (or <b>Copy listing text</b>), then <b>Edit on Facebook</b>, paste into the price box and tap <b>Update</b>. Come back and tap <b>Mark synced</b>. Prefer not to do it by hand? Ask Claude to “sync my Facebook prices”.</p>
       ${shown.length ? "" : `<p class="ps-empty">${filter === "out" ? "🎉 Every linked Facebook listing matches your website price." : "Nothing here yet."}</p>`}
       ${[...byProduct.values()].map(list => {
         const p = list[0].p;
@@ -79,7 +80,7 @@
                 <td class="ps-actions">${status === "out" ? `
                   <button class="btn btn-ghost btn-sm" data-ps-copy="${esc(p.id)}">Copy price</button>
                   <button class="btn btn-ghost btn-sm" data-ps-text="${esc(p.id)}">Copy listing text</button>
-                  <a class="btn btn-ghost btn-sm" href="${fbUrl(l.id)}" target="_blank" rel="noopener">Open on Facebook ↗</a>
+                  <a class="btn btn-ghost btn-sm" href="${fbEdit(l.id)}" target="_blank" rel="noopener">Edit on Facebook ↗</a>
                   <button class="btn btn-sell btn-sm" data-ps-mark="${esc(p.id)}|${esc(l.id)}">Mark synced</button>` : ""}
                 </td>
               </tr>`).join("")}
