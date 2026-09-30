@@ -122,6 +122,13 @@ function doPost(e) {
     if (data.event === 'charge.success' && data.data && data.data.reference) upsertPaystackPayment_(data.data.reference);
     return json_({ ok: true });
   }
+  // Admin sign-in (email + password, reset code by email) and the GitHub proxy.
+  if (data.action === 'login') return adminLogin_(data);
+  if (data.action === 'forgot') return adminForgot_(data);
+  if (data.action === 'reset') return adminReset_(data);
+  if (data.action === 'logout') return adminLogout_(data);
+  if (data.action === 'session') return json_(sessionValid_(data.session) ? { ok: true } : { ok: false, error: 'signed_out' });
+  if (data.action === 'github') return githubProxy_(data);
   if (data.action === 'update_order') return updateOrder_(data);
   if (data.action === 'save_invoice') return saveInvoice_(data);
   if (data.action === 'update_enquiry') return updateEnquiry_(data);
@@ -404,6 +411,190 @@ function syncPaystack() {
 function checkAdmin_(key) {
   const want = PropertiesService.getScriptProperties().getProperty('ADMIN_KEY');
   return !!want && String(key || '') === want;
+}
+
+// ---------- Admin sign-in: email + password, reset code by email ----------
+//
+// The website admin signs in with ADMIN_EMAIL and a password. "Forgot password"
+// emails a 6-digit code (valid 10 minutes) to ADMIN_EMAIL only; the code sets a
+// new password. The GitHub token never leaves this script: it is stored as the
+// script property GITHUB_TOKEN and every product save goes through githubProxy_.
+//
+// Script properties used:
+//   ADMIN_EMAIL    who may sign in and receive reset codes (default below)
+//   GITHUB_TOKEN   fine-grained token, Contents: Read and write, this repo only
+//   GITHUB_REPO    owner/repo (default favisionenterprize/favisionenterprize.github.io)
+// Written by the script: ADMIN_PASS_HASH, ADMIN_PASS_SALT, S_<hash> (sessions).
+
+const DEFAULT_ADMIN_EMAIL = 'nanaotengdonkor1@gmail.com';
+const DEFAULT_GITHUB_REPO = 'favisionenterprize/favisionenterprize.github.io';
+const SESSION_LONG_MS = 30 * 24 * 3600 * 1000;   // "Keep me signed in": 30 days
+const SESSION_SHORT_MS = 12 * 3600 * 1000;       // otherwise 12 hours
+const RESET_CODE_SECONDS = 600;                  // reset codes expire after 10 minutes
+
+function authProps_() { return PropertiesService.getScriptProperties(); }
+function adminEmail_() { return String(authProps_().getProperty('ADMIN_EMAIL') || DEFAULT_ADMIN_EMAIL).trim().toLowerCase(); }
+function normEmail_(v) { return String(v || '').trim().toLowerCase(); }
+
+function sha256Hex_(text) {
+  return Utilities.computeDigest(Utilities.DigestAlgorithm.SHA_256, text, Utilities.Charset.UTF_8)
+    .map((b) => ('0' + (b & 0xff).toString(16)).slice(-2)).join('');
+}
+
+// Salted, stretched hash so a leaked property doesn't give away the password.
+function hashPassword_(password, salt) {
+  let h = sha256Hex_(salt + ':' + password);
+  for (let i = 0; i < 2000; i++) h = sha256Hex_(h + salt);
+  return h;
+}
+
+function randomToken_() {
+  return (Utilities.getUuid() + Utilities.getUuid()).replace(/-/g, '');
+}
+
+function sameText_(a, b) {
+  a = String(a || ''); b = String(b || '');
+  if (a.length !== b.length) return false;
+  let diff = 0;
+  for (let i = 0; i < a.length; i++) diff |= a.charCodeAt(i) ^ b.charCodeAt(i);
+  return diff === 0;
+}
+
+// Counts failures per action; blocks for 15 minutes after `max` failures.
+function tooManyTries_(bucket, max) {
+  return Number(CacheService.getScriptCache().get('fail_' + bucket) || 0) >= max;
+}
+function noteFailure_(bucket) {
+  const cache = CacheService.getScriptCache();
+  cache.put('fail_' + bucket, String(Number(cache.get('fail_' + bucket) || 0) + 1), 900);
+}
+
+function newSession_(remember) {
+  const props = authProps_();
+  const now = Date.now();
+  // Clear out expired sessions.
+  const all = props.getProperties();
+  Object.keys(all).forEach((k) => { if (k.indexOf('S_') === 0 && Number(all[k]) < now) props.deleteProperty(k); });
+  const token = randomToken_();
+  props.setProperty('S_' + sha256Hex_(token).slice(0, 40), String(now + (remember ? SESSION_LONG_MS : SESSION_SHORT_MS)));
+  return token;
+}
+
+function sessionValid_(token) {
+  if (!token) return false;
+  const exp = Number(authProps_().getProperty('S_' + sha256Hex_(String(token)).slice(0, 40)) || 0);
+  return exp > Date.now();
+}
+
+function endAllSessions_() {
+  const props = authProps_();
+  Object.keys(props.getProperties()).forEach((k) => { if (k.indexOf('S_') === 0) props.deleteProperty(k); });
+}
+
+function signedIn_(remember) {
+  return json_({ ok: true, session: newSession_(remember), key: authProps_().getProperty('ADMIN_KEY') || '', email: adminEmail_() });
+}
+
+function adminLogin_(data) {
+  if (tooManyTries_('login', 5)) return json_({ ok: false, error: 'locked' });
+  const props = authProps_();
+  const hash = props.getProperty('ADMIN_PASS_HASH');
+  if (!hash) return json_({ ok: false, error: 'no_password' });
+  if (normEmail_(data.email) !== adminEmail_() ||
+      !sameText_(hashPassword_(String(data.password || ''), props.getProperty('ADMIN_PASS_SALT')), hash)) {
+    noteFailure_('login');
+    return json_({ ok: false, error: 'wrong' });
+  }
+  CacheService.getScriptCache().remove('fail_login');
+  return signedIn_(!!data.remember);
+}
+
+function adminForgot_(data) {
+  const cache = CacheService.getScriptCache();
+  // Same answer whether or not the email matches, so the page can't be used to guess it.
+  if (normEmail_(data.email) !== adminEmail_()) return json_({ ok: true });
+  if (cache.get('reset_sent')) return json_({ ok: false, error: 'wait' });   // one code a minute
+  const code = String(Math.floor(100000 + Math.random() * 900000));
+  cache.put('reset_code', sha256Hex_(code), RESET_CODE_SECONDS);
+  cache.put('reset_sent', '1', 60);
+  cache.remove('fail_reset');
+  MailApp.sendEmail({
+    to: adminEmail_(),
+    subject: `${code} is your FA Vision admin reset code`,
+    body: `Your F.A Vision admin password reset code is:\n\n${code}\n\n` +
+      `Enter it on the admin sign-in page within 10 minutes to set a new password.\n\n` +
+      `If you didn't ask for this, ignore this email; your password hasn't changed.`,
+    htmlBody: `<div style="font-family:Arial,sans-serif;max-width:420px">` +
+      `<p>Your <b>F.A Vision admin</b> password reset code is:</p>` +
+      `<p style="font-size:32px;font-weight:700;letter-spacing:6px;margin:16px 0">${code}</p>` +
+      `<p>Enter it on the admin sign-in page within <b>10 minutes</b> to set a new password.</p>` +
+      `<p style="color:#777;font-size:13px">If you didn't ask for this, ignore this email; your password hasn't changed.</p></div>`,
+    name: BUSINESS.name,
+  });
+  return json_({ ok: true });
+}
+
+function adminReset_(data) {
+  const cache = CacheService.getScriptCache();
+  if (normEmail_(data.email) !== adminEmail_()) return json_({ ok: false, error: 'bad_code' });
+  if (tooManyTries_('reset', 5)) { cache.remove('reset_code'); return json_({ ok: false, error: 'locked' }); }
+  const want = cache.get('reset_code');
+  if (!want) return json_({ ok: false, error: 'expired' });
+  if (!sameText_(sha256Hex_(String(data.code || '').replace(/\D/g, '')), want)) {
+    noteFailure_('reset');
+    return json_({ ok: false, error: 'bad_code' });
+  }
+  const password = String(data.password || '');
+  if (password.length < 8) return json_({ ok: false, error: 'short' });
+  const salt = randomToken_().slice(0, 24);
+  const props = authProps_();
+  props.setProperty('ADMIN_PASS_SALT', salt);
+  props.setProperty('ADMIN_PASS_HASH', hashPassword_(password, salt));
+  cache.remove('reset_code');
+  cache.remove('fail_login');
+  endAllSessions_();   // sign out every other device
+  return signedIn_(!!data.remember);
+}
+
+function adminLogout_(data) {
+  if (data.session) authProps_().deleteProperty('S_' + sha256Hex_(String(data.session)).slice(0, 40));
+  return json_({ ok: true });
+}
+
+// Forwards the admin's GitHub API calls for this one repository, adding the
+// token stored here. Only signed-in sessions may use it.
+function githubProxy_(data) {
+  if (!sessionValid_(data.session)) return json_({ ok: false, error: 'signed_out' });
+  const token = authProps_().getProperty('GITHUB_TOKEN');
+  if (!token) return json_({ ok: false, error: 'no_github_token' });
+  const method = String(data.method || 'GET').toUpperCase();
+  const path = String(data.path || '');
+  if (['GET', 'POST', 'PATCH'].indexOf(method) < 0 || path.charAt(0) !== '/' || path.indexOf('..') >= 0) {
+    return json_({ ok: false, error: 'bad request' });
+  }
+  const repo = authProps_().getProperty('GITHUB_REPO') || DEFAULT_GITHUB_REPO;
+  const opts = {
+    method: method.toLowerCase(),
+    headers: { Authorization: 'Bearer ' + token, Accept: 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28' },
+    muteHttpExceptions: true,
+  };
+  if (data.body != null) { opts.contentType = 'application/json'; opts.payload = typeof data.body === 'string' ? data.body : JSON.stringify(data.body); }
+  const res = UrlFetchApp.fetch('https://api.github.com/repos/' + repo + path, opts);
+  const text = res.getContentText();
+  let body = null;
+  try { body = text ? JSON.parse(text) : null; } catch (e) { body = { message: text.slice(0, 300) }; }
+  return json_({ ok: true, status: res.getResponseCode(), body: body });
+}
+
+// Run once from the editor if you are ever locked out of the admin page and
+// the reset email isn't arriving: it signs out every device and clears the
+// password, so the next sign-in starts with "Forgot password".
+function resetAdminPassword() {
+  const props = authProps_();
+  props.deleteProperty('ADMIN_PASS_HASH');
+  props.deleteProperty('ADMIN_PASS_SALT');
+  endAllSessions_();
+  Logger.log('Admin password cleared. Use "Forgot password" on the admin page to set a new one.');
 }
 
 function listOrders_() {

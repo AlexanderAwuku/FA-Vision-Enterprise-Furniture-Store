@@ -13,25 +13,32 @@
   const RAW = `https://raw.githubusercontent.com/${OWNER}/${REPO}/${BRANCH}/`;
   const MAX_PHOTOS = 10;
   const PHOTO_WIDTH = 1600;      // uploaded photos are 1600 x 1200 (4:3), finished by the photo studio
-  const TOKEN_KEY = "fav_admin_token";
+  const TOKEN_KEY = "fav_admin_token";       // backup sign-in: GitHub token kept in this browser
+  const SESSION_KEY = "fav_admin_session";   // email sign-in: session from the Apps Script backend
+  const EMAIL_KEY = "fav_admin_email";
+  const ORDERS_KEY = "fav-orders-key";       // ADMIN_KEY shared with orders.js, customers.js, invoices.js
 
   const C = window.FAV_CONFIG;
   const esc = C.escapeHtml;
   const $ = s => document.querySelector(s);
   const $$ = s => [...document.querySelectorAll(s)];
 
-  let token = "";
+  let token = "";      // set only for the backup GitHub-token sign-in
+  let session = "";    // set for email + password sign-in; GitHub calls go through the backend
+  let endpoint = "";   // Apps Script web app URL (data/business.json → enquiry_endpoint)
   let business = null;
   let products = [];
 
+  const signedIn = () => !!(token || session);
+
   // =========================================================== utilities
-  function store(get, value, remember) {
+  function store(key, get, value, remember) {
     try {
-      if (get) return localStorage.getItem(TOKEN_KEY) || sessionStorage.getItem(TOKEN_KEY) || "";
-      localStorage.removeItem(TOKEN_KEY);
-      sessionStorage.removeItem(TOKEN_KEY);
-      if (value) (remember ? localStorage : sessionStorage).setItem(TOKEN_KEY, value);
-    } catch (e) { /* storage blocked: token lives in memory for this visit */ }
+      if (get) return localStorage.getItem(key) || sessionStorage.getItem(key) || "";
+      localStorage.removeItem(key);
+      sessionStorage.removeItem(key);
+      if (value) (remember ? localStorage : sessionStorage).setItem(key, value);
+    } catch (e) { /* storage blocked: it lives in memory for this visit */ }
     return "";
   }
 
@@ -61,8 +68,42 @@
   const siteUrl = () => (business.website || `https://${OWNER.toLowerCase()}.github.io/${REPO}/`).replace(/\/?$/, "/");
   const productUrl = p => `${siteUrl()}#product/${p.id}`;
 
+  // =========================================================== backend (Apps Script)
+  async function loadEndpoint() {
+    if (endpoint) return endpoint;
+    const biz = await fetch("../data/business.json", { cache: "no-store" }).then(r => r.json());
+    endpoint = biz.enquiry_endpoint || "";
+    return endpoint;
+  }
+
+  async function backend(payload) {
+    if (!(await loadEndpoint())) throw Object.assign(new Error("The backend isn't connected yet (no enquiry_endpoint in data/business.json)."), { status: 0 });
+    const res = await fetch(endpoint, {
+      method: "POST",
+      headers: { "Content-Type": "text/plain;charset=utf-8" },   // simple request: no CORS preflight
+      body: JSON.stringify(payload),
+      cache: "no-store"
+    });
+    return res.json();
+  }
+
   // =========================================================== GitHub API
   async function gh(path, opts = {}) {
+    if (session) {
+      // Email sign-in: the backend adds the GitHub token, which never reaches this browser.
+      const r = await backend({ action: "github", session, method: opts.method || "GET", path, body: opts.body || null });
+      if (!r.ok) {
+        const err = new Error(r.error || "error");
+        err.status = r.error === "signed_out" ? "signed_out" : r.error === "no_github_token" ? "no_github_token" : 500;
+        throw err;
+      }
+      if (r.status >= 300) {
+        const err = new Error((r.body && r.body.message) || "GitHub error " + r.status);
+        err.status = r.status;
+        throw err;
+      }
+      return r.body;
+    }
     const res = await fetch(API + path, {
       ...opts,
       headers: {
@@ -84,6 +125,9 @@
   }
 
   function friendly(err) {
+    if (err.status === "signed_out") { expireSession(); return "You've been signed out. Please sign in again."; }
+    if (err.status === "no_github_token") return "Sign-in worked, but the backend has no GitHub token yet. In Apps Script → Project Settings → Script properties, add GITHUB_TOKEN.";
+    if (session && (err.status === 401 || err.status === 403 || err.status === 404)) return "The GitHub token saved in Apps Script (GITHUB_TOKEN) was rejected or has expired. Make a new one and replace it there.";
     if (err.status === 401) return "Your token was rejected. It may have expired: sign out and paste a new one.";
     if (err.status === 403) return "Your token can't save changes. On GitHub, give it Contents: Read and write for this repository.";
     if (err.status === 404) return "Couldn't find the repository with this token. Check that the token has access to favisionenterprize.github.io.";
@@ -186,34 +230,156 @@
     const go = e.target.closest("[data-go]");
     if (!go) return;
     e.preventDefault();
-    if (!token) return show("login");
+    if (!signedIn()) return show("login");
     if (go.dataset.go === "post") startPost(null);
     else { renderDash(); show("dash"); }
   });
 
   // =========================================================== sign in
+  // Email + password (checked by the Apps Script backend). "Forgot password"
+  // emails a 6-digit code to the admin email; the code sets a new password.
+  function authStep(which) {
+    ["login", "forgot", "reset"].forEach(s => { $("#auth-" + s).hidden = s !== which; });
+    $("#auth-token").hidden = which !== "login";
+    $$("#screen-login .error").forEach(e => { e.hidden = true; });
+    const focus = { login: $("#login-email").value ? "#login-password" : "#login-email", forgot: "#forgot-email", reset: "#reset-code" }[which];
+    setTimeout(() => $(focus) && $(focus).focus(), 50);
+  }
+
+  function showError(id, msg) { const el = $(id); el.textContent = msg; el.hidden = false; }
+
+  const AUTH_ERRORS = {
+    wrong: "That email or password isn't right.",
+    locked: "Too many tries. Wait 15 minutes, or use \"Forgot password\".",
+    no_password: "No password has been set yet. Tap \"Forgot password? · First time? Set a password\" below.",
+    wait: "A code was sent less than a minute ago. Check your email, or wait a minute and try again.",
+    expired: "That code has expired. Tap \"Send a new code\".",
+    bad_code: "That code isn't right. Check the latest email and try again.",
+    short: "Use at least 8 characters for your password.",
+    "bad request": "The backend doesn't know email sign-in yet. Paste the latest Code.gs into Apps Script and deploy a new version (see backend/README.md)."
+  };
+  AUTH_ERRORS["name required"] = AUTH_ERRORS["bad request"];   // what the older backend answers
+  const authMessage = r => AUTH_ERRORS[r.error] || "Something went wrong: " + (r.error || "unknown error");
+
+  async function finishSignIn(r, remember) {
+    session = r.session;
+    token = "";
+    store(TOKEN_KEY, false, "");
+    store(SESSION_KEY, false, session, remember);
+    if (r.email) store(EMAIL_KEY, false, r.email, true);
+    // One sign-in also unlocks Orders, Customers and Invoices.
+    if (r.key) store(ORDERS_KEY, false, r.key, true);
+    busy("Loading your products…");
+    await load();
+    renderDash();
+    show("dash");
+  }
+
   $("#login-form").addEventListener("submit", async e => {
     e.preventDefault();
-    const err = $("#login-error");
-    err.hidden = true;
+    const remember = $("#remember").checked;
+    busy("Signing in…");
+    try {
+      const r = await backend({ action: "login", email: $("#login-email").value.trim(), password: $("#login-password").value, remember });
+      if (!r.ok) return showError("#login-error", authMessage(r));
+      $("#login-password").value = "";
+      await finishSignIn(r, remember);
+    } catch (ex) {
+      showError("#login-error", ex.status ? friendly(ex) : navigator.onLine ? "Couldn't reach the backend. " + ex.message : "You're offline. Check your internet connection and try again.");
+    } finally { busy(null); }
+  });
+
+  $("#forgot-link").addEventListener("click", () => {
+    $("#forgot-email").value = $("#login-email").value || store(EMAIL_KEY, true);
+    authStep("forgot");
+  });
+  $$("[data-auth]").forEach(b => b.addEventListener("click", () => authStep(b.dataset.auth)));
+
+  async function sendCode() {
+    const email = $("#forgot-email").value.trim();
+    busy("Sending the code…");
+    try {
+      const r = await backend({ action: "forgot", email });
+      if (!r.ok) { showError($("#auth-reset").hidden ? "#forgot-error" : "#reset-error", authMessage(r)); return false; }
+      $("#reset-sub").textContent = `If ${email} is the admin email, a 6-digit code is on its way. Check your inbox (and Spam), then enter it below.`;
+      return true;
+    } catch (ex) {
+      showError($("#auth-reset").hidden ? "#forgot-error" : "#reset-error", ex.status === 0 ? ex.message : "Couldn't reach the backend. Check your connection and try again.");
+      return false;
+    } finally { busy(null); }
+  }
+
+  $("#forgot-form").addEventListener("submit", async e => {
+    e.preventDefault();
+    if (await sendCode()) authStep("reset");
+  });
+  $("#resend-code").addEventListener("click", async () => {
+    if (await sendCode()) toast("New code sent. Use the latest email.");
+  });
+
+  $("#reset-code").addEventListener("input", e => { e.target.value = e.target.value.replace(/\D/g, "").slice(0, 6); });
+
+  $("#reset-form").addEventListener("submit", async e => {
+    e.preventDefault();
+    const code = $("#reset-code").value.replace(/\D/g, "");
+    const pw = $("#reset-password").value, pw2 = $("#reset-password2").value;
+    if (code.length !== 6) return showError("#reset-error", "Enter the 6-digit code from the email.");
+    if (pw.length < 8) return showError("#reset-error", AUTH_ERRORS.short);
+    if (pw !== pw2) return showError("#reset-error", "The two passwords don't match.");
+    const remember = $("#remember").checked;
+    busy("Saving your new password…");
+    try {
+      const r = await backend({ action: "reset", email: $("#forgot-email").value.trim(), code, password: pw, remember });
+      if (!r.ok) return showError("#reset-error", authMessage(r));
+      ["#reset-code", "#reset-password", "#reset-password2"].forEach(s => { $(s).value = ""; });
+      $("#login-email").value = $("#forgot-email").value.trim();
+      authStep("login");
+      toast("Password saved. You're signed in.");
+      await finishSignIn(r, remember);
+    } catch (ex) {
+      showError("#reset-error", ex.status ? friendly(ex) : "Couldn't reach the backend. Check your connection and try again.");
+    } finally { busy(null); }
+  });
+
+  $$("[data-eye]").forEach(b => b.addEventListener("click", () => {
+    const input = document.getElementById(b.dataset.eye);
+    const showIt = input.type === "password";
+    input.type = showIt ? "text" : "password";
+    b.textContent = showIt ? "Hide" : "Show";
+  }));
+
+  // Backup: sign in with a GitHub token kept in this browser (the old way).
+  $("#token-form").addEventListener("submit", async e => {
+    e.preventDefault();
+    session = "";
     token = $("#token").value.trim();
     busy("Signing in…");
     try {
       await load();
-      store(false, token, $("#remember").checked);
+      store(TOKEN_KEY, false, token, $("#remember").checked);
       $("#token").value = "";
       renderDash();
       show("dash");
     } catch (ex) {
       token = "";
-      err.textContent = friendly(ex);
-      err.hidden = false;
+      showError("#token-error", friendly(ex));
     } finally { busy(null); }
   });
 
+  function expireSession() {
+    session = "";
+    store(SESSION_KEY, false, "");
+  }
+
   $("#signout").addEventListener("click", () => {
+    if (session) backend({ action: "logout", session }).catch(() => {});
     token = "";
-    store(false, "");
+    session = "";
+    store(TOKEN_KEY, false, "");
+    store(SESSION_KEY, false, "");
+    store(ORDERS_KEY, false, "");
+    $("#login-email").value = store(EMAIL_KEY, true);
+    authStep("login");
     show("login");
   });
 
@@ -870,7 +1036,7 @@
     commit: opts => commit(opts),
     products: () => products,
     business: () => business,
-    signedIn: () => !!token,
+    signedIn,
     toast, busy, marketplaceText, show,
     refreshDash: () => renderDash(),
     reload: async () => { await load(); renderDash(); }
@@ -885,8 +1051,10 @@
       if (el) el.click();
       return !!el;
     };
-    token = store(true);
-    if (!token) { show("login"); setTimeout(deepLink); return; } // after invoices.js / orders.js have loaded
+    session = store(SESSION_KEY, true);
+    token = session ? "" : store(TOKEN_KEY, true);
+    $("#login-email").value = store(EMAIL_KEY, true);
+    if (!signedIn()) { show("login"); authStep("login"); setTimeout(deepLink); return; } // after invoices.js / orders.js have loaded
     busy("Loading your products…");
     try {
       await load();
@@ -894,10 +1062,12 @@
       show("dash");
       deepLink();
     } catch (err) {
+      const msg = friendly(err);
       token = "";
+      session = "";   // kept in storage (unless it expired), so a reload can try again
       show("login");
-      $("#login-error").textContent = friendly(err);
-      $("#login-error").hidden = false;
+      authStep("login");
+      showError("#login-error", msg);
     } finally { busy(null); }
   })();
 })();
