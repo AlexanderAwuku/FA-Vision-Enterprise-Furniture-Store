@@ -18,20 +18,19 @@ Most customers also tap **Send order details on WhatsApp**, which sends you the 
 
 | Service | Price (GH₵) | Deliver within | Tools |
 |---|---|---|---|
-| AI Room Makeover Plan | 50 / 120 | 48 hours | Claude or ChatGPT (image), Canva |
+| Room Designer | Free (customer pays for the furniture) | Instant on the site | AI image tool for the free room-photo mock-up |
 | Bulk Setup Plan & Quote | 100 / 300 | 2 working days | Claude, admin Invoices screen |
 | Home & Study Guides | 20 each, 45 for all 3 | Same day | The PDF files (keep them off the public site) |
 | Event Flyers & Programmes | 60 / 120 / 200 | First draft 24 hours | Claude for wording, Canva for design, printing press |
 | Small Business Starter Kit | 150 / 300 | 3 working days | Canva (logo, posts, card), Claude for captions, WhatsApp Business |
 | Letters, Forms & Typing | 25 / 80 / 5 per page | Same day | Claude, Word |
 
-### AI Room Makeover Plan
+### Room Designer orders (free service)
 
-1. Get 2 to 4 photos of the room on WhatsApp, plus the brief (room, budget, style, size).
-2. Upload a photo to an AI image tool and ask: *"Restyle this room as a [style] [room] in Ghana. Keep the walls, windows and floor exactly as they are. Add: [pieces from our catalogue]. Photorealistic."* Make 3 looks.
-3. Ask Claude: *"Here is a room of about [size] with a budget of GH₵[budget]. From this list of our products and prices [paste], suggest what to buy, where each piece goes, and the total. Keep walkways of 90 cm."*
-4. Put the 3 looks, the layout notes and the shopping list on one or two Canva pages and send them as a PDF.
-5. Remind them the fee comes off any furniture order of GH₵1,000+ within 30 days.
+Designing is free. A Room Designer order arrives as reference `ROOM-DESIGN` with every catalogue item, colour and quantity (re-priced by the backend), and the Enquiries row holds the full design with a link that reopens it exactly as the customer left it.
+
+1. Open the design link to see the room. Items marked **Quote** (pieces not on the site yet, and wallpaper without a price) need a price on WhatsApp.
+2. Free extra with any order: ask for a photo of their real room, then use an AI image tool: *"Place these pieces in this room: [list with colours]. Keep the walls, windows and floor exactly as they are. Photorealistic."* Send the picture on WhatsApp.
 
 ### Bulk Setup Plan & Quote
 

@@ -234,6 +234,17 @@
         </div>
       </article>`;
     }).join("");
+    // The AI Studio Room Designer ad (scripts/make_studio_ad.py) leads the row.
+    track.insertAdjacentHTML("afterbegin", `<article class="deal hot">
+        <a class="deal-img" href="studio/#designer" aria-label="Design your room free in F.A Vision AI Studio">
+          <img src="assets/images/ads/ai-studio.jpg" alt="See your room before you buy it: design your room free with F.A Vision AI Studio" loading="lazy" width="1080" height="1350">
+          <span class="deal-flag">New · Free</span>
+        </a>
+        <div class="deal-actions">
+          <a class="btn btn-gold btn-sm" href="studio/#designer">Try it</a>
+          <a class="btn btn-ghost btn-sm" target="_blank" rel="noopener" href="${waLink(`Design your room free and see it before you buy: ${SITE}studio/`)}">Share</a>
+        </div>
+      </article>`);
     track.addEventListener("click", async e => {
       const b = e.target.closest("[data-share-ad]");
       if (!b) return;

@@ -77,7 +77,13 @@ Every order, paid or not, is saved to the **Orders** tab of the backend Sheet, e
 
 ## AI Studio (/studio/)
 
-**https://favisionenterprize.github.io/studio/** sells AI-assisted services to furniture customers and the neighbourhood, and has a free **budget planner** that matches catalogue pieces to a room and budget. Customers pick a service, fill in a short brief, then pay through the same checkout as furniture (MoMo, card, 50% deposit, pay when it's ready, or pay at a showroom). Guides are pay-first. Orders go to the Orders tab and the brief to the Enquiries tab under the same reference, with an SMS alert. Prices live in `data/services.json`; the fulfilment steps are in [docs/ai-studio-playbook.md](docs/ai-studio-playbook.md).
+**https://favisionenterprize.github.io/studio/** has a free **Room Designer** and sells AI-assisted services to furniture customers and the neighbourhood.
+
+**Room Designer (free).** Customers pick a room and its size, paint or wallpaper, and tap pieces to add them in the colours each product comes in. A drawn room view and a to-scale floor plan (drag to move, tap to turn) show how it looks and fits. Catalogue pieces and priced wallpaper go to checkout together, so customers only pay for what they order; pieces not on the site yet show as "Ask for price" and are sent as a quote request. Designs can be shared as a link. Sizes are typical ones per product type (`assets/js/room-designer.js` → `TYPES`); add `"footprint_cm": {"w": 200, "d": 90, "h": 85}` to a product to use its real size. **Wallpaper:** post it in the admin under *Walls & Decor → Wallpaper* with the price **per roll** and a close-up photo of the pattern; it appears on the designer's walls and the rolls are worked out from the room size (a roll is taken as 5.3 m² unless the product has `roll_m2`).
+
+**Strategy ad.** `python3 scripts/make_studio_ad.py` (with the site served on port 8765) rebuilds `assets/images/ads/ai-studio.jpg` (feed) and `ai-studio-story.jpg` (Status/Stories) from the live designer. The feed ad leads the Deals row and is the preview picture when the /studio/ link is shared.
+
+The paid services: Customers pick a service, fill in a short brief, then pay through the same checkout as furniture (MoMo, card, 50% deposit, pay when it's ready, or pay at a showroom). Guides are pay-first. Orders go to the Orders tab and the brief to the Enquiries tab under the same reference, with an SMS alert. Prices live in `data/services.json`; the fulfilment steps are in [docs/ai-studio-playbook.md](docs/ai-studio-playbook.md).
 
 ## Strategy ads and the promo calendar
 
@@ -114,7 +120,8 @@ Ad copy and promo bars in `business.json` use `{price}` / `{price:FAV-001}` plac
 | `output/` | Bulk Marketplace/group/WhatsApp texts, posting tracker and Meta catalog feed |
 | `docs/facebook-posting-playbook.md` | Weekly posting routine and rules for staying within Facebook's limits |
 | `docs/business-profile.md` | Business profile, product lines and operating details |
-| `studio/`, `assets/js/studio.js`, `assets/css/studio.css` | AI Studio: free furniture budget planner and paid AI services (room makeovers, bulk layouts, guides, event programmes, business kits, letters) with the same checkout |
+| `studio/`, `assets/js/studio.js`, `assets/js/room-designer.js`, `assets/css/studio.css` | AI Studio: free Room Designer (furniture + wallpaper, room view + floor plan) and paid AI services (bulk layouts, guides, event programmes, business kits, letters) with the same checkout |
+| `scripts/make_studio_ad.py` | Builds the AI Studio strategy ads |
 | `data/services.json` | AI Studio services, options and prices (read by the site and the backend) |
 | `docs/ai-studio-playbook.md` | How to fulfil each AI Studio order, with prompts |
 

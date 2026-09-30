@@ -120,14 +120,15 @@ window.FAV_CHECKOUT = (function () {
         <div class="co-thumb">${img ? `<img src="${esc(img)}" alt="">` : C.iconSvg(product.iconPath || C.categoryIcon(product), 30)}</div>
         <div class="co-item-info">
           <strong>${esc(product.name)}</strong>
-          <span>${C.formatPrice(product.price_ghs)} ${esc(product.per ? "per " + product.per : "each")} · Ref ${esc(product.id)}</span>
+          <span>${product.items ? `${product.items.reduce((n, i) => n + i.qty, 0)} items · ${C.formatPrice(product.price_ghs)}` : `${C.formatPrice(product.price_ghs)} ${esc(product.per ? "per " + product.per : "each")} · Ref ${esc(product.id)}`}</span>
         </div>
-        <div class="qty" role="group" aria-label="Quantity">
+        ${product.items ? `<input id="co-qty" type="hidden" value="1">` : `<div class="qty" role="group" aria-label="Quantity">
           <button type="button" data-qty="-1" aria-label="Fewer">−</button>
           <input id="co-qty" type="number" min="1" max="500" value="1" inputmode="numeric" aria-label="Quantity">
           <button type="button" data-qty="1" aria-label="More">+</button>
-        </div>
+        </div>`}
       </div>
+      ${product.items ? `<ul class="co-items">${product.items.map(i => `<li><span>${esc(i.name)}${i.colour ? ` <small>${esc(i.colour)}</small>` : ""} × ${i.qty}</span><b>${C.formatPrice(i.price_ghs * i.qty)}</b></li>`).join("")}</ul>` : ""}
       <form id="co-form" class="co-form" novalidate>
         <div class="co-row">
           <label>Full name<input name="name" required autocomplete="name"></label>
@@ -186,7 +187,8 @@ window.FAV_CHECKOUT = (function () {
         : `${ICON.lock} Nothing to pay now. We'll call to confirm your order.`;
       return q;
     };
-    dlg.querySelector(".qty").addEventListener("click", e => {
+    const qtyBox = dlg.querySelector(".co-item .qty");
+    if (qtyBox) qtyBox.addEventListener("click", e => {
       const b = e.target.closest("[data-qty]");
       if (!b) return;
       qtyEl.value = Math.max(1, (parseInt(qtyEl.value, 10) || 1) + Number(b.dataset.qty));
@@ -230,6 +232,7 @@ window.FAV_CHECKOUT = (function () {
       product: product.name,
       quantity: qty,
       unit_price: product.price_ghs,
+      items: product.items ? product.items.map(i => ({ id: i.id, qty: i.qty, colour: i.colour || "", price_ghs: i.price_ghs })) : undefined,
       total: tot,
       amount_due: now,
       balance: pesewaRound(tot - now)

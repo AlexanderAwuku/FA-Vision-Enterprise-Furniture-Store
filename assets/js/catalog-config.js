@@ -15,6 +15,7 @@ window.FAV_CONFIG = (function () {
     bookshelf: "M5 3h14v18H5zM5 9h14M5 15h14M8 5v4M10 5v4M14 11v4",
     nightstand: "M5 5h14v14H5zM5 12h14M11 8.5h2M11 15.5h2M7 19v2M17 19v2",
     mirror: "M12 2a5 7 0 1 0 0 14 5 7 0 1 0 0-14zM12 16v5M8 21h8",
+    wallpaper: "M4 3h16v18H4zM4 9h16M4 15h16M10 3v6M14 9v6M10 15v6",
     custom: "M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.8-3.8a6 6 0 0 1-7.9 7.9l-6.9 6.9a2.1 2.1 0 0 1-3-3l6.9-6.9a6 6 0 0 1 7.9-7.9z"
   };
 
@@ -24,6 +25,7 @@ window.FAV_CONFIG = (function () {
     { id: "Dining", icon: "dining", types: ["Dining Set", "Dining Table", "Dining Chairs", "Kitchen Cabinet", "Bar Stool"] },
     { id: "Office", icon: "office", types: ["Office Desk", "Office Chair", "Bookshelf", "Conference Table", "Filing Cabinet", "Reception Desk"] },
     { id: "School", icon: "school", types: ["Classroom Desk", "Student Chair", "Teacher's Table", "Library Shelf", "Bunk Bed"] },
+    { id: "Walls & Decor", icon: "wallpaper", types: ["Wallpaper", "Wall Panel"] },
     { id: "Custom", icon: "custom", types: ["Custom Build", "Re-upholstery", "Repairs", "Other"] }
   ];
 
@@ -65,6 +67,7 @@ window.FAV_CONFIG = (function () {
   }
 
   function marketplaceCategory(type) {
+    if (type === "Wallpaper" || type === "Wall Panel") return "Home & Garden > Home Decor > Wallpaper";
     return "Home & Garden > Furniture > " + (MARKETPLACE[type] || "Other Furniture");
   }
 

@@ -4,28 +4,23 @@
     {
       "id": "room",
       "group": "furniture",
-      "name": "AI Room Makeover Plan",
-      "tagline": "Send a photo of your room. Get a styled plan with the right furniture for your space and budget.",
-      "badge": "Credited back when you buy",
+      "name": "AI Room Designer",
+      "tagline": "Design your room on screen: pick sizes, paint or wallpaper, and our furniture, and see how it all looks and fits before you buy.",
+      "badge": "Free",
       "icon": "M3 21V9l9-6 9 6v12M9 21v-6h6v6",
-      "turnaround": "Within 48 hours on WhatsApp",
+      "turnaround": "Instant, on this page",
       "includes": [
-        "3 styled looks for your room, made with AI from your own photo",
-        "Where each piece goes, with sizes that fit your space",
-        "Shopping list from our showroom, within your budget",
-        "Fee credited back if you buy GH₵1,000+ of furniture within 30 days"
+        "Room picture in the colours you choose, with paint or wallpaper",
+        "Floor plan drawn to scale: drag pieces, check walkways",
+        "Pay only for the furniture and wallpaper you order",
+        "Free AI mock-up in a photo of your real room with any order"
       ],
-      "options": [
-        { "id": "SVC-ROOM-1", "label": "One room", "price_ghs": 50 },
-        { "id": "SVC-ROOM-3", "label": "Three rooms (whole flat)", "price_ghs": 120 }
-      ],
-      "fields": [
-        { "name": "room", "label": "Which room?", "type": "select", "choices": ["Living room", "Bedroom", "Dining", "Home office", "Shop / office", "Other"] },
-        { "name": "budget", "label": "Furniture budget (GH₵)", "type": "number", "placeholder": "e.g. 8000" },
-        { "name": "style", "label": "Style you like", "type": "select", "choices": ["Modern & simple", "Warm wood", "Luxury / glam", "Bright & colourful", "Not sure, surprise me"] },
-        { "name": "details", "label": "Room size or anything we should know", "type": "textarea", "placeholder": "About 4m by 3.5m, window on the left, we want space for 6 people…" }
-      ],
-      "after": "After ordering, send 2 to 4 photos of the room on WhatsApp (stand in each corner)."
+      "options": [],
+      "fields": [],
+      "after": "",
+      "free": true,
+      "link": "#designer",
+      "cta": "Design my room"
     },
     {
       "id": "bulk",
@@ -42,14 +37,50 @@
         "Fee credited in full when you place the order"
       ],
       "options": [
-        { "id": "SVC-BULK-1", "label": "One space (classroom, hall, office floor)", "price_ghs": 100 },
-        { "id": "SVC-BULK-5", "label": "Up to 5 spaces (whole school or building)", "price_ghs": 300 }
+        {
+          "id": "SVC-BULK-1",
+          "label": "One space (classroom, hall, office floor)",
+          "price_ghs": 100
+        },
+        {
+          "id": "SVC-BULK-5",
+          "label": "Up to 5 spaces (whole school or building)",
+          "price_ghs": 300
+        }
       ],
       "fields": [
-        { "name": "org", "label": "School, church or company name", "type": "text", "required": true },
-        { "name": "space", "label": "Type of space", "type": "select", "choices": ["Classrooms", "Church auditorium", "Office", "Hotel rooms", "Dining hall / canteen", "Library", "Other"] },
-        { "name": "people", "label": "How many people to seat?", "type": "number", "placeholder": "e.g. 120" },
-        { "name": "details", "label": "Room sizes, deadline and budget", "type": "textarea", "placeholder": "3 classrooms, each 8m x 6m, needed before 15 January…" }
+        {
+          "name": "org",
+          "label": "School, church or company name",
+          "type": "text",
+          "required": true
+        },
+        {
+          "name": "space",
+          "label": "Type of space",
+          "type": "select",
+          "choices": [
+            "Classrooms",
+            "Church auditorium",
+            "Office",
+            "Hotel rooms",
+            "Dining hall / canteen",
+            "Library",
+            "Other"
+          ]
+        },
+        {
+          "name": "people",
+          "label": "How many people to seat?",
+          "type": "number",
+          "placeholder": "e.g. 120"
+        },
+        {
+          "name": "details",
+          "label": "Room sizes, deadline and budget",
+          "type": "textarea",
+          "placeholder": "3 classrooms, each 8m x 6m, needed before 15 January…"
+        }
       ],
       "after": "Send a photo or rough sketch of each space on WhatsApp if you have one."
     },
@@ -68,10 +99,26 @@
         "All 3 guides together for less"
       ],
       "options": [
-        { "id": "SVC-GUIDE-SMALL", "label": "Small Room, Big Style", "price_ghs": 20 },
-        { "id": "SVC-GUIDE-CARE", "label": "Furniture Care in Ghana's Weather", "price_ghs": 20 },
-        { "id": "SVC-GUIDE-STUDY", "label": "The Student Study Corner", "price_ghs": 20 },
-        { "id": "SVC-GUIDE-ALL", "label": "All 3 guides (save GH₵15)", "price_ghs": 45 }
+        {
+          "id": "SVC-GUIDE-SMALL",
+          "label": "Small Room, Big Style",
+          "price_ghs": 20
+        },
+        {
+          "id": "SVC-GUIDE-CARE",
+          "label": "Furniture Care in Ghana's Weather",
+          "price_ghs": 20
+        },
+        {
+          "id": "SVC-GUIDE-STUDY",
+          "label": "The Student Study Corner",
+          "price_ghs": 20
+        },
+        {
+          "id": "SVC-GUIDE-ALL",
+          "label": "All 3 guides (save GH₵15)",
+          "price_ghs": 45
+        }
       ],
       "fields": [],
       "after": "We send your PDF on WhatsApp to the number you enter."
@@ -91,14 +138,49 @@
         "Print-ready PDF; printing at our press quoted separately"
       ],
       "options": [
-        { "id": "SVC-EVT-FLYER", "label": "Flyer or invitation", "price_ghs": 60 },
-        { "id": "SVC-EVT-PROG", "label": "Wedding / church programme (up to 8 pages)", "price_ghs": 120 },
-        { "id": "SVC-EVT-FUNERAL", "label": "Funeral brochure (up to 16 pages)", "price_ghs": 200 }
+        {
+          "id": "SVC-EVT-FLYER",
+          "label": "Flyer or invitation",
+          "price_ghs": 60
+        },
+        {
+          "id": "SVC-EVT-PROG",
+          "label": "Wedding / church programme (up to 8 pages)",
+          "price_ghs": 120
+        },
+        {
+          "id": "SVC-EVT-FUNERAL",
+          "label": "Funeral brochure (up to 16 pages)",
+          "price_ghs": 200
+        }
       ],
       "fields": [
-        { "name": "event", "label": "Event name and date", "type": "text", "required": true, "placeholder": "e.g. Thanksgiving service, 14 November" },
-        { "name": "copies", "label": "Printed copies needed", "type": "select", "choices": ["Design only (no printing)", "50", "100", "200", "300", "500+"] },
-        { "name": "details", "label": "What should it say?", "type": "textarea", "placeholder": "Names, venue, times, colours, anything you'd like included…" }
+        {
+          "name": "event",
+          "label": "Event name and date",
+          "type": "text",
+          "required": true,
+          "placeholder": "e.g. Thanksgiving service, 14 November"
+        },
+        {
+          "name": "copies",
+          "label": "Printed copies needed",
+          "type": "select",
+          "choices": [
+            "Design only (no printing)",
+            "50",
+            "100",
+            "200",
+            "300",
+            "500+"
+          ]
+        },
+        {
+          "name": "details",
+          "label": "What should it say?",
+          "type": "textarea",
+          "placeholder": "Names, venue, times, colours, anything you'd like included…"
+        }
       ],
       "after": "Send photos and any text you already have on WhatsApp."
     },
@@ -117,13 +199,36 @@
         "Business card design (Pro kit)"
       ],
       "options": [
-        { "id": "SVC-BIZ-BASIC", "label": "Basic: logo + 5 posts + price list", "price_ghs": 150 },
-        { "id": "SVC-BIZ-PRO", "label": "Pro: Basic + WhatsApp catalogue + 12 posts + business card", "price_ghs": 300 }
+        {
+          "id": "SVC-BIZ-BASIC",
+          "label": "Basic: logo + 5 posts + price list",
+          "price_ghs": 150
+        },
+        {
+          "id": "SVC-BIZ-PRO",
+          "label": "Pro: Basic + WhatsApp catalogue + 12 posts + business card",
+          "price_ghs": 300
+        }
       ],
       "fields": [
-        { "name": "business", "label": "Business name", "type": "text", "required": true },
-        { "name": "kind", "label": "What do you sell?", "type": "text", "placeholder": "e.g. provisions, hair salon, phone accessories" },
-        { "name": "details", "label": "Location and anything else", "type": "textarea", "placeholder": "Odorkor Official Town, we open 7am to 9pm, colours we like…" }
+        {
+          "name": "business",
+          "label": "Business name",
+          "type": "text",
+          "required": true
+        },
+        {
+          "name": "kind",
+          "label": "What do you sell?",
+          "type": "text",
+          "placeholder": "e.g. provisions, hair salon, phone accessories"
+        },
+        {
+          "name": "details",
+          "label": "Location and anything else",
+          "type": "textarea",
+          "placeholder": "Odorkor Official Town, we open 7am to 9pm, colours we like…"
+        }
       ],
       "after": "Send photos of your shop and products on WhatsApp."
     },
@@ -142,13 +247,37 @@
         "Your details kept private"
       ],
       "options": [
-        { "id": "SVC-DOC-LETTER", "label": "Official letter or application", "price_ghs": 25 },
-        { "id": "SVC-DOC-PROPOSAL", "label": "Proposal or project write-up (up to 5 pages)", "price_ghs": 80 },
-        { "id": "SVC-DOC-TYPE", "label": "Typing, per page", "price_ghs": 5, "per": "page" }
+        {
+          "id": "SVC-DOC-LETTER",
+          "label": "Official letter or application",
+          "price_ghs": 25
+        },
+        {
+          "id": "SVC-DOC-PROPOSAL",
+          "label": "Proposal or project write-up (up to 5 pages)",
+          "price_ghs": 80
+        },
+        {
+          "id": "SVC-DOC-TYPE",
+          "label": "Typing, per page",
+          "price_ghs": 5,
+          "per": "page"
+        }
       ],
       "fields": [
-        { "name": "doc", "label": "What do you need?", "type": "text", "required": true, "placeholder": "e.g. letter to the assembly for a permit" },
-        { "name": "details", "label": "Details", "type": "textarea", "placeholder": "Who it's to, what it's about, deadline…" }
+        {
+          "name": "doc",
+          "label": "What do you need?",
+          "type": "text",
+          "required": true,
+          "placeholder": "e.g. letter to the assembly for a permit"
+        },
+        {
+          "name": "details",
+          "label": "Details",
+          "type": "textarea",
+          "placeholder": "Who it's to, what it's about, deadline…"
+        }
       ],
       "after": "Send any handwritten notes or photos of documents on WhatsApp."
     }

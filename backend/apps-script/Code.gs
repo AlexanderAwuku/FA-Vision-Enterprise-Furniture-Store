@@ -257,12 +257,30 @@ function recordOrder_(data) {
   if (!/^FAV-[A-Z0-9]{6,20}$/.test(ref)) return json_({ ok: false, error: 'bad reference' });
 
   // Re-price from the live catalogue: the browser's numbers are never trusted.
-  const product = findProduct_(data.product_id);
-  const qty = Math.max(1, Math.min(500, parseInt(data.quantity, 10) || 1));
-  const unit = product && product.price_ghs ? Number(product.price_ghs) : Number(data.unit_price) || 0;
-  const total = unit * qty;
   const notes = [];
-  if (!product) notes.push('Product not found in catalogue; price from website.');
+  let product, qty, unit;
+  if (Array.isArray(data.items) && data.items.length) {
+    // Room Designer orders: several catalogue items in one order, each re-priced.
+    qty = 1;
+    unit = 0;
+    const lines = [];
+    data.items.slice(0, 40).forEach((it) => {
+      const p = findProduct_(it.id);
+      const q = Math.max(1, Math.min(500, parseInt(it.qty, 10) || 1));
+      const price = p && p.price_ghs ? Number(p.price_ghs) : Number(it.price_ghs) || 0;
+      if (!p) notes.push(`${cleanCell_(it.id)} not found in catalogue; price from website.`);
+      unit += price * q;
+      lines.push(`${cleanCell_(it.id)}${it.colour ? ' ' + cleanCell_(it.colour) : ''} x${q}`);
+    });
+    product = { price_ghs: unit };
+    data.product = `${data.product}: ${lines.join(', ')}`.slice(0, 500);
+  } else {
+    product = findProduct_(data.product_id);
+    qty = Math.max(1, Math.min(500, parseInt(data.quantity, 10) || 1));
+    unit = product && product.price_ghs ? Number(product.price_ghs) : Number(data.unit_price) || 0;
+    if (!product) notes.push('Product not found in catalogue; price from website.');
+  }
+  const total = unit * qty;
   if (Number(data.total) !== total) notes.push(`Website total ${data.total} vs catalogue ${total}.`);
 
   let verification = 'Not required (nothing paid online)';
@@ -637,19 +655,26 @@ function createSheet_(name) {
   return sh;
 }
 
+const CATALOG_CACHE_ = {};
+// Fetches a data file from the live site once per request.
+function siteJson_(url) {
+  if (!CATALOG_CACHE_[url]) CATALOG_CACHE_[url] = JSON.parse(UrlFetchApp.fetch(url, { muteHttpExceptions: true }).getContentText());
+  return CATALOG_CACHE_[url];
+}
+
 function findProduct_(id) {
   try {
     const url = (PropertiesService.getScriptProperties().getProperty('SITE_URL') || BUSINESS.website).replace(/\/?$/, '/');
     // AI Studio services (/studio/) are priced in data/services.json, one price per option.
     if (/^SVC-/.test(String(id))) {
-      const svc = JSON.parse(UrlFetchApp.fetch(url + 'data/services.json', { muteHttpExceptions: true }).getContentText());
+      const svc = siteJson_(url + 'data/services.json');
       for (const s of svc.services || []) {
         const o = (s.options || []).find((x) => x.id === id);
         if (o) return { id: o.id, name: `${s.name}: ${o.label}`, price_ghs: o.price_ghs };
       }
       return null;
     }
-    const list = JSON.parse(UrlFetchApp.fetch(url + 'data/products.json', { muteHttpExceptions: true }).getContentText());
+    const list = siteJson_(url + 'data/products.json');
     return (Array.isArray(list) ? list : list.products || []).find((p) => p.id === id) || null;
   } catch (err) {
     return null;
