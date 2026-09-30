@@ -65,6 +65,7 @@
       <div class="dash-head-actions">
         <button class="btn btn-ghost" data-pricesync>Price sync <span class="ps-badge" id="ps-badge" hidden></span></button>
         <button class="btn btn-ghost" data-orders>Orders &amp; payments</button>
+        <button class="btn btn-ghost" data-customers>Customers</button>
         <button class="btn btn-ghost" data-invoices>Invoices</button>
         <button class="btn btn-sell" data-go="post">+ Post a product</button>
       </div>
@@ -107,6 +108,22 @@
       </div>
     </div>
     <div id="orders-body"></div>
+  </main>
+
+  <!-- ============ CUSTOMERS (CRM) ============ -->
+  <main class="screen" id="screen-customers" hidden>
+    <div class="dash-head">
+      <div>
+        <h1>Customers</h1>
+        <p class="muted">Everyone who enquired, ordered or asked for an invoice, matched by phone number. Follow up, keep notes and reply on WhatsApp.</p>
+      </div>
+      <div class="dash-head-actions">
+        <button class="btn btn-ghost btn-sm" data-go="dash">← My products</button>
+        <button class="btn btn-ghost btn-sm" data-orders>Orders</button>
+        <button class="btn btn-ghost btn-sm" id="cust-refresh">Refresh</button>
+      </div>
+    </div>
+    <div id="cust-body"></div>
   </main>
 
   <!-- ============ PRICE SYNC (website vs Facebook Marketplace) ============ -->
@@ -303,6 +320,7 @@
   <script src="promo.js"></script>
   <script src="admin.js?v=20260929d"></script>
   <script src="orders.js"></script>
+  <script src="customers.js?v=1"></script>
   <script src="pricesync.js?v=5"></script>
   <script src="../assets/js/invoice.js"></script>
   <script src="invoices.js"></script>

@@ -428,3 +428,10 @@ button.thumb:hover, button.thumb.drag { outline: 2px dashed var(--sell); outline
 .ps-foot { margin: 0; padding: 6px 14px 10px; border-top: 1px solid #f1f3f6; }
 @media (max-width: 760px) { .ps-rows li { grid-template-columns: minmax(0, 1fr) auto; } .ps-state { grid-column: 1; } .ps-actions { grid-column: 1 / -1; justify-content: flex-start; } }
 @media (prefers-reduced-motion: reduce) { .ps-product { transition: none; } }
+
+/* ---------- Customers (CRM) ---------- */
+.enq { border-top: 1px solid var(--line, #e7ddd0); padding: 10px 0 4px; display: grid; gap: 4px; }
+.enq-tools { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.enq-tools select, .enq-tools input[type=date] { font: inherit; padding: 6px 8px; border-radius: 8px; border: 1px solid var(--line, #e7ddd0); background: #fff; }
+.cust-reply { font: inherit; padding: 6px 8px; border-radius: 8px; border: 1px solid var(--line, #e7ddd0); background: #fff; max-width: 100%; }
+#screen-customers details ul { margin: 6px 0 0; padding-left: 18px; }

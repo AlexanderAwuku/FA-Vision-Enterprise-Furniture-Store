@@ -67,6 +67,19 @@ Nothing is sent until `SMS_API_KEY` and `SMS_TO` are set, and alerts are capped 
 4. In the website admin open **Invoices**, paste the same **ADMIN_KEY** as for Orders, and requests from the website appear there. **Generate invoice** numbers it, saves the PDF, emails it to the customer (if ticked) and fills in the row.
 
 
+## Customers (CRM) and WhatsApp replies
+
+**/admin/ → Customers** shows everyone who sent an enquiry, placed an order or asked for an invoice, as one card per person (matched by phone number, so `024…`, `+233 24…` and `23324…` count as the same customer). On each card you can:
+
+- move an enquiry along **New → Contacted → Quoted → Won / Lost**,
+- add a dated note and a **follow-up date** (cards whose date has come are flagged "Follow up"),
+- pick a ready-made **WhatsApp reply** (price, photos, how to pay, delivery update, balance reminder, thank you, follow up) and send it in one tap,
+- see order history, total spent, balance owed and invoice PDFs.
+
+Anyone who only tapped a WhatsApp button on the website has no phone number yet, so they are counted at the top ("WhatsApp chats opened") rather than listed.
+
+**To turn it on** (one time, after this update): open the Apps Script project, replace `Code.gs` with the new `backend/apps-script/Code.gs`, save, then **Deploy → Manage deployments → ✎ Edit → Version: New version → Deploy**. The web app URL does not change, so nothing else needs updating. The Enquiries tab gets two new columns, **Notes** and **FollowUp**, the first time you save a note.
+
 ## Sending a batch email campaign
 
 1. Fill the **Clients** tab. You can paste from [`marketing/clients-template.csv`](../marketing/clients-template.csv). Set **Segment** to `Proprietor` for school owners.
