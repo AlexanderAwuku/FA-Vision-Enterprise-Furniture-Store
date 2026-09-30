@@ -40,7 +40,7 @@ const SHEETS = {
 };
 
 const HEADERS = {
-  Enquiries: ['Timestamp', 'Name', 'Organisation', 'Phone', 'Email', 'Product', 'Quantity', 'Message', 'Source', 'Status'],
+  Enquiries: ['Timestamp', 'Name', 'Organisation', 'Phone', 'Email', 'Product', 'Quantity', 'Message', 'Source', 'Status', 'Notes', 'FollowUp'],
   Clients: ['Name', 'Organisation', 'Email', 'Phone', 'Segment', 'Area', 'Status', 'LastCampaign', 'LastSentAt', 'Token'],
   Sales: ['Date', 'Customer', 'Product', 'Quantity', 'UnitPriceGHS', 'TotalGHS', 'AmountPaidGHS', 'BalanceGHS', 'Notes'],
   Expenses: ['Date', 'Category', 'Description', 'AmountGHS', 'PaidTo', 'Notes'],
@@ -124,6 +124,7 @@ function doPost(e) {
   }
   if (data.action === 'update_order') return updateOrder_(data);
   if (data.action === 'save_invoice') return saveInvoice_(data);
+  if (data.action === 'update_enquiry') return updateEnquiry_(data);
   if (!data.name) return json_({ ok: false, error: 'name required' });
   if (data.action === 'invoice_request') return recordInvoiceRequest_(data);
   if (data.action === 'order') return recordOrder_(data);
@@ -202,6 +203,10 @@ function doGet(e) {
   if (p.action === 'orders') {
     if (!checkAdmin_(p.key)) return json_({ ok: false, error: 'not allowed' });
     return json_({ ok: true, orders: listOrders_(), progress: PROGRESS, sheet: SpreadsheetApp.getActive().getUrl() });
+  }
+  if (p.action === 'customers') {
+    if (!checkAdmin_(p.key)) return json_({ ok: false, error: 'not allowed' });
+    return json_(Object.assign({ ok: true, statuses: ENQUIRY_STATUS, sheet: SpreadsheetApp.getActive().getUrl() }, listCustomers_()));
   }
   if (p.action === 'invoices') {
     if (!checkAdmin_(p.key)) return json_({ ok: false, error: 'not allowed' });
@@ -724,4 +729,103 @@ function fill_(tpl, vars, plainText) {
     const v = String(vars[k] == null ? '' : vars[k]);
     return plainText || k === 'unsubscribe' || k === 'site' || k === 'whatsapp' ? v : v.replace(/[&<>"]/g, (ch) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[ch]));
   });
+}
+
+// ---------- Customers (CRM) ----------
+//
+// /admin/ -> Customers joins the Enquiries, Orders and Invoices tabs into one
+// list of people, matched by phone number (last 9 digits, so 024..., +233 24...
+// and 23324... are the same customer). Enquiries can be moved along
+// New -> Contacted -> Quoted -> Won / Lost, with a note and a follow-up date.
+// WhatsApp taps from the website have no phone number, so they are counted
+// separately as "WhatsApp chats opened".
+
+const ENQUIRY_STATUS = ['New', 'Contacted', 'Quoted', 'Won', 'Lost'];
+
+const phoneKey_ = (v) => String(v || '').replace(/\D/g, '').slice(-9);
+
+function rowsOf_(name) {
+  const sh = SpreadsheetApp.getActive().getSheetByName(name);
+  if (!sh || sh.getLastRow() < 2) return [];
+  const width = Math.max(sh.getLastColumn(), HEADERS[name].length);
+  const head = sh.getRange(1, 1, 1, width).getValues()[0].map((h, i) => h || HEADERS[name][i] || 'Col' + (i + 1));
+  const first = Math.max(2, sh.getLastRow() - 1999); // newest 2,000 rows are plenty
+  return sh.getRange(first, 1, sh.getLastRow() - first + 1, width).getValues().map((r, i) => {
+    const o = { _row: first + i };
+    head.forEach((h, j) => { o[h] = r[j] instanceof Date ? r[j].toISOString() : r[j]; });
+    return o;
+  });
+}
+
+function listCustomers_() {
+  const people = {};
+  let anonymousWhatsApp = 0;
+  const person = (phone, name, org, email) => {
+    const k = phoneKey_(phone) || ('email:' + String(email || '').toLowerCase()) || '';
+    if (k === 'email:') return null;
+    const p = people[k] || (people[k] = { key: k, name: '', organisation: '', phone: '', email: '', sources: [],
+      enquiries: [], orders: [], invoices: [], spentGHS: 0, balanceGHS: 0, last: '' });
+    if (name && !p.name) p.name = String(name);
+    if (org && !p.organisation) p.organisation = String(org);
+    if (phone && !p.phone) p.phone = String(phone);
+    if (email && !p.email) p.email = String(email);
+    return p;
+  };
+  const touch = (p, when, source) => {
+    if (when && when > p.last) p.last = when;
+    if (source && p.sources.indexOf(source) === -1) p.sources.push(source);
+  };
+
+  rowsOf_(SHEETS.ENQUIRIES).forEach((e) => {
+    if (!e.Phone && !e.Email) { if (e.Source === 'whatsapp') anonymousWhatsApp++; return; }
+    const p = person(e.Phone, e.Name, e.Organisation, e.Email);
+    if (!p) return;
+    p.enquiries.push({ row: e._row, when: e.Timestamp, product: e.Product, quantity: e.Quantity, message: e.Message,
+      source: e.Source, status: e.Status || 'New', notes: e.Notes || '', followUp: e.FollowUp || '' });
+    touch(p, e.Timestamp, e.Source || 'website');
+  });
+  rowsOf_(SHEETS.ORDERS).forEach((o) => {
+    const p = person(o.Phone, o.Customer, '', o.Email);
+    if (!p) return;
+    p.orders.push({ ref: o.Reference, when: o.Timestamp, product: o.Product, quantity: o.Quantity, total: o.TotalGHS,
+      balance: o.BalanceGHS, progress: o.Progress });
+    if (o.Progress !== 'Cancelled') {
+      p.spentGHS += Number(o.TotalGHS) || 0;
+      p.balanceGHS += Number(o.BalanceGHS) || 0;
+    }
+    touch(p, o.Timestamp, 'order');
+  });
+  rowsOf_(SHEETS.INVOICES).forEach((v) => {
+    const p = person(v.Phone, v.Customer, v.Organisation, v.Email);
+    if (!p) return;
+    p.invoices.push({ no: v.InvoiceNo || v.RequestId, kind: v.Kind, when: v.Timestamp, status: v.Status, total: v.TotalGHS, pdf: v.PdfUrl });
+    touch(p, v.Timestamp, 'invoice');
+  });
+
+  const list = Object.keys(people).map((k) => people[k]);
+  list.sort((a, b) => (b.last > a.last ? 1 : b.last < a.last ? -1 : 0));
+  return { customers: list.slice(0, 1000), anonymousWhatsApp };
+}
+
+function updateEnquiry_(data) {
+  if (!checkAdmin_(data.key)) return json_({ ok: false, error: 'not allowed' });
+  const row = Number(data.row);
+  const lock = LockService.getScriptLock();
+  lock.waitLock(10000);
+  try {
+    const sh = SpreadsheetApp.getActive().getSheetByName(SHEETS.ENQUIRIES);
+    if (!sh || !(row >= 2) || row > sh.getLastRow()) return json_({ ok: false, error: 'enquiry not found' });
+    // Older sheets were made before the Notes / FollowUp columns existed.
+    if (!sh.getRange(1, 11).getValue()) sh.getRange(1, 11, 1, 2).setValues([['Notes', 'FollowUp']]).setFontWeight('bold');
+    if (data.status && ENQUIRY_STATUS.indexOf(data.status) !== -1) sh.getRange(row, 10).setValue(data.status);
+    if (data.note) {
+      const cell = sh.getRange(row, 11);
+      const stamp = Utilities.formatDate(new Date(), 'GMT', 'd MMM');
+      cell.setValue([cell.getValue(), stamp + ': ' + cleanCell_(data.note)].filter(String).join(' | '));
+    }
+    if (data.followUp !== undefined) sh.getRange(row, 12).setValue(/^\d{4}-\d{2}-\d{2}$/.test(data.followUp) ? data.followUp : '');
+  } finally {
+    lock.releaseLock();
+  }
+  return json_({ ok: true });
 }
