@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="admin.css?v=20260929e">
+  <link rel="stylesheet" href="admin.css?v=20260930a">
 </head>
 <body>
   <header class="top">
@@ -28,19 +28,80 @@
 
   <!-- ============ SIGN IN ============ -->
   <main class="screen" id="screen-login" hidden>
-    <div class="card narrow">
+    <!-- Step A: email + password -->
+    <div class="card narrow" id="auth-login">
       <h1>Sign in to your shop</h1>
-      <p class="muted">Products you post here are saved to your GitHub repository and appear on the website about a minute later.</p>
+      <p class="muted">Products you post here are saved to your website and appear about a minute later.</p>
       <form id="login-form" class="stack">
         <label class="field">
-          <span>GitHub access token</span>
-          <input id="token" type="password" autocomplete="off" placeholder="github_pat_…" required>
+          <span>Email</span>
+          <input id="login-email" type="email" autocomplete="username" inputmode="email" placeholder="you@gmail.com" required>
+        </label>
+        <label class="field">
+          <span>Password</span>
+          <span class="pw-wrap"><input id="login-password" type="password" autocomplete="current-password" required><button type="button" class="pw-eye" data-eye="login-password" aria-label="Show password">Show</button></span>
         </label>
         <label class="check"><input type="checkbox" id="remember" checked> Keep me signed in on this device</label>
         <p class="error" id="login-error" hidden></p>
         <button class="btn btn-primary btn-block" type="submit">Sign in</button>
+        <button class="linkish" type="button" id="forgot-link">Forgot password? · First time? Set a password</button>
       </form>
       <p class="muted small center login-alt">Just need to make an invoice? <a href="#invoices" data-invoices>Open Invoices</a> (no sign-in needed).</p>
+    </div>
+
+    <!-- Step B: send a reset code to the owner's email -->
+    <div class="card narrow" id="auth-forgot" hidden>
+      <h1>Reset your password</h1>
+      <p class="muted">We'll email a 6-digit code to your admin email address. It works for 10 minutes.</p>
+      <form id="forgot-form" class="stack">
+        <label class="field">
+          <span>Admin email</span>
+          <input id="forgot-email" type="email" autocomplete="username" inputmode="email" required>
+        </label>
+        <p class="error" id="forgot-error" hidden></p>
+        <button class="btn btn-primary btn-block" type="submit">Email me a code</button>
+        <button class="linkish" type="button" data-auth="login">← Back to sign in</button>
+      </form>
+    </div>
+
+    <!-- Step C: enter code + new password -->
+    <div class="card narrow" id="auth-reset" hidden>
+      <h1>Check your email</h1>
+      <p class="muted" id="reset-sub">If that's the admin email, a code is on its way. Check your inbox (and Spam), then enter it below.</p>
+      <form id="reset-form" class="stack">
+        <label class="field">
+          <span>6-digit code</span>
+          <input id="reset-code" class="code-input" type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="7" placeholder="123456" required>
+        </label>
+        <label class="field">
+          <span>New password <small class="muted">(at least 8 characters)</small></span>
+          <span class="pw-wrap"><input id="reset-password" type="password" autocomplete="new-password" minlength="8" required><button type="button" class="pw-eye" data-eye="reset-password" aria-label="Show password">Show</button></span>
+        </label>
+        <label class="field">
+          <span>Type it again</span>
+          <input id="reset-password2" type="password" autocomplete="new-password" minlength="8" required>
+        </label>
+        <p class="error" id="reset-error" hidden></p>
+        <button class="btn btn-primary btn-block" type="submit">Save password &amp; sign in</button>
+        <button class="linkish" type="button" id="resend-code">Didn't get it? Send a new code</button>
+        <button class="linkish" type="button" data-auth="login">← Back to sign in</button>
+      </form>
+    </div>
+
+    <!-- Backup: the old GitHub-token sign-in, until the backend is updated -->
+    <div class="card narrow backup-card" id="auth-token">
+      <details class="help">
+        <summary>Backup: sign in with a GitHub token</summary>
+        <form id="token-form" class="stack">
+          <p class="muted small">Only needed if email sign-in isn't set up yet. The token stays in this browser.</p>
+          <label class="field">
+            <span>GitHub access token</span>
+            <input id="token" type="password" autocomplete="off" placeholder="github_pat_…" required>
+          </label>
+          <p class="error" id="token-error" hidden></p>
+          <button class="btn btn-ghost btn-block" type="submit">Sign in with token</button>
+        </form>
+      </details>
       <details class="help">
         <summary>How do I get a token? (one-time, 2 minutes)</summary>
         <ol>
@@ -48,9 +109,10 @@
           <li><b>Token name:</b> FA Vision Admin. <b>Expiration:</b> 1 year.</li>
           <li><b>Repository access:</b> Only select repositories → <code>favisionenterprize.github.io</code>.</li>
           <li><b>Permissions → Repository permissions → Contents:</b> Read and write.</li>
-          <li>Click <b>Generate token</b>, copy it and paste it above.</li>
+          <li>Click <b>Generate token</b> and copy it.</li>
+          <li><b>For email sign-in (recommended):</b> paste it once into Apps Script → <b>Project Settings → Script properties</b> as <code>GITHUB_TOKEN</code>. It then never needs to be on your phone.</li>
         </ol>
-        <p class="muted small">The token stays in this browser only. Anyone with it can change your website, so don't share it. If a phone is lost, delete the token on GitHub and make a new one.</p>
+        <p class="muted small">Anyone with the token can change your website, so don't share it. If it leaks, delete it on GitHub and make a new one.</p>
       </details>
     </div>
   </main>
@@ -318,7 +380,7 @@
   <script src="photo-studio.js"></script>
   <script src="photo-editor.js"></script>
   <script src="promo.js"></script>
-  <script src="admin.js?v=20260929d"></script>
+  <script src="admin.js?v=20260930a"></script>
   <script src="orders.js"></script>
   <script src="customers.js?v=1"></script>
   <script src="pricesync.js?v=5"></script>

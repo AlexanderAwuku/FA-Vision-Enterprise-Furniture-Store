@@ -80,6 +80,24 @@ Anyone who only tapped a WhatsApp button on the website has no phone number yet,
 
 **To turn it on** (one time, after this update): open the Apps Script project, replace `Code.gs` with the new `backend/apps-script/Code.gs`, save, then **Deploy → Manage deployments → ✎ Edit → Version: New version → Deploy**. The web app URL does not change, so nothing else needs updating. The Enquiries tab gets two new columns, **Notes** and **FollowUp**, the first time you save a note.
 
+## Admin sign-in: email, password and "Forgot password" code
+
+The website admin (`/admin/`) signs in with your email and a password instead of a GitHub token. **Forgot password** emails a 6-digit code (valid 10 minutes) to the admin email only; you type the code and choose a new password. The GitHub token lives only in Apps Script, never on your phone or in any email, and every product save goes through the backend. One sign-in also unlocks Orders, Customers and Invoices, so you no longer paste the ADMIN_KEY.
+
+One-time setup (about 5 minutes):
+
+1. **Update the code.** In Apps Script, paste the latest [`apps-script/Code.gs`](apps-script/Code.gs) over the old one and save.
+2. **Add two Script properties** (**Project Settings → Script properties → Add script property**):
+   - `GITHUB_TOKEN`: a fine-grained GitHub token with **Contents: Read and write** on `favisionenterprize.github.io` only. See *How do I get a token?* on the admin sign-in page.
+   - `ADMIN_EMAIL`: `nanaotengdonkor1@gmail.com`. If you leave it out, that address is used anyway. Only this address can sign in or receive reset codes.
+3. **Publish the new version.** **Deploy → Manage deployments → ✎ Edit → Version: New version → Deploy**. The web app URL stays the same. Approve the permissions prompt if one appears (the script now calls GitHub).
+4. **Set your password.** Open `/admin/`, tap **Forgot password? · First time? Set a password**, tap **Email me a code**, and enter the code from your Gmail with a new password (8+ characters). You're signed in.
+5. **Remove the old token from your phone.** Once email sign-in works, you can delete any GitHub token you made earlier for pasting on the phone.
+
+Safety built in: the reset email always goes to `ADMIN_EMAIL`, whatever address is typed. Codes are single-use and expire after 10 minutes, and one can be requested per minute. Five wrong passwords or codes lock sign-in for 15 minutes. Setting a new password signs out every other device. Passwords are stored salted and hashed, never in plain text.
+
+Locked out and the email isn't arriving? In Apps Script, run **`resetAdminPassword`** once from the function list, then use *Forgot password* again. The old GitHub-token sign-in is still under **Backup** on the sign-in page.
+
 ## Sending a batch email campaign
 
 1. Fill the **Clients** tab. You can paste from [`marketing/clients-template.csv`](../marketing/clients-template.csv). Set **Segment** to `Proprietor` for school owners.

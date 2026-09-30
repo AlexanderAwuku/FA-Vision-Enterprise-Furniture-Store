@@ -435,3 +435,14 @@ button.thumb:hover, button.thumb.drag { outline: 2px dashed var(--sell); outline
 .enq-tools select, .enq-tools input[type=date] { font: inherit; padding: 6px 8px; border-radius: 8px; border: 1px solid var(--line, #e7ddd0); background: #fff; }
 .cust-reply { font: inherit; padding: 6px 8px; border-radius: 8px; border: 1px solid var(--line, #e7ddd0); background: #fff; max-width: 100%; }
 #screen-customers details ul { margin: 6px 0 0; padding-left: 18px; }
+
+/* Sign-in: email + password, reset code */
+.pw-wrap { position: relative; display: block; }
+.pw-wrap input { padding-right: 64px; }
+.pw-eye { position: absolute; right: 6px; top: 50%; transform: translateY(-50%); background: none; border: 0; color: var(--brand-blue); font: 600 13px inherit; font-family: inherit; cursor: pointer; padding: 8px; }
+.linkish { background: none; border: 0; color: var(--brand-blue); font: 600 14px inherit; font-family: inherit; cursor: pointer; padding: 10px 4px; display: block; width: 100%; text-align: center; }
+.linkish:hover { text-decoration: underline; }
+.code-input { font-size: 24px !important; letter-spacing: 8px; text-align: center; font-weight: 700; }
+.backup-card { margin-top: 16px; padding-top: 4px; }
+.backup-card .help:first-child { border-top: 0; margin-top: 8px; padding-top: 8px; }
+.ok-note { color: var(--ok); font-size: 13px; font-weight: 500; }
