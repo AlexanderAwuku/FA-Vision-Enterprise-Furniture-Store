@@ -1,0 +1,156 @@
+{
+  "note": "AI Studio services shown at /studio/. Change prices here; the website and the backend both read this file. Option ids must start with SVC- and stay unique.",
+  "services": [
+    {
+      "id": "room",
+      "group": "furniture",
+      "name": "AI Room Makeover Plan",
+      "tagline": "Send a photo of your room. Get a styled plan with the right furniture for your space and budget.",
+      "badge": "Credited back when you buy",
+      "icon": "M3 21V9l9-6 9 6v12M9 21v-6h6v6",
+      "turnaround": "Within 48 hours on WhatsApp",
+      "includes": [
+        "3 styled looks for your room, made with AI from your own photo",
+        "Where each piece goes, with sizes that fit your space",
+        "Shopping list from our showroom, within your budget",
+        "Fee credited back if you buy GH₵1,000+ of furniture within 30 days"
+      ],
+      "options": [
+        { "id": "SVC-ROOM-1", "label": "One room", "price_ghs": 50 },
+        { "id": "SVC-ROOM-3", "label": "Three rooms (whole flat)", "price_ghs": 120 }
+      ],
+      "fields": [
+        { "name": "room", "label": "Which room?", "type": "select", "choices": ["Living room", "Bedroom", "Dining", "Home office", "Shop / office", "Other"] },
+        { "name": "budget", "label": "Furniture budget (GH₵)", "type": "number", "placeholder": "e.g. 8000" },
+        { "name": "style", "label": "Style you like", "type": "select", "choices": ["Modern & simple", "Warm wood", "Luxury / glam", "Bright & colourful", "Not sure, surprise me"] },
+        { "name": "details", "label": "Room size or anything we should know", "type": "textarea", "placeholder": "About 4m by 3.5m, window on the left, we want space for 6 people…" }
+      ],
+      "after": "After ordering, send 2 to 4 photos of the room on WhatsApp (stand in each corner)."
+    },
+    {
+      "id": "bulk",
+      "group": "furniture",
+      "name": "Bulk Setup Plan & Quote",
+      "tagline": "For schools, churches, offices and hotels. A layout of your space plus a proforma invoice you can take to your board.",
+      "badge": "Credited on your order",
+      "icon": "M3 21h18M5 21V7l7-4 7 4v14M9 9h1M14 9h1M9 13h1M14 13h1M9 17h6",
+      "turnaround": "Within 2 working days",
+      "includes": [
+        "Floor layout showing how many desks, chairs or tables fit",
+        "Itemised proforma invoice with wholesale prices",
+        "Delivery and set-up schedule",
+        "Fee credited in full when you place the order"
+      ],
+      "options": [
+        { "id": "SVC-BULK-1", "label": "One space (classroom, hall, office floor)", "price_ghs": 100 },
+        { "id": "SVC-BULK-5", "label": "Up to 5 spaces (whole school or building)", "price_ghs": 300 }
+      ],
+      "fields": [
+        { "name": "org", "label": "School, church or company name", "type": "text", "required": true },
+        { "name": "space", "label": "Type of space", "type": "select", "choices": ["Classrooms", "Church auditorium", "Office", "Hotel rooms", "Dining hall / canteen", "Library", "Other"] },
+        { "name": "people", "label": "How many people to seat?", "type": "number", "placeholder": "e.g. 120" },
+        { "name": "details", "label": "Room sizes, deadline and budget", "type": "textarea", "placeholder": "3 classrooms, each 8m x 6m, needed before 15 January…" }
+      ],
+      "after": "Send a photo or rough sketch of each space on WhatsApp if you have one."
+    },
+    {
+      "id": "guides",
+      "group": "furniture",
+      "name": "Home & Study Guides",
+      "tagline": "Short, practical PDF guides you keep on your phone. Sent to you on WhatsApp as soon as payment is confirmed.",
+      "badge": "Sent the same day",
+      "icon": "M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5zM4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5",
+      "turnaround": "Sent the same day",
+      "includes": [
+        "Small Room, Big Style: make a single room or chamber-and-hall feel bigger",
+        "Furniture Care in Ghana's Weather: beat dust, damp, termites and sun",
+        "The Student Study Corner: set up a desk space that helps you learn",
+        "All 3 guides together for less"
+      ],
+      "options": [
+        { "id": "SVC-GUIDE-SMALL", "label": "Small Room, Big Style", "price_ghs": 20 },
+        { "id": "SVC-GUIDE-CARE", "label": "Furniture Care in Ghana's Weather", "price_ghs": 20 },
+        { "id": "SVC-GUIDE-STUDY", "label": "The Student Study Corner", "price_ghs": 20 },
+        { "id": "SVC-GUIDE-ALL", "label": "All 3 guides (save GH₵15)", "price_ghs": 45 }
+      ],
+      "fields": [],
+      "after": "We send your PDF on WhatsApp to the number you enter."
+    },
+    {
+      "id": "event",
+      "group": "community",
+      "name": "Event Flyers & Programmes",
+      "tagline": "Funeral brochures, wedding and church programmes, invitations and flyers, written and designed with AI help, then printed at our press.",
+      "badge": "Design + print",
+      "icon": "M6 9V2h12v7M2 9h20v9H2zM6 14h12v8H6z",
+      "turnaround": "First draft in 24 hours",
+      "includes": [
+        "Wording written for you (tribute, order of service, programme)",
+        "Photos cleaned up and designed in your colours",
+        "2 rounds of changes on WhatsApp",
+        "Print-ready PDF; printing at our press quoted separately"
+      ],
+      "options": [
+        { "id": "SVC-EVT-FLYER", "label": "Flyer or invitation", "price_ghs": 60 },
+        { "id": "SVC-EVT-PROG", "label": "Wedding / church programme (up to 8 pages)", "price_ghs": 120 },
+        { "id": "SVC-EVT-FUNERAL", "label": "Funeral brochure (up to 16 pages)", "price_ghs": 200 }
+      ],
+      "fields": [
+        { "name": "event", "label": "Event name and date", "type": "text", "required": true, "placeholder": "e.g. Thanksgiving service, 14 November" },
+        { "name": "copies", "label": "Printed copies needed", "type": "select", "choices": ["Design only (no printing)", "50", "100", "200", "300", "500+"] },
+        { "name": "details", "label": "What should it say?", "type": "textarea", "placeholder": "Names, venue, times, colours, anything you'd like included…" }
+      ],
+      "after": "Send photos and any text you already have on WhatsApp."
+    },
+    {
+      "id": "biz",
+      "group": "community",
+      "name": "Small Business Starter Kit",
+      "tagline": "For shops, traders, salons and chop bars around Odorkor, Omanjor and Kasoa. Look professional online this week.",
+      "badge": "Most popular",
+      "icon": "M3 9l1-5h16l1 5M3 9h18v12H3zM3 9a3 3 0 0 0 6 0 3 3 0 0 0 6 0 3 3 0 0 0 6 0M10 21v-5h4v5",
+      "turnaround": "3 working days",
+      "includes": [
+        "Logo and colours for your business",
+        "Price list and WhatsApp Business catalogue set up for you",
+        "Ready-made social media posts with captions",
+        "Business card design (Pro kit)"
+      ],
+      "options": [
+        { "id": "SVC-BIZ-BASIC", "label": "Basic: logo + 5 posts + price list", "price_ghs": 150 },
+        { "id": "SVC-BIZ-PRO", "label": "Pro: Basic + WhatsApp catalogue + 12 posts + business card", "price_ghs": 300 }
+      ],
+      "fields": [
+        { "name": "business", "label": "Business name", "type": "text", "required": true },
+        { "name": "kind", "label": "What do you sell?", "type": "text", "placeholder": "e.g. provisions, hair salon, phone accessories" },
+        { "name": "details", "label": "Location and anything else", "type": "textarea", "placeholder": "Odorkor Official Town, we open 7am to 9pm, colours we like…" }
+      ],
+      "after": "Send photos of your shop and products on WhatsApp."
+    },
+    {
+      "id": "docs",
+      "group": "community",
+      "name": "Letters, Forms & Typing",
+      "tagline": "Job applications, official letters, proposals and school typing, done properly and fast. Printing available at the showroom.",
+      "badge": "Same day",
+      "icon": "M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8zM14 2v6h6M8 13h8M8 17h5",
+      "turnaround": "Same day for most jobs",
+      "includes": [
+        "Written in the right format and tone, then checked",
+        "Sent to you as Word and PDF",
+        "Printing at our Odorkor showroom if you need paper copies",
+        "Your details kept private"
+      ],
+      "options": [
+        { "id": "SVC-DOC-LETTER", "label": "Official letter or application", "price_ghs": 25 },
+        { "id": "SVC-DOC-PROPOSAL", "label": "Proposal or project write-up (up to 5 pages)", "price_ghs": 80 },
+        { "id": "SVC-DOC-TYPE", "label": "Typing, per page", "price_ghs": 5, "per": "page" }
+      ],
+      "fields": [
+        { "name": "doc", "label": "What do you need?", "type": "text", "required": true, "placeholder": "e.g. letter to the assembly for a permit" },
+        { "name": "details", "label": "Details", "type": "textarea", "placeholder": "Who it's to, what it's about, deadline…" }
+      ],
+      "after": "Send any handwritten notes or photos of documents on WhatsApp."
+    }
+  ]
+}

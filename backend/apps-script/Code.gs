@@ -640,6 +640,15 @@ function createSheet_(name) {
 function findProduct_(id) {
   try {
     const url = (PropertiesService.getScriptProperties().getProperty('SITE_URL') || BUSINESS.website).replace(/\/?$/, '/');
+    // AI Studio services (/studio/) are priced in data/services.json, one price per option.
+    if (/^SVC-/.test(String(id))) {
+      const svc = JSON.parse(UrlFetchApp.fetch(url + 'data/services.json', { muteHttpExceptions: true }).getContentText());
+      for (const s of svc.services || []) {
+        const o = (s.options || []).find((x) => x.id === id);
+        if (o) return { id: o.id, name: `${s.name}: ${o.label}`, price_ghs: o.price_ghs };
+      }
+      return null;
+    }
     const list = JSON.parse(UrlFetchApp.fetch(url + 'data/products.json', { muteHttpExceptions: true }).getContentText());
     return (Array.isArray(list) ? list : list.products || []).find((p) => p.id === id) || null;
   } catch (err) {

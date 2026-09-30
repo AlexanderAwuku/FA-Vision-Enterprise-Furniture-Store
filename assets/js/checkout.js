@@ -46,6 +46,16 @@ window.FAV_CHECKOUT = (function () {
     delivery: { label: "Pay on delivery", sub: "Cash or MoMo when it arrives", now: 0 },
     walkin: { label: "Walk in & pay at showroom", sub: "Reserve now, pay at our showroom", now: 0 }
   };
+  // AI Studio services (/studio/) reuse this checkout with product.service = true.
+  // Their plans read "pay when it's ready" instead of "on delivery", and a
+  // product can limit its plans (instant digital guides are pay-first only).
+  const SERVICE_PLANS = {
+    deposit: { sub: "Balance when your work is ready" },
+    delivery: { label: "Pay when it's ready", sub: "Cash or MoMo when we deliver your work" },
+    walkin: { label: "Pay at our showroom", sub: "Odorkor, Omanjor or Kasoa" }
+  };
+  const planInfo = id => Object.assign({}, PLANS[id], product && product.service ? SERVICE_PLANS[id] : null);
+
   const METHODS = {
     momo: { label: "Mobile Money", sub: "MTN MoMo · Telecel Cash · AT Money", channels: ["mobile_money"] },
     card: { label: "Visa / Mastercard", sub: "Debit or credit card", channels: ["card"] }
@@ -90,21 +100,27 @@ window.FAV_CHECKOUT = (function () {
     });
   }
 
-  const areas = () => [...SHOWROOMS, ...(business.service_areas || []), "Other (tell us on WhatsApp)"];
+  const areas = () => product.service
+    ? ["Send it to me on WhatsApp / email", ...SHOWROOMS]
+    : [...SHOWROOMS, ...(business.service_areas || []), "Other (tell us on WhatsApp)"];
+  const pickup = area => /showroom/i.test(area);
   const pesewaRound = n => Math.round(n * 100) / 100;
 
   function renderForm() {
     ref = newRef();
     const img = (product.images || [])[0];
-    const plans = Object.entries(PLANS).filter(([id]) => payNow || (id !== "full" && id !== "deposit"));
+    const plans = Object.keys(PLANS)
+      .filter(id => payNow || (id !== "full" && id !== "deposit"))
+      .filter(id => !product.plans || product.plans.includes(id))
+      .map(id => [id, planInfo(id)]);
     $("#co-body").innerHTML = `
       <p class="kicker">Checkout</p>
       <h2 id="co-title">Place your order</h2>
       <div class="co-item">
-        <div class="co-thumb">${img ? `<img src="${esc(img)}" alt="">` : C.iconSvg(C.categoryIcon(product), 30)}</div>
+        <div class="co-thumb">${img ? `<img src="${esc(img)}" alt="">` : C.iconSvg(product.iconPath || C.categoryIcon(product), 30)}</div>
         <div class="co-item-info">
           <strong>${esc(product.name)}</strong>
-          <span>${C.formatPrice(product.price_ghs)} each · Ref ${esc(product.id)}</span>
+          <span>${C.formatPrice(product.price_ghs)} ${esc(product.per ? "per " + product.per : "each")} · Ref ${esc(product.id)}</span>
         </div>
         <div class="qty" role="group" aria-label="Quantity">
           <button type="button" data-qty="-1" aria-label="Fewer">−</button>
@@ -118,7 +134,7 @@ window.FAV_CHECKOUT = (function () {
           <label>Phone / MoMo number<input name="phone" required inputmode="tel" autocomplete="tel" placeholder="024 123 4567"></label>
         </div>
         <label>Email <small>(optional, for your receipt)</small><input name="email" type="email" autocomplete="email"></label>
-        <label>Delivery or pickup
+        <label>${product.service ? "How should we get it to you?" : "Delivery or pickup"}
           <select name="area" id="co-area" required>${areas().map(a => `<option>${esc(a)}</option>`).join("")}</select>
         </label>
         <fieldset class="options plans">
@@ -142,7 +158,7 @@ window.FAV_CHECKOUT = (function () {
         </fieldset>
         <div class="co-total">
           <div class="co-lines" id="co-lines"></div>
-          <p class="co-note">Delivery fee, if any, depends on your location and is agreed on WhatsApp.</p>
+          <p class="co-note">${product.service ? esc(product.note || "We'll confirm the details with you on WhatsApp.") : "Delivery fee, if any, depends on your location and is agreed on WhatsApp."}</p>
         </div>
         <p class="co-error" id="co-error" role="alert" hidden></p>
         <button class="btn btn-gold co-pay" type="submit" id="co-pay"></button>
@@ -159,7 +175,7 @@ window.FAV_CHECKOUT = (function () {
       const later = pesewaRound(tot - now);
       $("#co-methods").hidden = !payNow || now === 0;
       if (plan === "walkin" && !SHOWROOMS.includes($("#co-area").value)) $("#co-area").value = SHOWROOMS[0];
-      const laterLabel = plan === "walkin" || /showroom/i.test($("#co-area").value) ? "Pay at showroom" : "Pay on delivery";
+      const laterLabel = plan === "walkin" || pickup($("#co-area").value) ? "Pay at showroom" : (product.service ? "Pay when it's ready" : "Pay on delivery");
       $("#co-lines").innerHTML =
         `<div><span>Order total</span><span>${C.formatPrice(tot)}</span></div>` +
         (now && later ? `<div class="muted"><span>${laterLabel}</span><span>${C.formatPrice(later)}</span></div>` : "") +
@@ -208,7 +224,7 @@ window.FAV_CHECKOUT = (function () {
       email: d.email.trim(),
       area: d.area,
       plan: d.plan,
-      plan_label: PLANS[d.plan].label,
+      plan_label: planInfo(d.plan).label,
       method: now ? d.method : "",
       product_id: product.id,
       product: product.name,
@@ -231,11 +247,13 @@ window.FAV_CHECKOUT = (function () {
 
   // ---------- Pay on delivery / walk in ----------
   function placeOrder(order) {
-    order.status = order.plan === "walkin" ? "Reserved, pay at showroom" : "Pay on delivery";
+    order.status = order.plan === "walkin" ? "Reserved, pay at showroom" : (product.service ? "Pay on completion" : "Pay on delivery");
     record(order);
     renderDone(order, {
       kicker: "Order placed",
-      lead: order.plan === "walkin"
+      lead: product.service
+        ? `We'll call or WhatsApp you on ${esc(order.phone)} to start. You pay ${C.formatPrice(order.total)} ${order.plan === "walkin" ? `at our ${esc(showroomName(order.area))}` : "when your work is ready"}.`
+        : order.plan === "walkin"
         ? `Your ${esc(order.product)} is reserved. Visit our ${esc(showroomName(order.area))} (Mon to Sat, 8am to 6pm) and pay ${C.formatPrice(order.total)} by cash, MoMo or card.`
         : `We'll call you on ${esc(order.phone)} to confirm and arrange delivery. Pay ${C.formatPrice(order.total)} by cash or MoMo when it arrives.`,
       wa: "I've just placed an order on your website."
@@ -298,9 +316,11 @@ window.FAV_CHECKOUT = (function () {
         dlg.showModal();
         renderDone(order, {
           kicker: "Payment received",
-          lead: `We've received ${C.formatPrice(order.amount_due)} for your ${esc(order.product)}.` +
-            (order.balance ? ` The balance of ${C.formatPrice(order.balance)} is paid on ${/showroom/i.test(order.area) ? "pickup" : "delivery"}.` : "") +
-            ` We'll call you on ${esc(order.phone)} to arrange ${/showroom/i.test(order.area) ? "pickup" : "delivery"}.`,
+          lead: `We've received ${C.formatPrice(order.amount_due)} for your ${esc(order.product)}.` + (product.service
+            ? (order.balance ? ` The balance of ${C.formatPrice(order.balance)} is paid when your work is ready.` : "") +
+              ` We'll WhatsApp you on ${esc(order.phone)} to get started.`
+            : (order.balance ? ` The balance of ${C.formatPrice(order.balance)} is paid on ${pickup(order.area) ? "pickup" : "delivery"}.` : "") +
+              ` We'll call you on ${esc(order.phone)} to arrange ${pickup(order.area) ? "pickup" : "delivery"}.`),
           wa: "I've just paid on your website."
         });
       },
@@ -323,7 +343,7 @@ window.FAV_CHECKOUT = (function () {
         <div><span>Amount</span><strong>${C.formatPrice(order.amount_due)}</strong></div>
         <div><span>Reference</span><strong class="copyable" data-copy="${esc(order.reference)}">${esc(order.reference)}</strong></div>
       </div>
-      ${order.balance ? `<p class="co-note">Balance of ${C.formatPrice(order.balance)} is paid on delivery or pickup.</p>` : ""}
+      ${order.balance ? `<p class="co-note">Balance of ${C.formatPrice(order.balance)} is paid ${product.service ? "when your work is ready" : "on delivery or pickup"}.</p>` : ""}
       <ol class="momo-steps">
         <li>Dial <b>${esc(dial)}</b> (or open your MoMo app) and choose <b>Transfer money</b>.</li>
         <li>Send <b>${C.formatPrice(order.amount_due)}</b> to <b>${esc(C.localPhone(MOMO_NUMBER))}</b>${pay.momo_name ? ` (${esc(pay.momo_name)})` : ""}.</li>
@@ -343,7 +363,9 @@ window.FAV_CHECKOUT = (function () {
       `Payment: ${order.plan_label}` +
       (order.amount_due ? ` · ${C.formatPrice(order.amount_due)} via ${METHODS[order.method].label}` : "") +
       (order.amount_due && order.balance ? `\nBalance: ${C.formatPrice(order.balance)}` : "") +
-      `\nName: ${order.name}\nPhone: ${order.phone}\nDelivery: ${order.area}`;
+      `\nName: ${order.name}\nPhone: ${order.phone}\nDelivery: ${order.area}` +
+      (product.brief ? `\n\nBrief:\n${product.brief}` : "") +
+      (product.service && product.after ? `\n\n${product.after}` : "");
   }
 
   function renderDone(order, o) {
@@ -363,9 +385,9 @@ window.FAV_CHECKOUT = (function () {
         <dt>Delivery</dt><dd>${esc(order.area)}</dd>
       </dl>
       <a class="btn btn-wa co-pay" target="_blank" rel="noopener" href="${waLink(receiptText(order, o.wa))}">Send order details on WhatsApp</a>
-      <a class="btn btn-outline co-pay" href="#invoice" data-invoice-kind="order" data-invoice-ref="${esc(order.reference)}"
+      ${product.service ? "" : `<a class="btn btn-outline co-pay" href="#invoice" data-invoice-kind="order" data-invoice-ref="${esc(order.reference)}"
         data-invoice-for="${esc(`${order.product} (${order.product_id}) × ${order.quantity}`)}" data-invoice-name="${esc(order.name)}"
-        data-invoice-phone="${esc(order.phone)}" data-invoice-email="${esc(order.email || "")}">Request an invoice for this order</a>
+        data-invoice-phone="${esc(order.phone)}" data-invoice-email="${esc(order.email || "")}">Request an invoice for this order</a>`}
       <p class="co-secure">Keep your reference. It's how we find your order.</p>`;
     bindCopy();
   }
@@ -382,6 +404,7 @@ window.FAV_CHECKOUT = (function () {
   // Log the order in the backend Sheet (backend/README.md), which also verifies
   // Paystack payments with the secret key. text/plain + no-cors for Apps Script.
   function record(order) {
+    if (product && product.onRecord) { try { product.onRecord(order); } catch (e) { /* never block the order */ } }
     if (!business.enquiry_endpoint) return;
     fetch(business.enquiry_endpoint, {
       method: "POST",

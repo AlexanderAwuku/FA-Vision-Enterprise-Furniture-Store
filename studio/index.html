@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI Studio · Room Makeovers, Flyers, Business Kits &amp; Letters · F.A Vision Enterprise</title>
+  <meta name="description" content="F.A Vision AI Studio in Odorkor: free furniture planner, AI room makeover plans, bulk school &amp; church layouts, funeral brochures and programmes, small business starter kits, letters and typing. Pay with MoMo or card.">
+  <link rel="canonical" href="https://favisionenterprize.github.io/studio/">
+  <meta name="theme-color" content="#0d55af">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="F.A Vision Enterprise">
+  <meta property="og:locale" content="en_GH">
+  <meta property="og:title" content="F.A Vision AI Studio · Plan your room, design your flyer, grow your shop">
+  <meta property="og:description" content="Free furniture planner, AI room makeovers, event programmes, business starter kits and letters. Odorkor, Omanjor, Kasoa. Pay with MoMo or card.">
+  <meta property="og:image" content="https://favisionenterprize.github.io/assets/images/og-cover.jpg">
+  <meta property="og:url" content="https://favisionenterprize.github.io/studio/">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" type="image/png" sizes="48x48" href="../assets/images/favicon.png">
+  <link rel="apple-touch-icon" href="../assets/images/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/site.css?v=20260930a">
+  <link rel="stylesheet" href="../assets/css/studio.css?v=20260930a">
+</head>
+<body class="studio-page">
+  <header class="nav" id="top">
+    <div class="wrap nav-inner">
+      <a href="../" class="logo" aria-label="F.A Vision Enterprise home">
+        <img src="../assets/images/logo.png" alt="F.A Vision Enterprise logo" width="46" height="46">
+        <span class="logo-text"><span><b>F.A</b> Vision</span><small>Enterprise</small></span>
+      </a>
+      <nav class="nav-links" id="nav-links">
+        <a href="../#shop">Shop</a>
+        <a href="#planner">Free planner</a>
+        <a href="#studio-services">AI services</a>
+        <a href="#how">How it works</a>
+        <a href="../#visit">Locations</a>
+      </nav>
+      <a class="btn btn-gold btn-sm nav-cta js-wa" data-msg="Hello F.A Vision, I have a question about your AI Studio services.">WhatsApp us</a>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Menu" aria-expanded="false"><span></span><span></span></button>
+    </div>
+  </header>
+
+  <main>
+    <section class="st-hero">
+      <div class="wrap st-hero-inner">
+        <div>
+          <p class="eyebrow"><span class="dot"></span> New at F.A Vision · AI Studio</p>
+          <h1>Smart help for your <em>home, school and business</em></h1>
+          <p class="section-sub">Plan a room before you buy, get a layout and quote for your school or church, design a funeral brochure or a logo for your shop. We use AI to work fast, and a real person at our Odorkor showroom checks everything before it reaches you.</p>
+          <div class="st-hero-cta">
+            <a class="btn btn-gold" href="#planner">Try the free planner</a>
+            <a class="btn btn-ghost" href="#studio-services">See all services</a>
+          </div>
+          <div id="pay-ways"></div>
+        </div>
+        <ul class="st-hero-list" aria-label="Services at a glance" id="hero-list"></ul>
+      </div>
+    </section>
+
+    <section class="st-planner" id="planner" aria-labelledby="planner-title">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="kicker">Free · No sign-up</p>
+          <h2 id="planner-title">What can your budget <em>furnish?</em></h2>
+          <p class="section-sub">Pick a room, enter your budget and we'll match pieces from our showroom that fit. Prices are today's website prices.</p>
+        </div>
+        <div class="planner">
+          <form class="planner-form" id="planner-form" onsubmit="return false">
+            <fieldset class="planner-rooms">
+              <legend>Which room?</legend>
+              <div class="room-picks" id="room-picks"></div>
+            </fieldset>
+            <label>Your budget (GH₵)
+              <input id="pl-budget" type="number" min="0" step="100" inputmode="numeric" value="20000">
+            </label>
+            <div class="budget-quick" id="budget-quick" role="group" aria-label="Quick budgets"></div>
+            <label id="pl-people-wrap">How many people?
+              <input id="pl-people" type="number" min="1" max="2000" inputmode="numeric" value="1">
+            </label>
+            <label>Room size
+              <select id="pl-size">
+                <option value="small">Small (single room, chamber &amp; hall)</option>
+                <option value="medium" selected>Medium (2 to 3 bedroom home)</option>
+                <option value="large">Large (big hall, office floor, classroom)</option>
+              </select>
+            </label>
+          </form>
+          <div class="planner-out" id="planner-out" aria-live="polite"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="st-services" id="studio-services" aria-labelledby="svc-title">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="kicker">AI services</p>
+          <h2 id="svc-title">Done for you, <em>checked by us</em></h2>
+          <p class="section-sub">Choose a service, tell us what you need, then pay by Mobile Money or card, pay half now, or pay when it's ready.</p>
+        </div>
+        <div class="chips st-tabs" role="tablist" aria-label="Filter services">
+          <button class="chip" type="button" role="tab" aria-selected="true" data-group="all">All services</button>
+          <button class="chip" type="button" role="tab" aria-selected="false" data-group="furniture">Home &amp; school</button>
+          <button class="chip" type="button" role="tab" aria-selected="false" data-group="community">Business &amp; events</button>
+        </div>
+        <div class="st-grid" id="st-grid"><p class="st-loading">Loading services…</p></div>
+      </div>
+    </section>
+
+    <section class="st-how" id="how" aria-labelledby="how-title">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="kicker">How it works</p>
+          <h2 id="how-title">Four steps, all on your phone</h2>
+        </div>
+        <ol class="st-steps">
+          <li><b>Choose</b><span>Pick a service and the option that suits you.</span></li>
+          <li><b>Tell us</b><span>Fill in a short brief. Send photos on WhatsApp.</span></li>
+          <li><b>Pay your way</b><span>MoMo, Visa / Mastercard, 50% deposit, or pay when it's ready.</span></li>
+          <li><b>Receive</b><span>Your work arrives on WhatsApp or email. Print it at our press if you like.</span></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="st-faq" aria-labelledby="faq-title">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="kicker">Questions</p>
+          <h2 id="faq-title">Good to know</h2>
+        </div>
+        <div class="st-faq-list">
+          <details><summary>Is it really done by AI?</summary><p>We use AI tools to draft wording, create room looks and design faster. Then a person on our team checks and finishes every job before we send it, so you get something correct and ready to use.</p></details>
+          <details><summary>How do I pay?</summary><p>Mobile Money (MTN MoMo, Telecel Cash, AT Money) or Visa / Mastercard. You can also pay 50% now and the rest when your work is ready, pay everything when it's ready, or pay at our Odorkor, Omanjor or Kasoa showroom. Guides are paid before we send them.</p></details>
+          <details><summary>Do I get my room makeover fee back?</summary><p>Yes. If you buy GH₵1,000 or more of furniture from us within 30 days, the plan fee is taken off your furniture bill. The bulk setup fee is credited in full when you place the order.</p></details>
+          <details><summary>Can you print my programme, brochure or flyer?</summary><p>Yes. F.A Vision runs a printing press. Tell us how many copies you need in your brief and we'll quote printing separately.</p></details>
+          <details><summary>What happens to my photos and details?</summary><p>We only use them for your job. We don't post your photos or share your details without asking you first.</p></details>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap">
+      <div class="footer-inner">
+        <span>© <span id="year"></span> F.A Vision Enterprise · Odorkor · Omanjor · Kasoa · <a href="../">Back to the furniture shop</a></span>
+        <span class="footer-tag">Bringing love to your Homes, Offices &amp; Schools</span>
+      </div>
+    </div>
+  </footer>
+
+  <a class="st-wa-float js-wa" data-msg="Hello F.A Vision, I have a question about your AI Studio services." aria-label="Chat on WhatsApp">
+    <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor" aria-hidden="true"><path d="M20.5 3.5A11 11 0 0 0 3.2 17.1L2 22l5-1.3A11 11 0 1 0 20.5 3.5zM12 20a8.9 8.9 0 0 1-4.6-1.3l-.3-.2-3 .8.8-2.9-.2-.3A9 9 0 1 1 12 20zm4.9-6.7c-.3-.1-1.6-.8-1.8-.9-.3-.1-.4-.1-.6.1l-.8 1c-.2.2-.3.2-.6.1a7.3 7.3 0 0 1-3.6-3.2c-.3-.5.3-.4.8-1.3.1-.2 0-.3 0-.4l-.8-2c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.8 12 12 0 0 0 4.6 4c1.7.7 2.4.8 3.2.7.5-.1 1.6-.7 1.8-1.3.2-.6.2-1.2.2-1.3-.1-.1-.3-.2-.6-.3z"/></svg>
+  </a>
+
+  <script src="../assets/js/catalog-config.js"></script>
+  <script src="../assets/js/products-data.js?v=20260930a"></script>
+  <script src="../assets/js/checkout.js?v=20260930a"></script>
+  <script src="../assets/js/studio.js?v=20260930a"></script>
+</body>
+</html>

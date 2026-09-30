@@ -9,4 +9,10 @@
     <image:image><image:loc>https://favisionenterprize.github.io/assets/images/logo-512.png</image:loc></image:image>
     <image:image><image:loc>https://favisionenterprize.github.io/assets/images/promo-student-desks.jpg</image:loc></image:image>
   </url>
+  <url>
+    <loc>https://favisionenterprize.github.io/studio/</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
 </urlset>

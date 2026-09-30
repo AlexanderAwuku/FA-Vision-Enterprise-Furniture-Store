@@ -75,6 +75,10 @@ Pay on delivery and walk in work straight away. To turn on the **pay now** optio
 
 Every order, paid or not, is saved to the **Orders** tab of the backend Sheet, emailed to you, and listed in the admin under **Orders & payments**, where you can move it along (Confirmed → Delivered → Balance paid). Paystack also notifies the backend directly and an hourly sync catches anything missed, so a payment is recorded even if the customer closes the page. Setup steps: [backend/README.md](backend/README.md#orders--payments). Add `PAYSTACK_SECRET_KEY` to the Apps Script's *Script properties* and the backend checks each online payment with Paystack and re-prices the order from the catalogue, so a tampered or failed payment shows as **UNVERIFIED** or **UNDERPAID**. Always check the Orders tab or your Paystack dashboard before releasing furniture.
 
+## AI Studio (/studio/)
+
+**https://favisionenterprize.github.io/studio/** sells AI-assisted services to furniture customers and the neighbourhood, and has a free **budget planner** that matches catalogue pieces to a room and budget. Customers pick a service, fill in a short brief, then pay through the same checkout as furniture (MoMo, card, 50% deposit, pay when it's ready, or pay at a showroom). Guides are pay-first. Orders go to the Orders tab and the brief to the Enquiries tab under the same reference, with an SMS alert. Prices live in `data/services.json`; the fulfilment steps are in [docs/ai-studio-playbook.md](docs/ai-studio-playbook.md).
+
 ## Strategy ads and the promo calendar
 
 Every product has a designed strategy ad (1080 × 1350, the size Facebook, Instagram and WhatsApp Status show uncropped) in `assets/images/ads/`. They appear on the website under **Deals** with **View** and **Share** buttons, and can be posted as they are.
@@ -110,6 +114,9 @@ Ad copy and promo bars in `business.json` use `{price}` / `{price:FAV-001}` plac
 | `output/` | Bulk Marketplace/group/WhatsApp texts, posting tracker and Meta catalog feed |
 | `docs/facebook-posting-playbook.md` | Weekly posting routine and rules for staying within Facebook's limits |
 | `docs/business-profile.md` | Business profile, product lines and operating details |
+| `studio/`, `assets/js/studio.js`, `assets/css/studio.css` | AI Studio: free furniture budget planner and paid AI services (room makeovers, bulk layouts, guides, event programmes, business kits, letters) with the same checkout |
+| `data/services.json` | AI Studio services, options and prices (read by the site and the backend) |
+| `docs/ai-studio-playbook.md` | How to fulfil each AI Studio order, with prompts |
 
 ## Brand
 

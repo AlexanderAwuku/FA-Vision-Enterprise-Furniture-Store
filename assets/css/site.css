@@ -497,3 +497,13 @@ section { padding: 96px 0; }
 .deal-actions { display: flex; gap: 8px; }
 .deal-actions .btn { flex: 1; }
 @media (max-width: 560px) { .deals-track { grid-auto-columns: 78%; } }
+
+/* AI Studio link and teaser (studio/ has its own studio.css) */
+.nav-links a.nav-new { color: var(--brand-purple); font-weight: 600; }
+.studio-teaser { margin-top: 28px; display: flex; align-items: center; gap: 16px; padding: 18px 22px; border-radius: 20px; text-decoration: none; color: var(--ink); background: linear-gradient(120deg, #e8f0fe, #f7e9f5); border: 1px solid #d9d2f0; }
+.studio-teaser:hover { box-shadow: var(--shadow); }
+.studio-teaser-tag { flex: none; background: var(--brand-purple); color: #fff; font: 700 11px var(--sans); letter-spacing: .12em; text-transform: uppercase; padding: 5px 10px; border-radius: 999px; }
+.studio-teaser-txt { flex: 1; font-size: 15px; color: var(--muted); }
+.studio-teaser-txt b { display: block; color: var(--ink); font: 600 18px var(--serif); }
+.studio-teaser-cta { flex: none; font-weight: 600; color: var(--brand-blue); }
+@media (max-width: 640px) { .studio-teaser { flex-wrap: wrap; } }
