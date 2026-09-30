@@ -65,12 +65,15 @@ Pay on delivery and walk in work straight away. To turn on the **pay now** optio
   "momo_number": "+233…",
   "momo_name": "F.A Vision Enterprise",
   "momo_network": "MTN",
+  "ghanapay_number": "",
+  "ghqr_merchant_id": "",
   "deposit_percent": 50
 }
 ```
 
 - **Paystack (MoMo + Visa/Mastercard).** Sign up free at <https://paystack.com> (Ghana). There's no setup or monthly fee, only a small percentage per successful payment, and money settles to your bank or MoMo wallet. Once your business is activated, copy the **Public key** from *Settings → API Keys & Webhooks* into `paystack_public_key`. Use the `pk_test_…` key first to try it with test cards and test MoMo numbers.
 - **Manual MoMo (no Paystack yet).** Put your MoMo merchant or wallet number in `momo_number`. Customers get your number, the amount and an order reference, pay with *170#, and confirm on WhatsApp. Cards need Paystack.
+- **GhanaPay (GhIPSS bank wallet, `*707#` or the GhanaPay app).** Shown as its own "Pay with" option whenever MoMo is set up. GhanaPay can send to other networks, so by default customers send to your `momo_number`. Once you have your own GhanaPay wallet, put its number in `ghanapay_number`. If your bank registers you as a GhQR merchant, put the merchant ID in `ghqr_merchant_id`, and customers will be told to use *Pay merchant (GhQR)* instead. Customers confirm on WhatsApp with the order reference. GhanaPay payments don't go through Paystack, so check your wallet before releasing goods.
 - **Never put the Paystack secret key (`sk_…`) in the website.** It goes only in the backend (below).
 
 Every order, paid or not, is saved to the **Orders** tab of the backend Sheet, emailed to you, and listed in the admin under **Orders & payments**, where you can move it along (Confirmed → Delivered → Balance paid). Paystack also notifies the backend directly and an hourly sync catches anything missed, so a payment is recorded even if the customer closes the page. Setup steps: [backend/README.md](backend/README.md#orders--payments). Add `PAYSTACK_SECRET_KEY` to the Apps Script's *Script properties* and the backend checks each online payment with Paystack and re-prices the order from the catalogue, so a tampered or failed payment shows as **UNVERIFIED** or **UNDERPAID**. Always check the Orders tab or your Paystack dashboard before releasing furniture.

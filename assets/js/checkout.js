@@ -36,12 +36,18 @@ window.FAV_CHECKOUT = (function () {
   const testKey = /^pk_test_/.test(PAYSTACK_KEY);
   const online = /^pk_live_/.test(PAYSTACK_KEY) || (testKey && TESTING);
   const manual = !online && !!MOMO_NUMBER;
-  const payNow = online || manual;
+  // GhanaPay (GhIPSS bank wallet, *707#). GhanaPay can send to other networks, so
+  // customers can pay our MoMo number until we add a GhanaPay wallet number or a
+  // GhQR merchant ID in data/business.json -> payments.
+  const GHANAPAY_NUMBER = (pay.ghanapay_number || "").trim();
+  const GHQR_ID = (pay.ghqr_merchant_id || "").trim();
+  const ghanapay = !!(GHQR_ID || GHANAPAY_NUMBER || MOMO_NUMBER);
+  const payNow = online || manual || ghanapay;
   const WA = business.whatsapp.replace(/\D/g, "");
   const waLink = msg => `https://wa.me/${WA}?text=${encodeURIComponent(msg)}`;
 
   const PLANS = {
-    full: { label: "Pay in full now", sub: "Mobile Money or card", now: 1 },
+    full: { label: "Pay in full now", sub: "MoMo, GhanaPay or card", now: 1 },
     deposit: { label: `Pay ${DEPOSIT}% deposit now`, sub: "Balance on delivery or pickup", now: DEPOSIT / 100 },
     delivery: { label: "Pay on delivery", sub: "Cash or MoMo when it arrives", now: 0 },
     walkin: { label: "Walk in & pay at showroom", sub: "Reserve now, pay at our showroom", now: 0 }
@@ -58,12 +64,14 @@ window.FAV_CHECKOUT = (function () {
 
   const METHODS = {
     momo: { label: "Mobile Money", sub: "MTN MoMo · Telecel Cash · AT Money", channels: ["mobile_money"] },
-    card: { label: "Visa / Mastercard", sub: "Debit or credit card", channels: ["card"] }
+    card: { label: "Visa / Mastercard", sub: "Debit or credit card", channels: ["card"] },
+    ghanapay: { label: "GhanaPay", sub: "From your GhanaPay wallet · *707#", channels: [] }
   };
 
   const ICON = {
     momo: '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M10 18h4M9.5 8.5h5M9.5 11.5h3"/></svg>',
     card: '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="2.5"/><path d="M2 10h20M6 15h4"/></svg>',
+    ghanapay: '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h13v4"/><rect x="3" y="7" width="18" height="13" rx="2.5"/><path d="M16 13.5h2"/></svg>',
     lock: '<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>'
   };
 
@@ -75,8 +83,8 @@ window.FAV_CHECKOUT = (function () {
   // Accepted-payment badges, reused on the product page and the Visit section.
   function badges() {
     const list = online
-      ? ["MTN MoMo", "Telecel Cash", "AT Money", "Visa", "Mastercard", "Cash on delivery"]
-      : manual ? [NETWORK + " MoMo", "Cash on delivery", "Pay at showroom"]
+      ? ["MTN MoMo", "Telecel Cash", "AT Money", "GhanaPay", "Visa", "Mastercard", "Cash on delivery"]
+      : manual ? [NETWORK + " MoMo", "GhanaPay", "Cash on delivery", "Pay at showroom"]
         : ["Cash or MoMo on delivery", "Pay at showroom"];
     return `<div class="pay-badges" aria-label="Ways to pay">${list.map(b => `<span class="pay-badge" data-b="${esc(b)}">${esc(b)}</span>`).join("")}</div>`;
   }
@@ -148,7 +156,7 @@ window.FAV_CHECKOUT = (function () {
         </fieldset>
         <fieldset class="options methods" id="co-methods" ${payNow ? "" : "hidden"}>
           <legend>Pay with</legend>
-          ${Object.entries(METHODS).map(([id, m], i) => {
+          ${Object.entries(METHODS).filter(([id]) => id !== "ghanapay" || ghanapay).map(([id, m], i) => {
             const off = id === "card" && !online;
             return `<label class="option${off ? " off" : ""}">
               <input type="radio" name="method" value="${id}" ${i === 0 ? "checked" : ""} ${off ? "disabled" : ""}>
@@ -183,7 +191,7 @@ window.FAV_CHECKOUT = (function () {
         `<div class="due"><span>${now ? "Pay now" : laterLabel}</span><strong>${C.formatPrice(now || tot)}</strong></div>`;
       $("#co-pay").textContent = now ? "Pay " + C.formatPrice(now) : "Place order";
       $("#co-secure").innerHTML = now
-        ? `${ICON.lock} ${online ? (testKey ? "<b>TEST MODE</b>: no real money moves. Use Paystack's test card or test MoMo number." : "Processed securely by Paystack. We never see your card details or MoMo PIN.") : "You'll get our MoMo number and a payment reference on the next step."}`
+        ? `${ICON.lock} ${form.method && form.method.value === "ghanapay" ? "You'll get our GhanaPay payment details and a reference on the next step." : online ? (testKey ? "<b>TEST MODE</b>: no real money moves. Use Paystack's test card or test MoMo number." : "Processed securely by Paystack. We never see your card details or MoMo PIN.") : "You'll get our MoMo number and a payment reference on the next step."}`
         : `${ICON.lock} Nothing to pay now. We'll call to confirm your order.`;
       return q;
     };
@@ -197,7 +205,7 @@ window.FAV_CHECKOUT = (function () {
     qtyEl.addEventListener("input", update);
     qtyEl.addEventListener("blur", () => { qtyEl.value = update(); });
     const mark = () => form.querySelectorAll(".option").forEach(o => o.classList.toggle("on", o.querySelector("input").checked));
-    form.addEventListener("change", e => { mark(); if (e.target.name !== "method") update(); });
+    form.addEventListener("change", () => { mark(); update(); });
     form.addEventListener("submit", e => { e.preventDefault(); submit(form, update()); });
     update();
     mark();
@@ -238,7 +246,8 @@ window.FAV_CHECKOUT = (function () {
       balance: pesewaRound(tot - now)
     };
     if (!now) return placeOrder(order);
-    if (online) payOnline(order);
+    if (order.method === "ghanapay") ghanaPay(order);
+    else if (online) payOnline(order);
     else manualMomo(order);
   }
 
@@ -355,6 +364,36 @@ window.FAV_CHECKOUT = (function () {
       </ol>
       <a class="btn btn-wa co-pay" target="_blank" rel="noopener" href="${waLink(receiptText(order, "I've sent the MoMo payment for my order."))}">I've paid · confirm on WhatsApp</a>
       <p class="co-secure">${ICON.lock} Never share your MoMo PIN with anyone, including us.</p>`;
+    bindCopy();
+  }
+
+  // ---------- GhanaPay ----------
+  function ghanaPay(order) {
+    order.status = "Awaiting GhanaPay confirmation";
+    record(order);
+    const to = GHQR_ID
+      ? { label: "GhQR merchant ID", value: GHQR_ID, step: `choose <b>Pay merchant (GhQR)</b> and enter merchant ID <b>${esc(GHQR_ID)}</b>, or scan our GhQR code at the showroom` }
+      : GHANAPAY_NUMBER
+        ? { label: "GhanaPay wallet", value: GHANAPAY_NUMBER, step: `choose <b>Send money → GhanaPay</b> and send to <b>${esc(C.localPhone(GHANAPAY_NUMBER))}</b>` }
+        : { label: `${NETWORK} MoMo number`, value: MOMO_NUMBER, step: `choose <b>Send money → Other networks → ${esc(NETWORK)} Mobile Money</b> and send to <b>${esc(C.localPhone(MOMO_NUMBER))}</b>` };
+    $("#co-body").innerHTML = `
+      <p class="kicker">GhanaPay</p>
+      <h2 id="co-title">Send ${C.formatPrice(order.amount_due)}</h2>
+      <div class="momo-card">
+        <div><span>${esc(to.label)}</span><strong class="copyable" data-copy="${esc(to.value)}">${esc(GHQR_ID ? to.value : C.localPhone(to.value))}</strong></div>
+        ${pay.momo_name && !GHQR_ID ? `<div><span>Account name</span><strong>${esc(pay.ghanapay_name || pay.momo_name)}</strong></div>` : ""}
+        <div><span>Amount</span><strong>${C.formatPrice(order.amount_due)}</strong></div>
+        <div><span>Reference</span><strong class="copyable" data-copy="${esc(order.reference)}">${esc(order.reference)}</strong></div>
+      </div>
+      ${order.balance ? `<p class="co-note">Balance of ${C.formatPrice(order.balance)} is paid ${product.service ? "when your work is ready" : "on delivery or pickup"}.</p>` : ""}
+      <ol class="momo-steps">
+        <li>Dial <b>*707#</b> or open the <b>GhanaPay app</b>.</li>
+        <li>Then ${to.step}.</li>
+        <li>Enter <b>${C.formatPrice(order.amount_due)}</b>, use <b>${esc(order.reference)}</b> as the reference, and confirm with your PIN.</li>
+        <li>Tap below to send us your confirmation on WhatsApp.</li>
+      </ol>
+      <a class="btn btn-wa co-pay" target="_blank" rel="noopener" href="${waLink(receiptText(order, "I've sent the GhanaPay payment for my order."))}">I've paid · confirm on WhatsApp</a>
+      <p class="co-secure">${ICON.lock} GhanaPay transfers are free apart from the e-levy. Never share your PIN with anyone, including us.</p>`;
     bindCopy();
   }
 
