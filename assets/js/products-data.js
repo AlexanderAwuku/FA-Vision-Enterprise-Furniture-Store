@@ -85,6 +85,7 @@ window.FAV_DATA = {
       "momo_name": "Alexander Awuku",
       "momo_network": "MTN",
       "ghanapay_number": "+233207473267",
+      "ghanapay_name": "Alexander Awuku",
       "ghqr_merchant_id": "",
       "deposit_percent": 50
     },
