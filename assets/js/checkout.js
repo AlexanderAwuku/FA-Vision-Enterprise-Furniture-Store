@@ -381,7 +381,7 @@ window.FAV_CHECKOUT = (function () {
       <h2 id="co-title">Send ${C.formatPrice(order.amount_due)}</h2>
       <div class="momo-card">
         <div><span>${esc(to.label)}</span><strong class="copyable" data-copy="${esc(to.value)}">${esc(GHQR_ID ? to.value : C.localPhone(to.value))}</strong></div>
-        ${pay.momo_name && !GHQR_ID ? `<div><span>Account name</span><strong>${esc(pay.ghanapay_name || pay.momo_name)}</strong></div>` : ""}
+        ${GHQR_ID ? "" : GHANAPAY_NUMBER ? (pay.ghanapay_name ? `<div><span>Account name</span><strong>${esc(pay.ghanapay_name)}</strong></div>` : "") : (pay.momo_name ? `<div><span>Account name</span><strong>${esc(pay.momo_name)}</strong></div>` : "")}
         <div><span>Amount</span><strong>${C.formatPrice(order.amount_due)}</strong></div>
         <div><span>Reference</span><strong class="copyable" data-copy="${esc(order.reference)}">${esc(order.reference)}</strong></div>
       </div>
