@@ -1728,7 +1728,7 @@ window.FAV_DATA = {
       "category": "Bathroom & Tiles",
       "type": "Tiles",
       "marketplace_category": "Home Improvement Supplies > Flooring",
-      "price_ghs": null,
+      "price_ghs": 1000,
       "negotiable": true,
       "icon": "🏠",
       "description": "Anti-skid floor tiles, glossy and matte wall tiles, tile grout and adhesive, plus toilet sets, plumbing materials and stylish mirrors. Wholesale and retail. Sold by AGOODMANN VENTURES, Kantamanto: ask for prices.",
