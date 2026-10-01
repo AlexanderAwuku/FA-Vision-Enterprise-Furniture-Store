@@ -1720,7 +1720,7 @@ Order: https://wa.me/233277477752?text=Hello%20AGOODMANN%20VENTURES%2C%20I%27m%2
 ### Facebook Marketplace
 
 - **Title:** Tiles & Finishes — Floor & Wall
-- **Price:** ⚠️ set price_ghs
+- **Price:** 1000
 - **Category:** Home Improvement Supplies > Flooring
 - **Condition:** Brand New
 - **Location:** Odorkor, Accra
@@ -1759,7 +1759,7 @@ Ref: FAV-025
 • Wall tiles: glossy or matte
 • Grout & adhesive
 • Wholesale & retail
-💰 Price on request
+💰 GH₵ 1,000
 📍 Kantamanto, near Grandview Hotel, UTC, close to Barclays Bank, Mamleshie Rd, Accra, delivery available
 📞 WhatsApp 027 747 7752
 #FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
@@ -1769,7 +1769,7 @@ Ref: FAV-025
 
 ```
 Looking for a quality tiles & finishes — floor & wall? Floor tiles (anti-skid).
-Available at Kantamanto, near Grandview Hotel, UTC, close to Barclays Bank, Mamleshie Rd, Accra. Price on request.
+Available at Kantamanto, near Grandview Hotel, UTC, close to Barclays Bank, Mamleshie Rd, Accra. GH₵ 1,000.
 Send us a message or WhatsApp 027 747 7752 to order. #FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
 ```
 
@@ -1777,7 +1777,7 @@ Send us a message or WhatsApp 027 747 7752 to order. #FAVisionEnterprise #Furnit
 
 ```
 NEW FROM AGOODMANN VENTURES ✨ Tiles & Finishes — Floor & Wall
-Price on request | Ready for pickup
+GH₵ 1,000 | Ready for pickup
 Homes • Offices • Schools
 DM or call 027 747 7752 #FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
 ```
@@ -1786,7 +1786,7 @@ DM or call 027 747 7752 #FAVisionEnterprise #FurnitureGhana #AccraFurniture #Who
 
 ```
 Tiles & Finishes — Floor & Wall 🔥
-Price on request
+GH₵ 1,000
 Order: https://wa.me/233277477752?text=Hello%20AGOODMANN%20VENTURES%2C%20I%27m%20interested%20in%20the%20Tiles%20%26%20Finishes%20%E2%80%94%20Floor%20%26%20Wall%20%28FAV-025%29.
 ```
 
