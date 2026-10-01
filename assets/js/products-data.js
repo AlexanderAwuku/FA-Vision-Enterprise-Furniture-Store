@@ -484,38 +484,6 @@ window.FAV_DATA = {
           "photo": "assets/images/ads/src/fav-011.jpg"
         },
         {
-          "id": "fav-014-arriving",
-          "product": "FAV-014",
-          "kicker": "Back to school · Student desks",
-          "headline": "New consignment arrives",
-          "accent": "15 October",
-          "sub": "Height-adjustable desk & chair sets for SHS to university. Reserve yours now.",
-          "facts": [
-            [
-              "{price}",
-              "per set"
-            ],
-            [
-              "GH₵640",
-              "each from 50 sets"
-            ],
-            [
-              "Proforma",
-              "invoice for schools"
-            ],
-            [
-              "Delivery",
-              "& school set-up"
-            ]
-          ],
-          "cta": "Reserve now",
-          "tag": "ARRIVES 15 OCT",
-          "seal": [
-            "{price}",
-            "per set"
-          ]
-        },
-        {
           "id": "fav-014-arrived",
           "product": "FAV-014",
           "kicker": "Back to school · Student desks",
@@ -582,17 +550,8 @@ window.FAV_DATA = {
       ],
       "schedule": [
         {
-          "id": "desks-arriving-2026",
-          "from": "2026-09-29",
-          "to": "2026-10-14",
-          "ad": "fav-014-arriving",
-          "link": "#promo",
-          "sticker": "Arrives 15 Oct",
-          "bar": "New student desk consignment arrives <b>15 October</b> · <b>{price:FAV-014}</b> a set · reserve yours now"
-        },
-        {
           "id": "desks-arrived-2026",
-          "from": "2026-10-15",
+          "from": "2026-10-01",
           "to": "2026-11-15",
           "ad": "fav-014-arrived",
           "link": "#promo",

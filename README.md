@@ -93,7 +93,7 @@ The paid services: Customers pick a service, fill in a short brief, then pay thr
 Every product has a designed strategy ad (1080 × 1350, the size Facebook, Instagram and WhatsApp Status show uncropped) in `assets/images/ads/`. They appear on the website under **Deals** with **View** and **Share** buttons, and can be posted as they are.
 
 - Wording lives in `data/business.json` → `promos.ads` (headline, accent word, facts row, price seal, tag). Rebuild after editing: `python3 scripts/make_ads.py && python3 scripts/generate_listings.py`.
-- `promos.schedule` decides the announcement bar, the desk promo sticker and which ads lead the Deals row. The first entry whose dates include today wins. `YYYY-MM-DD` dates run once (the student desk consignment arriving **15 October 2026**, then "just arrived" until 15 November); `MM-DD` dates repeat every year (festive, new-year office, Valentine's, Easter, mid-year office, back to school, home refresh). Nothing needs switching off by hand.
+- `promos.schedule` decides the announcement bar, the desk promo sticker and which ads lead the Deals row. The first entry whose dates include today wins. `YYYY-MM-DD` dates run once (the student desk consignment shows "just arrived" from 1 October until 15 November 2026); `MM-DD` dates repeat every year (festive, new-year office, Valentine's, Easter, mid-year office, back to school, home refresh). Nothing needs switching off by hand.
 
 ## Price sync (website ↔ Facebook Marketplace)
 

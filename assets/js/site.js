@@ -185,7 +185,7 @@
 
   // ---------- promo calendar & strategy ads ----------
   // business.promos.schedule: the first entry whose dates include today wins. "from"/"to" are
-  // YYYY-MM-DD (one-off, e.g. the 15 Oct 2026 consignment) or MM-DD (repeats every year), so
+  // YYYY-MM-DD (one-off, e.g. the 2026 student desk consignment) or MM-DD (repeats every year), so
   // dated promos drop off by themselves and the year-round calendar takes over.
   const promoCfg = business.promos || { ads: [], schedule: [] };
   const adById = Object.fromEntries((promoCfg.ads || []).map(a => [a.id, a]));
