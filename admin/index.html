@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="admin.css?v=20260930a">
+  <link rel="stylesheet" href="admin.css?v=20261001a">
 </head>
 <body>
   <header class="top">
@@ -125,6 +125,7 @@
         <p class="muted" id="dash-sub">Loading…</p>
       </div>
       <div class="dash-head-actions">
+        <button class="btn btn-ghost" data-fbauto>Facebook autopilot <span class="ps-badge" id="fa-badge" hidden></span></button>
         <button class="btn btn-ghost" data-pricesync>Price sync <span class="ps-badge" id="ps-badge" hidden></span></button>
         <button class="btn btn-ghost" data-orders>Orders &amp; payments</button>
         <button class="btn btn-ghost" data-customers>Customers</button>
@@ -133,6 +134,7 @@
       </div>
     </div>
     <a class="ps-alert" id="ps-alert" href="#pricesync" data-pricesync hidden></a>
+    <a class="ps-alert fa-alert" id="fa-alert" href="#fbauto" data-fbauto hidden></a>
     <div class="stats" id="stats"></div>
     <div class="dash-tools">
       <input type="search" id="dash-search" placeholder="Search your products…" aria-label="Search products">
@@ -200,6 +202,20 @@
       </div>
     </div>
     <div id="ps-body"></div>
+  </main>
+
+  <!-- ============ FACEBOOK AUTOPILOT ============ -->
+  <main class="screen" id="screen-fbauto" hidden>
+    <div class="dash-head">
+      <div>
+        <h1>Facebook autopilot</h1>
+        <p class="muted">Renews your Marketplace listings when they're due, and posts one listing a day into groups it hasn't been in yet.</p>
+      </div>
+      <div class="dash-head-actions">
+        <button class="btn btn-ghost btn-sm" data-go="dash">← My products</button>
+      </div>
+    </div>
+    <div id="fa-body"></div>
   </main>
 
   <!-- ============ INVOICES ============ -->
@@ -380,10 +396,11 @@
   <script src="photo-studio.js"></script>
   <script src="photo-editor.js"></script>
   <script src="promo.js"></script>
-  <script src="admin.js?v=20260930a"></script>
+  <script src="admin.js?v=20261001a"></script>
   <script src="orders.js"></script>
   <script src="customers.js?v=1"></script>
   <script src="pricesync.js?v=5"></script>
+  <script src="fbauto.js?v=1"></script>
   <script src="../assets/js/invoice.js"></script>
   <script src="invoices.js"></script>
 </body>

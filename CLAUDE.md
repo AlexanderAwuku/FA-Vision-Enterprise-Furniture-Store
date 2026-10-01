@@ -7,6 +7,7 @@ Static GitHub Pages site, live at https://favisionenterprize.github.io (push to 
 - Promos: `data/business.json` → `promos.ads` + `promos.schedule` (first matching date window wins).
 - Stock badge: `custom_order` / `in_stock` per product in `data/products.json`.
 - Copy says "we sell", not "we make".
+- Facebook autopilot (admin `#fbauto`, `admin/fbauto.js` + `extension/autopilot.js`): renewals and the daily group rotation, logged in `data/facebook-autopilot.json`. The add-on must be reloaded in Chrome after any change in `extension/`.
 
 ## Business facts
 - Phones: 020 747 3267 · 057 264 6176 · 054 614 8923 (WhatsApp 057 264 6176)

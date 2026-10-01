@@ -186,6 +186,33 @@
     }
   }
 
+  // Read any JSON file from the repo (latest commit). Returns `fallback` if it doesn't exist yet.
+  async function readJsonFile(path, fallback) {
+    try { return await readJson(path); }
+    catch (err) { if (fallback !== undefined && (err.status === 404 || /not found/i.test(err.message))) return fallback; throw err; }
+  }
+
+  // Apply `mutate` to the latest copy of one JSON file and commit it on its own
+  // (used by the Facebook autopilot log). Retries if the branch moved meanwhile.
+  async function saveJson(path, mutate, message, fallback) {
+    for (let attempt = 0; attempt < 3; attempt++) {
+      const head = (await gh(`/git/ref/heads/${BRANCH}`)).object.sha;
+      const baseTree = (await gh(`/git/commits/${head}`)).tree.sha;
+      let current;
+      try { current = await readJson(path, head); }
+      catch (err) { if (fallback === undefined) throw err; current = JSON.parse(JSON.stringify(fallback)); }
+      const next = mutate(current);
+      const newTree = await gh("/git/trees", { method: "POST", body: JSON.stringify({ base_tree: baseTree, tree: [{ path, mode: "100644", type: "blob", content: JSON.stringify(next, null, 1) + "\n" }] }) });
+      const newCommit = await gh("/git/commits", { method: "POST", body: JSON.stringify({ message, tree: newTree.sha, parents: [head] }) });
+      try {
+        await gh(`/git/refs/heads/${BRANCH}`, { method: "PATCH", body: JSON.stringify({ sha: newCommit.sha }) });
+        return next;
+      } catch (err) {
+        if (err.status !== 422 || attempt === 2) throw err;
+      }
+    }
+  }
+
   // =========================================================== captions
   const phones = () => (business.phones || [business.whatsapp]).map(C.localPhone).join(" / ");
   const priceText = p => p.price_ghs ? C.formatPrice(p.price_ghs) + (p.negotiable ? " (negotiable)" : "") : "Price on request";
@@ -1034,6 +1061,7 @@
   // Shared with admin/pricesync.js (Facebook price sync screen).
   window.FAV_ADMIN = {
     commit: opts => commit(opts),
+    readJsonFile, saveJson, productUrl, friendly,
     products: () => products,
     business: () => business,
     signedIn,

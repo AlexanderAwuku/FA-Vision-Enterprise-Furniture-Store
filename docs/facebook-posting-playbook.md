@@ -30,6 +30,14 @@ The kit makes each manual post a quick copy and paste. The fastest way is the ad
 | Sat | Renew Marketplace listings that are 7 or more days old, or delete and relist them. Mark sold items. |
 | Daily | Reply to Marketplace and Messenger enquiries within 1 hour. Response speed affects how visible listings are. |
 
+## Facebook autopilot (admin → Facebook autopilot)
+
+- **Renewals:** each linked Marketplace listing is due 7 days after it was posted or last renewed. The admin and the add-on icon show how many are due. **Renew all due** renews them 20 at a time.
+- **Group rotation:** one listing a day, posted into up to 20 groups it has never been in. The groups that have rested longest go first, so a group doesn't get posts day after day. The next day the next listing takes its turn. When a listing has been in every group, it starts a fresh round. Captions rotate between 3 versions.
+- **Groups list:** **Import my groups from Facebook** reads every group you've joined. Untick a group to leave it out. A group that fails 3 times in a row is switched off automatically.
+- **Log:** everything is saved in `data/facebook-autopilot.json`.
+- **Risk:** automated posting is against Facebook's terms. The add-on paces itself and stops at the first warning, but if Facebook starts showing warnings, lower **Group posts a day** in Settings.
+
 ## Rules to stay safe
 
 - Leave **at least 1–2 minutes** between group posts, and don't post the same product in more than about 10 groups a day.
