@@ -1754,7 +1754,7 @@ window.FAV_DATA = {
         {
           "id": "904798079342073",
           "title": "Elegant Tiles & Finishes 🏠",
-          "price": 5,
+          "price": 1000,
           "checked": "2026-10-01",
           "synced": "2026-10-01"
         }
