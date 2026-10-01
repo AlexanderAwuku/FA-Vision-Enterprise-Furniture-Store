@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "FA Vision Autopilot",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "Works with your FA Vision admin: renews Facebook Marketplace listings, posts one listing a day into new groups, and syncs prices.",
   "icons": { "128": "icon128.png" },
   "action": { "default_icon": "icon128.png", "default_title": "FA Vision autopilot" },

@@ -62,10 +62,14 @@
   }
 
   const visible = el => !!el && el.getClientRects().length > 0;
-  const label = el => ((el.getAttribute("aria-label") || "") + " " + (el.innerText || "")).trim();
+  const matches = (el, re) => re.test((el.getAttribute("aria-label") || "").trim()) || re.test((el.innerText || "").trim());
   function findBtn(re, root) {
     return [...(root || document).querySelectorAll('[role=button],button,[role=menuitem],[role=link]')]
-      .find(b => visible(b) && re.test(label(b)));
+      .find(b => visible(b) && matches(b, re));
+  }
+  // The photo comes through the add-on's background script (Facebook's page blocks downloads from other sites).
+  function getImage(url) {
+    return new Promise((res, rej) => chrome.runtime.sendMessage({ type: "image", url }, r => (r && r.dataUrl ? res(r.dataUrl) : rej(new Error((r && r.error) || "no image")))));
   }
   async function waitFor(fn, ms) {
     for (let t = 0; t < ms; t += 250) {
@@ -119,6 +123,9 @@
     if (!editor) { record(false, "Post box didn't open"); box(`${n}: post box didn't open. Skipping…`, true); return next(false); }
     const dialog = editor.closest("[role=dialog]");
     editor.focus();
+    document.execCommand("selectAll", false, null);
+    document.execCommand("delete", false, null);
+    await sleep(300);
     box(`${n}: typing the caption…`);
     const dt = new DataTransfer();
     dt.setData("text/plain", it.text);
@@ -131,7 +138,7 @@
     let photoNote = "";
     try {
       box(`${n}: adding the photo…`);
-      const blob = await fetch(it.img, { cache: "force-cache" }).then(r => { if (!r.ok) throw new Error(r.status); return r.blob(); });
+      const blob = await fetch(await getImage(it.img)).then(r => r.blob());
       const file = new File([blob], "fa-vision.jpg", { type: blob.type || "image/jpeg" });
       const hasPhoto = () => [...dialog.querySelectorAll("img")].some(i => /^blob:|scontent|fbcdn/.test(i.src) && i.naturalWidth > 60);
       const ft = new DataTransfer(); ft.items.add(file);
@@ -185,6 +192,9 @@
     box(`${n}: looking for Renew…`);
     await sleep(rand(2500, 4000));
     let w = warning(); if (w) return finish(`Facebook showed "${w}". Renewing stopped.`);
+    if (/\/marketplace\/ineligible/.test(location.pathname) || /pages can('|’)t use marketplace/i.test(document.body.innerText.slice(0, 3000))) {
+      return finish("Facebook is using your F.A Vision Page, and Pages can't use Marketplace. Switch to your personal profile in Facebook, then tap Renew again.");
+    }
     if (/listing (isn('|’)t|is no longer) available|this content isn('|’)t available|page isn('|’)t available/i.test(document.body.innerText.slice(0, 4000))) {
       record(false, "No longer on Facebook"); return next();
     }
@@ -219,7 +229,7 @@
     const SKIP = /^(joins|feed|discover|create|notifications|search|you|categories|membership_requests)$/i;
     const seen = new Map();
     const collect = () => {
-      for (const a of document.querySelectorAll('a[href*="/groups/"]')) {
+      for (const a of (document.querySelector("[role=main]") || document).querySelectorAll('a[href*="/groups/"]')) {
         let u; try { u = new URL(a.href, location.origin); } catch (e) { continue; }
         const mm = u.pathname.match(/^\/groups\/([^/]+)\/?$/);
         if (!mm || SKIP.test(mm[1])) continue;

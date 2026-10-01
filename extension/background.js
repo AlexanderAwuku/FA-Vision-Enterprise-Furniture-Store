@@ -61,3 +61,12 @@ async function check() {
     });
   }
 }
+
+// Photos for group posts: fetched here (this script may read your site) and handed to the Facebook tab.
+chrome.runtime.onMessage.addListener((msg, sender, reply) => {
+  if (!msg || msg.type !== "image" || !String(msg.url).startsWith(SITE)) return;
+  fetch(msg.url).then(r => { if (!r.ok) throw new Error("HTTP " + r.status); return r.blob(); })
+    .then(b => new Promise((res, rej) => { const fr = new FileReader(); fr.onload = () => res(fr.result); fr.onerror = rej; fr.readAsDataURL(b); }))
+    .then(dataUrl => reply({ dataUrl }), err => reply({ error: String(err) }));
+  return true;   // reply comes later
+});
