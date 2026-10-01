@@ -150,6 +150,7 @@ section { padding: 96px 0; }
 .badges { position: absolute; top: 12px; left: 12px; display: flex; gap: 6px; flex-wrap: wrap; z-index: 1; }
 .badge { background: rgba(32,33,36,.8); color: #fff; font-size: 11px; font-weight: 600; letter-spacing: .04em; padding: 5px 10px; border-radius: 999px; backdrop-filter: blur(6px); }
 .badge.gold { background: var(--brand-purple); color: #fff; }
+.badge.partner { background: #1b6b3a; color: #fff; }
 .badge.sold { background: var(--brand-red); }
 .photo-count { position: absolute; bottom: 10px; right: 10px; background: rgba(21,16,12,.7); color: #fff; font-size: 12px; padding: 3px 9px; border-radius: 999px; }
 .card-body { padding: 18px 20px 20px; display: flex; flex-direction: column; gap: 6px; flex: 1; }
@@ -507,3 +508,7 @@ section { padding: 96px 0; }
 .studio-teaser-txt b { display: block; color: var(--ink); font: 600 18px var(--serif); }
 .studio-teaser-cta { flex: none; font-weight: 600; color: var(--brand-blue); }
 @media (max-width: 640px) { .studio-teaser { flex-wrap: wrap; } }
+
+/* Partner products sold by another business */
+.pd-seller { margin: 0 0 16px; padding: 12px 14px; border-radius: 12px; background: #eaf6ee; color: #14442a; font-size: .95rem; line-height: 1.5; }
+.pd-seller a { color: inherit; font-weight: 600; }

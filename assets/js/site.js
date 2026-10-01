@@ -7,7 +7,11 @@
   const WA = business.whatsapp.replace(/\D/g, "");
   const SITE = (business.website || location.href.split("#")[0]).replace(/\/?$/, "/");
 
-  const waLink = msg => `https://wa.me/${WA}?text=${encodeURIComponent(msg)}`;
+  const waLink = (msg, num) => `https://wa.me/${num || WA}?text=${encodeURIComponent(msg)}`;
+  // Partner products (p.seller) are sold by another business: enquiries go to them.
+  const sellerWa = p => p.seller && p.seller.whatsapp ? p.seller.whatsapp.replace(/\D/g, "") : "";
+  const waFor = p => waLink(enquiry(p), sellerWa(p));
+  const sellerName = p => p.seller ? p.seller.name + (p.seller.formerly ? ` (formerly ${p.seller.formerly})` : "") : "";
   const productUrl = p => `${SITE}#product/${p.id}`;
 
   // ---------- helpers ----------
@@ -28,6 +32,7 @@
     toast.timer = setTimeout(() => t.classList.remove("show"), 2200);
   }
   function enquiry(p) {
+    if (p.seller) return `Hello ${p.seller.name}, I saw the ${p.name} (${p.id}) on the F.A Vision website.${p.price_ghs ? ` Listed at ${C.formatPrice(p.price_ghs)}.` : ""} Is it available?\n${productUrl(p)}`;
     return `Hello F.A Vision, I'm interested in the ${p.name} (${p.id}).${p.price_ghs ? ` Listed at ${C.formatPrice(p.price_ghs)}.` : ""} Is it available?\n${productUrl(p)}`;
   }
 
@@ -364,7 +369,8 @@
       const badges = [
         !p.in_stock ? `<span class="badge sold">Sold out</span>` : "",
         p.custom_order ? `<span class="badge">Made to order</span>` : "",
-        p.negotiable && p.price_ghs ? `<span class="badge gold">Negotiable</span>` : ""
+        p.negotiable && p.price_ghs ? `<span class="badge gold">Negotiable</span>` : "",
+        p.seller ? `<span class="badge partner">By ${esc(p.seller.name)}</span>` : ""
       ].join("");
       const n = (p.images || []).length;
       return `
@@ -376,7 +382,7 @@
           <p class="card-desc">${esc(p.description)}</p>
           <div class="card-foot">
             ${priceHtml(p)}
-            <a class="icon-btn" href="${waLink(enquiry(p))}" target="_blank" rel="noopener" aria-label="Enquire about ${esc(p.name)} on WhatsApp" data-stop>
+            <a class="icon-btn" href="${waFor(p)}" target="_blank" rel="noopener" aria-label="Enquire about ${esc(p.name)} on WhatsApp" data-stop>
               <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm4.5 12.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.9c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.3 2.2 2.2 0 0 0 .2-1.3c-.1-.1-.3-.2-.5-.3z"/></svg>
             </a>
           </div>
@@ -417,6 +423,7 @@
       ["Size", p.dimensions],
       ["Colours", (p.colors || []).join(", ")],
       ["Availability", p.in_stock ? (p.custom_order ? "Made to order" : "In stock") : "Sold out"],
+      ["Sold by", sellerName(p)],
       ["Ref", p.id]
     ].filter(([, v]) => v);
     $("#pd-body").innerHTML = `
@@ -429,13 +436,14 @@
         <h2 id="pd-title">${esc(p.name)}</h2>
         <div class="pd-price">${p.price_ghs ? `${C.formatPrice(p.price_ghs)}<small>${p.negotiable ? "Negotiable" : "Fixed price"}</small>` : `<span class="price request">Price on request</span>`}</div>
         <p class="pd-desc">${esc(p.description)}</p>
+        ${p.seller ? `<p class="pd-seller"><b>Sold by ${esc(sellerName(p))}</b>, a partner business. Call / WhatsApp ${p.seller.phones.map(n => `<a href="tel:${esc(n)}">${esc(C.localPhone(n))}</a>`).join(" · ")}${p.seller.address ? `<br>📍 ${esc(p.seller.address)}` : ""}</p>` : ""}
         ${(p.highlights || []).length ? `<ul class="features">${p.highlights.map(h => `<li>${esc(h)}</li>`).join("")}</ul>` : ""}
         ${CO.canBuy(p) ? `<div class="pd-pay">${CO.badges()}<small>Pay in full, pay a deposit, pay on delivery or walk in and pay.</small></div>` : ""}
         <dl class="specs">${specs.map(([k, v]) => `<dt>${k}</dt><dd>${esc(v)}</dd>`).join("")}</dl>
         <div class="pd-actions">
           ${CO.canBuy(p) ? `<button class="btn btn-gold pd-buy" id="pd-buy" type="button">Buy now</button>` : ""}
-          <a class="btn btn-wa"href="${waLink(enquiry(p))}" target="_blank" rel="noopener">Order on WhatsApp</a>
-          <a class="btn btn-outline" href="tel:${esc(business.phones ? business.phones[0] : business.whatsapp)}">Call</a>
+          <a class="btn btn-wa" href="${waFor(p)}" target="_blank" rel="noopener">Order on WhatsApp</a>
+          <a class="btn btn-outline" href="tel:${esc(p.seller ? p.seller.phones[0] : (business.phones ? business.phones[0] : business.whatsapp))}">Call</a>
           <button class="btn btn-outline" id="pd-share" type="button">Share</button>
         </div>
       </div>`;
@@ -449,7 +457,7 @@
     const buy = $("#pd-buy");
     if (buy) buy.addEventListener("click", () => CO.open(p));
     $("#pd-share").addEventListener("click", async () => {
-      const data = { title: p.name, text: `${p.name}${p.price_ghs ? " · " + C.formatPrice(p.price_ghs) : ""} from F.A Vision Enterprise`, url: productUrl(p) };
+      const data = { title: p.name, text: `${p.name}${p.price_ghs ? " · " + C.formatPrice(p.price_ghs) : ""} from ${p.seller ? p.seller.name : "F.A Vision Enterprise"}`, url: productUrl(p) };
       try {
         if (navigator.share) { await navigator.share(data); return; }
         await navigator.clipboard.writeText(`${data.text}\n${data.url}`);

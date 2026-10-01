@@ -13,6 +13,12 @@ Static GitHub Pages site, live at https://favisionenterprize.github.io (push to 
 - Locations: Odorkor (showroom), Omanjor (printing press), Kasoa
 - Student desk FAV-014: GH₵650/set, GH₵640 each from 50. In stock.
 
+## Partner products
+Products with a `seller` block (name, formerly, phones, whatsapp, address) are sold by another business Alexander runs. The site shows "Sold by …", sends WhatsApp/Call to the seller, hides online Buy; listings and strategy ads use the seller's contacts (make_ads.py, generate_listings.py).
+- ANAC Essentials (formerly ANAC Ventures): flour FAV-026, rice
+- AGOODMANN VENTURES: water closet FAV-024, tiles FAV-025
+- MANYE OYE REHOBOTH: rice and canola oil (ads not yet supplied)
+
 ## Socials (accounts)
 | Platform | Account | How to post |
 |---|---|---|

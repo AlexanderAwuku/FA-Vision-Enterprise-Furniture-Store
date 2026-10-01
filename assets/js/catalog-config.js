@@ -16,6 +16,10 @@ window.FAV_CONFIG = (function () {
     nightstand: "M5 5h14v14H5zM5 12h14M11 8.5h2M11 15.5h2M7 19v2M17 19v2",
     mirror: "M12 2a5 7 0 1 0 0 14 5 7 0 1 0 0-14zM12 16v5M8 21h8",
     wallpaper: "M4 3h16v18H4zM4 9h16M4 15h16M10 3v6M14 9v6M10 15v6",
+    toilet: "M6 3h7v6H6zM4 9h15a6 6 0 0 1-6 6H9a5 5 0 0 1-5-5zM9 15l-1 6h8l-1-6",
+    electronics: "M3 4h18v12H3zM8 20h8M12 16v4",
+    paper: "M6 2h9l4 4v16H6zM15 2v4h4M9 11h7M9 15h7M9 19h4",
+    grocery: "M6 7h12l-1 14H7zM9 7V5a3 3 0 0 1 6 0v2",
     custom: "M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.8-3.8a6 6 0 0 1-7.9 7.9l-6.9 6.9a2.1 2.1 0 0 1-3-3l6.9-6.9a6 6 0 0 1 7.9-7.9z"
   };
 
@@ -23,9 +27,13 @@ window.FAV_CONFIG = (function () {
     { id: "Living Room", icon: "sofa", types: ["Sofa", "Sectional Sofa", "Armchair", "Centre Table", "TV Stand", "Shoe Rack", "Side Table"] },
     { id: "Bedroom", icon: "bed", types: ["Bed Frame", "Wardrobe", "Bedside Table", "Dressing Mirror", "Chest of Drawers", "Mattress"] },
     { id: "Dining", icon: "dining", types: ["Dining Set", "Dining Table", "Dining Chairs", "Kitchen Cabinet", "Bar Stool"] },
-    { id: "Office", icon: "office", types: ["Office Desk", "Office Chair", "Bookshelf", "Conference Table", "Filing Cabinet", "Reception Desk"] },
+    { id: "Office", icon: "office", types: ["Office Desk", "Office Chair", "Conference Chair", "Bookshelf", "Conference Table", "Filing Cabinet", "Reception Desk"] },
     { id: "School", icon: "school", types: ["Classroom Desk", "Student Chair", "Teacher's Table", "Library Shelf", "Bunk Bed"] },
     { id: "Walls & Decor", icon: "wallpaper", types: ["Wallpaper", "Wall Panel"] },
+    { id: "Bathroom & Tiles", icon: "toilet", types: ["Water Closet", "Tiles", "Plumbing", "Bathroom Mirror"] },
+    { id: "Electronics", icon: "electronics", types: ["Television", "Air Conditioner", "Appliance"] },
+    { id: "Printing & Stationery", icon: "paper", types: ["Business Cards", "Copy Paper", "Printing", "Stationery"] },
+    { id: "Groceries", icon: "grocery", types: ["Flour", "Rice", "Cooking Oil", "Food Item"] },
     { id: "Custom", icon: "custom", types: ["Custom Build", "Re-upholstery", "Repairs", "Other"] }
   ];
 
@@ -37,7 +45,7 @@ window.FAV_CONFIG = (function () {
     "Dressing Mirror": "Mirrors", "Chest of Drawers": "Dressers", "Mattress": "Mattresses",
     "Dining Set": "Dining Sets", "Dining Table": "Tables", "Dining Chairs": "Chairs",
     "Kitchen Cabinet": "Cabinets", "Bar Stool": "Chairs",
-    "Office Desk": "Desks", "Office Chair": "Chairs", "Bookshelf": "Bookcases",
+    "Office Desk": "Desks", "Office Chair": "Chairs", "Conference Chair": "Chairs", "Bookshelf": "Bookcases",
     "Conference Table": "Tables", "Filing Cabinet": "Cabinets", "Reception Desk": "Desks",
     "Classroom Desk": "Desks", "Student Chair": "Chairs", "Teacher's Table": "Desks",
     "Library Shelf": "Bookcases", "Bunk Bed": "Beds & Bed Frames"
@@ -51,7 +59,7 @@ window.FAV_CONFIG = (function () {
     "Armchair": "chair", "Centre Table": "table", "Side Table": "table", "TV Stand": "tv", "Shoe Rack": "bookshelf",
     "Wardrobe": "wardrobe", "Bedside Table": "nightstand", "Dressing Mirror": "mirror", "Chest of Drawers": "nightstand",
     "Dining Table": "table", "Dining Chairs": "chair", "Kitchen Cabinet": "wardrobe", "Bar Stool": "chair",
-    "Office Chair": "chair", "Bookshelf": "bookshelf", "Conference Table": "table", "Filing Cabinet": "nightstand",
+    "Office Chair": "chair", "Conference Chair": "chair", "Bookshelf": "bookshelf", "Conference Table": "table", "Filing Cabinet": "nightstand",
     "Student Chair": "chair", "Library Shelf": "bookshelf", "Bunk Bed": "bed"
   };
 
@@ -68,6 +76,14 @@ window.FAV_CONFIG = (function () {
 
   function marketplaceCategory(type) {
     if (type === "Wallpaper" || type === "Wall Panel") return "Home & Garden > Home Decor > Wallpaper";
+    const OTHER = {
+      "Water Closet": "Home Improvement Supplies > Plumbing", "Tiles": "Home Improvement Supplies > Flooring",
+      "Plumbing": "Home Improvement Supplies > Plumbing", "Bathroom Mirror": "Home & Garden > Bath",
+      "Television": "Electronics > TVs", "Air Conditioner": "Home & Garden > Appliances", "Appliance": "Home & Garden > Appliances",
+      "Business Cards": "Office Supplies", "Copy Paper": "Office Supplies", "Printing": "Office Supplies", "Stationery": "Office Supplies",
+      "Flour": "Groceries", "Rice": "Groceries", "Cooking Oil": "Groceries", "Food Item": "Groceries"
+    };
+    if (OTHER[type]) return OTHER[type];
     return "Home & Garden > Furniture > " + (MARKETPLACE[type] || "Other Furniture");
   }
 

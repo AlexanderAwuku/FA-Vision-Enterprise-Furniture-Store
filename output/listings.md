@@ -45,7 +45,7 @@ Ref: FAV-001
 **Variant 1**
 
 ```
-🛋️ Rainbow Glass-Top Dining Set — 6 Chairs available now!
+🍽️ Rainbow Glass-Top Dining Set — 6 Chairs available now!
 • Tempered-glass top, easy to wipe clean
 • 6 padded, fully upholstered chairs
 • Chrome steel legs — stable and rust-resistant
@@ -60,7 +60,7 @@ Ref: FAV-001
 
 ```
 Looking for a quality rainbow glass-top dining set — 6 chairs? Tempered-glass top, easy to wipe clean.
-Available at our showroom in Odorkor, Accra. GH₵ 12,600.
+Available at Odorkor, Accra. GH₵ 12,600.
 Send us a message or WhatsApp 057 264 6176 to order. #FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
 ```
 
@@ -124,7 +124,7 @@ Ref: FAV-002
 **Variant 1**
 
 ```
-🛋️ Black Glass Dining Set — 6 High-Back Chairs available now!
+🍽️ Black Glass Dining Set — 6 High-Back Chairs available now!
 • Black tempered-glass top
 • 6 padded high-back chairs
 • Wipe-clean leatherette
@@ -139,7 +139,7 @@ Ref: FAV-002
 
 ```
 Looking for a quality black glass dining set — 6 high-back chairs? Black tempered-glass top.
-Available at our showroom in Odorkor, Accra. GH₵ 4,900.
+Available at Odorkor, Accra. GH₵ 4,900.
 Send us a message or WhatsApp 057 264 6176 to order. #FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
 ```
 
@@ -204,7 +204,7 @@ Ref: FAV-003
 **Variant 1**
 
 ```
-🛋️ Dining Set Collection — 5 Designs, 6 Chairs available now!
+🍽️ Dining Set Collection — 5 Designs, 6 Chairs available now!
 • 5 designs in the showroom
 • Seat 4 to 6
 • Glass and marble-effect tops
@@ -219,7 +219,7 @@ Ref: FAV-003
 
 ```
 Looking for a quality dining set collection — 5 designs, 6 chairs? 5 designs in the showroom.
-Available at our showroom in Odorkor, Accra. GH₵ 12,600.
+Available at Odorkor, Accra. GH₵ 12,600.
 Send us a message or WhatsApp 057 264 6176 to order. #FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
 ```
 
@@ -283,7 +283,7 @@ Ref: FAV-004
 **Variant 1**
 
 ```
-🛋️ Red Glass Dining Set — 6 Chairs available now!
+🍽️ Red Glass Dining Set — 6 Chairs available now!
 • Glossy red-brown glass top
 • 6 curved high-back chairs
 • Sturdy steel frame
@@ -298,7 +298,7 @@ Ref: FAV-004
 
 ```
 Looking for a quality red glass dining set — 6 chairs? Glossy red-brown glass top.
-Available at our showroom in Odorkor, Accra. GH₵ 12,600.
+Available at Odorkor, Accra. GH₵ 12,600.
 Send us a message or WhatsApp 057 264 6176 to order. #FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
 ```
 
@@ -362,7 +362,7 @@ Ref: FAV-005
 **Variant 1**
 
 ```
-🛋️ Foldable Wood-Grain Dining Set — 6 Chairs available now!
+🍽️ Foldable Wood-Grain Dining Set — 6 Chairs available now!
 • Folds away to save space
 • 6 cushioned chairs included
 • Strong steel frame
@@ -377,7 +377,7 @@ Ref: FAV-005
 
 ```
 Looking for a quality foldable wood-grain dining set — 6 chairs? Folds away to save space.
-Available at our showroom in Odorkor, Accra. GH₵ 11,900.
+Available at Odorkor, Accra. GH₵ 11,900.
 Send us a message or WhatsApp 057 264 6176 to order. #FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
 ```
 
@@ -441,7 +441,7 @@ Ref: FAV-006
 **Variant 1**
 
 ```
-🛋️ Executive Director Chair — Leather, High Back available now!
+🪑 Executive Director Chair — Leather, High Back available now!
 • High back with thick padding
 • Gas-lift height adjustment, tilt and 360° swivel
 • Chrome base with smooth castors
@@ -456,7 +456,7 @@ Ref: FAV-006
 
 ```
 Looking for a quality executive director chair — leather, high back? High back with thick padding.
-Available at our showroom in Odorkor, Accra. GH₵ 9,500.
+Available at Odorkor, Accra. GH₵ 9,500.
 Send us a message or WhatsApp 057 264 6176 to order. #FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
 ```
 
@@ -520,7 +520,7 @@ Ref: FAV-007
 **Variant 1**
 
 ```
-🛋️ Mesh Secretary Chair — Ergonomic Swivel available now!
+🪑 Mesh Secretary Chair — Ergonomic Swivel available now!
 • Breathable mesh back with lumbar support
 • Height adjustable, 360° swivel
 • Blue or green seat
@@ -535,7 +535,7 @@ Ref: FAV-007
 
 ```
 Looking for a quality mesh secretary chair — ergonomic swivel? Breathable mesh back with lumbar support.
-Available at our showroom in Odorkor, Accra. GH₵ 9,500.
+Available at Odorkor, Accra. GH₵ 9,500.
 Send us a message or WhatsApp 057 264 6176 to order. #FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
 ```
 
@@ -599,7 +599,7 @@ Ref: FAV-008
 **Variant 1**
 
 ```
-🛋️ 1.2 m Office Desk with Drawer Unit available now!
+🗄️ 1.2 m Office Desk with Drawer Unit available now!
 • 1.2 m work surface
 • Detachable 3-drawer unit
 • Flat-packed for easy delivery
@@ -614,7 +614,7 @@ Ref: FAV-008
 
 ```
 Looking for a quality 1.2 m office desk with drawer unit? 1.2 m work surface.
-Available at our showroom in Odorkor, Accra. GH₵ 4,500.
+Available at Odorkor, Accra. GH₵ 4,500.
 Send us a message or WhatsApp 057 264 6176 to order. #FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
 ```
 
@@ -678,7 +678,7 @@ Ref: FAV-009
 **Variant 1**
 
 ```
-🛋️ White Dressing Table with Mirror & Stool available now!
+🪞 White Dressing Table with Mirror & Stool available now!
 • Arched mirror with side shelves
 • Drawers plus storage cabinet
 • Matching padded stool included
@@ -693,7 +693,7 @@ Ref: FAV-009
 
 ```
 Looking for a quality white dressing table with mirror & stool? Arched mirror with side shelves.
-Available at our showroom in Odorkor, Accra. GH₵ 7,450.
+Available at Odorkor, Accra. GH₵ 7,450.
 Send us a message or WhatsApp 057 264 6176 to order. #FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
 ```
 
@@ -758,7 +758,7 @@ Ref: FAV-010
 **Variant 1**
 
 ```
-🛋️ Wardrobe — 4-Door with Top Cabinets available now!
+🚪 Wardrobe — 4-Door with Top Cabinets available now!
 • 4 doors plus top cabinets
 • Hanging space and shelves
 • Several colours and designs
@@ -773,7 +773,7 @@ Ref: FAV-010
 
 ```
 Looking for a quality wardrobe — 4-door with top cabinets? 4 doors plus top cabinets.
-Available at our showroom in Odorkor, Accra. GH₵ 9,800.
+Available at Odorkor, Accra. GH₵ 9,800.
 Send us a message or WhatsApp 057 264 6176 to order. #FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
 ```
 
@@ -853,7 +853,7 @@ Ref: FAV-011
 
 ```
 Looking for a quality l-shaped sectional sofa — grey fabric? Seats 5–6 comfortably.
-Available at our showroom in Odorkor, Accra. GH₵ 15,500.
+Available at Odorkor, Accra. GH₵ 15,500.
 Send us a message or WhatsApp 057 264 6176 to order. #FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
 ```
 
@@ -918,7 +918,7 @@ Ref: FAV-014
 **Variant 1**
 
 ```
-🛋️ Student Desk Chair Set — Senior High to Tertiary Level available now!
+🏫 Student Desk Chair Set — Senior High to Tertiary Level available now!
 • Height-adjustable desk (73–88 cm) and chair (46–52 cm)
 • Powder-coated carbon steel frame with MDF/melamine top
 • Anti-slip floor caps — no sliding, less noise
@@ -934,7 +934,7 @@ Ref: FAV-014
 
 ```
 Looking for a quality student desk chair set — senior high to tertiary level? Height-adjustable desk (73–88 cm) and chair (46–52 cm).
-Available at our showroom in Odorkor, Accra. GH₵ 650.
+Available at Odorkor, Accra. GH₵ 650.
 Send us a message or WhatsApp 057 264 6176 to order. #FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
 ```
 
@@ -953,4 +953,915 @@ DM or call 057 264 6176 #FAVisionEnterprise #FurnitureGhana #AccraFurniture #Who
 Student Desk Chair Set — Senior High to Tertiary Level 🔥
 GH₵ 650
 Order: https://wa.me/233572646176?text=Hello%20F.A%20Vision%2C%20I%27m%20interested%20in%20the%20Student%20Desk%20Chair%20Set%20%E2%80%94%20Senior%20High%20to%20Tertiary%20Level%20%28FAV-014%29.
+```
+
+## FAV-015 · L-Shaped Sofa Set — Fabric & Leather
+
+### Facebook Marketplace
+
+- **Title:** L-Shaped Sofa Set — Fabric & Leather
+- **Price:** 5500
+- **Category:** Home & Garden > Furniture > Sofas
+- **Condition:** Brand New
+- **Location:** Odorkor, Accra
+- **Photos:** assets/images/products/fav-015-mp-1.jpg, assets/images/products/fav-015-mp-2.jpg, assets/images/products/fav-015-mp-3.jpg, assets/images/products/fav-015-mp-4.jpg
+
+**Description:**
+
+```
+L-Shaped Sofa Set — Fabric & Leather by F.A Vision Enterprise.
+
+Modern L-shaped sofa set in fabric and leather, roomy enough for the whole family. Ready stock at our Odorkor showroom, with delivery across Accra.
+
+👉 See all photos, price and order online: https://favisionenterprize.github.io/#product/FAV-015
+
+✔ Modern L-shaped design
+✔ Fabric & leather finish
+✔ Seats the whole family
+✔ Bulk prices for hotels, lounges & Airbnbs
+
+
+Price negotiable for bulk orders.
+💳 Pay in full, pay 50% now and the rest on delivery, pay on delivery in Accra, or walk in and pay at the showroom.
+🚚 Delivery available across Accra and to Tema, Koforidua, Central Region and Kumasi (fee depends on location).
+📍 Showroom: Tarazzo Road, opposite Pacific, Odorkor, Accra, Greater Accra, Ghana (also Omanjor and Kasoa)
+📞 Call / WhatsApp: 057 264 6176 / 020 747 3267 / 054 614 8923
+🌐 https://favisionenterprize.github.io/
+Ref: FAV-015
+```
+
+### Group posts (use a different variant in each group)
+
+**Variant 1**
+
+```
+🛋️ L-Shaped Sofa Set — Fabric & Leather available now!
+• Modern L-shaped design
+• Fabric & leather finish
+• Seats the whole family
+• Bulk prices for hotels, lounges & Airbnbs
+💰 GH₵ 5,500
+📍 Odorkor, Accra, delivery available
+📞 WhatsApp 057 264 6176
+#FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
+```
+
+**Variant 2**
+
+```
+Looking for a quality l-shaped sofa set — fabric & leather? Modern L-shaped design.
+Available at Odorkor, Accra. GH₵ 5,500.
+Send us a message or WhatsApp 057 264 6176 to order. #FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
+```
+
+**Variant 3**
+
+```
+NEW FROM F.A VISION ✨ L-Shaped Sofa Set — Fabric & Leather
+GH₵ 5,500 | Ready for pickup
+Homes • Offices • Schools
+DM or call 057 264 6176 #FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
+```
+
+### WhatsApp status
+
+```
+L-Shaped Sofa Set — Fabric & Leather 🔥
+GH₵ 5,500
+Order: https://wa.me/233572646176?text=Hello%20F.A%20Vision%2C%20I%27m%20interested%20in%20the%20L-Shaped%20Sofa%20Set%20%E2%80%94%20Fabric%20%26%20Leather%20%28FAV-015%29.
+```
+
+## FAV-016 · Luxury Leather Sofa Set
+
+### Facebook Marketplace
+
+- **Title:** Luxury Leather Sofa Set
+- **Price:** 8500
+- **Category:** Home & Garden > Furniture > Sofas
+- **Condition:** Brand New
+- **Location:** Odorkor, Accra
+- **Photos:** assets/images/products/fav-016-mp-1.jpg
+
+**Description:**
+
+```
+Luxury Leather Sofa Set by F.A Vision Enterprise.
+
+Premium leather living-room sofa set, designed for elegance and built for comfort. Perfect for homes, offices, lounges and Airbnb setups. Ready stock: order today, enjoy tomorrow.
+
+👉 See all photos, price and order online: https://favisionenterprize.github.io/#product/FAV-016
+
+✔ Premium leather
+✔ Modern design that elevates your home
+✔ Durable & cozy for everyday use
+✔ Wholesale & bulk deals for resellers
+
+Material: Leather
+
+Price negotiable for bulk orders.
+💳 Pay in full, pay 50% now and the rest on delivery, pay on delivery in Accra, or walk in and pay at the showroom.
+🚚 Delivery available across Accra and to Tema, Koforidua, Central Region and Kumasi (fee depends on location).
+📍 Showroom: Tarazzo Road, opposite Pacific, Odorkor, Accra, Greater Accra, Ghana (also Omanjor and Kasoa)
+📞 Call / WhatsApp: 057 264 6176 / 020 747 3267 / 054 614 8923
+🌐 https://favisionenterprize.github.io/
+Ref: FAV-016
+```
+
+### Group posts (use a different variant in each group)
+
+**Variant 1**
+
+```
+🛋️ Luxury Leather Sofa Set available now!
+• Premium leather
+• Modern design that elevates your home
+• Durable & cozy for everyday use
+• Wholesale & bulk deals for resellers
+💰 GH₵ 8,500
+📍 Odorkor, Accra, delivery available
+📞 WhatsApp 057 264 6176
+#FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
+```
+
+**Variant 2**
+
+```
+Looking for a quality luxury leather sofa set? Premium leather.
+Available at Odorkor, Accra. GH₵ 8,500.
+Send us a message or WhatsApp 057 264 6176 to order. #FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
+```
+
+**Variant 3**
+
+```
+NEW FROM F.A VISION ✨ Luxury Leather Sofa Set
+GH₵ 8,500 | Ready for pickup
+Homes • Offices • Schools
+DM or call 057 264 6176 #FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
+```
+
+### WhatsApp status
+
+```
+Luxury Leather Sofa Set 🔥
+GH₵ 8,500
+Order: https://wa.me/233572646176?text=Hello%20F.A%20Vision%2C%20I%27m%20interested%20in%20the%20Luxury%20Leather%20Sofa%20Set%20%28FAV-016%29.
+```
+
+## FAV-017 · Mesh Secretary Chair — Swivel, Arm Rests
+
+### Facebook Marketplace
+
+- **Title:** Mesh Secretary Chair — Swivel, Arm Rests
+- **Price:** 4500
+- **Category:** Home & Garden > Furniture > Chairs
+- **Condition:** Brand New
+- **Location:** Odorkor, Accra
+- **Photos:** assets/images/products/fav-017-mp-1.jpg, assets/images/products/fav-017-mp-2.jpg
+
+**Description:**
+
+```
+Mesh Secretary Chair — Swivel, Arm Rests by F.A Vision Enterprise.
+
+Breathable mesh-back secretary swivel chair with arm rests and padded seat, for the long hours at the desk. Available in grey/blue and green.
+
+👉 See all photos, price and order online: https://favisionenterprize.github.io/#product/FAV-017
+
+✔ Breathable mesh back
+✔ 360° swivel with castor wheels
+✔ Padded seat and arm rests
+✔ Bulk prices for offices
+
+Colours: Grey, Blue, Green
+
+Price negotiable for bulk orders.
+💳 Pay in full, pay 50% now and the rest on delivery, pay on delivery in Accra, or walk in and pay at the showroom.
+🚚 Delivery available across Accra and to Tema, Koforidua, Central Region and Kumasi (fee depends on location).
+📍 Showroom: Tarazzo Road, opposite Pacific, Odorkor, Accra, Greater Accra, Ghana (also Omanjor and Kasoa)
+📞 Call / WhatsApp: 057 264 6176 / 020 747 3267 / 054 614 8923
+🌐 https://favisionenterprize.github.io/
+Ref: FAV-017
+```
+
+### Group posts (use a different variant in each group)
+
+**Variant 1**
+
+```
+💺 Mesh Secretary Chair — Swivel, Arm Rests available now!
+• Breathable mesh back
+• 360° swivel with castor wheels
+• Padded seat and arm rests
+• Bulk prices for offices
+💰 GH₵ 4,500
+📍 Odorkor, Accra, delivery available
+📞 WhatsApp 057 264 6176
+#FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
+```
+
+**Variant 2**
+
+```
+Looking for a quality mesh secretary chair — swivel, arm rests? Breathable mesh back.
+Available at Odorkor, Accra. GH₵ 4,500.
+Send us a message or WhatsApp 057 264 6176 to order. #FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
+```
+
+**Variant 3**
+
+```
+NEW FROM F.A VISION ✨ Mesh Secretary Chair — Swivel, Arm Rests
+GH₵ 4,500 | Ready for pickup
+Homes • Offices • Schools
+DM or call 057 264 6176 #FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
+```
+
+### WhatsApp status
+
+```
+Mesh Secretary Chair — Swivel, Arm Rests 🔥
+GH₵ 4,500
+Order: https://wa.me/233572646176?text=Hello%20F.A%20Vision%2C%20I%27m%20interested%20in%20the%20Mesh%20Secretary%20Chair%20%E2%80%94%20Swivel%2C%20Arm%20Rests%20%28FAV-017%29.
+```
+
+## FAV-018 · Strong Glass Centre Table
+
+### Facebook Marketplace
+
+- **Title:** Strong Glass Centre Table
+- **Price:** 800
+- **Category:** Home & Garden > Furniture > Tables
+- **Condition:** Brand New
+- **Location:** Odorkor, Accra
+- **Photos:** assets/images/products/fav-018-mp-1.jpg
+
+**Description:**
+
+```
+Strong Glass Centre Table by F.A Vision Enterprise.
+
+Very strong and durable oval glass-top centre table with a sculpted black base.
+
+👉 See all photos, price and order online: https://favisionenterprize.github.io/#product/FAV-018
+
+✔ Tempered glass top
+✔ Strong, durable base
+✔ Fits any living room
+
+
+Price negotiable for bulk orders.
+💳 Pay in full, pay 50% now and the rest on delivery, pay on delivery in Accra, or walk in and pay at the showroom.
+🚚 Delivery available across Accra and to Tema, Koforidua, Central Region and Kumasi (fee depends on location).
+📍 Showroom: Tarazzo Road, opposite Pacific, Odorkor, Accra, Greater Accra, Ghana (also Omanjor and Kasoa)
+📞 Call / WhatsApp: 057 264 6176 / 020 747 3267 / 054 614 8923
+🌐 https://favisionenterprize.github.io/
+Ref: FAV-018
+```
+
+### Group posts (use a different variant in each group)
+
+**Variant 1**
+
+```
+🪑 Strong Glass Centre Table available now!
+• Tempered glass top
+• Strong, durable base
+• Fits any living room
+💰 GH₵ 800
+📍 Odorkor, Accra, delivery available
+📞 WhatsApp 057 264 6176
+#FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
+```
+
+**Variant 2**
+
+```
+Looking for a quality strong glass centre table? Tempered glass top.
+Available at Odorkor, Accra. GH₵ 800.
+Send us a message or WhatsApp 057 264 6176 to order. #FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
+```
+
+**Variant 3**
+
+```
+NEW FROM F.A VISION ✨ Strong Glass Centre Table
+GH₵ 800 | Ready for pickup
+Homes • Offices • Schools
+DM or call 057 264 6176 #FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
+```
+
+### WhatsApp status
+
+```
+Strong Glass Centre Table 🔥
+GH₵ 800
+Order: https://wa.me/233572646176?text=Hello%20F.A%20Vision%2C%20I%27m%20interested%20in%20the%20Strong%20Glass%20Centre%20Table%20%28FAV-018%29.
+```
+
+## FAV-019 · Auditorium / Conference Chair
+
+### Facebook Marketplace
+
+- **Title:** Auditorium / Conference Chair
+- **Price:** 405
+- **Category:** Home & Garden > Furniture > Chairs
+- **Condition:** Brand New
+- **Location:** Odorkor, Accra
+- **Photos:** assets/images/products/fav-019-mp-1.jpg, assets/images/products/fav-019-mp-2.jpg
+
+**Description:**
+
+```
+Auditorium / Conference Chair by F.A Vision Enterprise.
+
+Stackable auditorium and conference chair with a gold steel frame and padded blue seat and back. For churches, schools, halls, events and conference rooms. Buy 100 and get 2 free or free delivery (T&Cs apply).
+
+👉 See all photos, price and order online: https://favisionenterprize.github.io/#product/FAV-019
+
+✔ Stackable steel frame
+✔ Padded seat and back
+✔ Churches, schools, halls & events
+✔ Buy 100, get 2 free or free delivery
+
+
+Price negotiable for bulk orders.
+💳 Pay in full, pay 50% now and the rest on delivery, pay on delivery in Accra, or walk in and pay at the showroom.
+🚚 Delivery available across Accra and to Tema, Koforidua, Central Region and Kumasi (fee depends on location).
+📍 Showroom: Tarazzo Road, opposite Pacific, Odorkor, Accra, Greater Accra, Ghana (also Omanjor and Kasoa)
+📞 Call / WhatsApp: 057 264 6176 / 020 747 3267 / 054 614 8923
+🌐 https://favisionenterprize.github.io/
+Ref: FAV-019
+```
+
+### Group posts (use a different variant in each group)
+
+**Variant 1**
+
+```
+💺 Auditorium / Conference Chair available now!
+• Stackable steel frame
+• Padded seat and back
+• Churches, schools, halls & events
+• Buy 100, get 2 free or free delivery
+💰 GH₵ 405
+📍 Odorkor, Accra, delivery available
+📞 WhatsApp 057 264 6176
+#FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
+```
+
+**Variant 2**
+
+```
+Looking for a quality auditorium / conference chair? Stackable steel frame.
+Available at Odorkor, Accra. GH₵ 405.
+Send us a message or WhatsApp 057 264 6176 to order. #FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
+```
+
+**Variant 3**
+
+```
+NEW FROM F.A VISION ✨ Auditorium / Conference Chair
+GH₵ 405 | Ready for pickup
+Homes • Offices • Schools
+DM or call 057 264 6176 #FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
+```
+
+### WhatsApp status
+
+```
+Auditorium / Conference Chair 🔥
+GH₵ 405
+Order: https://wa.me/233572646176?text=Hello%20F.A%20Vision%2C%20I%27m%20interested%20in%20the%20Auditorium%20/%20Conference%20Chair%20%28FAV-019%29.
+```
+
+## FAV-020 · Business Cards — 100 or 200 Pieces
+
+### Facebook Marketplace
+
+- **Title:** Business Cards — 100 or 200 Pieces
+- **Price:** 100
+- **Category:** Office Supplies
+- **Condition:** Brand New
+- **Location:** Odorkor, Accra
+- **Photos:** assets/images/products/fav-020-mp-1.jpg
+
+**Description:**
+
+```
+Business Cards — 100 or 200 Pieces by F.A Vision Enterprise.
+
+Professionally designed and printed business cards from our printing press at Omanjor. 100 pieces GH₵50 · 200 pieces GH₵100. Price with or without delivery.
+
+👉 See all photos, price and order online: https://favisionenterprize.github.io/#product/FAV-020
+
+✔ 100 pieces: GH₵50
+✔ 200 pieces: GH₵100
+✔ Design included
+✔ Printed at Omanjor
+
+
+💳 Pay in full, pay 50% now and the rest on delivery, pay on delivery in Accra, or walk in and pay at the showroom.
+🚚 Delivery available across Accra and to Tema, Koforidua, Central Region and Kumasi (fee depends on location).
+📍 Showroom: Tarazzo Road, opposite Pacific, Odorkor, Accra, Greater Accra, Ghana (also Omanjor and Kasoa)
+📞 Call / WhatsApp: 057 264 6176 / 020 747 3267 / 054 614 8923
+🌐 https://favisionenterprize.github.io/
+Ref: FAV-020
+```
+
+### Group posts (use a different variant in each group)
+
+**Variant 1**
+
+```
+🪪 Business Cards — 100 or 200 Pieces available now!
+• 100 pieces: GH₵50
+• 200 pieces: GH₵100
+• Design included
+• Printed at Omanjor
+💰 GH₵ 100
+📍 Odorkor, Accra, delivery available
+📞 WhatsApp 057 264 6176
+#FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
+```
+
+**Variant 2**
+
+```
+Looking for a quality business cards — 100 or 200 pieces? 100 pieces: GH₵50.
+Available at Odorkor, Accra. GH₵ 100.
+Send us a message or WhatsApp 057 264 6176 to order. #FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
+```
+
+**Variant 3**
+
+```
+NEW FROM F.A VISION ✨ Business Cards — 100 or 200 Pieces
+GH₵ 100 | Ready for pickup
+Homes • Offices • Schools
+DM or call 057 264 6176 #FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
+```
+
+### WhatsApp status
+
+```
+Business Cards — 100 or 200 Pieces 🔥
+GH₵ 100
+Order: https://wa.me/233572646176?text=Hello%20F.A%20Vision%2C%20I%27m%20interested%20in%20the%20Business%20Cards%20%E2%80%94%20100%20or%20200%20Pieces%20%28FAV-020%29.
+```
+
+## FAV-021 · A4 & A3 Copy Paper — Rotatrim, PaperOne, Double A
+
+### Facebook Marketplace
+
+- **Title:** A4 & A3 Copy Paper — Rotatrim, PaperOne, Double A
+- **Price:** 450
+- **Category:** Office Supplies
+- **Condition:** Brand New
+- **Location:** Odorkor, Accra
+- **Photos:** assets/images/products/fav-021-mp-1.jpg, assets/images/products/fav-021-mp-2.jpg, assets/images/products/fav-021-mp-3.jpg, assets/images/products/fav-021-mp-4.jpg, assets/images/products/fav-021-mp-5.jpg, assets/images/products/fav-021-mp-6.jpg
+
+**Description:**
+
+```
+A4 & A3 Copy Paper — Rotatrim, PaperOne, Double A by F.A Vision Enterprise.
+
+Quality A4 and A3 copy paper, wholesale and retail. Rotatrim 70, 75 and 80gsm, PaperOne 80gsm, Double A and Chamex multipurpose. For offices, schools, printing and photocopying. Bulk supply for businesses.
+
+👉 See all photos, price and order online: https://favisionenterprize.github.io/#product/FAV-021
+
+✔ A4 & A3 sizes
+✔ 70 / 75 / 80gsm
+✔ Rotatrim, PaperOne, Double A, Chamex
+✔ Wholesale & retail, fast delivery
+
+
+Price negotiable for bulk orders.
+💳 Pay in full, pay 50% now and the rest on delivery, pay on delivery in Accra, or walk in and pay at the showroom.
+🚚 Delivery available across Accra and to Tema, Koforidua, Central Region and Kumasi (fee depends on location).
+📍 Showroom: Tarazzo Road, opposite Pacific, Odorkor, Accra, Greater Accra, Ghana (also Omanjor and Kasoa)
+📞 Call / WhatsApp: 057 264 6176 / 020 747 3267 / 054 614 8923
+🌐 https://favisionenterprize.github.io/
+Ref: FAV-021
+```
+
+### Group posts (use a different variant in each group)
+
+**Variant 1**
+
+```
+📄 A4 & A3 Copy Paper — Rotatrim, PaperOne, Double A available now!
+• A4 & A3 sizes
+• 70 / 75 / 80gsm
+• Rotatrim, PaperOne, Double A, Chamex
+• Wholesale & retail, fast delivery
+💰 GH₵ 450
+📍 Odorkor, Accra, delivery available
+📞 WhatsApp 057 264 6176
+#FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
+```
+
+**Variant 2**
+
+```
+Looking for a quality a4 & a3 copy paper — rotatrim, paperone, double a? A4 & A3 sizes.
+Available at Odorkor, Accra. GH₵ 450.
+Send us a message or WhatsApp 057 264 6176 to order. #FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
+```
+
+**Variant 3**
+
+```
+NEW FROM F.A VISION ✨ A4 & A3 Copy Paper — Rotatrim, PaperOne, Double A
+GH₵ 450 | Ready for pickup
+Homes • Offices • Schools
+DM or call 057 264 6176 #FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
+```
+
+### WhatsApp status
+
+```
+A4 & A3 Copy Paper — Rotatrim, PaperOne, Double A 🔥
+GH₵ 450
+Order: https://wa.me/233572646176?text=Hello%20F.A%20Vision%2C%20I%27m%20interested%20in%20the%20A4%20%26%20A3%20Copy%20Paper%20%E2%80%94%20Rotatrim%2C%20PaperOne%2C%20Double%20A%20%28FAV-021%29.
+```
+
+## FAV-022 · TCL 43" Smart Android TV — Full HD (43S5400A)
+
+### Facebook Marketplace
+
+- **Title:** TCL 43" Smart Android TV — Full HD (43S5400A)
+- **Price:** 6500
+- **Category:** Electronics > TVs
+- **Condition:** Brand New
+- **Location:** Odorkor, Accra
+- **Photos:** assets/images/products/fav-022-mp-1.jpg, assets/images/products/fav-022-mp-2.jpg, assets/images/products/fav-022-mp-3.jpg, assets/images/products/fav-022-mp-4.jpg
+
+**Description:**
+
+```
+TCL 43" Smart Android TV — Full HD (43S5400A) by F.A Vision Enterprise.
+
+TCL S5400A 43-inch Full HD LED Smart TV with Android TV, Google Assistant voice remote and built-in Wi-Fi for Netflix, YouTube and Google Play. Sleek metallic design with ultra-thin edges.
+
+👉 See all photos, price and order online: https://favisionenterprize.github.io/#product/FAV-022
+
+✔ 43" Full HD LED
+✔ Android TV + Google Play
+✔ Voice remote with Google Assistant
+✔ Built-in Wi-Fi
+
+
+💳 Pay in full, pay 50% now and the rest on delivery, pay on delivery in Accra, or walk in and pay at the showroom.
+🚚 Delivery available across Accra and to Tema, Koforidua, Central Region and Kumasi (fee depends on location).
+📍 Showroom: Tarazzo Road, opposite Pacific, Odorkor, Accra, Greater Accra, Ghana (also Omanjor and Kasoa)
+📞 Call / WhatsApp: 057 264 6176 / 020 747 3267 / 054 614 8923
+🌐 https://favisionenterprize.github.io/
+Ref: FAV-022
+```
+
+### Group posts (use a different variant in each group)
+
+**Variant 1**
+
+```
+📺 TCL 43" Smart Android TV — Full HD (43S5400A) available now!
+• 43" Full HD LED
+• Android TV + Google Play
+• Voice remote with Google Assistant
+• Built-in Wi-Fi
+💰 GH₵ 6,500
+📍 Odorkor, Accra, delivery available
+📞 WhatsApp 057 264 6176
+#FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
+```
+
+**Variant 2**
+
+```
+Looking for a quality tcl 43" smart android tv — full hd (43s5400a)? 43" Full HD LED.
+Available at Odorkor, Accra. GH₵ 6,500.
+Send us a message or WhatsApp 057 264 6176 to order. #FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
+```
+
+**Variant 3**
+
+```
+NEW FROM F.A VISION ✨ TCL 43" Smart Android TV — Full HD (43S5400A)
+GH₵ 6,500 | Ready for pickup
+Homes • Offices • Schools
+DM or call 057 264 6176 #FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
+```
+
+### WhatsApp status
+
+```
+TCL 43" Smart Android TV — Full HD (43S5400A) 🔥
+GH₵ 6,500
+Order: https://wa.me/233572646176?text=Hello%20F.A%20Vision%2C%20I%27m%20interested%20in%20the%20TCL%2043%22%20Smart%20Android%20TV%20%E2%80%94%20Full%20HD%20%2843S5400A%29%20%28FAV-022%29.
+```
+
+## FAV-023 · Sigma 1.5HP Split Air Conditioner (BREEZE-HY12SB)
+
+### Facebook Marketplace
+
+- **Title:** Sigma 1.5HP Split Air Conditioner (BREEZE-HY12SB)
+- **Price:** 6500
+- **Category:** Home & Garden > Appliances
+- **Condition:** Brand New
+- **Location:** Odorkor, Accra
+- **Photos:** assets/images/products/fav-023-mp-1.jpg, assets/images/products/fav-023-mp-2.jpg
+
+**Description:**
+
+```
+Sigma 1.5HP Split Air Conditioner (BREEZE-HY12SB) by F.A Vision Enterprise.
+
+Sigma 1.5HP split air conditioner, R410A refrigerant, model BREEZE-HY12SB. Energy-efficient, powerful cooling at an affordable price, available for delivery.
+
+👉 See all photos, price and order online: https://favisionenterprize.github.io/#product/FAV-023
+
+✔ 1.5HP split unit
+✔ R410A refrigerant
+✔ Energy-efficient cooling
+✔ Delivery available
+
+
+💳 Pay in full, pay 50% now and the rest on delivery, pay on delivery in Accra, or walk in and pay at the showroom.
+🚚 Delivery available across Accra and to Tema, Koforidua, Central Region and Kumasi (fee depends on location).
+📍 Showroom: Tarazzo Road, opposite Pacific, Odorkor, Accra, Greater Accra, Ghana (also Omanjor and Kasoa)
+📞 Call / WhatsApp: 057 264 6176 / 020 747 3267 / 054 614 8923
+🌐 https://favisionenterprize.github.io/
+Ref: FAV-023
+```
+
+### Group posts (use a different variant in each group)
+
+**Variant 1**
+
+```
+❄️ Sigma 1.5HP Split Air Conditioner (BREEZE-HY12SB) available now!
+• 1.5HP split unit
+• R410A refrigerant
+• Energy-efficient cooling
+• Delivery available
+💰 GH₵ 6,500
+📍 Odorkor, Accra, delivery available
+📞 WhatsApp 057 264 6176
+#FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
+```
+
+**Variant 2**
+
+```
+Looking for a quality sigma 1.5hp split air conditioner (breeze-hy12sb)? 1.5HP split unit.
+Available at Odorkor, Accra. GH₵ 6,500.
+Send us a message or WhatsApp 057 264 6176 to order. #FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
+```
+
+**Variant 3**
+
+```
+NEW FROM F.A VISION ✨ Sigma 1.5HP Split Air Conditioner (BREEZE-HY12SB)
+GH₵ 6,500 | Ready for pickup
+Homes • Offices • Schools
+DM or call 057 264 6176 #FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
+```
+
+### WhatsApp status
+
+```
+Sigma 1.5HP Split Air Conditioner (BREEZE-HY12SB) 🔥
+GH₵ 6,500
+Order: https://wa.me/233572646176?text=Hello%20F.A%20Vision%2C%20I%27m%20interested%20in%20the%20Sigma%201.5HP%20Split%20Air%20Conditioner%20%28BREEZE-HY12SB%29%20%28FAV-023%29.
+```
+
+## FAV-024 · TWYFORD Water Closet — Two-Piece, Premium
+
+> Partner product: sold by AGOODMANN VENTURES. Their contacts are used below.
+
+### Facebook Marketplace
+
+- **Title:** TWYFORD Water Closet — Two-Piece, Premium
+- **Price:** 750
+- **Category:** Home Improvement Supplies > Plumbing
+- **Condition:** Brand New
+- **Location:** Odorkor, Accra
+- **Photos:** assets/images/products/fav-024-mp-1.jpg, assets/images/products/fav-024-mp-2.jpg, assets/images/products/fav-024-mp-3.jpg, assets/images/products/fav-024-mp-4.jpg, assets/images/products/fav-024-mp-5.jpg, assets/images/products/fav-024-mp-6.jpg
+
+**Description:**
+
+```
+TWYFORD Water Closet — Two-Piece, Premium by AGOODMANN VENTURES.
+
+Brand-new two-piece TWYFORD water closet: high-quality ceramic, sleek modern design, easy to clean, powerful straight-inlet flush. For homes, offices and large projects; other models on request. Bulk discounts. Sold by AGOODMANN VENTURES, Kantamanto.
+
+👉 See all photos, price and order online: https://favisionenterprize.github.io/#product/FAV-024
+
+✔ High-quality ceramic
+✔ Powerful straight-inlet flush
+✔ Easy to clean
+✔ Bulk discounts available
+
+
+Price negotiable for bulk orders.
+🚚 Contact us for delivery.
+📍 Kantamanto, near Grandview Hotel, UTC, close to Barclays Bank, Mamleshie Rd, Accra
+📞 Call / WhatsApp: 027 747 7752 / 024 477 2036
+🌐 https://favisionenterprize.github.io/
+Ref: FAV-024
+```
+
+### Group posts (use a different variant in each group)
+
+**Variant 1**
+
+```
+🚽 TWYFORD Water Closet — Two-Piece, Premium available now!
+• High-quality ceramic
+• Powerful straight-inlet flush
+• Easy to clean
+• Bulk discounts available
+💰 GH₵ 750
+📍 Kantamanto, near Grandview Hotel, UTC, close to Barclays Bank, Mamleshie Rd, Accra, delivery available
+📞 WhatsApp 027 747 7752
+#FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
+```
+
+**Variant 2**
+
+```
+Looking for a quality twyford water closet — two-piece, premium? High-quality ceramic.
+Available at Kantamanto, near Grandview Hotel, UTC, close to Barclays Bank, Mamleshie Rd, Accra. GH₵ 750.
+Send us a message or WhatsApp 027 747 7752 to order. #FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
+```
+
+**Variant 3**
+
+```
+NEW FROM AGOODMANN VENTURES ✨ TWYFORD Water Closet — Two-Piece, Premium
+GH₵ 750 | Ready for pickup
+Homes • Offices • Schools
+DM or call 027 747 7752 #FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
+```
+
+### WhatsApp status
+
+```
+TWYFORD Water Closet — Two-Piece, Premium 🔥
+GH₵ 750
+Order: https://wa.me/233277477752?text=Hello%20AGOODMANN%20VENTURES%2C%20I%27m%20interested%20in%20the%20TWYFORD%20Water%20Closet%20%E2%80%94%20Two-Piece%2C%20Premium%20%28FAV-024%29.
+```
+
+## FAV-025 · Tiles & Finishes — Floor & Wall
+
+> Partner product: sold by AGOODMANN VENTURES. Their contacts are used below.
+
+### Facebook Marketplace
+
+- **Title:** Tiles & Finishes — Floor & Wall
+- **Price:** ⚠️ set price_ghs
+- **Category:** Home Improvement Supplies > Flooring
+- **Condition:** Brand New
+- **Location:** Odorkor, Accra
+- **Photos:** assets/images/products/fav-025-mp-1.jpg, assets/images/products/fav-025-mp-2.jpg, assets/images/products/fav-025-mp-3.jpg, assets/images/products/fav-025-mp-4.jpg, assets/images/products/fav-025-mp-5.jpg, assets/images/products/fav-025-mp-6.jpg
+
+**Description:**
+
+```
+Tiles & Finishes — Floor & Wall by AGOODMANN VENTURES.
+
+Anti-skid floor tiles, glossy and matte wall tiles, tile grout and adhesive, plus toilet sets, plumbing materials and stylish mirrors. Wholesale and retail. Sold by AGOODMANN VENTURES, Kantamanto: ask for prices.
+
+👉 See all photos, price and order online: https://favisionenterprize.github.io/#product/FAV-025
+
+✔ Floor tiles (anti-skid)
+✔ Wall tiles: glossy or matte
+✔ Grout & adhesive
+✔ Wholesale & retail
+
+
+Price negotiable for bulk orders.
+🚚 Contact us for delivery.
+📍 Kantamanto, near Grandview Hotel, UTC, close to Barclays Bank, Mamleshie Rd, Accra
+📞 Call / WhatsApp: 027 747 7752 / 024 477 2036
+🌐 https://favisionenterprize.github.io/
+Ref: FAV-025
+```
+
+### Group posts (use a different variant in each group)
+
+**Variant 1**
+
+```
+🏠 Tiles & Finishes — Floor & Wall available now!
+• Floor tiles (anti-skid)
+• Wall tiles: glossy or matte
+• Grout & adhesive
+• Wholesale & retail
+💰 Price on request
+📍 Kantamanto, near Grandview Hotel, UTC, close to Barclays Bank, Mamleshie Rd, Accra, delivery available
+📞 WhatsApp 027 747 7752
+#FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
+```
+
+**Variant 2**
+
+```
+Looking for a quality tiles & finishes — floor & wall? Floor tiles (anti-skid).
+Available at Kantamanto, near Grandview Hotel, UTC, close to Barclays Bank, Mamleshie Rd, Accra. Price on request.
+Send us a message or WhatsApp 027 747 7752 to order. #FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
+```
+
+**Variant 3**
+
+```
+NEW FROM AGOODMANN VENTURES ✨ Tiles & Finishes — Floor & Wall
+Price on request | Ready for pickup
+Homes • Offices • Schools
+DM or call 027 747 7752 #FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
+```
+
+### WhatsApp status
+
+```
+Tiles & Finishes — Floor & Wall 🔥
+Price on request
+Order: https://wa.me/233277477752?text=Hello%20AGOODMANN%20VENTURES%2C%20I%27m%20interested%20in%20the%20Tiles%20%26%20Finishes%20%E2%80%94%20Floor%20%26%20Wall%20%28FAV-025%29.
+```
+
+## FAV-026 · Kavukçu Wheat Flour — 50kg Baking Flour
+
+> Partner product: sold by ANAC Essentials (formerly ANAC Ventures). Their contacts are used below.
+
+### Facebook Marketplace
+
+- **Title:** Kavukçu Wheat Flour — 50kg Baking Flour
+- **Price:** 650
+- **Category:** Groceries
+- **Condition:** Brand New
+- **Location:** Odorkor, Accra
+- **Photos:** assets/images/products/fav-026-mp-1.jpg, assets/images/products/fav-026-mp-2.jpg, assets/images/products/fav-026-mp-3.jpg, assets/images/products/fav-026-mp-4.jpg
+
+**Description:**
+
+```
+Kavukçu Wheat Flour — 50kg Baking Flour by ANAC Essentials (formerly ANAC Ventures).
+
+Kavukçu wheat flour, the professional baker's choice: strong dough, reliable yield, consistent quality batch after batch. Made in Turkey, est. 1920. 50kg professional pack. For butter, sugar and tea bread, rolls, burger buns, doughnuts and pizza dough. Sold by ANAC Essentials (formerly ANAC Ventures).
+
+👉 See all photos, price and order online: https://favisionenterprize.github.io/#product/FAV-026
+
+✔ 50kg professional pack
+✔ Strong dough, reliable yield
+✔ Bread, buns, doughnuts & pizza
+✔ Made in Turkey, est. 1920
+
+
+🚚 Contact us for delivery.
+📍 Accra, Ghana
+📞 Call / WhatsApp: 055 543 4994 / 055 703 3525
+🌐 https://favisionenterprize.github.io/
+Ref: FAV-026
+```
+
+### Group posts (use a different variant in each group)
+
+**Variant 1**
+
+```
+🌾 Kavukçu Wheat Flour — 50kg Baking Flour available now!
+• 50kg professional pack
+• Strong dough, reliable yield
+• Bread, buns, doughnuts & pizza
+• Made in Turkey, est. 1920
+💰 GH₵ 650
+📍 Accra, Ghana, delivery available
+📞 WhatsApp 055 543 4994
+#FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
+```
+
+**Variant 2**
+
+```
+Looking for a quality kavukçu wheat flour — 50kg baking flour? 50kg professional pack.
+Available at Accra, Ghana. GH₵ 650.
+Send us a message or WhatsApp 055 543 4994 to order. #FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
+```
+
+**Variant 3**
+
+```
+NEW FROM ANAC ESSENTIALS (FORMERLY ANAC VENTURES) ✨ Kavukçu Wheat Flour — 50kg Baking Flour
+GH₵ 650 | Ready for pickup
+Homes • Offices • Schools
+DM or call 055 543 4994 #FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
+```
+
+### WhatsApp status
+
+```
+Kavukçu Wheat Flour — 50kg Baking Flour 🔥
+GH₵ 650
+Order: https://wa.me/233555434994?text=Hello%20ANAC%20Essentials%20%28formerly%20ANAC%20Ventures%29%2C%20I%27m%20interested%20in%20the%20Kavuk%C3%A7u%20Wheat%20Flour%20%E2%80%94%2050kg%20Baking%20Flour%20%28FAV-026%29.
 ```

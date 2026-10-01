@@ -58,7 +58,8 @@ def price_text(product):
 
 def whatsapp_link(business, product):
     number = "".join(c for c in business["whatsapp"] if c.isdigit())
-    message = f"Hello F.A Vision, I'm interested in the {product['name']} ({product['id']})."
+    who = business["name"] if product.get("seller") else "F.A Vision"
+    message = f"Hello {who}, I'm interested in the {product['name']} ({product['id']})."
     return f"https://wa.me/{number}?text={quote(message)}"
 
 
@@ -97,9 +98,9 @@ def marketplace_description(business, product):
     parts += [
         "",
         "Price negotiable for bulk orders." if product.get("negotiable") else None,
-        "💳 Pay in full, pay 50% now and the rest on delivery, pay on delivery in Accra, or walk in and pay at the showroom.",
+        None if product.get("seller") else "💳 Pay in full, pay 50% now and the rest on delivery, pay on delivery in Accra, or walk in and pay at the showroom.",
         f"🚚 {business['delivery_note']}",
-        f"📍 Showroom: {business['address']} (also Omanjor and Kasoa)",
+        f"📍 {business['address']}" if product.get("seller") else f"📍 Showroom: {business['address']} (also Omanjor and Kasoa)",
         f"📞 Call / WhatsApp: {' / '.join(local(n) for n in business['phones'])}",
         f"🌐 {site}" if site else None,
         f"Ref: {product['id']}",
@@ -116,13 +117,15 @@ def group_captions(business, product):
     first = highlights[0] if highlights else ""
     bullet_list = "\n".join(f"• {h}" for h in highlights)
     wa = local(business["whatsapp"])
+    where = business["address"] if product.get("seller") else "Odorkor, Accra"
+    brand = business["name"].upper() if product.get("seller") else "F.A VISION"
     return [
-        f"🛋️ {product['name']} available now!\n{bullet_list}\n💰 {price}\n"
-        f"📍 Odorkor, Accra, delivery available\n📞 WhatsApp {wa}\n{tags}",
+        f"{product.get('icon') or '🛋️'} {product['name']} available now!\n{bullet_list}\n💰 {price}\n"
+        f"📍 {where}, delivery available\n📞 WhatsApp {wa}\n{tags}",
         f"Looking for a quality {product['name'].lower()}? {first}.\n"
-        f"Available at our showroom in Odorkor, Accra. {price}.\n"
+        f"Available at {where}. {price}.\n"
         f"Send us a message or WhatsApp {wa} to order. {tags}",
-        f"NEW FROM F.A VISION ✨ {product['name']}\n{price} | "
+        f"NEW FROM {brand} ✨ {product['name']}\n{price} | "
         f"{'Made to order in your size and colour' if product.get('custom_order') else 'Ready for pickup'}\n"
         f"Homes • Offices • Schools\nDM or call {wa} {tags}",
     ]
@@ -135,11 +138,27 @@ def whatsapp_status(business, product):
     )
 
 
+def for_product(business, product):
+    """Partner products (product["seller"]) are sold by another business, so
+    their listings carry that business's name and contacts, not F.A Vision's."""
+    seller = product.get("seller")
+    if not seller:
+        return business
+    name = seller["name"] + (f" (formerly {seller['formerly']})" if seller.get("formerly") else "")
+    return {**business, "name": name, "phones": seller["phones"],
+            "whatsapp": seller.get("whatsapp") or seller["phones"][0],
+            "address": seller.get("address") or "Accra, Ghana",
+            "delivery_note": "Contact us for delivery."}
+
+
 def write_listings(business, products):
     out = [f"# {business['name']}: ready-to-paste listings", "",
            f"Generated {date.today().isoformat()}. Regenerate after editing `data/products.json`.", ""]
     for p in products:
+        biz = for_product(business, p)
         out += [f"## {p['id']} · {p['name']}", ""]
+        if p.get("seller"):
+            out += [f"> Partner product: sold by {biz['name']}. Their contacts are used below.", ""]
         if p.get("placeholder"):
             out += ["> ⚠️ Placeholder product: confirm details, price and photos before posting.", ""]
         out += [
@@ -155,15 +174,15 @@ def write_listings(business, products):
             "**Description:**",
             "",
             "```",
-            marketplace_description(business, p),
+            marketplace_description(biz, p),
             "```",
             "",
             "### Group posts (use a different variant in each group)",
             "",
         ]
-        for i, caption in enumerate(group_captions(business, p), 1):
+        for i, caption in enumerate(group_captions(biz, p), 1):
             out += [f"**Variant {i}**", "", "```", caption, "```", ""]
-        out += ["### WhatsApp status", "", "```", whatsapp_status(business, p), "```", ""]
+        out += ["### WhatsApp status", "", "```", whatsapp_status(biz, p), "```", ""]
     (OUT / "listings.md").write_text("\n".join(out), encoding="utf-8")
 
 
@@ -205,7 +224,7 @@ def write_catalog(business, products):
                 "price": f"{p['price_ghs']:.2f} GHS",
                 "link": business.get("website") or whatsapp_link(business, p),
                 "image_link": image,
-                "brand": business["name"],
+                "brand": for_product(business, p)["name"],
             })
     return skipped
 

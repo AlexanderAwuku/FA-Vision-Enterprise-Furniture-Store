@@ -610,5 +610,470 @@
         "synced": "2026-09-29"
       }
     ]
+  },
+  {
+    "id": "FAV-015",
+    "name": "L-Shaped Sofa Set — Fabric & Leather",
+    "category": "Living Room",
+    "type": "Sectional Sofa",
+    "marketplace_category": "Home & Garden > Furniture > Sofas",
+    "price_ghs": 5500,
+    "negotiable": true,
+    "icon": "🛋️",
+    "description": "Modern L-shaped sofa set in fabric and leather, roomy enough for the whole family. Ready stock at our Odorkor showroom, with delivery across Accra.",
+    "condition": "Brand New",
+    "custom_order": false,
+    "in_stock": true,
+    "images": [
+      "assets/images/products/fav-015-mp-1.jpg",
+      "assets/images/products/fav-015-mp-2.jpg",
+      "assets/images/products/fav-015-mp-3.jpg",
+      "assets/images/products/fav-015-mp-4.jpg"
+    ],
+    "highlights": [
+      "Modern L-shaped design",
+      "Fabric & leather finish",
+      "Seats the whole family",
+      "Bulk prices for hotels, lounges & Airbnbs"
+    ],
+    "placeholder": false,
+    "facebook_listings": [
+      {
+        "id": "2238896243556472",
+        "title": "Sofa",
+        "price": 5500,
+        "checked": "2026-10-01",
+        "synced": "2026-10-01"
+      }
+    ]
+  },
+  {
+    "id": "FAV-016",
+    "name": "Luxury Leather Sofa Set",
+    "category": "Living Room",
+    "type": "Sofa",
+    "marketplace_category": "Home & Garden > Furniture > Sofas",
+    "price_ghs": 8500,
+    "negotiable": true,
+    "icon": "🛋️",
+    "description": "Premium leather living-room sofa set, designed for elegance and built for comfort. Perfect for homes, offices, lounges and Airbnb setups. Ready stock: order today, enjoy tomorrow.",
+    "condition": "Brand New",
+    "custom_order": false,
+    "in_stock": true,
+    "images": [
+      "assets/images/products/fav-016-mp-1.jpg"
+    ],
+    "highlights": [
+      "Premium leather",
+      "Modern design that elevates your home",
+      "Durable & cozy for everyday use",
+      "Wholesale & bulk deals for resellers"
+    ],
+    "placeholder": false,
+    "facebook_listings": [
+      {
+        "id": "2091388541454460",
+        "title": "LUXURY Sofasets MEETS COMFORT — FOR JUST GH₵8,500!",
+        "price": 8500,
+        "checked": "2026-10-01",
+        "synced": "2026-10-01"
+      }
+    ],
+    "material": "Leather"
+  },
+  {
+    "id": "FAV-017",
+    "name": "Mesh Secretary Chair — Swivel, Arm Rests",
+    "category": "Office",
+    "type": "Office Chair",
+    "marketplace_category": "Home & Garden > Furniture > Chairs",
+    "price_ghs": 4500,
+    "negotiable": true,
+    "icon": "💺",
+    "description": "Breathable mesh-back secretary swivel chair with arm rests and padded seat, for the long hours at the desk. Available in grey/blue and green.",
+    "condition": "Brand New",
+    "custom_order": false,
+    "in_stock": true,
+    "images": [
+      "assets/images/products/fav-017-mp-1.jpg",
+      "assets/images/products/fav-017-mp-2.jpg"
+    ],
+    "highlights": [
+      "Breathable mesh back",
+      "360° swivel with castor wheels",
+      "Padded seat and arm rests",
+      "Bulk prices for offices"
+    ],
+    "placeholder": false,
+    "facebook_listings": [
+      {
+        "id": "1424137636253244",
+        "title": "Secretary Chair",
+        "price": 4500,
+        "checked": "2026-10-01",
+        "synced": "2026-10-01"
+      }
+    ],
+    "colors": [
+      "Grey",
+      "Blue",
+      "Green"
+    ]
+  },
+  {
+    "id": "FAV-018",
+    "name": "Strong Glass Centre Table",
+    "category": "Living Room",
+    "type": "Centre Table",
+    "marketplace_category": "Home & Garden > Furniture > Tables",
+    "price_ghs": 800,
+    "negotiable": true,
+    "icon": "🪑",
+    "description": "Very strong and durable oval glass-top centre table with a sculpted black base.",
+    "condition": "Brand New",
+    "custom_order": false,
+    "in_stock": true,
+    "images": [
+      "assets/images/products/fav-018-mp-1.jpg"
+    ],
+    "highlights": [
+      "Tempered glass top",
+      "Strong, durable base",
+      "Fits any living room"
+    ],
+    "placeholder": false,
+    "facebook_listings": [
+      {
+        "id": "1908517753480481",
+        "title": "Strong 💪 Centre table",
+        "price": 800,
+        "checked": "2026-10-01",
+        "synced": "2026-10-01"
+      }
+    ]
+  },
+  {
+    "id": "FAV-019",
+    "name": "Auditorium / Conference Chair",
+    "category": "Office",
+    "type": "Conference Chair",
+    "marketplace_category": "Home & Garden > Furniture > Chairs",
+    "price_ghs": 405,
+    "negotiable": true,
+    "icon": "💺",
+    "description": "Stackable auditorium and conference chair with a gold steel frame and padded blue seat and back. For churches, schools, halls, events and conference rooms. Buy 100 and get 2 free or free delivery (T&Cs apply).",
+    "condition": "Brand New",
+    "custom_order": false,
+    "in_stock": true,
+    "images": [
+      "assets/images/products/fav-019-mp-1.jpg",
+      "assets/images/products/fav-019-mp-2.jpg"
+    ],
+    "highlights": [
+      "Stackable steel frame",
+      "Padded seat and back",
+      "Churches, schools, halls & events",
+      "Buy 100, get 2 free or free delivery"
+    ],
+    "placeholder": false,
+    "facebook_listings": [
+      {
+        "id": "1580289473480753",
+        "title": "Auditorium Chair GH₵450",
+        "price": 405,
+        "checked": "2026-10-01",
+        "synced": "2026-10-01"
+      }
+    ]
+  },
+  {
+    "id": "FAV-020",
+    "name": "Business Cards — 100 or 200 Pieces",
+    "category": "Printing & Stationery",
+    "type": "Business Cards",
+    "marketplace_category": "Office Supplies",
+    "price_ghs": 100,
+    "negotiable": false,
+    "icon": "🪪",
+    "description": "Professionally designed and printed business cards from our printing press at Omanjor. 100 pieces GH₵50 · 200 pieces GH₵100. Price with or without delivery.",
+    "condition": "Brand New",
+    "custom_order": false,
+    "in_stock": true,
+    "images": [
+      "assets/images/products/fav-020-mp-1.jpg"
+    ],
+    "highlights": [
+      "100 pieces: GH₵50",
+      "200 pieces: GH₵100",
+      "Design included",
+      "Printed at Omanjor"
+    ],
+    "placeholder": false,
+    "facebook_listings": [
+      {
+        "id": "2017230745600774",
+        "title": "Complementary Cards",
+        "price": 100,
+        "checked": "2026-10-01",
+        "synced": "2026-10-01"
+      }
+    ]
+  },
+  {
+    "id": "FAV-021",
+    "name": "A4 & A3 Copy Paper — Rotatrim, PaperOne, Double A",
+    "category": "Printing & Stationery",
+    "type": "Copy Paper",
+    "marketplace_category": "Office Supplies",
+    "price_ghs": 450,
+    "negotiable": true,
+    "icon": "📄",
+    "description": "Quality A4 and A3 copy paper, wholesale and retail. Rotatrim 70, 75 and 80gsm, PaperOne 80gsm, Double A and Chamex multipurpose. For offices, schools, printing and photocopying. Bulk supply for businesses.",
+    "condition": "Brand New",
+    "custom_order": false,
+    "in_stock": true,
+    "images": [
+      "assets/images/products/fav-021-mp-1.jpg",
+      "assets/images/products/fav-021-mp-2.jpg",
+      "assets/images/products/fav-021-mp-3.jpg",
+      "assets/images/products/fav-021-mp-4.jpg",
+      "assets/images/products/fav-021-mp-5.jpg",
+      "assets/images/products/fav-021-mp-6.jpg"
+    ],
+    "highlights": [
+      "A4 & A3 sizes",
+      "70 / 75 / 80gsm",
+      "Rotatrim, PaperOne, Double A, Chamex",
+      "Wholesale & retail, fast delivery"
+    ],
+    "placeholder": false,
+    "facebook_listings": [
+      {
+        "id": "942454125533822",
+        "title": "Rotatrim A4 paper",
+        "price": 450,
+        "checked": "2026-10-01",
+        "synced": "2026-10-01"
+      },
+      {
+        "id": "1574256264187405",
+        "title": "A4 , A3 paper size available",
+        "price": 450,
+        "checked": "2026-10-01",
+        "synced": "2026-10-01"
+      }
+    ]
+  },
+  {
+    "id": "FAV-022",
+    "name": "TCL 43\" Smart Android TV — Full HD (43S5400A)",
+    "category": "Electronics",
+    "type": "Television",
+    "marketplace_category": "Electronics > TVs",
+    "price_ghs": 6500,
+    "negotiable": false,
+    "icon": "📺",
+    "description": "TCL S5400A 43-inch Full HD LED Smart TV with Android TV, Google Assistant voice remote and built-in Wi-Fi for Netflix, YouTube and Google Play. Sleek metallic design with ultra-thin edges.",
+    "condition": "Brand New",
+    "custom_order": false,
+    "in_stock": true,
+    "images": [
+      "assets/images/products/fav-022-mp-1.jpg",
+      "assets/images/products/fav-022-mp-2.jpg",
+      "assets/images/products/fav-022-mp-3.jpg",
+      "assets/images/products/fav-022-mp-4.jpg"
+    ],
+    "highlights": [
+      "43\" Full HD LED",
+      "Android TV + Google Play",
+      "Voice remote with Google Assistant",
+      "Built-in Wi-Fi"
+    ],
+    "placeholder": false,
+    "facebook_listings": [
+      {
+        "id": "1349637790147024",
+        "title": "TCL 43S5400A Smart TV LED Android TV Full HD 43",
+        "price": 6500,
+        "checked": "2026-10-01",
+        "synced": "2026-10-01"
+      }
+    ]
+  },
+  {
+    "id": "FAV-023",
+    "name": "Sigma 1.5HP Split Air Conditioner (BREEZE-HY12SB)",
+    "category": "Electronics",
+    "type": "Air Conditioner",
+    "marketplace_category": "Home & Garden > Appliances",
+    "price_ghs": 6500,
+    "negotiable": false,
+    "icon": "❄️",
+    "description": "Sigma 1.5HP split air conditioner, R410A refrigerant, model BREEZE-HY12SB. Energy-efficient, powerful cooling at an affordable price, available for delivery.",
+    "condition": "Brand New",
+    "custom_order": false,
+    "in_stock": true,
+    "images": [
+      "assets/images/products/fav-023-mp-1.jpg",
+      "assets/images/products/fav-023-mp-2.jpg"
+    ],
+    "highlights": [
+      "1.5HP split unit",
+      "R410A refrigerant",
+      "Energy-efficient cooling",
+      "Delivery available"
+    ],
+    "placeholder": false,
+    "facebook_listings": [
+      {
+        "id": "1351543747146293",
+        "title": "Sigma 1.5Hp R410 Split Air Conditioner BREEZE-HY12SB",
+        "price": 6500,
+        "checked": "2026-10-01",
+        "synced": "2026-10-01"
+      }
+    ]
+  },
+  {
+    "id": "FAV-024",
+    "name": "TWYFORD Water Closet — Two-Piece, Premium",
+    "category": "Bathroom & Tiles",
+    "type": "Water Closet",
+    "marketplace_category": "Home Improvement Supplies > Plumbing",
+    "price_ghs": 750,
+    "negotiable": true,
+    "icon": "🚽",
+    "description": "Brand-new two-piece TWYFORD water closet: high-quality ceramic, sleek modern design, easy to clean, powerful straight-inlet flush. For homes, offices and large projects; other models on request. Bulk discounts. Sold by AGOODMANN VENTURES, Kantamanto.",
+    "condition": "Brand New",
+    "custom_order": false,
+    "in_stock": true,
+    "images": [
+      "assets/images/products/fav-024-mp-1.jpg",
+      "assets/images/products/fav-024-mp-2.jpg",
+      "assets/images/products/fav-024-mp-3.jpg",
+      "assets/images/products/fav-024-mp-4.jpg",
+      "assets/images/products/fav-024-mp-5.jpg",
+      "assets/images/products/fav-024-mp-6.jpg"
+    ],
+    "highlights": [
+      "High-quality ceramic",
+      "Powerful straight-inlet flush",
+      "Easy to clean",
+      "Bulk discounts available"
+    ],
+    "placeholder": false,
+    "facebook_listings": [
+      {
+        "id": "1571061091194581",
+        "title": "🚽 Premium TWYFORD Water Closet – Now Available!",
+        "price": 750,
+        "checked": "2026-10-01",
+        "synced": "2026-10-01"
+      }
+    ],
+    "seller": {
+      "name": "AGOODMANN VENTURES",
+      "phones": [
+        "+233277477752",
+        "+233244772036"
+      ],
+      "whatsapp": "+233277477752",
+      "address": "Kantamanto, near Grandview Hotel, UTC, close to Barclays Bank, Mamleshie Rd, Accra",
+      "note": "Sold and delivered by AGOODMANN VENTURES (a partner business). Contact them directly to order."
+    }
+  },
+  {
+    "id": "FAV-025",
+    "name": "Tiles & Finishes — Floor & Wall",
+    "category": "Bathroom & Tiles",
+    "type": "Tiles",
+    "marketplace_category": "Home Improvement Supplies > Flooring",
+    "price_ghs": null,
+    "negotiable": true,
+    "icon": "🏠",
+    "description": "Anti-skid floor tiles, glossy and matte wall tiles, tile grout and adhesive, plus toilet sets, plumbing materials and stylish mirrors. Wholesale and retail. Sold by AGOODMANN VENTURES, Kantamanto: ask for prices.",
+    "condition": "Brand New",
+    "custom_order": false,
+    "in_stock": true,
+    "images": [
+      "assets/images/products/fav-025-mp-1.jpg",
+      "assets/images/products/fav-025-mp-2.jpg",
+      "assets/images/products/fav-025-mp-3.jpg",
+      "assets/images/products/fav-025-mp-4.jpg",
+      "assets/images/products/fav-025-mp-5.jpg",
+      "assets/images/products/fav-025-mp-6.jpg"
+    ],
+    "highlights": [
+      "Floor tiles (anti-skid)",
+      "Wall tiles: glossy or matte",
+      "Grout & adhesive",
+      "Wholesale & retail"
+    ],
+    "placeholder": false,
+    "facebook_listings": [
+      {
+        "id": "904798079342073",
+        "title": "Elegant Tiles & Finishes 🏠",
+        "price": 5,
+        "checked": "2026-10-01",
+        "synced": "2026-10-01"
+      }
+    ],
+    "seller": {
+      "name": "AGOODMANN VENTURES",
+      "phones": [
+        "+233277477752",
+        "+233244772036"
+      ],
+      "whatsapp": "+233277477752",
+      "address": "Kantamanto, near Grandview Hotel, UTC, close to Barclays Bank, Mamleshie Rd, Accra",
+      "note": "Sold and delivered by AGOODMANN VENTURES (a partner business). Contact them directly to order."
+    }
+  },
+  {
+    "id": "FAV-026",
+    "name": "Kavukçu Wheat Flour — 50kg Baking Flour",
+    "category": "Groceries",
+    "type": "Flour",
+    "marketplace_category": "Groceries",
+    "price_ghs": 650,
+    "negotiable": false,
+    "icon": "🌾",
+    "description": "Kavukçu wheat flour, the professional baker's choice: strong dough, reliable yield, consistent quality batch after batch. Made in Turkey, est. 1920. 50kg professional pack. For butter, sugar and tea bread, rolls, burger buns, doughnuts and pizza dough. Sold by ANAC Essentials (formerly ANAC Ventures).",
+    "condition": "Brand New",
+    "custom_order": false,
+    "in_stock": true,
+    "images": [
+      "assets/images/products/fav-026-mp-1.jpg",
+      "assets/images/products/fav-026-mp-2.jpg",
+      "assets/images/products/fav-026-mp-3.jpg",
+      "assets/images/products/fav-026-mp-4.jpg"
+    ],
+    "highlights": [
+      "50kg professional pack",
+      "Strong dough, reliable yield",
+      "Bread, buns, doughnuts & pizza",
+      "Made in Turkey, est. 1920"
+    ],
+    "placeholder": false,
+    "facebook_listings": [
+      {
+        "id": "1482547360305966",
+        "title": "🌾 Kavukçu Wheat Flour — Baking Flour",
+        "price": 650,
+        "checked": "2026-10-01",
+        "synced": "2026-10-01"
+      }
+    ],
+    "seller": {
+      "name": "ANAC Essentials",
+      "formerly": "ANAC Ventures",
+      "phones": [
+        "+233555434994",
+        "+233557033525"
+      ],
+      "whatsapp": "+233555434994",
+      "note": "Sold and delivered by ANAC Essentials (formerly ANAC Ventures), a partner business. Contact them directly to order."
+    }
   }
 ]

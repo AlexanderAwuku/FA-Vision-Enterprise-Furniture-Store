@@ -456,7 +456,7 @@ window.FAV_CHECKOUT = (function () {
     }).catch(() => {});
   }
 
-  const canBuy = p => !!p && !!p.price_ghs && !!p.in_stock;
+  const canBuy = p => !!p && !p.seller && !!p.price_ghs && !!p.in_stock;   // partner products are paid to the partner
 
   function open(p) {
     if (!canBuy(p)) return;

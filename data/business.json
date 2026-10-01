@@ -544,6 +544,101 @@
           "{price}",
           "per set"
         ]
+      },
+      {
+        "id": "fav-026",
+        "product": "FAV-026",
+        "kicker": "Groceries · Bakers & bakeries",
+        "headline": "The professional baker's",
+        "accent": "choice",
+        "sub": "Kavukçu wheat flour, 50kg pack. Strong dough, reliable yield, batch after batch.",
+        "facts": [
+          [
+            "{price}",
+            "per 50kg bag"
+          ],
+          [
+            "Turkey",
+            "made since 1920"
+          ],
+          [
+            "Bread",
+            "buns, doughnuts, pizza"
+          ],
+          [
+            "Bulk",
+            "for bakeries"
+          ]
+        ],
+        "cta": "Order now",
+        "tag": "BAKERS' CHOICE",
+        "seal": [
+          "{price}",
+          "50kg bag"
+        ],
+        "photo": "assets/images/products/fav-026-mp-2.jpg"
+      },
+      {
+        "id": "fav-024",
+        "product": "FAV-024",
+        "kicker": "Bathroom · TWYFORD",
+        "headline": "Upgrade your bathroom with",
+        "accent": "TWYFORD",
+        "sub": "Two-piece premium water closet: quality ceramic, powerful straight-inlet flush.",
+        "facts": [
+          [
+            "{price}",
+            "two-piece set"
+          ],
+          [
+            "Ceramic",
+            "high quality"
+          ],
+          [
+            "Easy",
+            "to clean"
+          ],
+          [
+            "Bulk",
+            "discounts"
+          ]
+        ],
+        "cta": "Order now",
+        "tag": "NOW AVAILABLE",
+        "seal": [
+          "{price}",
+          "per set"
+        ],
+        "photo": "assets/images/products/fav-024-mp-1.jpg"
+      },
+      {
+        "id": "fav-025",
+        "product": "FAV-025",
+        "kicker": "Tiles & finishes",
+        "headline": "Floors and walls that",
+        "accent": "last",
+        "sub": "Anti-skid floor tiles, glossy and matte wall tiles, grout and adhesive.",
+        "facts": [
+          [
+            "Floor",
+            "anti-skid tiles"
+          ],
+          [
+            "Wall",
+            "glossy or matte"
+          ],
+          [
+            "Grout",
+            "& adhesive"
+          ],
+          [
+            "Wholesale",
+            "& retail"
+          ]
+        ],
+        "cta": "Ask for prices",
+        "tag": "WHOLESALE",
+        "photo": "assets/images/products/fav-025-mp-2.jpg"
       }
     ],
     "schedule": [

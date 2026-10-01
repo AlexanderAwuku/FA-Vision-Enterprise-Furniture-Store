@@ -197,13 +197,23 @@ def make(ad, products, business):
     photo, mask = rounded(photo, 30)
     img.paste(photo, (36, 36), mask)
 
-    # logo pill
-    logo = Image.open(ROOT / "assets/images/logo-512.png").convert("RGBA")
-    logo.thumbnail((84, 84))
-    d.rounded_rectangle((56, 56, 56 + 300, 56 + 100), 50, fill="white")
-    img.paste(logo, (66, 64), logo)
-    d.text((160, 74), "F.A Vision", font=font("Bold", 32), fill=BLUE)
-    d.text((162, 114), "ENTERPRISE", font=font("Bold", 15), fill=RED)
+    seller = p.get("seller")
+    if seller:                                                  # partner product: their name, not ours
+        fn = font("Bold", 30)
+        while d.textlength(seller["name"], font=fn) > 420 and fn.size > 20:
+            fn = font("Bold", fn.size - 2)
+        sub_line = (f"formerly {seller['formerly']} · " if seller.get("formerly") else "") + "via F.A Vision"
+        pw_ = int(max(d.textlength(seller["name"], font=fn), d.textlength(sub_line, font=font("Bold", 15)))) + 64
+        d.rounded_rectangle((56, 56, 56 + pw_, 56 + 100), 50, fill="white")
+        d.text((88, 74), seller["name"], font=fn, fill=(27, 107, 58))
+        d.text((90, 114), sub_line.upper(), font=font("Bold", 15), fill=RED)
+    else:                                                       # logo pill
+        logo = Image.open(ROOT / "assets/images/logo-512.png").convert("RGBA")
+        logo.thumbnail((84, 84))
+        d.rounded_rectangle((56, 56, 56 + 300, 56 + 100), 50, fill="white")
+        img.paste(logo, (66, 64), logo)
+        d.text((160, 74), "F.A Vision", font=font("Bold", 32), fill=BLUE)
+        d.text((162, 114), "ENTERPRISE", font=font("Bold", 15), fill=RED)
 
     if ad.get("tag"):                                           # tilted red tag
         ft = font("Bold", 28)
@@ -249,10 +259,12 @@ def make(ad, products, business):
     d.rounded_rectangle(((W - cw) / 2, by, (W + cw) / 2, by + 62), 31, fill=NAVY)
     txt(d, (W / 2, by + 31), cta, fc, "white", "mm")
 
-    d.rectangle((0, 1256, W, H), fill=BLUE)
-    phones = " · ".join(local_phone(n) for n in business["phones"])
+    d.rectangle((0, 1256, W, H), fill=(27, 107, 58) if seller else BLUE)
+    phones = " · ".join(local_phone(n) for n in (seller["phones"] if seller else business["phones"]))
     d.text((56, 1272), "Call / WhatsApp  " + phones, font=font("Bold", 27), fill="white")
-    d.text((56, 1312), "Odorkor · Omanjor · Kasoa  —  delivery across Ghana", font=font("Medium", 20), fill=(220, 230, 250))
+    foot = (f"Sold by {seller['name']}" + (f"  ·  {seller['address'].split(',')[0]}" if seller.get("address") else "")) if seller \
+        else "Odorkor · Omanjor · Kasoa  —  delivery across Ghana"
+    d.text((56, 1312), foot, font=font("Medium", 20), fill=(220, 240, 228) if seller else (220, 230, 250))
 
     out = ROOT / "assets/images/ads" / f"{ad['id']}.jpg"
     out.parent.mkdir(parents=True, exist_ok=True)
