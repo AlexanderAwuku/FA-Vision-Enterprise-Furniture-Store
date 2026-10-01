@@ -1222,7 +1222,7 @@ window.FAV_DATA = {
         "Grey",
         "Gold"
       ],
-      "custom_order": true,
+      "custom_order": false,
       "in_stock": true,
       "images": [
         "assets/images/products/fav-014-muk5690f-1.jpg",

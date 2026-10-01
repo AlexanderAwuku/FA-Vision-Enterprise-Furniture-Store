@@ -878,7 +878,7 @@ Order: https://wa.me/233572646176?text=Hello%20F.A%20Vision%2C%20I%27m%20interes
 
 ### Facebook Marketplace
 
-- **Title:** Student Desk Chair Set — Senior High to Tertiary Level - Made to Order
+- **Title:** Student Desk Chair Set — Senior High to Tertiary Level
 - **Price:** 650
 - **Category:** Home & Garden > Furniture > Desks
 - **Condition:** Brand New
@@ -903,7 +903,6 @@ Height-adjustable desk and chair sets, perfect for classrooms from SHS through u
 Material: MDF with melamine cover, ABS, powder-coated carbon steel frame
 Size: Desk 70 × 50 × 73–88 cm; Chair 48 × 46 × 46–52 cm (height adjustable)
 Colours: Grey, Gold
-Custom sizes, colours and finishes available.
 
 Price negotiable for bulk orders.
 💳 Pay in full, pay 50% now and the rest on delivery, pay on delivery in Accra, or walk in and pay at the showroom.
@@ -943,7 +942,7 @@ Send us a message or WhatsApp 057 264 6176 to order. #FAVisionEnterprise #Furnit
 
 ```
 NEW FROM F.A VISION ✨ Student Desk Chair Set — Senior High to Tertiary Level
-GH₵ 650 | Made to order in your size and colour
+GH₵ 650 | Ready for pickup
 Homes • Offices • Schools
 DM or call 057 264 6176 #FAVisionEnterprise #FurnitureGhana #AccraFurniture #WholesaleFurnitureGhana
 ```
