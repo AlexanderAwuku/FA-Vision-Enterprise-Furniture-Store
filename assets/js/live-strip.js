@@ -42,7 +42,20 @@
 
   // ------------------------------------------------------------- share sheet
   var sheet = null, current = null, file = null;
+  var ICON_SAVE = '<svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M12 4v11m0 0 4.5-4.5M12 15l-4.5-4.5M5 19.5h14"/></svg>';
+  var ICON_LINK = '<svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" d="M10 14a4.5 4.5 0 0 0 6.4 0l3-3a4.5 4.5 0 0 0-6.4-6.4l-1.2 1.2M14 10a4.5 4.5 0 0 0-6.4 0l-3 3a4.5 4.5 0 0 0 6.4 6.4l1.2-1.2"/></svg>';
+  // Brand icons (Font Awesome Free, CC BY 4.0), loaded only when the share sheet first opens.
+  function loadIcons() {
+    ["fontawesome", "brands"].forEach(function (f) {
+      var l = document.createElement("link");
+      l.rel = "stylesheet";
+      l.href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/" + f + ".min.css";
+      l.crossOrigin = "anonymous";
+      document.head.appendChild(l);
+    });
+  }
   function buildSheet() {
+    loadIcons();
     sheet = el("dialog", "fls");
     sheet.setAttribute("aria-label", "Share this deal");
     sheet.innerHTML =
@@ -51,13 +64,13 @@
       '<img class="fls__img" alt="">' +
       '<p class="fls__title"></p>' +
       '<button class="fls__native" type="button">Share photo…</button>' +
-      '<div class="fls__grid">' +
-      '<a class="fls__btn fls__wa" target="_blank" rel="noopener"><b>WhatsApp</b></a>' +
-      '<a class="fls__btn fls__fb" target="_blank" rel="noopener"><b>Facebook</b></a>' +
-      '<a class="fls__btn fls__x" target="_blank" rel="noopener"><b>X (Twitter)</b></a>' +
-      '<a class="fls__btn fls__tt" target="_blank" rel="noopener"><b>TikTok</b></a>' +
-      '<a class="fls__btn fls__save"><b>Save image</b></a>' +
-      '<button class="fls__btn fls__copy" type="button"><b>Copy link</b></button>' +
+      '<div class="fls__icons">' +
+      '<a class="fls__ic fls__wa" target="_blank" rel="noopener"><span class="fls__dot"><i class="fa-brands fa-whatsapp"></i></span>WhatsApp</a>' +
+      '<a class="fls__ic fls__fb" target="_blank" rel="noopener"><span class="fls__dot"><i class="fa-brands fa-facebook-f"></i></span>Facebook</a>' +
+      '<a class="fls__ic fls__x" target="_blank" rel="noopener"><span class="fls__dot"><i class="fa-brands fa-x-twitter"></i></span>X</a>' +
+      '<a class="fls__ic fls__tt" target="_blank" rel="noopener"><span class="fls__dot"><i class="fa-brands fa-tiktok"></i></span>TikTok</a>' +
+      '<a class="fls__ic fls__save"><span class="fls__dot">' + ICON_SAVE + '</span>Save</a>' +
+      '<button class="fls__ic fls__copy" type="button"><span class="fls__dot">' + ICON_LINK + '</span>Copy link</button>' +
       '</div>' +
       '<p class="fls__hint"></p>' +
       '</div>';
