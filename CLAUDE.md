@@ -7,7 +7,7 @@ Static GitHub Pages site, live at https://favisionenterprize.github.io (push to 
 - Promos: `data/business.json` → `promos.ads` + `promos.schedule` (first matching date window wins).
 - Stock badge: `custom_order` / `in_stock` per product in `data/products.json`.
 - Copy says "we sell", not "we make".
-- Facebook autopilot (admin `#fbauto`, `admin/fbauto.js` + `extension/autopilot.js`): renewals and the daily group rotation, logged in `data/facebook-autopilot.json`. The add-on must be reloaded in Chrome after any change in `extension/`.
+- Facebook autopilot (admin `#fbauto`, `admin/fbauto.js` + `extension/autopilot.js`): renewals and the daily group rotation, logged in `data/facebook-autopilot.json`. The add-on must be reloaded in Chrome after any change in `extension/`. Jobs pass admin → `extension/admin.js` (postMessage) → background (per-tab storage), never via the URL hash: Facebook redirects www → web.facebook.com in Ghana and drops it. Renewing works on marketplace/you/selling (More options → Renew listing), not on item pages.
 
 ## Business facts
 - Phones: 020 747 3267 · 057 264 6176 · 054 614 8923 (WhatsApp 057 264 6176)

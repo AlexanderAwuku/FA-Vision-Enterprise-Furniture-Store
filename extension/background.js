@@ -20,33 +20,28 @@ const days = (a, b) => Math.floor((Date.parse(b) - Date.parse(a)) / 864e5);
 const getJson = path => fetch(SITE + path + "?t=" + Date.now(), { cache: "no-store" }).then(r => r.json());
 
 async function check() {
-  let ap, products;
-  try { [ap, products] = await Promise.all([getJson("data/facebook-autopilot.json"), getJson("data/products.json")]); }
+  let ap;
+  try { ap = await getJson("data/facebook-autopilot.json"); }
   catch (e) { return; }
   const s = Object.assign({ daily_limit: 20, renew_after_days: 7, auto_run: false, auto_time: "09:00" }, ap.settings || {});
   const d = today();
 
-  let due = 0;
-  for (const p of products) {
-    if (p.in_stock === false) continue;
-    for (const l of p.facebook_listings || []) {
-      const r = (ap.renewals || {})[l.id] || {};
-      const base = r.d || l.listed || l.synced || l.checked;
-      if ((base ? days(base, d) : 99) >= s.renew_after_days && r.chk !== d) due++;
-    }
-  }
+  // Renewals: from what the add-on last read on Facebook's "Your listings" page.
+  const sel = ap.selling && ap.selling.cards;
+  const needsCheck = !sel;
+  const due = sel ? sel.filter(c => c.listed && !/sold|pending|out of stock/i.test(c.status || "") && days(c.listed, d) >= s.renew_after_days && c.none !== d).length : 0;
   const groups = (ap.groups || []).filter(g => g.active !== false).length;
   const postsToday = (ap.posts || []).filter(x => x.d === d).length;
   const postsWaiting = groups > 0 && postsToday < s.daily_limit;
-  const n = due + (postsWaiting ? 1 : 0);
+  const n = (needsCheck ? 1 : due) + (postsWaiting ? 1 : 0);
 
   chrome.action.setBadgeBackgroundColor({ color: "#e0245e" });
   chrome.action.setBadgeText({ text: n ? String(n) : "" });
-  chrome.action.setTitle({ title: n ? `FA Vision: ${[due && due + " to renew", postsWaiting && "group posts waiting"].filter(Boolean).join(", ")}` : "FA Vision: all done for today" });
+  chrome.action.setTitle({ title: n ? `FA Vision: ${[needsCheck ? "listings not checked yet" : due && due + " to renew", postsWaiting && "group posts waiting"].filter(Boolean).join(", ")}` : "FA Vision: all done for today" });
 
   const st = await chrome.storage.local.get(["notified", "autorun"]);
   const now = new Date().toTimeString().slice(0, 5);
-  if (s.auto_run && (due || postsWaiting) && now >= s.auto_time && st.autorun !== d) {
+  if (s.auto_run && (needsCheck || due || postsWaiting) && now >= s.auto_time && st.autorun !== d) {
     await chrome.storage.local.set({ autorun: d, notified: d });
     chrome.tabs.create({ url: ADMIN + "#fbauto-run" });
     return;
@@ -57,7 +52,7 @@ async function check() {
       type: "basic",
       iconUrl: "icon128.png",
       title: "FA Vision autopilot",
-      message: [due && `${due} Marketplace listing${due === 1 ? " is" : "s are"} ready to renew.`, postsWaiting && "Today's group posts haven't run yet."].filter(Boolean).join(" ") + " Tap to open."
+      message: [needsCheck ? "Your Marketplace listings haven't been checked for renewal yet." : due && `${due} Marketplace listing${due === 1 ? " is" : "s are"} ready to renew.`, postsWaiting && "Today's group posts haven't run yet."].filter(Boolean).join(" ") + " Tap to open."
     });
   }
 }
@@ -70,3 +65,22 @@ chrome.runtime.onMessage.addListener((msg, sender, reply) => {
     .then(dataUrl => reply({ dataUrl }), err => reply({ error: String(err) }));
   return true;   // reply comes later
 });
+
+// Jobs from the admin: kept per tab here, so a redirect (www → web.facebook.com) can't lose them.
+const FB = /^https:\/\/(www|web|m)\.facebook\.com\//;
+chrome.runtime.onMessage.addListener((msg, sender, reply) => {
+  const tabId = sender.tab && sender.tab.id;
+  if (!msg || tabId == null) return;
+  const key = "job" + tabId;
+  if (msg.type === "start") {
+    if (!FB.test(String(msg.url)) || !msg.job || !msg.job.kind) { reply({ ok: false }); return; }
+    chrome.storage.session.set({ [key]: msg.job })
+      .then(() => chrome.tabs.update(tabId, { url: msg.url }))
+      .then(() => reply({ ok: true }), err => reply({ ok: false, error: String(err) }));
+    return true;
+  }
+  if (msg.type === "getJob") { chrome.storage.session.get(key).then(o => reply({ job: o[key] || null })); return true; }
+  if (msg.type === "saveJob") { chrome.storage.session.set({ [key]: msg.job }).then(() => reply({ ok: true })); return true; }
+  if (msg.type === "clearJob") { chrome.storage.session.remove(key).then(() => reply({ ok: true })); return true; }
+});
+chrome.tabs.onRemoved.addListener(tabId => chrome.storage.session.remove("job" + tabId));

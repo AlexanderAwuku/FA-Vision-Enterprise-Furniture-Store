@@ -1,6 +1,7 @@
 // FA Vision Autopilot: runs on facebook.com, but only in a tab the FA Vision
-// admin opened with a job (#favauto=… on the first page, then kept in this
-// tab's sessionStorage). Jobs:
+// admin opened with a job. The admin hands the job to the add-on's background
+// script, which keeps it for this tab (so Facebook's www → web redirect can't
+// lose it). Older admins put it in the address (#favauto=…); that still works. Jobs:
 //   post   – post today's listing into each queued group, pausing between groups
 //   renew  – renew each queued Marketplace listing, in batches with a pause
 //   import – read the list of groups you've joined
@@ -11,12 +12,13 @@
   const sleep = ms => new Promise(r => setTimeout(r, ms));
   const rand = (a, b) => Math.round(a + Math.random() * (b - a));
 
-  // ------------------------------------------------------------- job
+  // ------------------------------------------------------------- job (kept by the background script, per tab)
+  const bg = msg => new Promise(res => { try { chrome.runtime.sendMessage(msg, r => res(r || {})); } catch (e) { res({}); } });
   let job = null;
   const m = location.hash.match(/favauto=([^&]+)/);
   try {
     const fresh = m ? JSON.parse(decodeURIComponent(m[1])) : null;
-    const stored = JSON.parse(sessionStorage.getItem(KEY) || "null");
+    const stored = (await bg({ type: "getJob" })).job || null;
     if (fresh && !(stored && stored.id === fresh.id)) { job = fresh; job.navFor = 0; }   // already on the first page
     else job = stored;
   } catch (e) { job = null; }
@@ -24,8 +26,8 @@
   if (m) history.replaceState(history.state, "", location.pathname + location.search);
   job.i = job.i || 0;
   job.res = job.res || [];
-  const save = () => sessionStorage.setItem(KEY, JSON.stringify(job));
-  save();
+  const save = () => bg({ type: "saveJob", job });
+  await save();
 
   // ------------------------------------------------------------- status box with a Stop button
   let stopAsked = false;
@@ -47,9 +49,9 @@
     document.getElementById("favautomsg").textContent = "FA Vision autopilot · " + msg;
   }
 
-  function finish(stopped) {
-    const out = { kind: job.kind, id: job.id, res: job.res, stopped: stopped || null, then: job.then || null, groups: job.groups || null };
-    sessionStorage.removeItem(KEY);
+  async function finish(stopped) {
+    const out = { kind: job.kind, id: job.id, res: job.res, stopped: stopped || null, then: job.then || null, groups: job.groups || null, dry: !!job.dry, snapshot: job.snapshot || null };
+    await bg({ type: "clearJob" });
     location.href = job.back + "#favauto-done=" + encodeURIComponent(JSON.stringify(out));
   }
 
@@ -84,9 +86,10 @@
     for (let s = secs; s > 0 && !stopAsked; s--) { box(`${text} ${s >= 60 ? Math.ceil(s / 60) + " min" : s + " s"}…`); await sleep(1000); }
   }
   // Navigate to `url` once for the current item, then carry on when that page loads.
-  function arrive(url) {
+  async function arrive(url) {
     if (job.navFor === job.i) return true;
-    job.navFor = job.i; save();
+    job.navFor = job.i;
+    await save();
     location.href = url;
     return false;
   }
@@ -98,14 +101,14 @@
   if (job.kind === "post") {
     if (job.i >= job.q.length) return finish();
     const it = job.q[job.i];
-    if (!arrive(it.url)) return;
+    if (!(await arrive(it.url))) return;
     const record = (ok, why) => { job.res.push({ g: it.g, p: it.p, ok, why: why || "", t: new Date().toISOString() }); job.i++; save(); };
     const next = async ok => {
       if (job.i >= job.q.length) { box("All done. Going back to your admin…"); await sleep(1500); return finish(); }
       if (ok) await countdown(rand(job.min || 60, job.max || 180), `Posted ✓ (${job.res.filter(r => r.ok).length} so far). Next group in`);
       else await sleep(4000);
       if (stopAsked) return;
-      arrive(job.q[job.i].url);
+      await arrive(job.q[job.i].url);
     };
     const n = `Group ${job.i + 1} of ${job.q.length}`;
     box(`${n}: opening ${it.name}…`);
@@ -160,6 +163,17 @@
     const post = await waitFor(() => { const b = findBtn(/^post$/i, dialog); return b && b.getAttribute("aria-disabled") !== "true" ? b : null; }, 30000);
     if (!post) { record(false, "Post button stayed off"); box(`${n}: Post button stayed off. Skipping…`, true); return next(false); }
     await sleep(rand(800, 1600));
+    if (job.dry) {
+      // Test mode: everything worked up to the Post button. Close without posting.
+      box(`${n}: test passed ✓ (caption typed${photoNote ? ", photo NOT attached" : ", photo attached"}, Post button ready). Not posting.`);
+      await sleep(2500);
+      document.execCommand("selectAll", false, null);
+      document.execCommand("delete", false, null);
+      const close = findBtn(/^close composer dialog$|^close$/i, dialog);
+      if (close) { close.click(); await sleep(1200); const discard = findBtn(/^discard$/i); if (discard) discard.click(); }
+      record(true, "Test only, not posted" + (photoNote ? " · photo didn't attach" : ""));
+      return next(false);
+    }
     post.click();
     box(`${n}: posting…`);
     const closed = await waitFor(() => !document.contains(editor) || !visible(editor), 60000);
@@ -172,60 +186,110 @@
   }
 
   // ============================================================= renew Marketplace listings
+  // Works on "Your listings" (marketplace/you/selling): each card's "More options"
+  // menu has "Renew listing" once the listing is old enough.
   if (job.kind === "renew") {
-    if (job.i >= job.q.length) return finish();
-    const id = job.q[job.i];
-    if (job.i > 0 && job.i % (job.batch || 20) === 0 && job.pausedAt !== job.i) {
-      job.pausedAt = job.i; save();
-      await countdown(job.pause || 120, `Batch done (${job.i} of ${job.q.length}). Next batch in`);
-      if (stopAsked) return;
-    }
-    if (!arrive(`https://www.facebook.com/marketplace/item/${id}/`)) return;
-    const record = (ok, why) => { job.res.push({ id, ok, why: why || "" }); job.i++; save(); };
-    const next = async () => {
-      if (job.i >= job.q.length) { box("All done. Going back to your admin…"); await sleep(1200); return finish(); }
-      await sleep(rand(2500, 5000));
-      if (stopAsked) return;
-      arrive(`https://www.facebook.com/marketplace/item/${job.q[job.i]}/`);
-    };
-    const n = `Listing ${job.i + 1} of ${job.q.length}`;
-    box(`${n}: looking for Renew…`);
-    await sleep(rand(2500, 4000));
+    if (!/\/marketplace\/you\/selling/.test(location.pathname) && !(await arrive("https://www.facebook.com/marketplace/you/selling"))) return;
+    await sleep(rand(3000, 4500));
     let w = warning(); if (w) return finish(`Facebook showed "${w}". Renewing stopped.`);
     if (/\/marketplace\/ineligible/.test(location.pathname) || /pages can('|’)t use marketplace/i.test(document.body.innerText.slice(0, 3000))) {
       return finish("Facebook is using your F.A Vision Page, and Pages can't use Marketplace. Switch to your personal profile in Facebook, then tap Renew again.");
     }
-    if (/listing (isn('|’)t|is no longer) available|this content isn('|’)t available|page isn('|’)t available/i.test(document.body.innerText.slice(0, 4000))) {
-      record(false, "No longer on Facebook"); return next();
-    }
-    const RENEW = /^renew( listing)?$/i;
-    let btn = await waitFor(() => findBtn(RENEW), 8000);
-    if (!btn) {
-      // Renew can sit behind the "…" (more options) menu on your own listing.
-      const menus = [...document.querySelectorAll('[role=button][aria-label]')].filter(b => visible(b) && /more|options|actions/i.test(b.getAttribute("aria-label")));
-      for (const mb of menus.slice(0, 4)) {
-        mb.click();
-        btn = await waitFor(() => findBtn(RENEW) || findBtn(/renew/i, document.querySelector("[role=menu]") || undefined), 2500);
-        if (btn) break;
-        document.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape", bubbles: true }));
-        await sleep(400);
+    job.done = job.done || [];
+    const today = new Date().toLocaleDateString("en-CA");
+    const ageDays = iso => Math.floor((Date.parse(today) - Date.parse(iso)) / 864e5);
+    const parseListed = s => {
+      const now = new Date(); let d;
+      const m1 = s.match(/(\d{1,2})\/(\d{1,2})(?:\/(\d{2,4}))?/);
+      if (m1) {
+        const y = m1[3] ? (+m1[3] < 100 ? 2000 + +m1[3] : +m1[3]) : now.getFullYear();
+        d = new Date(y, +m1[1] - 1, +m1[2]);
+        if (!m1[3] && d > now) d.setFullYear(y - 1);
+      } else if (/today|hour|minute|just now/i.test(s)) d = now;
+      else if (/yesterday/i.test(s)) d = new Date(now - 864e5);
+      else {
+        d = new Date(s.replace(/,/g, "") + " " + now.getFullYear());
+        if (isNaN(d)) return null;
+        if (d > now) d.setFullYear(d.getFullYear() - 1);
       }
+      return d.toLocaleDateString("en-CA");
+    };
+    const MORE = '[role=button][aria-label^="More options for"]';
+    function cards() {
+      const seen = {};
+      return [...document.querySelectorAll(MORE)].filter(visible).map(more => {
+        let c = more;
+        for (let i = 0; i < 14 && c; i++) { c = c.parentElement; if (c && /(Listed|Renewed) on/.test(c.innerText || "") && c.querySelectorAll(MORE).length === 1) break; }
+        const text = (c && c.innerText) || "";
+        const title = more.getAttribute("aria-label").replace(/^More options for /, "").trim();
+        const lm = text.match(/(?:Listed|Renewed) on ([^\n·|]+)/);
+        const listed = lm ? parseListed(lm[1].trim()) : null;
+        const status = (text.match(/\n(Active|In stock|Pending|Sold|Out of stock)\n/) || [])[1] || "";
+        const base = title + "|" + (listed || "");
+        seen[base] = (seen[base] || 0) + 1;
+        return { key: base + "|" + seen[base], title, listed, status, more };
+      });
     }
-    if (!btn) { record(false, "No Renew option yet"); box(`${n}: no Renew option yet. Skipping…`); return next(); }
-    btn.click();
-    await sleep(1200);
-    const confirm = await waitFor(() => findBtn(RENEW, document.querySelector("[role=dialog]") || undefined), 3000);
-    if (confirm && confirm !== btn) { confirm.click(); await sleep(1200); }
-    w = warning(); if (w) { record(false, w); return finish(`Facebook showed "${w}". Renewing stopped.`); }
-    const gone = await waitFor(() => !findBtn(RENEW) || /renewed/i.test(document.body.innerText.slice(0, 6000)), 8000);
-    record(!!gone, gone ? "" : "Facebook didn't confirm");
-    box(`${n}: ${gone ? "renewed ✓" : "not confirmed"}`, !gone);
-    return next();
+    async function loadAll() {
+      let last = -1;
+      for (let t = 0; t < 20 && !stopAsked; t++) {
+        window.scrollTo(0, document.documentElement.scrollHeight);
+        await sleep(1500);
+        const n = document.querySelectorAll(MORE).length;
+        if (n === last) break;
+        last = n;
+      }
+      window.scrollTo(0, 0);
+    }
+    box("Reading your listings…");
+    await loadAll();
+    if (!job.snapshot) { job.snapshot = cards().map(c => ({ t: c.title, listed: c.listed, status: c.status })); await save(); }
+    if (!job.snapshot.length) return finish("No listings found on Your listings. Make sure Facebook is on your personal profile.");
+    const after = job.after || 7;
+    let renewed = job.res.filter(r => r.ok).length;
+    while (!stopAsked) {
+      w = warning(); if (w) return finish(`Facebook showed "${w}". Renewing stopped.`);
+      const c = cards().find(x => !job.done.includes(x.key) && x.listed && ageDays(x.listed) >= after && !/sold|pending|out of stock/i.test(x.status));
+      if (!c) break;
+      if (renewed > 0 && renewed % (job.batch || 20) === 0 && job.pausedAt !== renewed) {
+        job.pausedAt = renewed; await save();
+        await countdown(job.pause || 120, `Batch done (${renewed} renewed). Next batch in`);
+        if (stopAsked) return;
+        continue;
+      }
+      job.done.push(c.key);
+      box(`Renewing "${c.title}" (listed ${c.listed})…`);
+      c.more.scrollIntoView({ block: "center" });
+      await sleep(rand(600, 1200));
+      c.more.click();
+      const item = await waitFor(() => [...document.querySelectorAll('[role=menu] [role=menuitem], [role=menuitem], [role=menu] [role=button]')]
+        .find(x => visible(x) && /^renew listing$/i.test((x.innerText || "").trim())), 3500);
+      if (!item) {
+        c.more.click();                                   // close the menu again
+        job.res.push({ t: c.title, listed: c.listed, ok: false, why: "No Renew option yet" }); await save();
+        await sleep(800);
+        continue;
+      }
+      item.click();
+      await sleep(1500);
+      const confirm = await waitFor(() => findBtn(/^renew( listing)?$/i, document.querySelector("[role=dialog]") || undefined), 2500);
+      if (confirm) { confirm.click(); await sleep(1500); }
+      w = warning(); if (w) { job.res.push({ t: c.title, listed: c.listed, ok: false, why: w }); return finish(`Facebook showed "${w}". Renewing stopped.`); }
+      job.res.push({ t: c.title, listed: c.listed, ok: true, why: "" });
+      renewed++;
+      await save();
+      box(`Renewed ✓ "${c.title}" (${renewed} so far)`);
+      await sleep(rand(2500, 5000));
+    }
+    if (stopAsked) return;
+    box(`Done: ${renewed} renewed. Going back to your admin…`);
+    await sleep(1500);
+    return finish();
   }
 
   // ============================================================= import joined groups
   if (job.kind === "import") {
-    if (!/^\/groups\/joins/.test(location.pathname) && !arrive("https://www.facebook.com/groups/joins/?nav_source=tab")) return;
+    if (!/^\/groups\/joins/.test(location.pathname) && !(await arrive("https://www.facebook.com/groups/joins/?nav_source=tab"))) return;
     const SKIP = /^(joins|feed|discover|create|notifications|search|you|categories|membership_requests)$/i;
     const seen = new Map();
     const collect = () => {

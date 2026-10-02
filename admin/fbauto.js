@@ -42,17 +42,17 @@
   }
 
   // ------------------------------------------------------------------ renewals
-  function listings() {
-    return A.products().filter(p => p.in_stock !== false)
-      .flatMap(p => (p.facebook_listings || []).map(l => ({ p, l })));
+  // S.selling is what the add-on last read on Facebook's "Your listings" page:
+  // { d: date checked, cards: [{ t, listed, status, none? }] }. Before the first
+  // check we don't know the listing dates, so dueList() returns null.
+  const sellable = c => !/sold|pending|out of stock/i.test(c.status || "");
+  function dueList() {
+    if (!S.selling || !S.selling.cards) return null;
+    return S.selling.cards
+      .filter(c => c.listed && sellable(c) && days(c.listed, today()) >= S.settings.renew_after_days && c.none !== today())
+      .map(c => ({ ...c, age: days(c.listed, today()) }))
+      .sort((a, b) => b.age - a.age);
   }
-  function renewInfo(l) {
-    const r = S.renewals[l.id] || {};
-    const base = r.d || l.listed || l.synced || l.checked;
-    const age = base ? days(base, today()) : 99;
-    return { age, last: r.d, why: r.chk === today() ? r.why : "", due: age >= S.settings.renew_after_days && r.chk !== today() };
-  }
-  const dueList = () => listings().filter(x => renewInfo(x.l).due).sort((a, b) => renewInfo(b.l).age - renewInfo(a.l).age);
 
   // ------------------------------------------------------------------ group rotation
   const postable = () => A.products()
@@ -119,6 +119,11 @@
   function launch(url, job) {
     job.id = Date.now().toString(36);
     job.back = location.origin + location.pathname;
+    if (Number(ext()) >= 3) {
+      job.navFor = 0;                                   // the add-on opens the first page itself
+      window.postMessage({ type: "favauto-start", url, job }, location.origin);
+      return;
+    }
     location.href = url.replace(/#.*$/, "") + "#favauto=" + encodeURIComponent(JSON.stringify(job));
   }
   function needExt() {
@@ -129,11 +134,21 @@
 
   function startRenew(then) {
     if (needExt()) return;
-    const q = dueList().map(x => x.l.id);
-    if (!q.length) return A.toast("No listings are due for renewal.");
-    launch(`https://www.facebook.com/marketplace/item/${q[0]}/`, {
-      kind: "renew", q, batch: S.settings.renew_batch, pause: 120, then: then || null
+    if (Number(ext()) < 3) return A.toast("Update the add-on first (steps at the bottom of this screen).", true);
+    launch("https://www.facebook.com/marketplace/you/selling", {
+      kind: "renew", batch: S.settings.renew_batch, pause: 120, after: S.settings.renew_after_days, then: then || null
     });
+  }
+
+  // Test: runs every step in the first queued group except tapping Post.
+  function startTest() {
+    if (needExt()) return;
+    if (Number(ext()) < 3) return A.toast("Update the add-on first (steps at the bottom of this screen), then test.", true);
+    const pl = plan();
+    const g = (pl.groups[0] || activeGroups()[0]);
+    if (!pl.p || !g) return A.toast("Nothing to test: needs a listing and at least one group switched on.", true);
+    const p = pl.p, img = location.origin + "/" + p.images[0];
+    launch(g.url, { kind: "post", dry: true, q: [{ g: g.id, name: g.name, url: g.url, p: p.id, text: caption(p, 0), img }], min: 5, max: 5 });
   }
 
   async function startPosting(auto) {
@@ -164,6 +179,7 @@
   }
 
   // ------------------------------------------------------------------ results coming back from the add-on
+  const groupName = id => ((S.groups.find(g => g.id === id) || {}).name || id);
   async function receive(out) {
     const d = today();
     A.busy("Saving what the add-on did…");
@@ -171,10 +187,27 @@
       if (out.kind === "renew") {
         const ok = out.res.filter(r => r.ok).length;
         await save(s => {
-          for (const r of out.res) s.renewals[r.id] = r.ok ? { d, chk: d } : { ...(s.renewals[r.id] || {}), chk: d, why: r.why };
+          if (out.snapshot) {
+            const cards = out.snapshot.map(c => ({ ...c }));
+            for (const r of out.res) {
+              const c = cards.find(x => x.t === r.t && x.listed === r.listed && !x._seen);
+              if (!c) continue;
+              c._seen = true;
+              if (r.ok) c.listed = d; else c.none = d;
+            }
+            cards.forEach(c => delete c._seen);
+            s.selling = { d, cards };
+          }
+          s.renewLog = (s.renewLog || []).concat(out.res.map(r => ({ d, t: r.t, listed: r.listed, ok: r.ok, ...(r.why ? { why: r.why } : {}) }))).slice(-200);
           return s;
         }, `Autopilot: renewed ${ok} of ${out.res.length} Marketplace listings`);
-        A.toast(`Renewed ${plural(ok, "listing")}${out.res.length - ok ? `, ${out.res.length - ok} skipped` : ""}.${out.stopped ? " Stopped: " + out.stopped : ""}`, !!out.stopped);
+        A.toast(`Renewed ${plural(ok, "listing")}${out.res.length - ok ? `, ${out.res.length - ok} not ready yet` : ""}.${out.stopped ? " Stopped: " + out.stopped : ""}`, !!out.stopped);
+      } else if (out.kind === "post" && out.dry) {
+        const r = out.res[0];
+        A.busy(null);
+        if (!r) A.toast("Test stopped before it reached a group." + (out.stopped ? " " + out.stopped : ""), true);
+        else A.toast(r.ok ? `Test passed in ${groupName(r.g)}: ${r.why}. Nothing was posted.` : `Test failed in ${groupName(r.g)}: ${r.why}`, !r.ok || /didn't attach/.test(r.why));
+        return;
       } else if (out.kind === "post") {
         const ok = out.res.filter(r => r.ok).length;
         await save(s => {
@@ -211,25 +244,27 @@
   // ------------------------------------------------------------------ rendering
   function render() {
     if (!S) return;
-    const due = dueList(), all = listings(), pl = plan(), groups = S.groups;
+    const dl = dueList(), due = dl || [], pl = plan(), groups = S.groups;
+    const sell = S.selling;
     const doneToday = attemptsToday(), limit = S.settings.daily_limit;
     const recent = S.posts.slice(-25).reverse();
     const gname = id => (S.groups.find(g => g.id === id) || {}).name || id;
     const pname = id => (A.products().find(p => p.id === id) || {}).name || id;
     const order = postable();
     const cur = pl.p ? order.findIndex(p => p.id === pl.p.id) : -1;
-    const skipped = all.filter(x => renewInfo(x.l).why);
+    const recentRenew = (S.renewLog || []).slice(-10).reverse();
     $("#fa-body").innerHTML = `
-      <p class="fa-ext ${ext() ? "ok" : "bad"}">${ext() ? "✓ FA Vision add-on is installed in this browser." : "✗ The FA Vision add-on isn't installed in this browser yet. See the steps at the bottom."}</p>
+      <p class="fa-ext ${ext() ? "ok" : "bad"}">${!ext() ? "✗ The FA Vision add-on isn't installed in this browser yet. See the steps at the bottom." : Number(ext()) < 3 ? "✗ Your FA Vision add-on is out of date and can't start runs. Update it (steps at the bottom), then reload this page." : "✓ FA Vision add-on is installed and up to date."}</p>
 
       <section class="fa-card">
-        <header><h2>Marketplace renewals</h2><span class="fa-big ${due.length ? "hot" : ""}">${due.length}</span></header>
-        <p class="muted">Facebook lets you renew a listing ${S.settings.renew_after_days} days after it was posted or last renewed, which pushes it back to the top. ${plural(all.length, "linked listing")} tracked.</p>
+        <header><h2>Marketplace renewals</h2><span class="fa-big ${dl === null || due.length ? "hot" : ""}">${dl === null ? "?" : due.length}</span></header>
+        <p class="muted">Renewing pushes a listing back to the top. Facebook offers it ${S.settings.renew_after_days} days after a listing was posted or last renewed. Make sure Facebook is on your personal profile (Pages can't use Marketplace).</p>
+        ${sell ? `<p class="muted fa-small">Last checked ${esc(sell.d)}: ${plural(sell.cards.length, "listing")} on Your listings.</p>` : `<p class="fa-empty">Your listings haven't been checked yet. Tap the button to read them on Facebook and renew any that are due.</p>`}
         <div class="fa-actions">
-          <button class="btn btn-sell" data-fa="renew" ${due.length ? "" : "disabled"}>Renew all ${due.length || ""} due (${S.settings.renew_batch} at a time)</button>
+          <button class="btn btn-sell" data-fa="renew">${dl === null ? "Check & renew now" : due.length ? `Renew all ${due.length} due (${S.settings.renew_batch} at a time)` : "Check again"}</button>
         </div>
-        ${due.length ? `<details class="fa-more"><summary>See the ${plural(due.length, "listing")} due</summary><ul class="fa-list">${due.map(x => `<li><span>${esc(x.l.title || x.p.name)}</span><small>${renewInfo(x.l).age} days</small></li>`).join("")}</ul></details>` : `<p class="fa-empty">Nothing to renew right now.</p>`}
-        ${skipped.length ? `<details class="fa-more"><summary>${plural(skipped.length, "listing")} skipped today</summary><ul class="fa-list">${skipped.map(x => `<li><span>${esc(x.l.title || x.p.name)}</span><small>${esc(renewInfo(x.l).why)}</small></li>`).join("")}</ul></details>` : ""}
+        ${due.length ? `<details class="fa-more"><summary>See the ${plural(due.length, "listing")} due</summary><ul class="fa-list">${due.map(c => `<li><span>${esc(c.t)}</span><small>listed ${esc(c.listed)} · ${c.age} days</small></li>`).join("")}</ul></details>` : dl ? `<p class="fa-empty">Nothing to renew right now.</p>` : ""}
+        ${recentRenew.length ? `<details class="fa-more"><summary>Recent renewals</summary><ul class="fa-list">${recentRenew.map(r => `<li class="${r.ok ? "" : "bad"}"><span>${r.ok ? "✓" : "–"} ${esc(r.t)}</span><small>${esc(r.d)}${r.why ? " · " + esc(r.why) : ""}</small></li>`).join("")}</ul></details>` : ""}
       </section>
 
       <section class="fa-card">
@@ -240,7 +275,7 @@
             <div><small>Today's listing</small><b>${esc(pl.p.name)}</b>
             <span class="muted">${pl.groups.length ? `${plural(pl.groups.length, "new group")} queued` : doneToday >= limit ? "Done for today ✓" : "No new groups left today"} · been in ${pl.cov.done} of ${pl.cov.total} groups${pl.cov.fresh ? " (starting a new round)" : ""}</span></div>
           </div>
-          <div class="fa-actions"><button class="btn btn-sell" data-fa="post" ${pl.groups.length ? "" : "disabled"}>Start today's ${pl.groups.length || limit} group posts</button></div>
+          <div class="fa-actions"><button class="btn btn-sell" data-fa="post" ${pl.groups.length ? "" : "disabled"}>Start today's ${pl.groups.length || limit} group posts</button><button class="btn btn-ghost" data-fa="test">Test without posting</button></div>
           <p class="muted fa-small" ${pl.groups.length ? "" : "hidden"}>Runs by itself in a Facebook tab, ${S.settings.pause_min_s / 60}–${S.settings.pause_max_s / 60} minutes between groups (about ${Math.round(pl.groups.length * (S.settings.pause_min_s + S.settings.pause_max_s) / 120)} minutes). Keep the tab open. It stops at once if Facebook shows any warning.</p>
           <details class="fa-more"><summary>Rotation order (${order.length} listings, one a day)</summary><ol class="fa-list">${order.map((p, i) => { const c = coverage(p); return `<li class="${i === cur ? "now" : ""}"><span>${i === cur ? "▶ " : ""}${esc(p.name)}</span><small>${c.done}/${c.total} groups</small></li>`; }).join("")}</ol></details>`
         : `<p class="fa-empty">No listing is ready (each needs a price, a photo and to be in stock).</p>`}
@@ -269,24 +304,25 @@
 
       ${recent.length ? `<section class="fa-card"><header><h2>Recent group posts</h2></header><ul class="fa-list">${recent.map(x => `<li class="${x.ok ? "" : "bad"}"><span>${x.ok ? "✓" : "✗"} ${esc(gname(x.g))}</span><small>${esc(String(pname(x.p)).split(" — ")[0])} · ${esc(x.d)}${x.why ? " · " + esc(x.why) : ""}</small></li>`).join("")}</ul></section>` : ""}
 
-      <details class="fa-card fa-help"><summary><b>Install the FA Vision add-on (one time)</b></summary>
+      <details class="fa-card fa-help"><summary><b>Install or update the FA Vision add-on</b></summary>
         <ol>
           <li>Download the <code>extension</code> folder from your GitHub repo (Code → Download ZIP, then unzip).</li>
           <li>In Chrome open <code>chrome://extensions</code>, turn on <b>Developer mode</b>, click <b>Load unpacked</b> and pick the <code>extension</code> folder. If an older FA Vision add-on is there, remove it first.</li>
           <li>Pin it from the puzzle-piece menu. Its red number shows what's waiting, and it sends a reminder once a day.</li>
-          <li>Stay logged in to Facebook in this Chrome.</li>
+          <li>Stay logged in to Facebook in this Chrome, as your personal profile (Pages can't use Marketplace).</li>
+          <li><b>To update:</b> download the ZIP again, replace your old <code>extension</code> folder with the new one, then click reload ↻ on FA Vision Autopilot in <code>chrome://extensions</code> and reload this page.</li>
         </ol></details>`;
   }
 
   function updateBadge() {
     const b = $("#fa-badge"), alert = $("#fa-alert");
     if (!S) return;
-    const due = dueList().length;
+    const dl = dueList(), due = dl ? dl.length : 0;
     const postsWaiting = activeGroups().length > 0 && plan().groups.length > 0;
-    const n = due + (postsWaiting ? 1 : 0);
+    const n = (dl === null ? 1 : due) + (postsWaiting ? 1 : 0);
     if (b) { b.hidden = !n; b.textContent = n; }
     if (alert) {
-      const bits = [due && `<b>${plural(due, "Marketplace listing")} ready to renew.</b>`, postsWaiting && `<b>Today's group posts haven't run yet.</b>`].filter(Boolean);
+      const bits = [dl === null ? `<b>Your Marketplace listings haven't been checked for renewal yet.</b>` : due && `<b>${plural(due, "Marketplace listing")} ready to renew.</b>`, postsWaiting && `<b>Today's group posts haven't run yet.</b>`].filter(Boolean);
       alert.hidden = !bits.length;
       alert.innerHTML = bits.join(" ") + " Open Facebook autopilot →";
     }
@@ -299,6 +335,7 @@
     const k = b.dataset.fa;
     if (k === "renew") startRenew();
     else if (k === "post") startPosting(false);
+    else if (k === "test") startTest();
     else if (k === "import") startImport();
   });
   screen.addEventListener("change", async e => {
@@ -357,13 +394,16 @@
     } else if (hash === "#fbauto-run") {
       await open();
       if (!S.settings.auto_run) return;
-      const due = dueList().length;
-      if (!due && !plan().groups.length) return A.toast("Daily run: nothing to do today ✓");
+      const dl = dueList(), renew = dl === null || dl.length > 0;
+      if (!renew && !plan().groups.length) return A.toast("Daily run: nothing to do today ✓");
       A.toast("Daily run starts in 15 seconds…");
-      setTimeout(() => (due ? startRenew("post") : startPosting(true)), 15000);
+      setTimeout(() => (renew ? startRenew("post") : startPosting(true)), 15000);
     }
   }, 300);
   setTimeout(() => clearInterval(wait), 60000);
 
-  window.FAV_FBAUTO = { open, _test: { set: s => { S = normalise(s); }, dueList, plan, caption } };
+  window.addEventListener("message", e => {
+    if (e.source === window && e.data && e.data.type === "favauto-start-failed") A.toast("The add-on couldn't start the run. Reload the add-on in chrome://extensions and try again.", true);
+  });
+  window.FAV_FBAUTO = { open, _test: { set: s => { S = normalise(s); }, dueList, plan, caption, receive, state: () => S } };
 })();
