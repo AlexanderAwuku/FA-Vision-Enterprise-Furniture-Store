@@ -245,7 +245,7 @@
           <details class="fa-more"><summary>Audience lists (hashtags)</summary>
             ${Object.keys(AUDIENCE_NAMES).map(k => `<label class="ig-aud">${AUDIENCE_NAMES[k]}<textarea name="aud_${k}" rows="2">${esc(st.audiences[k] || "")}</textarea></label>`).join("")}
           </details>
-          <p class="muted fa-small">Instagram must be logged in as @${esc(st.account)} in the same Chrome. "Share to Facebook" is switched off on every post, so nothing lands on your personal Facebook.</p>
+          <p class="muted fa-small">Instagram must be logged in as @${esc(st.account)} in the same Edge browser. "Share to Facebook" is switched off on every post, so nothing lands on your personal Facebook.</p>
           <button class="btn btn-ghost btn-sm" type="submit">Save Instagram settings</button>
         </form>
       </section>

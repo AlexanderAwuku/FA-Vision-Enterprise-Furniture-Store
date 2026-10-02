@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "FA Vision Autopilot",
-  "version": "4.0.0",
-  "description": "Works with your FA Vision admin: renews Facebook Marketplace listings, posts into Facebook groups and on Instagram, and syncs prices.",
+  "version": "5.0.0",
+  "description": "Works with your FA Vision admin: renews Facebook Marketplace listings, posts into Facebook groups and on Instagram, and syncs prices. Updates itself from your website.",
   "icons": {
     "128": "icon128.png"
   },
@@ -16,40 +16,18 @@
   "permissions": [
     "alarms",
     "notifications",
-    "storage"
+    "storage",
+    "scripting",
+    "userScripts"
   ],
   "host_permissions": [
-    "https://favisionenterprize.github.io/*"
+    "https://favisionenterprize.github.io/*",
+    "https://*.facebook.com/*",
+    "https://www.instagram.com/*",
+    "https://www.tiktok.com/*",
+    "https://x.com/*"
   ],
   "content_scripts": [
-    {
-      "matches": [
-        "https://*.facebook.com/marketplace/*"
-      ],
-      "js": [
-        "facebook.js"
-      ],
-      "run_at": "document_idle",
-      "world": "MAIN"
-    },
-    {
-      "matches": [
-        "https://*.facebook.com/*"
-      ],
-      "js": [
-        "autopilot.js"
-      ],
-      "run_at": "document_idle"
-    },
-    {
-      "matches": [
-        "https://www.instagram.com/*"
-      ],
-      "js": [
-        "instagram.js"
-      ],
-      "run_at": "document_idle"
-    },
     {
       "matches": [
         "https://favisionenterprize.github.io/admin/*"

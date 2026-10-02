@@ -88,7 +88,7 @@
 
   await sleep(2000);
   box("Starting…");
-  if (/\/accounts\/login|\/challenge\//.test(location.pathname)) return finish(`Instagram isn't logged in. Log in as @${job.account} in this Chrome, then tap Run again.`);
+  if (/\/accounts\/login|\/challenge\//.test(location.pathname)) return finish(`Instagram isn't logged in. Log in as @${job.account} in this browser, then tap Run again.`);
 
   // ============================================================= 1. right account + profile counts
   const profile = `https://www.instagram.com/${job.account}/`;

@@ -362,7 +362,7 @@
             <span class="muted">${pl.groups.length ? `${plural(pl.groups.length, "new group")} queued` : doneToday >= limit ? "Done for today ✓" : "No new groups left today"} · been in ${pl.cov.done} of ${pl.cov.total} groups${pl.cov.fresh ? " (starting a new round)" : ""}</span></div>
           </div>
           <div class="fa-actions"><button class="btn btn-sell" data-fa="post" ${pl.groups.length ? "" : "disabled"}>Start today's ${pl.groups.length || limit} group posts</button><button class="btn btn-ghost" data-fa="test">Test without posting</button></div>
-          <p class="muted fa-small" ${pl.groups.length ? "" : "hidden"}>Runs by itself in a Facebook tab, ${S.settings.pause_min_s / 60}–${S.settings.pause_max_s / 60} minutes between groups (about ${Math.round(pl.groups.length * (S.settings.pause_min_s + S.settings.pause_max_s) / 120)} minutes). Keep that tab open and in front (Chrome slows background tabs a lot). It stops at once if Facebook shows any warning.</p>
+          <p class="muted fa-small" ${pl.groups.length ? "" : "hidden"}>Runs by itself in a Facebook tab, ${S.settings.pause_min_s / 60}–${S.settings.pause_max_s / 60} minutes between groups (about ${Math.round(pl.groups.length * (S.settings.pause_min_s + S.settings.pause_max_s) / 120)} minutes). Keep that tab open and in front (Edge slows background tabs a lot). It stops at once if Facebook shows any warning.</p>
           <details class="fa-more"><summary>Rotation order (${order.length} listings, one a day)</summary><ol class="fa-list">${order.map((p, i) => { const c = coverage(p); return `<li class="${i === cur ? "now" : ""}"><span>${i === cur ? "▶ " : ""}${esc(p.name)}</span><small>${c.done}/${c.total} groups</small></li>`; }).join("")}</ol></details>`
         : `<p class="fa-empty">No listing is ready (each needs a price, a photo and to be in stock).</p>`}
       </section>
@@ -418,10 +418,16 @@
     const steps = stepsToday();
     const mins = (steps.includes("renew") ? 5 : 0) + (steps.includes("post") ? Math.round(pl.groups.length * (S.settings.pause_min_s + S.settings.pause_max_s) / 120) : 0) + (steps.includes("ig") && ig ? ig.mins : 0);
     const shortName = p => String(p.name).split(" — ")[0];
-    const extMsg = !ext() ? "The FA Vision add-on isn't installed in this Chrome yet. Install it first (steps below)." : Number(ext()) < 4 ? "Your FA Vision add-on needs updating to post on Instagram (steps below)." : "";
+    const ds = document.documentElement.dataset;
+    const extMsg = !ext() ? "The FA Vision add-on isn't installed in this Edge browser yet. Install it first (steps below)."
+      : Number(ext()) < 5 ? "Your FA Vision add-on needs one last manual update (steps below). After that it updates itself from your website."
+      : "";
+    const updMsg = Number(ext()) >= 5 && ds.favautoMode === "bundled"
+      ? `<div class="fa-upd bad"><p><b>Switch on automatic updates.</b> In Edge open <code>edge://extensions</code> and turn on <b>Developer mode</b> (left side of the page). Then click <b>Details</b> under FA Vision Autopilot and, if you see <b>Allow user scripts</b>, turn it on too. The add-on then fetches its latest version from your website by itself. Until then it uses the copy in its folder.</p><button class="btn btn-ghost btn-sm" data-fa="recheck">I've switched it on, check again</button></div>`
+      : Number(ext()) >= 5 && ds.favautoMode === "live" ? `<p class="fa-ext ok">✓ The add-on updates itself from your website${ds.favautoVersion ? ` (version ${esc(ds.favautoVersion)})` : ""}. Nothing to download.</p>` : "";
     const days = lastDays(7);
     return `
-      ${extMsg ? `<p class="fa-ext bad">✗ ${extMsg}</p>` : ""}
+      ${extMsg ? `<p class="fa-ext bad">✗ ${extMsg}</p>` : updMsg}
       <section class="fa-card run-card">
         <header><h2>Today's posting</h2><span class="muted fa-small">${esc(new Date().toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long" }))}</span></header>
         <ol class="run-steps">
@@ -437,7 +443,7 @@
           ${step(steps.length ? "wait" : "done", "Email report", `Breakdown sent to ${esc(REPORT_TO)} when the run ends (and every night at 9 pm)`)}
         </ol>
         ${steps.length ? `<button class="btn btn-sell run-btn" data-fa="run">Run everything for today</button>
-          <p class="muted fa-small">About ${Math.max(5, mins)} minutes. It runs in this Chrome tab, one site after the other. Keep the tab open and in front. It stops by itself if Facebook or Instagram shows a warning.</p>`
+          <p class="muted fa-small">About ${Math.max(5, mins)} minutes. It runs in this Edge tab, one site after the other. Keep the tab open and in front. It stops by itself if Facebook or Instagram shows a warning.</p>`
         : `<p class="run-done">All done for today ✓</p>`}
         <div class="run-foot">
           <label class="fa-check"><input type="checkbox" data-fa-autorun ${S.settings.auto_run ? "checked" : ""}> Run by itself every day at <input type="time" data-fa-autotime value="${esc(S.settings.auto_time)}"></label>
@@ -453,14 +459,15 @@
         </table></div>
       </section>
 
-      <details class="fa-card fa-help"><summary><b>Install or update the FA Vision add-on</b></summary>
+      <details class="fa-card fa-help"${ext() && Number(ext()) >= 5 ? "" : " open"}><summary><b>${ext() ? "Update" : "Install"} the FA Vision add-on (one time)</b></summary>
         <ol>
-          <li>Download the <code>extension</code> folder from your GitHub repo (Code → Download ZIP, then unzip).</li>
-          <li>In Chrome open <code>chrome://extensions</code>, turn on <b>Developer mode</b>, click <b>Load unpacked</b> and pick the <code>extension</code> folder. If an older FA Vision add-on is there, remove it first.</li>
-          <li>Pin it from the puzzle-piece menu. Its red number shows what's waiting (Marketplace, groups and Instagram), and it sends a reminder once a day.</li>
-          <li>Stay logged in to Facebook in this Chrome, as your personal profile (Pages can't use Marketplace), and to Instagram as @favisionent.</li>
-          <li><b>To update:</b> download the ZIP again, replace your old <code>extension</code> folder with the new one, then click reload ↻ on FA Vision Autopilot in <code>chrome://extensions</code> and reload this page.</li>
-        </ol></details>`;
+          <li>Download the <code>extension</code> folder from your GitHub repo (Code → Download ZIP, then unzip). Keep it somewhere it won't be deleted.</li>
+          <li>In Edge open <code>edge://extensions</code> and turn on <b>Developer mode</b> (left side of the page). If an older FA Vision add-on is there, click <b>Remove</b> on it first.</li>
+          <li>Click <b>Load unpacked</b> and pick the <code>extension</code> folder.</li>
+          <li>Keep <b>Developer mode</b> on, and if <b>Details</b> under FA Vision Autopilot shows <b>Allow user scripts</b>, turn that on too. This is what lets it update itself.</li>
+          <li>Show it in the toolbar (Extensions button → eye icon next to FA Vision Autopilot), and stay logged in to Facebook (personal profile) and Instagram (@favisionent) in this Edge.</li>
+        </ol>
+        <p class="muted fa-small">That's the last time. From version 5 the add-on downloads its latest posting scripts from your website every hour and before every run, so updates arrive by themselves.</p></details>`;
   }
 
   function render() {
@@ -493,7 +500,8 @@
     const b = e.target.closest("[data-fa]");
     if (!b) return;
     const k = b.dataset.fa;
-    if (k === "run") runAll(false);
+    if (k === "recheck") { window.postMessage({ type: "favauto-recheck" }, location.origin); A.toast("Checking the add-on…"); }
+    else if (k === "run") runAll(false);
     else if (k === "report") sendReport(false);
     else if (k === "renew") startRenew();
     else if (k === "post") startPosting(false);
@@ -505,7 +513,7 @@
     const time = (screen.querySelector("[data-fa-autotime]") || {}).value || "09:00";
     try {
       await save(s => { s.settings.auto_run = on; s.settings.auto_time = time; return s; }, "Autopilot: daily run " + (on ? "on at " + time : "off"));
-      A.toast(on ? `Runs by itself every day at ${time} (Chrome must be open on this computer).` : "Daily run switched off.");
+      A.toast(on ? `Runs by itself every day at ${time} (Edge must be open on this computer).` : "Daily run switched off.");
     } catch (err) { A.toast(A.friendly(err), true); }
   }
   screen.addEventListener("change", async e => {
@@ -581,7 +589,11 @@
   setTimeout(() => clearInterval(wait), 60000);
 
   window.addEventListener("message", e => {
-    if (e.source === window && e.data && e.data.type === "favauto-start-failed") A.toast("The add-on couldn't start the run. Reload the add-on in chrome://extensions and try again.", true);
+    if (e.source === window && e.data && e.data.type === "favauto-status" && S && !screen.hidden) {
+      render();
+      if (e.data.status.mode === "live" && e.data.status.userScripts) return;
+    }
+    if (e.source === window && e.data && e.data.type === "favauto-start-failed") A.toast("The add-on couldn't start the run. Reload the add-on in edge://extensions and try again.", true);
   });
   window.FAV_FBAUTO = { open, _test: { set: s => { S = normalise(s); }, dueList, plan, caption, receive, state: () => S, stepsToday, runStep, setTab: t => { tab = t; render(); } } };
 })();

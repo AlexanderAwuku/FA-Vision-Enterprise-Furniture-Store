@@ -2,11 +2,23 @@
 
 Works with the admin's **Social autopilot** (Facebook and Instagram) and **Price sync** screens. Facebook and Instagram have no free API for Marketplace renewals, group posts or posting from a personal setup like this, so this add-on does the clicking in your own logged-in Chrome.
 
-## Install (one time)
+## Install (one time, in Microsoft Edge)
 
-1. Download this `extension` folder (GitHub → Code → Download ZIP, then unzip).
-2. Open `chrome://extensions`, turn on **Developer mode**, click **Load unpacked** and choose the folder. Remove any older "FA Vision Price Sync" add-on first.
-3. Pin it from the puzzle-piece menu. Stay logged in to Facebook (personal profile) and to Instagram (@favisionent) in this Chrome.
+1. Download this `extension` folder (GitHub → Code → Download ZIP, then unzip) and keep it somewhere it won't be deleted.
+2. Open `edge://extensions` and turn on **Developer mode** (left side of the page). Remove any older FA Vision add-on first.
+3. Click **Load unpacked** and choose the folder.
+4. Keep Developer mode on. If **Details** under FA Vision Autopilot shows **Allow user scripts**, turn it on. This lets the add-on update itself.
+5. Show it in the toolbar (Extensions button → eye icon). Stay logged in to Facebook (personal profile) and to Instagram (@favisionent) in this Edge.
+
+It also works the same way in Chrome (`chrome://extensions`).
+
+## Updates happen by themselves (version 5+)
+
+The scripts that do the work on Facebook and Instagram (`autopilot.js`, `facebook.js`, `instagram.js`, listed in `live.json`) are downloaded from the live website every hour and before every run, and run as browser "user scripts". Push a change to the website and every installed add-on picks it up, with no download or reload. The admin's Today tab shows whether self-updating is on.
+
+If user scripts aren't allowed, or the site can't be reached, the add-on falls back to the copies in this folder.
+
+Only changes to `background.js`, `admin.js` or `manifest.json` (the add-on's frame, which rarely changes) need the folder replaced and ↻ reload clicked in `edge://extensions`.
 
 ## What it does
 
@@ -22,4 +34,3 @@ Works with the admin's **Social autopilot** (Facebook and Instagram) and **Price
 
 It only acts in a tab the admin opened with a job (the admin hands the job to this add-on, which keeps it per tab, so Facebook's www → web.facebook.com redirect can't lose it). Normal Facebook browsing is untouched.
 
-**After any update:** replace this folder with the new one and click reload ↻ on FA Vision Autopilot in `chrome://extensions`.

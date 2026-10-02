@@ -1,0 +1,28 @@
+{
+  "version": "2026-10-02.1",
+  "note": "The FA Vision add-on (5.0+) downloads these scripts from the live site and runs them, so pushing a change here updates everyone's add-on within the hour. Changing the version is optional (it is only shown in the admin); any change to a file is picked up.",
+  "scripts": [
+    {
+      "id": "fb-autopilot",
+      "file": "autopilot.js",
+      "matches": [
+        "https://*.facebook.com/*"
+      ]
+    },
+    {
+      "id": "fb-pricesync",
+      "file": "facebook.js",
+      "matches": [
+        "https://*.facebook.com/marketplace/*"
+      ],
+      "world": "MAIN"
+    },
+    {
+      "id": "instagram",
+      "file": "instagram.js",
+      "matches": [
+        "https://www.instagram.com/*"
+      ]
+    }
+  ]
+}

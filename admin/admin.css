@@ -526,3 +526,5 @@ ol.fa-list { counter-reset: none; }
 .ig-aud { display: grid !important; gap: 4px; margin-top: 8px; }
 .ig-aud textarea { width: 100%; box-sizing: border-box; padding: 6px 8px; border: 1px solid var(--line); border-radius: 8px; font: 13px/1.4 inherit; font-family: inherit; }
 .fa-settings select, .fa-settings input[type=text] { padding: 6px 8px; border: 1px solid var(--line); border-radius: 8px; font: inherit; }
+.fa-upd { padding: 12px 14px; border-radius: var(--radius); background: #fff6e5; border: 1px solid #f3d9a4; font-size: 14px; }
+.fa-upd p { margin: 0 0 8px; }
