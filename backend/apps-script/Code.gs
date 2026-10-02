@@ -14,6 +14,9 @@
  * - Sales / Expenses / Summary tabs: simple finance records.
  * - sendCampaign: batch-mails clients in the "Clients" tab, within the
  *   daily Gmail quota, and records who was sent what.
+ * - Posting report: after the admin's Social autopilot run (and every night
+ *   at 9 pm) emails a breakdown of the day's Marketplace renewals, Facebook
+ *   group posts and Instagram posts, with a CSV for audit, to REPORT_EMAIL.
  *
  * Run setup() once after pasting this file (see backend/README.md).
  */
@@ -103,6 +106,10 @@ function setup() {
   if (!ScriptApp.getProjectTriggers().some((t) => t.getHandlerFunction() === 'syncPaystack')) {
     ScriptApp.newTrigger('syncPaystack').timeBased().everyHours(1).create();
   }
+  // Nightly posting report (Social autopilot) at about 9 pm.
+  if (!ScriptApp.getProjectTriggers().some((t) => t.getHandlerFunction() === 'sendPostingReport')) {
+    ScriptApp.newTrigger('sendPostingReport').timeBased().everyDays(1).atHour(21).create();
+  }
   Logger.log('Admin key for the Orders screen: ' + props.getProperty('ADMIN_KEY'));
 }
 
@@ -129,6 +136,7 @@ function doPost(e) {
   if (data.action === 'logout') return adminLogout_(data);
   if (data.action === 'session') return json_(sessionValid_(data.session) ? { ok: true } : { ok: false, error: 'signed_out' });
   if (data.action === 'github') return githubProxy_(data);
+  if (data.action === 'posting_report') return postingReportNow_(data);
   if (data.action === 'update_order') return updateOrder_(data);
   if (data.action === 'save_invoice') return saveInvoice_(data);
   if (data.action === 'update_enquiry') return updateEnquiry_(data);
@@ -1053,4 +1061,147 @@ function updateEnquiry_(data) {
     lock.releaseLock();
   }
   return json_({ ok: true });
+}
+
+
+// ---------- Social autopilot: daily posting report ----------
+//
+// Sent to REPORT_EMAIL (Script property; default nanaotengdonkor1@gmail.com):
+//   - right after the admin's one-button run ends (action "posting_report",
+//     with the admin's fresh copy of the logs), and
+//   - every night at about 9 pm by sendPostingReport(), from the live site's
+//     data files, unless a report already covers everything done that day.
+// Body: totals, then every renewal / group post / Instagram post with its time
+// and result, warnings, follower growth and a 7-day table. A CSV of every
+// action is attached for audit.
+
+const DEFAULT_REPORT_EMAIL = 'nanaotengdonkor1@gmail.com';
+function reportEmail_() { return String(authProps_().getProperty('REPORT_EMAIL') || DEFAULT_REPORT_EMAIL).trim(); }
+
+function postingReportNow_(data) {
+  if (!sessionValid_(data.session)) return json_({ ok: false, error: 'signed_out' });
+  try {
+    const day = /^\d{4}-\d{2}-\d{2}$/.test(data.day) ? data.day : Utilities.formatDate(new Date(), 'Africa/Accra', 'yyyy-MM-dd');
+    sendPostingReport_(day, data.fb || {}, data.ig || {}, data.products || {});
+    return json_({ ok: true, to: reportEmail_() });
+  } catch (err) {
+    return json_({ ok: false, error: String(err && err.message || err).slice(0, 200) });
+  }
+}
+
+// Nightly trigger (created by setup()).
+function sendPostingReport() {
+  const day = Utilities.formatDate(new Date(), 'Africa/Accra', 'yyyy-MM-dd');
+  const site = (authProps_().getProperty('SITE_URL') || BUSINESS.website).replace(/\/?$/, '/');
+  const get = (path) => { try { return JSON.parse(UrlFetchApp.fetch(site + path + '?t=' + Date.now(), { muteHttpExceptions: true }).getContentText()); } catch (e) { return {}; } };
+  const fb = get('data/facebook-autopilot.json');
+  const ig = get('data/instagram-autopilot.json');
+  const products = {};
+  const list = get('data/products.json');
+  (Array.isArray(list) ? list : []).forEach((p) => { products[p.id] = String(p.name).split(' — ')[0]; });
+  // Skip if today's report already covers everything done today.
+  const last = authProps_().getProperty('LAST_POSTING_REPORT') || '';
+  const latest = [].concat(fb.posts || [], fb.runs || [], ig.posts || [], ig.runs || []).filter((x) => x.d === day).map((x) => x.t || '').sort().pop() || '';
+  if (last.slice(0, 10) === day && last >= latest) return;
+  sendPostingReport_(day, fb, ig, products);
+}
+
+function sendPostingReport_(day, fb, ig, products) {
+  const r = buildPostingReport_(day, fb, ig, products);
+  MailApp.sendEmail({
+    to: reportEmail_(),
+    subject: r.subject,
+    htmlBody: r.html,
+    name: BUSINESS.name + ' autopilot',
+    attachments: [Utilities.newBlob(r.csv, 'text/csv', 'fa-vision-posting-' + day + '.csv')],
+  });
+  authProps_().setProperty('LAST_POSTING_REPORT', new Date().toISOString());
+}
+
+function buildPostingReport_(day, fb, ig, products) {
+  const h = (v) => String(v == null ? '' : v).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const time = (t) => (t ? Utilities.formatDate(new Date(t), 'Africa/Accra', 'HH:mm') : '');
+  const pname = (id) => products[id] || id || '';
+  const groups = {};
+  (fb.groups || []).forEach((g) => { groups[g.id] = g; });
+  const gname = (id) => (groups[id] && groups[id].name) || id;
+  const on = (arr) => (arr || []).filter((x) => x.d === day);
+  const renew = on(fb.renewLog);
+  const gposts = on(fb.posts);
+  const iposts = on(ig.posts);
+  const runs = on(fb.runs).concat(on(ig.runs));
+  const igLabel = (x) => x.label || (String(x.k || '').indexOf('card:') === 0 ? pname(String(x.k).slice(5)) + ' (deal card)' : String(x.k || '').replace(/^ad:/, 'Ad: '));
+  const okN = (a) => a.filter((x) => x.ok).length;
+  const pending = gposts.filter((x) => x.ok && /approval/i.test(x.why || '')).length;
+  const prof = (ig.profile || []).slice().sort((a, b) => (a.d < b.d ? -1 : 1));
+  const pAt = (d) => prof.filter((x) => x.d <= d).pop();
+  const shift = (n) => Utilities.formatDate(new Date(new Date(day + 'T12:00:00Z').getTime() - n * 864e5), 'Africa/Accra', 'yyyy-MM-dd');
+  const nowP = prof.filter((x) => x.d === day).pop();
+  const delta = (n) => { const o = pAt(shift(n)); return nowP && o && nowP.followers != null && o.followers != null ? nowP.followers - o.followers : null; };
+  const sgn = (n) => (n == null ? '–' : (n > 0 ? '+' : '') + n);
+  const prettyDay = Utilities.formatDate(new Date(day + 'T12:00:00Z'), 'Africa/Accra', 'EEEE d MMMM yyyy');
+
+  const tile = (big, small, warn) => '<td style="padding:12px;border:1px solid #e3e6ec;border-radius:10px;background:' + (warn ? '#fdecec' : '#f7f8fa') + ';width:25%;vertical-align:top"><div style="font:700 22px Arial,sans-serif;color:#14171a">' + big + '</div><div style="font:13px Arial,sans-serif;color:#4f5a64">' + small + '</div></td>';
+  const table = (head, rows, empty) => rows.length
+    ? '<table cellpadding="6" style="border-collapse:collapse;width:100%;font:13px Arial,sans-serif"><tr>' + head.map((x) => '<th align="left" style="border-bottom:2px solid #e3e6ec;color:#4f5a64">' + x + '</th>').join('') + '</tr>' +
+      rows.map((r) => '<tr>' + r.map((c, i) => '<td style="border-bottom:1px solid #eef0f4;' + (i === 2 ? 'white-space:nowrap;' : '') + (i === r.length - 1 && /✗/.test(r[2] || r[1]) ? 'color:#c62828' : '') + '">' + c + '</td>').join('') + '</tr>').join('') + '</table>'
+    : '<p style="font:13px Arial,sans-serif;color:#4f5a64">' + empty + '</p>';
+  const mark = (x) => (x.ok ? '✓' : '✗');
+
+  const issues = [];
+  runs.filter((r) => r.stopped).forEach((r) => issues.push(time(r.t) + ' · ' + ({ renew: 'Marketplace', post: 'Facebook groups', ig: 'Instagram' }[r.kind] || r.kind) + ' stopped: ' + r.stopped));
+  gposts.filter((x) => !x.ok).forEach((x) => issues.push(time(x.t) + ' · Group "' + gname(x.g) + '": ' + (x.why || 'failed')));
+  iposts.filter((x) => !x.ok).forEach((x) => issues.push(time(x.t) + ' · Instagram "' + igLabel(x) + '": ' + (x.why || 'failed')));
+  renew.filter((x) => !x.ok && !/next renewal/i.test(x.why || '')).forEach((x) => issues.push('Renewal "' + x.t + '": ' + (x.why || 'failed')));
+  const offGroups = (fb.groups || []).filter((g) => !g.active && g.off_why);
+
+  const week = [];
+  for (let i = 6; i >= 0; i--) {
+    const d = shift(i);
+    const p = (ig.profile || []).filter((x) => x.d === d).pop();
+    week.push([Utilities.formatDate(new Date(d + 'T12:00:00Z'), 'Africa/Accra', 'EEE d MMM'),
+      (fb.renewLog || []).filter((x) => x.d === d && x.ok).length,
+      (fb.posts || []).filter((x) => x.d === d && x.ok).length + ' / ' + (fb.posts || []).filter((x) => x.d === d).length,
+      (ig.posts || []).filter((x) => x.d === d && x.ok).length + ' / ' + (ig.posts || []).filter((x) => x.d === d).length,
+      p && p.followers != null ? p.followers : '–']);
+  }
+
+  const total = okN(renew) + okN(gposts) + okN(iposts);
+  const html =
+    '<div style="max-width:720px;margin:auto;font:14px Arial,sans-serif;color:#14171a">' +
+    '<h2 style="margin:0 0 4px">Posting report · ' + h(prettyDay) + '</h2>' +
+    '<p style="margin:0 0 16px;color:#4f5a64">' + h(BUSINESS.name) + ' Social autopilot. ' + total + ' successful action' + (total === 1 ? '' : 's') + ' today' + (issues.length ? ', ' + issues.length + ' issue' + (issues.length === 1 ? '' : 's') + ' to check.' : ', no issues.') + '</p>' +
+    '<table cellspacing="8" style="width:100%;border-collapse:separate"><tr>' +
+    tile(okN(renew), 'Marketplace listings renewed' + (renew.length - okN(renew) ? '<br>' + (renew.length - okN(renew)) + ' not ready yet' : '')) +
+    tile(okN(gposts) + ' / ' + gposts.length, 'Facebook group posts' + (pending ? '<br>' + pending + ' awaiting admin approval' : ''), gposts.length && okN(gposts) < gposts.length / 2) +
+    tile(okN(iposts) + ' / ' + iposts.length, 'Instagram posts' + (ig.settings ? ' (target ' + ig.settings.daily_posts + ')' : '')) +
+    tile(nowP && nowP.followers != null ? nowP.followers : '–', 'Instagram followers<br>' + sgn(delta(1)) + ' today · ' + sgn(delta(7)) + ' this week') +
+    '</tr></table>' +
+    (issues.length ? '<h3 style="color:#c62828">Issues to check</h3><ul style="font:13px Arial,sans-serif">' + issues.map((x) => '<li>' + h(x) + '</li>').join('') + '</ul>' : '') +
+    '<h3>Marketplace renewals</h3>' + table(['#', 'Listing', 'Result', 'Note'], renew.map((x, i) => [i + 1, h(x.t), mark(x) + (x.ok ? ' Renewed' : ' Not renewed'), h(x.why || '')]), 'No renewals ran today.' + (fb.selling ? ' Last check ' + h(fb.selling.d) + ': ' + fb.selling.n + ' listings, ' + fb.selling.due + ' due.' : '')) +
+    '<h3>Facebook group posts</h3>' + table(['Time', 'Group', 'Result', 'Listing / note'], gposts.map((x) => [time(x.t), h(gname(x.g)), mark(x) + (x.ok ? ' Posted' : ' Failed'), h(pname(x.p)) + (x.why ? ' · ' + h(x.why) : '')]), 'No group posts today.') +
+    '<h3>Instagram posts' + (ig.settings ? ' (@' + h(ig.settings.account) + ')' : '') + '</h3>' + table(['Time', 'Photo', 'Result', 'Note'], iposts.map((x) => [time(x.t), h(igLabel(x)) + (x.spot ? ' ★ spotlight' : ''), mark(x) + (x.ok ? ' Posted' : ' Failed'), h(x.why || '')]), 'No Instagram posts today.') +
+    (nowP ? '<p style="font:13px Arial,sans-serif;color:#4f5a64">Profile today: ' + (nowP.followers != null ? nowP.followers + ' followers, ' : '') + (nowP.following != null ? nowP.following + ' following, ' : '') + (nowP.posts != null ? nowP.posts + ' posts. ' : '') + 'Growth: ' + sgn(delta(1)) + ' since yesterday, ' + sgn(delta(7)) + ' in 7 days, ' + sgn(delta(30)) + ' in 30 days.</p>' : '') +
+    (offGroups.length ? '<h3>Groups switched off</h3><p style="font:13px Arial,sans-serif;color:#4f5a64">These groups get no posts. A group is switched off by hand, or by itself after 3 failed posts in a row. Turn one back on in the admin (Social autopilot → Facebook).</p><ul style="font:13px Arial,sans-serif">' + offGroups.map((g) => '<li>' + h(g.name) + ': ' + h(g.off_why) + '</li>').join('') + '</ul>' : '') +
+    '<h3>Last 7 days</h3>' + table(['Day', 'Renewed', 'Group posts (ok / tried)', 'Instagram (ok / tried)', 'Followers'], week, '') +
+    '<p style="font:12px Arial,sans-serif;color:#8a949e;margin-top:20px">Every action is in the attached CSV. Source: data/facebook-autopilot.json and data/instagram-autopilot.json in your website repository. Sent ' + h(Utilities.formatDate(new Date(), 'Africa/Accra', 'd MMM yyyy HH:mm')) + ' (Accra).</p>' +
+    '</div>';
+
+  const q = (v) => '"' + String(v == null ? '' : v).replace(/"/g, '""').replace(/^[=+\-@]/, "'$&") + '"';
+  const rows = [['Date', 'Time', 'Platform', 'Action', 'Item', 'Where', 'Result', 'Note']];
+  renew.forEach((x) => rows.push([day, '', 'Facebook Marketplace', 'Renew', x.t, 'Your listings', x.ok ? 'OK' : 'Not renewed', x.why || '']));
+  gposts.forEach((x) => rows.push([day, time(x.t), 'Facebook group', 'Post', pname(x.p), gname(x.g), x.ok ? 'OK' : 'Failed', x.why || '']));
+  iposts.forEach((x) => rows.push([day, time(x.t), 'Instagram', 'Post', igLabel(x), '@' + ((ig.settings || {}).account || ''), x.ok ? 'OK' : 'Failed', [x.spot ? 'Spotlight' : '', x.why || ''].filter(String).join(' · ')]));
+  runs.filter((r) => r.stopped).forEach((r) => rows.push([day, time(r.t), r.kind === 'ig' ? 'Instagram' : 'Facebook', 'Run stopped', '', '', 'Stopped', r.stopped]));
+  if (nowP) rows.push([day, '', 'Instagram', 'Profile', 'Followers ' + nowP.followers, 'Following ' + nowP.following, 'Posts ' + nowP.posts, 'Growth today ' + sgn(delta(1))]);
+  const csv = rows.map((r) => r.map(q).join(',')).join('\r\n');
+
+  const subject = 'Posting report ' + day + ': ' + okN(renew) + ' renewed, ' + okN(gposts) + ' group posts, ' + okN(iposts) + ' Instagram' + (issues.length ? ' · ' + issues.length + ' issue' + (issues.length === 1 ? '' : 's') : '');
+  return { subject: subject, html: html, csv: csv };
+}
+
+// Run from the editor to see a sample report in your inbox straight away.
+function testPostingReport() {
+  authProps_().deleteProperty('LAST_POSTING_REPORT');
+  sendPostingReport();
 }

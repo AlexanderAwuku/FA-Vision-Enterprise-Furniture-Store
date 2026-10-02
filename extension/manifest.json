@@ -1,28 +1,62 @@
 {
   "manifest_version": 3,
   "name": "FA Vision Autopilot",
-  "version": "3.1.0",
-  "description": "Works with your FA Vision admin: renews Facebook Marketplace listings, posts one listing a day into new groups, and syncs prices.",
-  "icons": { "128": "icon128.png" },
-  "action": { "default_icon": "icon128.png", "default_title": "FA Vision autopilot" },
-  "background": { "service_worker": "background.js" },
-  "permissions": ["alarms", "notifications", "storage"],
-  "host_permissions": ["https://favisionenterprize.github.io/*"],
+  "version": "4.0.0",
+  "description": "Works with your FA Vision admin: renews Facebook Marketplace listings, posts into Facebook groups and on Instagram, and syncs prices.",
+  "icons": {
+    "128": "icon128.png"
+  },
+  "action": {
+    "default_icon": "icon128.png",
+    "default_title": "FA Vision autopilot"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "permissions": [
+    "alarms",
+    "notifications",
+    "storage"
+  ],
+  "host_permissions": [
+    "https://favisionenterprize.github.io/*"
+  ],
   "content_scripts": [
     {
-      "matches": ["https://*.facebook.com/marketplace/*"],
-      "js": ["facebook.js"],
+      "matches": [
+        "https://*.facebook.com/marketplace/*"
+      ],
+      "js": [
+        "facebook.js"
+      ],
       "run_at": "document_idle",
       "world": "MAIN"
     },
     {
-      "matches": ["https://*.facebook.com/*"],
-      "js": ["autopilot.js"],
+      "matches": [
+        "https://*.facebook.com/*"
+      ],
+      "js": [
+        "autopilot.js"
+      ],
       "run_at": "document_idle"
     },
     {
-      "matches": ["https://favisionenterprize.github.io/admin/*"],
-      "js": ["admin.js"],
+      "matches": [
+        "https://www.instagram.com/*"
+      ],
+      "js": [
+        "instagram.js"
+      ],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": [
+        "https://favisionenterprize.github.io/admin/*"
+      ],
+      "js": [
+        "admin.js"
+      ],
       "run_at": "document_start"
     }
   ]

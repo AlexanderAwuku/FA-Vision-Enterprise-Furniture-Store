@@ -7,6 +7,7 @@ Static GitHub Pages site, live at https://favisionenterprize.github.io (push to 
 - Promos: `data/business.json` → `promos.ads` + `promos.schedule` (first matching date window wins).
 - Stock badge: `custom_order` / `in_stock` per product in `data/products.json`.
 - Copy says "we sell", not "we make".
+- Social autopilot (admin `#fbauto`): Today tab = one button that chains renew → FB group posts → Instagram (`admin/igauto.js` + `extension/instagram.js`, log `data/instagram-autopilot.json`) → emails the posting report (Code.gs `posting_report`, nightly `sendPostingReport` at 9 pm, to nanaotengdonkor1@gmail.com). Add-on version marker `favautoExt` = 4 means Instagram support.
 - Facebook autopilot (admin `#fbauto`, `admin/fbauto.js` + `extension/autopilot.js`): renewals and the daily group rotation, logged in `data/facebook-autopilot.json`. The add-on must be reloaded in Chrome after any change in `extension/`. Jobs pass admin → `extension/admin.js` (postMessage) → background (per-tab storage), never via the URL hash: Facebook redirects www → web.facebook.com in Ghana and drops it. Renewing works on marketplace/you/selling (More options → Renew listing), not on item pages.
 
 ## Business facts

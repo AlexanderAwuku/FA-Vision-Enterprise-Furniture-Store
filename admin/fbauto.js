@@ -1,4 +1,9 @@
-// Facebook autopilot: Marketplace renewals and the daily group-posting rotation.
+// Social autopilot: one screen, three tabs.
+//   Today     – one button runs everything due today, in order: Marketplace
+//               renewals → Facebook group posts → Instagram posts (admin/igauto.js)
+//               → emails the day's posting report (backend action posting_report).
+//   Facebook  – Marketplace renewals and the daily group-posting rotation (below).
+//   Instagram – admin/igauto.js.
 //
 // Facebook has no API for either job, so the FA Vision browser add-on does the
 // clicking (extension/autopilot.js). This screen decides what to do, sends the
@@ -24,7 +29,9 @@
   const days = (a, b) => Math.floor((Date.parse(b) - Date.parse(a)) / 864e5);
   const plural = (n, w) => `${n} ${w}${n === 1 ? "" : "s"}`;
   const ext = () => document.documentElement.dataset.favautoExt;
-  let S = null;
+  const IG = () => window.FAV_IGAUTO;
+  const REPORT_TO = "nanaotengdonkor1@gmail.com";
+  let S = null, tab = "today";
 
   function normalise(s) {
     s = s || JSON.parse(JSON.stringify(EMPTY));
@@ -154,7 +161,7 @@
     launch(g.url, { kind: "post", dry: true, q: [{ g: g.id, name: g.name, url: g.url, p: p.id, text: caption(p, 0), img }], min: 5, max: 5 });
   }
 
-  async function startPosting(auto) {
+  async function startPosting(auto, then) {
     if (needExt()) return;
     const pl = plan();
     if (!activeGroups().length) return A.toast("Import your groups first.", true);
@@ -173,7 +180,74 @@
     const p = pl.p, start = S.posts.filter(x => x.p === p.id).length;
     const img = location.origin + "/" + p.images[0];
     const q = pl.groups.map((g, i) => ({ g: g.id, name: g.name, url: g.url, p: p.id, text: caption(p, start + i), img }));
-    launch(q[0].url, { kind: "post", q, min: S.settings.pause_min_s, max: S.settings.pause_max_s, auto: !!auto });
+    launch(q[0].url, { kind: "post", q, min: S.settings.pause_min_s, max: S.settings.pause_max_s, auto: !!auto, then: then || null });
+  }
+
+  // ------------------------------------------------------------------ Instagram, the one-button run and the report
+  function startIg(opts, then) {
+    if (needExt()) return;
+    if (Number(ext()) < 4) return A.toast("Update the FA Vision add-on to post on Instagram (steps at the bottom of the Today tab).", true);
+    const j = IG() && IG().job(opts);
+    if (!j) return A.toast("Today's Instagram posts are done ✓");
+    j.job.then = then || null;
+    launch(j.url, j.job);
+  }
+
+  // What still needs doing today, in running order.
+  function stepsToday() {
+    const dl = dueList(), steps = [];
+    if (dl === null || dl.length) steps.push("renew");
+    if (activeGroups().length && plan().groups.length) steps.push("post");
+    if (IG() && IG().state() && IG().summary().waiting) steps.push("ig");
+    return steps;
+  }
+  // Runs the first step; each step hands the rest of the list to the add-on, which
+  // passes it back when it returns, and receive() carries on with it.
+  function runStep(steps, auto) {
+    steps = (steps || []).slice();
+    while (steps.length) {
+      const k = steps.shift();
+      if (k === "renew") return startRenew(steps);
+      if (k === "post" && activeGroups().length && plan().groups.length) return startPosting(auto, steps);
+      if (k === "ig" && IG() && IG().summary().waiting && Number(ext()) >= 4) return startIg({}, steps);
+      if (k === "report") return sendReport(true);
+    }
+  }
+  function runAll(auto) {
+    if (needExt()) return;
+    if (Number(ext()) < 3) return A.toast("Update the add-on first (steps at the bottom of this screen).", true);
+    const steps = stepsToday();
+    if (!steps.length) return A.toast("Everything for today is done ✓");
+    runStep(steps.concat("report"), auto);
+  }
+
+  // Email the day's posting report (built and sent by the Apps Script backend).
+  async function sendReport(afterRun) {
+    const d = today(), week = new Date(Date.now() - 8 * 864e5).toLocaleDateString("en-CA");
+    const igS = IG() && IG().state();
+    const fb = {
+      settings: S.settings,
+      posts: S.posts.filter(x => x.d >= week),
+      renewLog: (S.renewLog || []).filter(x => x.d >= week),
+      runs: (S.runs || []).filter(x => x.d >= week),
+      groups: S.groups.map(g => ({ id: g.id, name: g.name, active: g.active !== false, off_why: g.off_why || "" })),
+      selling: S.selling ? { d: S.selling.d, n: S.selling.cards.length, due: (dueList() || []).length } : null
+    };
+    const ig = igS ? {
+      settings: { account: igS.settings.account, daily_posts: igS.settings.daily_posts, on: igS.settings.on },
+      posts: igS.posts.filter(x => x.d >= week).map(x => ({ ...x, label: (IG().pool().find(i => i.k === x.k) && IG().label(IG().pool().find(i => i.k === x.k))) || x.k })),
+      profile: igS.profile.slice(-40), runs: igS.runs.filter(x => x.d >= week)
+    } : null;
+    const products = Object.fromEntries(A.products().map(p => [p.id, String(p.name).split(" — ")[0]]));
+    A.busy("Emailing today's report…");
+    try {
+      const r = await A.backendSigned({ action: "posting_report", day: d, fb, ig, products });
+      if (r.ok) A.toast(`${afterRun ? "All done for today. " : ""}Report emailed to ${r.to || REPORT_TO} ✓`);
+      else if (r.error === "no_session") A.toast(`${afterRun ? "All done for today. " : ""}The report will be emailed tonight at 9 pm (sign in with email and password to get it straight away).`);
+      else if (r.error === "bad request" || /unknown action/i.test(r.error || "")) A.toast("The backend can't send reports yet: paste the latest Code.gs into Apps Script, deploy, and run setup() once (backend/README.md).", true);
+      else A.toast("Couldn't email the report: " + (r.error || "unknown error"), true);
+    } catch (err) { A.toast("Couldn't reach the backend to email the report. It will still arrive tonight at 9 pm.", true); }
+    finally { A.busy(null); }
   }
 
   function startImport() {
@@ -186,8 +260,12 @@
   async function receive(out) {
     const d = today();
     A.busy("Saving what the add-on did…");
+    const runLog = (s, extra) => { s.runs = (s.runs || []).concat([{ d, t: new Date().toISOString(), kind: out.kind, ...extra, ...(out.stopped ? { stopped: out.stopped } : {}) }]).slice(-200); };
     try {
-      if (out.kind === "renew") {
+      if (out.kind === "ig") {
+        const r = await IG().receive(out);
+        A.toast(r.text, r.bad);
+      } else if (out.kind === "renew") {
         const ok = out.res.filter(r => r.ok).length;
         await save(s => {
           if (out.snapshot) {
@@ -202,6 +280,7 @@
             cards.forEach(c => delete c._seen);
             s.selling = { d, cards };
           }
+          runLog(s, { tried: out.res.length, ok });
           s.renewLog = (s.renewLog || []).concat(out.res.map(r => ({ d, t: r.t, listed: r.listed, ok: r.ok, ...(r.why ? { why: r.why } : {}) }))).slice(-200);
           return s;
         }, `Autopilot: renewed ${ok} of ${out.res.length} Marketplace listings`);
@@ -215,6 +294,7 @@
       } else if (out.kind === "post") {
         const ok = out.res.filter(r => r.ok).length;
         await save(s => {
+          runLog(s, { tried: out.res.length, ok });
           for (const r of out.res) s.posts.push({ d, t: r.t, p: r.p, g: r.g, ok: r.ok, ...(r.why ? { why: r.why } : {}) });
           // a group that failed 3 times in a row is switched off
           for (const r of out.res.filter(x => !x.ok)) {
@@ -242,12 +322,15 @@
     } finally { A.busy(null); }
     render();
     updateBadge();
-    if (out.then === "post" && !out.stopped) setTimeout(() => startPosting(true), 1500);
+    // Carry on with the one-button run. A warning on one site doesn't stop the next one;
+    // pressing Stop does (only the report is still sent).
+    let then = Array.isArray(out.then) ? out.then : out.then === "post" ? ["post"] : [];
+    if (out.stopped === "Stopped by you.") then = then.filter(k => k === "report");
+    if (then.length) setTimeout(() => runStep(then, true), 1500);
   }
 
   // ------------------------------------------------------------------ rendering
-  function render() {
-    if (!S) return;
+  function renderFacebook() {
     const dl = dueList(), due = dl || [], pl = plan(), groups = S.groups;
     const sell = S.selling;
     const doneToday = attemptsToday(), limit = S.settings.daily_limit;
@@ -257,8 +340,7 @@
     const order = postable();
     const cur = pl.p ? order.findIndex(p => p.id === pl.p.id) : -1;
     const recentRenew = (S.renewLog || []).slice(-10).reverse();
-    $("#fa-body").innerHTML = `
-      <p class="fa-ext ${ext() ? "ok" : "bad"}">${!ext() ? "✗ The FA Vision add-on isn't installed in this browser yet. See the steps at the bottom." : Number(ext()) < 3 ? "✗ Your FA Vision add-on is out of date and can't start runs. Update it (steps at the bottom), then reload this page." : "✓ FA Vision add-on is installed and up to date."}</p>
+    return `
 
       <section class="fa-card">
         <header><h2>Marketplace renewals</h2><span class="fa-big ${dl === null || due.length ? "hot" : ""}">${dl === null ? "?" : due.length}</span></header>
@@ -300,22 +382,91 @@
         <form class="fa-settings" id="fa-settings">
           <label>Group posts a day <input id="fa-daily" name="daily_limit" type="number" min="1" max="50" value="${limit}"></label>
           <label>Renew in batches of <input id="fa-batch" name="renew_batch" type="number" min="1" max="50" value="${S.settings.renew_batch}"></label>
-          <label class="fa-check"><input id="fa-auto" name="auto_run" type="checkbox" ${S.settings.auto_run ? "checked" : ""}> Run every day by itself at <input id="fa-time" name="auto_time" type="time" value="${esc(S.settings.auto_time)}"></label>
-          <p class="muted fa-small">The daily run needs this computer on with Chrome open. It renews anything due, then posts today's listing into its next groups.</p>
+          <p class="muted fa-small">The daily run itself is switched on and off in the Today tab.</p>
           <button class="btn btn-ghost btn-sm" type="submit">Save settings</button>
         </form>
       </section>
 
-      ${recent.length ? `<section class="fa-card"><header><h2>Recent group posts</h2></header><ul class="fa-list">${recent.map(x => `<li class="${x.ok ? "" : "bad"}"><span>${x.ok ? "✓" : "✗"} ${esc(gname(x.g))}</span><small>${esc(String(pname(x.p)).split(" — ")[0])} · ${esc(x.d)}${x.why ? " · " + esc(x.why) : ""}</small></li>`).join("")}</ul></section>` : ""}
+      ${recent.length ? `<section class="fa-card"><header><h2>Recent group posts</h2></header><ul class="fa-list">${recent.map(x => `<li class="${x.ok ? "" : "bad"}"><span>${x.ok ? "✓" : "✗"} ${esc(gname(x.g))}</span><small>${esc(String(pname(x.p)).split(" — ")[0])} · ${esc(x.d)}${x.why ? " · " + esc(x.why) : ""}</small></li>`).join("")}</ul></section>` : ""}`;
+  }
+
+  // ------------------------------------------------------------------ Today tab: one button
+  const TABS = [["today", "Today"], ["facebook", "Facebook"], ["instagram", "Instagram"]];
+  function step(state, title, detail) {
+    const icon = { done: "✓", wait: "•", off: "–", warn: "!" }[state];
+    return `<li class="run-step ${state}"><span class="run-icon" aria-hidden="true">${icon}</span><div><b>${title}</b><small>${detail}</small></div></li>`;
+  }
+  function lastDays(n) {
+    const out = [], igS = IG() && IG().state();
+    for (let i = 0; i < n; i++) {
+      const d = new Date(Date.now() - i * 864e5).toLocaleDateString("en-CA");
+      const prof = igS ? igS.profile.find(x => x.d === d) : null;
+      out.push({
+        d,
+        renewed: (S.renewLog || []).filter(x => x.d === d && x.ok).length,
+        groups: S.posts.filter(x => x.d === d && x.ok).length,
+        groupsTried: S.posts.filter(x => x.d === d).length,
+        ig: igS ? igS.posts.filter(x => x.d === d && x.ok).length : 0,
+        followers: prof ? prof.followers : null
+      });
+    }
+    return out;
+  }
+  function renderToday() {
+    const dl = dueList(), pl = plan(), ig = IG() && IG().state() ? IG().summary() : null;
+    const limit = S.settings.daily_limit, doneFb = attemptsToday();
+    const steps = stepsToday();
+    const mins = (steps.includes("renew") ? 5 : 0) + (steps.includes("post") ? Math.round(pl.groups.length * (S.settings.pause_min_s + S.settings.pause_max_s) / 120) : 0) + (steps.includes("ig") && ig ? ig.mins : 0);
+    const shortName = p => String(p.name).split(" — ")[0];
+    const extMsg = !ext() ? "The FA Vision add-on isn't installed in this Chrome yet. Install it first (steps below)." : Number(ext()) < 4 ? "Your FA Vision add-on needs updating to post on Instagram (steps below)." : "";
+    const days = lastDays(7);
+    return `
+      ${extMsg ? `<p class="fa-ext bad">✗ ${extMsg}</p>` : ""}
+      <section class="fa-card run-card">
+        <header><h2>Today's posting</h2><span class="muted fa-small">${esc(new Date().toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long" }))}</span></header>
+        <ol class="run-steps">
+          ${dl === null ? step("wait", "Marketplace renewals", "Your listings haven't been checked yet. The run checks and renews them.")
+            : dl.length ? step("wait", "Marketplace renewals", `${plural(dl.length, "listing")} due for renewal`)
+            : step("done", "Marketplace renewals", `Nothing due${nextRenewal() ? ` · next on ${esc(nextRenewal())}` : ""}`)}
+          ${!activeGroups().length ? step("off", "Facebook groups", "No groups yet. Import them in the Facebook tab.")
+            : pl.groups.length ? step("wait", "Facebook groups", `${plural(pl.groups.length, "group post")} waiting · ${esc(shortName(pl.p))}`)
+            : step("done", "Facebook groups", `${doneFb}/${limit} posted today`)}
+          ${!ig ? step("off", "Instagram", "Loading…") : !ig.on ? step("off", "Instagram", "Switched off (Instagram tab)")
+            : ig.waiting ? step("wait", "Instagram", `${plural(ig.waiting, "photo")} waiting · ${ig.done}/${ig.target} posted today`)
+            : step("done", "Instagram", `${ig.done}/${ig.target} posted today`)}
+          ${step(steps.length ? "wait" : "done", "Email report", `Breakdown sent to ${esc(REPORT_TO)} when the run ends (and every night at 9 pm)`)}
+        </ol>
+        ${steps.length ? `<button class="btn btn-sell run-btn" data-fa="run">Run everything for today</button>
+          <p class="muted fa-small">About ${Math.max(5, mins)} minutes. It runs in this Chrome tab, one site after the other. Keep the tab open and in front. It stops by itself if Facebook or Instagram shows a warning.</p>`
+        : `<p class="run-done">All done for today ✓</p>`}
+        <div class="run-foot">
+          <label class="fa-check"><input type="checkbox" data-fa-autorun ${S.settings.auto_run ? "checked" : ""}> Run by itself every day at <input type="time" data-fa-autotime value="${esc(S.settings.auto_time)}"></label>
+          <button class="btn btn-ghost btn-sm" data-fa="report">Email today's report now</button>
+        </div>
+      </section>
+
+      <section class="fa-card">
+        <header><h2>Last 7 days</h2></header>
+        <div class="run-table"><table>
+          <thead><tr><th>Day</th><th>Renewed</th><th>Group posts</th><th>Instagram</th><th>Followers</th></tr></thead>
+          <tbody>${days.map(x => `<tr><td>${esc(new Date(x.d + "T12:00").toLocaleDateString("en-GB", { weekday: "short", day: "numeric", month: "short" }))}</td><td>${x.renewed}</td><td>${x.groups}${x.groupsTried > x.groups ? ` <small>of ${x.groupsTried}</small>` : ""}</td><td>${x.ig}</td><td>${x.followers != null ? x.followers.toLocaleString() : "–"}</td></tr>`).join("")}</tbody>
+        </table></div>
+      </section>
 
       <details class="fa-card fa-help"><summary><b>Install or update the FA Vision add-on</b></summary>
         <ol>
           <li>Download the <code>extension</code> folder from your GitHub repo (Code → Download ZIP, then unzip).</li>
           <li>In Chrome open <code>chrome://extensions</code>, turn on <b>Developer mode</b>, click <b>Load unpacked</b> and pick the <code>extension</code> folder. If an older FA Vision add-on is there, remove it first.</li>
-          <li>Pin it from the puzzle-piece menu. Its red number shows what's waiting, and it sends a reminder once a day.</li>
-          <li>Stay logged in to Facebook in this Chrome, as your personal profile (Pages can't use Marketplace).</li>
+          <li>Pin it from the puzzle-piece menu. Its red number shows what's waiting (Marketplace, groups and Instagram), and it sends a reminder once a day.</li>
+          <li>Stay logged in to Facebook in this Chrome, as your personal profile (Pages can't use Marketplace), and to Instagram as @favisionent.</li>
           <li><b>To update:</b> download the ZIP again, replace your old <code>extension</code> folder with the new one, then click reload ↻ on FA Vision Autopilot in <code>chrome://extensions</code> and reload this page.</li>
         </ol></details>`;
+  }
+
+  function render() {
+    if (!S) return;
+    const body = tab === "facebook" ? renderFacebook() : tab === "instagram" ? (IG() ? IG().renderTab() : "") : renderToday();
+    $("#fa-body").innerHTML = `<nav class="fa-tabs" role="tablist">${TABS.map(([k, t]) => `<button type="button" role="tab" aria-selected="${tab === k}" data-fa-tab="${k}">${t}</button>`).join("")}</nav>` + body;
   }
 
   function updateBadge() {
@@ -323,26 +474,42 @@
     if (!S) return;
     const dl = dueList(), due = dl ? dl.length : 0;
     const postsWaiting = activeGroups().length > 0 && plan().groups.length > 0;
-    const n = (dl === null ? 1 : due) + (postsWaiting ? 1 : 0);
+    const igWaiting = !!(IG() && IG().state() && IG().summary().waiting);
+    const n = (dl === null ? 1 : due) + (postsWaiting ? 1 : 0) + (igWaiting ? 1 : 0);
     if (b) { b.hidden = !n; b.textContent = n; }
     if (alert) {
-      const bits = [dl === null ? `<b>Your Marketplace listings haven't been checked for renewal yet.</b>` : due && `<b>${plural(due, "Marketplace listing")} ready to renew.</b>`, postsWaiting && `<b>Today's group posts haven't run yet.</b>`].filter(Boolean);
+      const bits = [dl === null ? `<b>Your Marketplace listings haven't been checked for renewal yet.</b>` : due && `<b>${plural(due, "Marketplace listing")} ready to renew.</b>`, postsWaiting && `<b>Today's group posts haven't run yet.</b>`, igWaiting && `<b>Today's Instagram posts haven't run yet.</b>`].filter(Boolean);
       alert.hidden = !bits.length;
-      alert.innerHTML = bits.join(" ") + " Open Facebook autopilot →";
+      alert.innerHTML = bits.join(" ") + " Open Social autopilot and tap Run →";
     }
   }
 
   // ------------------------------------------------------------------ events
   screen.addEventListener("click", e => {
+    const t = e.target.closest("[data-fa-tab]");
+    if (t) { tab = t.dataset.faTab; render(); return; }
+    const ib = e.target.closest("[data-ig]");
+    if (ib) { if (ib.dataset.ig === "post") startIg({}); else startIg({ dry: true }); return; }
     const b = e.target.closest("[data-fa]");
     if (!b) return;
     const k = b.dataset.fa;
-    if (k === "renew") startRenew();
+    if (k === "run") runAll(false);
+    else if (k === "report") sendReport(false);
+    else if (k === "renew") startRenew();
     else if (k === "post") startPosting(false);
     else if (k === "test") startTest();
     else if (k === "import") startImport();
   });
+  async function saveAutoRun() {
+    const on = !!(screen.querySelector("[data-fa-autorun]") || {}).checked;
+    const time = (screen.querySelector("[data-fa-autotime]") || {}).value || "09:00";
+    try {
+      await save(s => { s.settings.auto_run = on; s.settings.auto_time = time; return s; }, "Autopilot: daily run " + (on ? "on at " + time : "off"));
+      A.toast(on ? `Runs by itself every day at ${time} (Chrome must be open on this computer).` : "Daily run switched off.");
+    } catch (err) { A.toast(A.friendly(err), true); }
+  }
   screen.addEventListener("change", async e => {
+    if (e.target.closest("[data-fa-autorun],[data-fa-autotime]")) return saveAutoRun();
     const c = e.target.closest("[data-fa-group]");
     if (!c) return;
     const id = c.dataset.faGroup, on = c.checked;
@@ -353,11 +520,19 @@
     } catch (err) { A.toast(A.friendly(err), true); c.checked = !on; }
   });
   screen.addEventListener("submit", async e => {
+    if (e.target.id === "ig-settings") {
+      e.preventDefault();
+      A.busy("Saving Instagram settings…");
+      try { await IG().saveSettings(e.target); A.toast("Instagram settings saved"); render(); updateBadge(); }
+      catch (err) { A.toast(A.friendly(err), true); }
+      finally { A.busy(null); }
+      return;
+    }
     if (e.target.id !== "fa-settings") return;
     e.preventDefault();
     const f = e.target.elements;
     const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, parseInt(v, 10) || lo));
-    const next = { daily_limit: clamp(f.daily_limit.value, 1, 50), renew_batch: clamp(f.renew_batch.value, 1, 50), auto_run: f.auto_run.checked, auto_time: f.auto_time.value || "09:00" };
+    const next = { daily_limit: clamp(f.daily_limit.value, 1, 50), renew_batch: clamp(f.renew_batch.value, 1, 50) };
     A.busy("Saving settings…");
     try { await save(s => { Object.assign(s.settings, next); return s; }, "Autopilot: settings"); A.toast("Settings saved"); render(); updateBadge(); }
     catch (err) { A.toast(A.friendly(err), true); }
@@ -370,7 +545,7 @@
     $("#top-actions").hidden = false;
     window.scrollTo(0, 0);
     if (location.hash !== "#fbauto") history.replaceState(null, "", "#fbauto");
-    if (!S) { $("#fa-body").innerHTML = `<p class="muted">Loading…</p>`; await load().catch(err => A.toast(A.friendly(err), true)); }
+    if (!S || (IG() && !IG().state())) { $("#fa-body").innerHTML = `<p class="muted">Loading…</p>`; await Promise.all([load(), IG() ? IG().load() : null]).catch(err => A.toast(A.friendly(err), true)); }
     render();
   }
   document.addEventListener("click", e => {
@@ -385,7 +560,7 @@
   const wait = setInterval(async () => {
     if (!A.signedIn() || !A.products().length) return;
     clearInterval(wait);
-    try { await load(); } catch (err) { return; }
+    try { await Promise.all([load(), IG() ? IG().load() : null]); } catch (err) { return; }
     updateBadge();
     const m = hash.match(/^#favauto-done=(.+)$/);
     if (m) {
@@ -398,10 +573,9 @@
     } else if (hash === "#fbauto-run") {
       await open();
       if (!S.settings.auto_run) return;
-      const dl = dueList(), renew = dl === null || dl.length > 0;
-      if (!renew && !plan().groups.length) return A.toast("Daily run: nothing to do today ✓");
+      if (!stepsToday().length) return A.toast("Daily run: nothing to do today ✓");
       A.toast("Daily run starts in 15 seconds…");
-      setTimeout(() => (renew ? startRenew("post") : startPosting(true)), 15000);
+      setTimeout(() => runAll(true), 15000);
     }
   }, 300);
   setTimeout(() => clearInterval(wait), 60000);
@@ -409,5 +583,5 @@
   window.addEventListener("message", e => {
     if (e.source === window && e.data && e.data.type === "favauto-start-failed") A.toast("The add-on couldn't start the run. Reload the add-on in chrome://extensions and try again.", true);
   });
-  window.FAV_FBAUTO = { open, _test: { set: s => { S = normalise(s); }, dueList, plan, caption, receive, state: () => S } };
+  window.FAV_FBAUTO = { open, _test: { set: s => { S = normalise(s); }, dueList, plan, caption, receive, state: () => S, stepsToday, runStep, setTab: t => { tab = t; render(); } } };
 })();

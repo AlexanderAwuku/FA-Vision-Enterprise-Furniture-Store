@@ -1,6 +1,6 @@
 // FA Vision Autopilot background: once an hour it reads your live site's data,
 // shows on the add-on's icon how many things are waiting (listings due for
-// renewal, plus 1 if today's group posts haven't run), sends one reminder a day,
+// renewal, plus 1 if today's group posts haven't run, plus 1 for Instagram), sends one reminder a day,
 // and starts the daily run at the time set in the admin (if switched on).
 const SITE = "https://favisionenterprize.github.io/";
 const ADMIN = SITE + "admin/";
@@ -33,15 +33,21 @@ async function check() {
   const groups = (ap.groups || []).filter(g => g.active !== false).length;
   const postsToday = (ap.posts || []).filter(x => x.d === d).length;
   const postsWaiting = groups > 0 && postsToday < s.daily_limit;
-  const n = (needsCheck ? 1 : due) + (postsWaiting ? 1 : 0);
+  let igWaiting = false;
+  try {
+    const ig = await getJson("data/instagram-autopilot.json");
+    const is = Object.assign({ on: true, daily_posts: 3 }, ig.settings || {});
+    igWaiting = is.on && (ig.posts || []).filter(x => x.d === d && x.ok).length < is.daily_posts;
+  } catch (e) { /* no Instagram file yet */ }
+  const n = (needsCheck ? 1 : due) + (postsWaiting ? 1 : 0) + (igWaiting ? 1 : 0);
 
   chrome.action.setBadgeBackgroundColor({ color: "#e0245e" });
   chrome.action.setBadgeText({ text: n ? String(n) : "" });
-  chrome.action.setTitle({ title: n ? `FA Vision: ${[needsCheck ? "listings not checked yet" : due && due + " to renew", postsWaiting && "group posts waiting"].filter(Boolean).join(", ")}` : "FA Vision: all done for today" });
+  chrome.action.setTitle({ title: n ? `FA Vision: ${[needsCheck ? "listings not checked yet" : due && due + " to renew", postsWaiting && "group posts waiting", igWaiting && "Instagram posts waiting"].filter(Boolean).join(", ")}` : "FA Vision: all done for today" });
 
   const st = await chrome.storage.local.get(["notified", "autorun"]);
   const now = new Date().toTimeString().slice(0, 5);
-  if (s.auto_run && (needsCheck || due || postsWaiting) && now >= s.auto_time && st.autorun !== d) {
+  if (s.auto_run && (needsCheck || due || postsWaiting || igWaiting) && now >= s.auto_time && st.autorun !== d) {
     await chrome.storage.local.set({ autorun: d, notified: d });
     chrome.tabs.create({ url: ADMIN + "#fbauto-run" });
     return;
@@ -52,7 +58,7 @@ async function check() {
       type: "basic",
       iconUrl: "icon128.png",
       title: "FA Vision autopilot",
-      message: [needsCheck ? "Your Marketplace listings haven't been checked for renewal yet." : due && `${due} Marketplace listing${due === 1 ? " is" : "s are"} ready to renew.`, postsWaiting && "Today's group posts haven't run yet."].filter(Boolean).join(" ") + " Tap to open."
+      message: [needsCheck ? "Your Marketplace listings haven't been checked for renewal yet." : due && `${due} Marketplace listing${due === 1 ? " is" : "s are"} ready to renew.`, postsWaiting && "Today's group posts haven't run yet.", igWaiting && "Today's Instagram posts haven't run yet."].filter(Boolean).join(" ") + " Tap to open."
     });
   }
 }
@@ -66,8 +72,8 @@ chrome.runtime.onMessage.addListener((msg, sender, reply) => {
   return true;   // reply comes later
 });
 
-// Jobs from the admin: kept per tab here, so a redirect (www → web.facebook.com) can't lose them.
-const FB = /^https:\/\/(www|web|m)\.facebook\.com\//;
+// Jobs from the admin (Facebook and Instagram): kept per tab here, so a redirect (www → web.facebook.com) can't lose them.
+const FB = /^https:\/\/((www|web|m)\.facebook\.com|www\.instagram\.com)\//;   // Facebook or Instagram
 chrome.runtime.onMessage.addListener((msg, sender, reply) => {
   const tabId = sender.tab && sender.tab.id;
   if (!msg || tabId == null) return;

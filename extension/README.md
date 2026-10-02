@@ -1,12 +1,12 @@
 # FA Vision Autopilot (browser add-on)
 
-Works with the admin's **Facebook autopilot** and **Price sync** screens. Facebook has no API for Marketplace renewals or group posts, so this add-on does the clicking in your own logged-in Chrome.
+Works with the admin's **Social autopilot** (Facebook and Instagram) and **Price sync** screens. Facebook and Instagram have no free API for Marketplace renewals, group posts or posting from a personal setup like this, so this add-on does the clicking in your own logged-in Chrome.
 
 ## Install (one time)
 
 1. Download this `extension` folder (GitHub → Code → Download ZIP, then unzip).
 2. Open `chrome://extensions`, turn on **Developer mode**, click **Load unpacked** and choose the folder. Remove any older "FA Vision Price Sync" add-on first.
-3. Pin it from the puzzle-piece menu. Stay logged in to Facebook in this Chrome.
+3. Pin it from the puzzle-piece menu. Stay logged in to Facebook (personal profile) and to Instagram (@favisionent) in this Chrome.
 
 ## What it does
 
@@ -15,8 +15,10 @@ Works with the admin's **Facebook autopilot** and **Price sync** screens. Facebo
 - **Test without posting.** Runs every step in one group (caption, photo, Post button ready) but never taps Post.
 - **Group posts.** Posts today's listing into its next groups: types the caption, attaches the first photo, taps **Post**, then waits 1–3 minutes before the next group.
 - **Import groups.** Reads your joined groups from facebook.com/groups/joins.
-- **Daily run.** If switched on in the admin's settings, opens the admin at your chosen time and runs everything.
-- **Safety.** It stops straight away and reports back if Facebook shows any warning ("temporarily blocked", "try again later" and so on). Every page it works on shows a **Stop** button.
+- **Instagram.** Checks Instagram is logged in as @favisionent and reads its follower, following and post counts. Then it posts each queued photo: Create → Post → photo → keeps the full 4:5 picture → caption → switches **Share to Facebook** off → Share, waiting 2–5 minutes between posts. Test mode does everything except Share.
+- **One-button run.** The admin's **Run everything for today** hands the add-on a chain: renew → group posts → Instagram. Each step passes the rest back to the admin, which starts the next one and finally emails the day's report.
+- **Daily run.** If switched on in the admin's Today tab, opens the admin at your chosen time and runs everything, report included.
+- **Safety.** It stops straight away and reports back if Facebook or Instagram shows any warning ("temporarily blocked", "try again later", "action blocked" and so on). A warning on one site doesn't stop the next site in the one-button run. Every page it works on shows a **Stop** button.
 
 It only acts in a tab the admin opened with a job (the admin hands the job to this add-on, which keeps it per tab, so Facebook's www → web.facebook.com redirect can't lose it). Normal Facebook browsing is untouched.
 

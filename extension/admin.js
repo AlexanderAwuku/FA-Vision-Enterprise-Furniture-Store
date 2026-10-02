@@ -1,8 +1,8 @@
 // Runs on the FA Vision admin: tells the page the add-on is installed, and
-// passes jobs from the Facebook autopilot screen to the add-on.
+// passes jobs from the autopilot screen (Facebook and Instagram) to the add-on.
 const mark = () => {
   document.documentElement.dataset.favsyncExt = "1";
-  document.documentElement.dataset.favautoExt = "3";
+  document.documentElement.dataset.favautoExt = "4";   // 4 = can post on Instagram
 };
 if (document.documentElement) mark(); else document.addEventListener("readystatechange", mark, { once: true });
 

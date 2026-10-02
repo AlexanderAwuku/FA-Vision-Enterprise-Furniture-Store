@@ -98,6 +98,15 @@ Safety built in: the reset email always goes to `ADMIN_EMAIL`, whatever address 
 
 Locked out and the email isn't arriving? In Apps Script, run **`resetAdminPassword`** once from the function list, then use *Forgot password* again. The old GitHub-token sign-in is still under **Backup** on the sign-in page.
 
+## Daily posting report (Social autopilot)
+
+Every day the backend emails a breakdown of what the Social autopilot did: Marketplace renewals, Facebook group posts, Instagram posts, follower growth, anything that failed or was stopped, and a 7-day table. A CSV of every action is attached for audit.
+
+- It's sent **right after the admin's one-button run** ("Run everything for today"), and again **every night at about 9 pm** if anything happened after the last report (or nothing happened at all that day, so a quiet day is on record too).
+- It goes to `nanaotengdonkor1@gmail.com`. To send it somewhere else, add the Script property `REPORT_EMAIL`.
+- **To switch it on:** paste the latest `Code.gs` into Apps Script, **Deploy → Manage deployments → Edit → New version → Deploy**, then run `setup()` once (it adds the 9 pm trigger). Run `testPostingReport()` to get a sample straight away.
+- The "after the run" email needs you signed in to the admin with email and password. With GitHub-token sign-in you still get the 9 pm one.
+
 ## Sending a batch email campaign
 
 1. Fill the **Clients** tab. You can paste from [`marketing/clients-template.csv`](../marketing/clients-template.csv). Set **Segment** to `Proprietor` for school owners.
