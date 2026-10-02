@@ -34,12 +34,36 @@
   .fav-live__ticker span[aria-hidden]{display:none}
 }
 
-/* Share button on each bubble */
-.fav-live__share{position:absolute;right:8px;top:50%;transform:translateY(-50%);width:36px;height:36px;border-radius:50%;
-  border:0;display:grid;place-items:center;background:#fff;color:var(--fl-ring);cursor:pointer;
-  box-shadow:0 1px 4px rgba(0,0,0,.15);-webkit-tap-highlight-color:transparent}
-.fav-live__share:hover{background:var(--fl-ring);color:#fff}
-.fav-live__share:focus-visible{outline:2px solid var(--fl-ring);outline-offset:2px}
+/* Share button on each bubble: amber, glowing, hard to miss */
+.fav-live__share{position:absolute;right:7px;top:50%;width:38px;height:38px;border-radius:50%;border:0;padding:0;
+  display:grid;place-items:center;cursor:pointer;color:#fff;overflow:visible;isolation:isolate;
+  background:radial-gradient(circle at 32% 28%,#ffe08a 0%,#ffb300 42%,#ff8f00 78%,#f57c00 100%);
+  box-shadow:0 0 0 2px #fff,0 4px 12px rgba(255,143,0,.55),inset 0 -2px 4px rgba(176,72,0,.35),inset 0 2px 3px rgba(255,255,255,.55);
+  transform:translateY(-50%);animation:fl-nudge 5s ease-in-out infinite;-webkit-tap-highlight-color:transparent;
+  transition:box-shadow .2s ease,filter .2s ease}
+.fav-live__share svg{position:relative;z-index:2;width:18px;height:18px;filter:drop-shadow(0 1px 1px rgba(150,60,0,.45))}
+/* glowing halo that breathes outward */
+.fav-live__share::before{content:"";position:absolute;inset:-2px;border-radius:50%;z-index:-1;
+  box-shadow:0 0 0 0 rgba(255,179,0,.65);animation:fl-halo 2.2s ease-out infinite}
+/* light sweep across the button */
+.fav-live__share::after{content:"";position:absolute;inset:0;border-radius:50%;z-index:1;pointer-events:none;
+  background:linear-gradient(115deg,transparent 30%,rgba(255,255,255,.75) 48%,transparent 62%);
+  background-size:250% 100%;background-position:150% 0;animation:fl-shine 3.6s ease-in-out infinite}
+.fav-live__item:nth-child(3n+2) .fav-live__share,.fav-live__item:nth-child(3n+2) .fav-live__share::before,.fav-live__item:nth-child(3n+2) .fav-live__share::after{animation-delay:.7s}
+.fav-live__item:nth-child(3n) .fav-live__share,.fav-live__item:nth-child(3n) .fav-live__share::before,.fav-live__item:nth-child(3n) .fav-live__share::after{animation-delay:1.4s}
+.fav-live__share:hover{filter:brightness(1.08) saturate(1.1);
+  box-shadow:0 0 0 2px #fff,0 6px 18px rgba(255,143,0,.75),0 0 22px rgba(255,193,7,.6),inset 0 -2px 4px rgba(176,72,0,.35),inset 0 2px 3px rgba(255,255,255,.55)}
+.fav-live__share:active{transform:translateY(-50%) scale(.9)}
+.fav-live__share:focus-visible{outline:3px solid #ffb300;outline-offset:3px}
+@keyframes fl-halo{0%{box-shadow:0 0 0 0 rgba(255,179,0,.7)}70%{box-shadow:0 0 0 12px rgba(255,179,0,0)}100%{box-shadow:0 0 0 0 rgba(255,179,0,0)}}
+@keyframes fl-shine{0%,55%{background-position:150% 0}85%,100%{background-position:-60% 0}}
+@keyframes fl-nudge{0%,82%,100%{transform:translateY(-50%) rotate(0) scale(1)}
+  86%{transform:translateY(-50%) rotate(-12deg) scale(1.12)}90%{transform:translateY(-50%) rotate(10deg) scale(1.12)}
+  94%{transform:translateY(-50%) rotate(-5deg) scale(1.05)}}
+@media (prefers-reduced-motion:reduce){
+  .fav-live__share,.fav-live__share::before,.fav-live__share::after{animation:none}
+  .fav-live__share::before{box-shadow:0 0 0 4px rgba(255,179,0,.35)}
+}
 
 /* Share sheet */
 .fls{border:0;padding:0;background:transparent;max-width:min(94vw,440px);width:100%;margin:auto}
@@ -51,7 +75,7 @@
 .fls__img{display:block;width:100%;max-height:56vh;object-fit:contain;border-radius:12px;background:#f1f2f5}
 .fls__title{margin:0;font-weight:700;font-size:16px;text-align:center}
 .fls__native{border:0;border-radius:999px;padding:13px 16px;font:700 15px/1.2 inherit;font-family:inherit;color:#fff;
-  background:linear-gradient(90deg,#e0245e,#0d55af);cursor:pointer}
+  background:linear-gradient(135deg,#ffc107,#ff8f00);color:#3a1d00;box-shadow:0 6px 16px rgba(255,143,0,.45);cursor:pointer}
 .fls__native[disabled]{opacity:.6;cursor:wait}
 .fls__grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
 .fls__btn{display:flex;align-items:center;justify-content:center;min-height:44px;padding:8px;border-radius:12px;
