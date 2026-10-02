@@ -250,6 +250,7 @@
           <a class="btn btn-ghost btn-sm" target="_blank" rel="noopener" href="${waLink(`Design your room free and see it before you buy: ${SITE}studio/`)}">Share</a>
         </div>
       </article>`);
+    if (window.FavCarousel) window.FavCarousel(track, { speed: 30 });
     track.addEventListener("click", async e => {
       const b = e.target.closest("[data-share-ad]");
       if (!b) return;

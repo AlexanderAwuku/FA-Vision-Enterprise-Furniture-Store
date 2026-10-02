@@ -70,3 +70,10 @@
 .fls__save .fls__dot,.fls__copy .fls__dot{background:#eef1f5;color:#2a3440;box-shadow:inset 0 0 0 1px #dde2ea}
 .fls__hint{margin:0;font-size:13px;color:#4f5a64;min-height:1em}
 @media (max-width:330px){.fls__dot{width:46px;height:46px}}
+
+/* Auto-scrolling rows (assets/js/auto-carousel.js): live strip and strategy deals */
+.fav-live__track.is-auto,.deals-track.is-auto{scroll-snap-type:none;scroll-behavior:auto;-webkit-touch-callout:none}
+.deals-track.is-auto{cursor:grab;user-select:none;-webkit-user-select:none;scrollbar-width:none}
+.deals-track.is-auto::-webkit-scrollbar{display:none}
+.deals-track.is-auto img{-webkit-user-drag:none}
+.deals-track.is-dragging{cursor:grabbing}

@@ -182,32 +182,6 @@
   });
   root.appendChild(track);
 
-  // Hold and slide with a mouse (touch screens swipe natively)
-  var down = false, moved = false, startX = 0, startLeft = 0;
-  function snapLeft(c) { return c.offsetLeft - track.firstElementChild.offsetLeft; }
-  track.addEventListener("pointerdown", function (e) {
-    if (e.pointerType !== "mouse" || e.target.closest(".fav-live__share")) return;
-    down = true; moved = false; startX = e.clientX; startLeft = track.scrollLeft;
-  });
-  window.addEventListener("pointermove", function (e) {
-    if (!down) return;
-    var dx = e.clientX - startX;
-    if (Math.abs(dx) > 4) { moved = true; track.classList.add("is-dragging"); }
-    track.scrollLeft = startLeft - dx;
-  });
-  window.addEventListener("pointerup", function () {
-    if (!down) return;
-    down = false;
-    if (!moved) return;
-    track.classList.remove("is-dragging");
-    var x = track.scrollLeft, best = track.firstElementChild;
-    Array.prototype.forEach.call(track.children, function (c) {
-      if (Math.abs(snapLeft(c) - x) < Math.abs(snapLeft(best) - x)) best = c;
-    });
-    track.scrollTo({ left: snapLeft(best), behavior: "smooth" });
-  });
-  track.addEventListener("click", function (e) {
-    if (moved) { e.preventDefault(); e.stopPropagation(); moved = false; }
-  }, true);
-  track.addEventListener("dragstart", function (e) { e.preventDefault(); });
+  // Glides on its own; swipe/drag either way, press and hold to slow or stop (auto-carousel.js)
+  if (window.FavCarousel) window.FavCarousel(track, { speed: 38, forwardClicks: true });
 })();
