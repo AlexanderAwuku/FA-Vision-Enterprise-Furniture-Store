@@ -170,6 +170,9 @@
  ],
  "posts": [],
  "resets": {},
- "today": null,
+ "today": {
+  "d": "2026-10-02",
+  "p": "FAV-001"
+ },
  "renewals": {}
 }
