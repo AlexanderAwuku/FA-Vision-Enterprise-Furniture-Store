@@ -29,7 +29,7 @@ async function check() {
   // Renewals: from what the add-on last read on Facebook's "Your listings" page.
   const sel = ap.selling && ap.selling.cards;
   const needsCheck = !sel;
-  const due = sel ? sel.filter(c => c.listed && !/sold|pending|out of stock/i.test(c.status || "") && days(c.listed, d) >= s.renew_after_days && c.none !== d).length : 0;
+  const due = sel ? sel.filter(c => !/sold|pending|out of stock/i.test(c.status || "") && (c.next ? c.next <= d : (c.listed && days(c.listed, d) >= s.renew_after_days)) && c.none !== d).length : 0;
   const groups = (ap.groups || []).filter(g => g.active !== false).length;
   const postsToday = (ap.posts || []).filter(x => x.d === d).length;
   const postsWaiting = groups > 0 && postsToday < s.daily_limit;

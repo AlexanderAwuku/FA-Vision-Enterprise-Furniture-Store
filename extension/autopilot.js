@@ -197,7 +197,6 @@
     }
     job.done = job.done || [];
     const today = new Date().toLocaleDateString("en-CA");
-    const ageDays = iso => Math.floor((Date.parse(today) - Date.parse(iso)) / 864e5);
     const parseListed = s => {
       const now = new Date(); let d;
       const m1 = s.match(/(\d{1,2})\/(\d{1,2})(?:\/(\d{2,4}))?/);
@@ -245,11 +244,13 @@
     await loadAll();
     if (!job.snapshot) { job.snapshot = cards().map(c => ({ t: c.title, listed: c.listed, status: c.status })); await save(); }
     if (!job.snapshot.length) return finish("No listings found on Your listings. Make sure Facebook is on your personal profile.");
-    const after = job.after || 7;
+    // Facebook keeps the original "Listed on" date after a renewal, so the menu decides:
+    // "Renew listing" = ready now; "Renew (N days)" (greyed out) = ready again in N days.
+    const plusDays = n => new Date(Date.parse(today) + n * 864e5).toISOString().slice(0, 10);
     let renewed = job.res.filter(r => r.ok).length;
     while (!stopAsked) {
       w = warning(); if (w) return finish(`Facebook showed "${w}". Renewing stopped.`);
-      const c = cards().find(x => !job.done.includes(x.key) && x.listed && ageDays(x.listed) >= after && !/sold|pending|out of stock/i.test(x.status));
+      const c = cards().find(x => !job.done.includes(x.key) && !/sold|pending|out of stock/i.test(x.status));
       if (!c) break;
       if (renewed > 0 && renewed % (job.batch || 20) === 0 && job.pausedAt !== renewed) {
         job.pausedAt = renewed; await save();
@@ -258,16 +259,20 @@
         continue;
       }
       job.done.push(c.key);
-      box(`Renewing "${c.title}" (listed ${c.listed})…`);
+      box(`Checking "${c.title}"…`);
       c.more.scrollIntoView({ block: "center" });
       await sleep(rand(600, 1200));
       c.more.click();
-      const item = await waitFor(() => [...document.querySelectorAll('[role=menu] [role=menuitem], [role=menuitem], [role=menu] [role=button]')]
-        .find(x => visible(x) && /^renew listing$/i.test((x.innerText || "").trim())), 3500);
-      if (!item) {
+      const item = await waitFor(() => [...document.querySelectorAll('[role=menuitem]')]
+        .find(x => visible(x) && /^renew/i.test((x.innerText || "").trim())), 3500);
+      const label = item ? (item.innerText || "").trim() : "";
+      const ready = item && /^renew listing$/i.test(label) && item.getAttribute("aria-disabled") !== "true";
+      if (!ready) {
         c.more.click();                                   // close the menu again
-        job.res.push({ t: c.title, listed: c.listed, ok: false, why: "No Renew option yet" }); await save();
-        await sleep(800);
+        const wait = label.match(/\((\d+)\s*day/i);
+        job.res.push({ t: c.title, listed: c.listed, ok: false, next: wait ? plusDays(+wait[1]) : null, why: wait ? `Next renewal in ${wait[1]} days` : "No Renew option" });
+        await save();
+        await sleep(rand(800, 1400));
         continue;
       }
       item.click();
@@ -275,7 +280,7 @@
       const confirm = await waitFor(() => findBtn(/^renew( listing)?$/i, document.querySelector("[role=dialog]") || undefined), 2500);
       if (confirm) { confirm.click(); await sleep(1500); }
       w = warning(); if (w) { job.res.push({ t: c.title, listed: c.listed, ok: false, why: w }); return finish(`Facebook showed "${w}". Renewing stopped.`); }
-      job.res.push({ t: c.title, listed: c.listed, ok: true, why: "" });
+      job.res.push({ t: c.title, listed: c.listed, ok: true, next: plusDays(7), why: "" });
       renewed++;
       await save();
       box(`Renewed ✓ "${c.title}" (${renewed} so far)`);

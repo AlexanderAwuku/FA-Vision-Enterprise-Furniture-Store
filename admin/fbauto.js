@@ -45,14 +45,17 @@
   // S.selling is what the add-on last read on Facebook's "Your listings" page:
   // { d: date checked, cards: [{ t, listed, status, none? }] }. Before the first
   // check we don't know the listing dates, so dueList() returns null.
+  // `next` = the date Facebook will offer Renew again (read from its "Renew (N days)" menu item).
+  // Facebook never changes "Listed on" after a renewal, so `next` decides when it's known.
   const sellable = c => !/sold|pending|out of stock/i.test(c.status || "");
+  const isDue = c => sellable(c) && (c.next ? c.next <= today() : (c.listed && days(c.listed, today()) >= S.settings.renew_after_days)) && c.none !== today();
   function dueList() {
     if (!S.selling || !S.selling.cards) return null;
-    return S.selling.cards
-      .filter(c => c.listed && sellable(c) && days(c.listed, today()) >= S.settings.renew_after_days && c.none !== today())
-      .map(c => ({ ...c, age: days(c.listed, today()) }))
+    return S.selling.cards.filter(isDue)
+      .map(c => ({ ...c, age: c.listed ? days(c.listed, today()) : 0 }))
       .sort((a, b) => b.age - a.age);
   }
+  const nextRenewal = () => (S.selling && S.selling.cards || []).filter(c => sellable(c) && c.next && c.next > today()).map(c => c.next).sort()[0];
 
   // ------------------------------------------------------------------ group rotation
   const postable = () => A.products()
@@ -193,7 +196,8 @@
               const c = cards.find(x => x.t === r.t && x.listed === r.listed && !x._seen);
               if (!c) continue;
               c._seen = true;
-              if (r.ok) c.listed = d; else c.none = d;
+              if (r.next) c.next = r.next;
+              if (!r.ok && !r.next) c.none = d;
             }
             cards.forEach(c => delete c._seen);
             s.selling = { d, cards };
@@ -263,7 +267,7 @@
         <div class="fa-actions">
           <button class="btn btn-sell" data-fa="renew">${dl === null ? "Check & renew now" : due.length ? `Renew all ${due.length} due (${S.settings.renew_batch} at a time)` : "Check again"}</button>
         </div>
-        ${due.length ? `<details class="fa-more"><summary>See the ${plural(due.length, "listing")} due</summary><ul class="fa-list">${due.map(c => `<li><span>${esc(c.t)}</span><small>listed ${esc(c.listed)} · ${c.age} days</small></li>`).join("")}</ul></details>` : dl ? `<p class="fa-empty">Nothing to renew right now.</p>` : ""}
+        ${due.length ? `<details class="fa-more"><summary>See the ${plural(due.length, "listing")} due</summary><ul class="fa-list">${due.map(c => `<li><span>${esc(c.t)}</span><small>listed ${esc(c.listed || "?")}${c.next ? " · ready since " + esc(c.next) : ""}</small></li>`).join("")}</ul></details>` : dl ? `<p class="fa-empty">Nothing to renew right now.${nextRenewal() ? ` Next renewals are ready on ${esc(nextRenewal())}.` : ""}</p>` : ""}
         ${recentRenew.length ? `<details class="fa-more"><summary>Recent renewals</summary><ul class="fa-list">${recentRenew.map(r => `<li class="${r.ok ? "" : "bad"}"><span>${r.ok ? "✓" : "–"} ${esc(r.t)}</span><small>${esc(r.d)}${r.why ? " · " + esc(r.why) : ""}</small></li>`).join("")}</ul></details>` : ""}
       </section>
 
@@ -276,7 +280,7 @@
             <span class="muted">${pl.groups.length ? `${plural(pl.groups.length, "new group")} queued` : doneToday >= limit ? "Done for today ✓" : "No new groups left today"} · been in ${pl.cov.done} of ${pl.cov.total} groups${pl.cov.fresh ? " (starting a new round)" : ""}</span></div>
           </div>
           <div class="fa-actions"><button class="btn btn-sell" data-fa="post" ${pl.groups.length ? "" : "disabled"}>Start today's ${pl.groups.length || limit} group posts</button><button class="btn btn-ghost" data-fa="test">Test without posting</button></div>
-          <p class="muted fa-small" ${pl.groups.length ? "" : "hidden"}>Runs by itself in a Facebook tab, ${S.settings.pause_min_s / 60}–${S.settings.pause_max_s / 60} minutes between groups (about ${Math.round(pl.groups.length * (S.settings.pause_min_s + S.settings.pause_max_s) / 120)} minutes). Keep the tab open. It stops at once if Facebook shows any warning.</p>
+          <p class="muted fa-small" ${pl.groups.length ? "" : "hidden"}>Runs by itself in a Facebook tab, ${S.settings.pause_min_s / 60}–${S.settings.pause_max_s / 60} minutes between groups (about ${Math.round(pl.groups.length * (S.settings.pause_min_s + S.settings.pause_max_s) / 120)} minutes). Keep that tab open and in front (Chrome slows background tabs a lot). It stops at once if Facebook shows any warning.</p>
           <details class="fa-more"><summary>Rotation order (${order.length} listings, one a day)</summary><ol class="fa-list">${order.map((p, i) => { const c = coverage(p); return `<li class="${i === cur ? "now" : ""}"><span>${i === cur ? "▶ " : ""}${esc(p.name)}</span><small>${c.done}/${c.total} groups</small></li>`; }).join("")}</ol></details>`
         : `<p class="fa-empty">No listing is ready (each needs a price, a photo and to be in stock).</p>`}
       </section>

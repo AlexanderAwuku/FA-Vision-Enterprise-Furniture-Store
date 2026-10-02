@@ -174,5 +174,77 @@
   "d": "2026-10-02",
   "p": "FAV-001"
  },
- "renewals": {}
+ "renewals": {},
+ "selling": {
+  "d": "2026-10-02",
+  "cards": [
+   {
+    "t": "Student Desk Chair Set — Senior High to Tertiary Level",
+    "listed": "2026-09-23",
+    "status": "In stock",
+    "next": "2026-10-09"
+   },
+   {
+    "t": "Rainbow Glass-Top Dining Set — 6 Chairs",
+    "listed": "2026-09-22",
+    "status": "Active",
+    "next": "2026-10-09"
+   },
+   {
+    "t": "Rainbow Glass-Top Dining Set — 6 Chairs",
+    "listed": "2026-09-07",
+    "status": "Active",
+    "next": "2026-10-09"
+   },
+   {
+    "t": "Executive Director Chair — Leather, High Back",
+    "listed": "2026-08-03",
+    "status": "In stock",
+    "next": "2026-10-09"
+   },
+   {
+    "t": "Rainbow Glass-Top Dining Set — 6 Chairs",
+    "listed": "2026-08-03",
+    "status": "Active",
+    "next": "2026-10-09"
+   }
+  ]
+ },
+ "renewLog": [
+  {
+   "d": "2026-10-02",
+   "t": "Student Desk Chair Set — Senior High to Tertiary Level",
+   "listed": "2026-09-23",
+   "ok": true,
+   "why": "Renewed in live test"
+  },
+  {
+   "d": "2026-10-02",
+   "t": "Rainbow Glass-Top Dining Set — 6 Chairs",
+   "listed": "2026-09-22",
+   "ok": true,
+   "why": "Renewed in live test"
+  },
+  {
+   "d": "2026-10-02",
+   "t": "Rainbow Glass-Top Dining Set — 6 Chairs",
+   "listed": "2026-09-07",
+   "ok": true,
+   "why": "Renewed in live test"
+  },
+  {
+   "d": "2026-10-02",
+   "t": "Executive Director Chair — Leather, High Back",
+   "listed": "2026-08-03",
+   "ok": true,
+   "why": "Renewed in live test"
+  },
+  {
+   "d": "2026-10-02",
+   "t": "Rainbow Glass-Top Dining Set — 6 Chairs",
+   "listed": "2026-08-03",
+   "ok": true,
+   "why": "Renewed in live test"
+  }
+ ]
 }
