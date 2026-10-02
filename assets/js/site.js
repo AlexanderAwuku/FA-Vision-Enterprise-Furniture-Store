@@ -457,6 +457,7 @@
     const buy = $("#pd-buy");
     if (buy) buy.addEventListener("click", () => CO.open(p));
     $("#pd-share").addEventListener("click", async () => {
+      if (window.FAV_SHARE) return window.FAV_SHARE.open(p.id);
       const data = { title: p.name, text: `${p.name}${p.price_ghs ? " · " + C.formatPrice(p.price_ghs) : ""} from ${p.seller ? p.seller.name : "F.A Vision Enterprise"}`, url: productUrl(p) };
       try {
         if (navigator.share) { await navigator.share(data); return; }

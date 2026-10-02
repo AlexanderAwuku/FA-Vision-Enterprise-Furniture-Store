@@ -6,8 +6,9 @@
   padding:10px 16px;scrollbar-width:none;-webkit-overflow-scrolling:touch;cursor:grab;user-select:none;-webkit-user-select:none}
 .fav-live__track::-webkit-scrollbar{display:none}
 .fav-live__track.is-dragging{cursor:grabbing;scroll-snap-type:none}
-.fav-live__chip{flex:0 0 auto;width:min(78vw,340px);scroll-snap-align:start;display:flex;align-items:center;gap:10px;
-  padding:5px 14px 5px 5px;border-radius:999px;background:var(--fl-chip);color:var(--fl-chip-fg);text-decoration:none;
+.fav-live__item{position:relative;flex:0 0 auto;width:min(78vw,340px);scroll-snap-align:start}
+.fav-live__chip{width:100%;box-sizing:border-box;display:flex;align-items:center;gap:10px;
+  padding:5px 50px 5px 5px;border-radius:999px;background:var(--fl-chip);color:var(--fl-chip-fg);text-decoration:none;
   -webkit-tap-highlight-color:transparent;transition:transform .15s ease}
 .fav-live__chip:active{transform:scale(.97)}
 .fav-live__chip:focus-visible{outline:2px solid var(--fl-ring);outline-offset:2px}
@@ -32,3 +33,34 @@
   .fav-live__ticker span{flex:1;overflow:hidden;text-overflow:ellipsis}
   .fav-live__ticker span[aria-hidden]{display:none}
 }
+
+/* Share button on each bubble */
+.fav-live__share{position:absolute;right:8px;top:50%;transform:translateY(-50%);width:36px;height:36px;border-radius:50%;
+  border:0;display:grid;place-items:center;background:#fff;color:var(--fl-ring);cursor:pointer;
+  box-shadow:0 1px 4px rgba(0,0,0,.15);-webkit-tap-highlight-color:transparent}
+.fav-live__share:hover{background:var(--fl-ring);color:#fff}
+.fav-live__share:focus-visible{outline:2px solid var(--fl-ring);outline-offset:2px}
+
+/* Share sheet */
+.fls{border:0;padding:0;background:transparent;max-width:min(94vw,440px);width:100%;margin:auto}
+.fls::backdrop{background:rgba(10,12,16,.72)}
+.fls__box{position:relative;background:#fff;border-radius:18px;padding:16px;display:grid;gap:12px;
+  font-family:"Figtree","Inter",system-ui,sans-serif;color:#14171a;max-height:92vh;overflow:auto}
+.fls__close{position:absolute;top:8px;right:8px;width:36px;height:36px;border:0;border-radius:50%;background:rgba(0,0,0,.55);
+  color:#fff;font-size:24px;line-height:1;cursor:pointer;z-index:1}
+.fls__img{display:block;width:100%;max-height:56vh;object-fit:contain;border-radius:12px;background:#f1f2f5}
+.fls__title{margin:0;font-weight:700;font-size:16px;text-align:center}
+.fls__native{border:0;border-radius:999px;padding:13px 16px;font:700 15px/1.2 inherit;font-family:inherit;color:#fff;
+  background:linear-gradient(90deg,#e0245e,#0d55af);cursor:pointer}
+.fls__native[disabled]{opacity:.6;cursor:wait}
+.fls__grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.fls__btn{display:flex;align-items:center;justify-content:center;min-height:44px;padding:8px;border-radius:12px;
+  border:1px solid #e3e6ec;background:#f7f8fa;color:#14171a;text-decoration:none;font:600 13px/1.2 inherit;
+  font-family:inherit;cursor:pointer;text-align:center}
+.fls__btn b{font-weight:700}
+.fls__wa{background:#25d366;border-color:#25d366;color:#fff}
+.fls__fb{background:#1877f2;border-color:#1877f2;color:#fff}
+.fls__x{background:#0f1419;border-color:#0f1419;color:#fff}
+.fls__tt{background:#fe2c55;border-color:#fe2c55;color:#fff}
+.fls__hint{margin:0;font-size:13px;color:#4f5a64;min-height:1em}
+@media (max-width:360px){.fls__grid{grid-template-columns:repeat(2,minmax(0,1fr))}}

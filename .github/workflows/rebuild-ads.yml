@@ -12,6 +12,7 @@ on:
       - "data/products.json"
       - "data/business.json"
       - "scripts/make_ads.py"
+      - "scripts/make_share_cards.py"
       - "scripts/generate_listings.py"
   workflow_dispatch:
 
@@ -41,12 +42,13 @@ jobs:
       - name: Rebuild ads and listing texts
         run: |
           python3 scripts/make_ads.py
+          python3 scripts/make_share_cards.py
           python3 scripts/generate_listings.py
 
       - name: Commit if anything changed
         id: commit
         run: |
-          git add -A assets/images/ads output assets/js/products-data.js
+          git add -A assets/images/ads assets/images/share p output assets/js/products-data.js
           if git diff --cached --quiet; then
             echo "changed=false" >> "$GITHUB_OUTPUT"
             exit 0
