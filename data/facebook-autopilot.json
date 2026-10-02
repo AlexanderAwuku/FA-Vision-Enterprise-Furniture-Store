@@ -168,7 +168,148 @@
    "off_why": "Off-topic for furniture (switched off at import)"
   }
  ],
- "posts": [],
+ "posts": [
+  {
+   "d": "2026-10-02",
+   "t": "2026-10-02T18:57:14.403Z",
+   "p": "FAV-001",
+   "g": "762804364052457",
+   "ok": true,
+   "why": "Waiting for admin approval"
+  },
+  {
+   "d": "2026-10-02",
+   "t": "2026-10-02T19:03:26.402Z",
+   "p": "FAV-001",
+   "g": "688229241385954",
+   "ok": true
+  },
+  {
+   "d": "2026-10-02",
+   "t": "2026-10-02T19:19:05.118Z",
+   "p": "FAV-001",
+   "g": "accraexats",
+   "ok": false,
+   "why": "Not a member of this group"
+  },
+  {
+   "d": "2026-10-02",
+   "t": "2026-10-02T19:19:32.280Z",
+   "p": "FAV-001",
+   "g": "456467567894267",
+   "ok": true,
+   "why": "Waiting for admin approval"
+  },
+  {
+   "d": "2026-10-02",
+   "t": "2026-10-02T19:28:17.951Z",
+   "p": "FAV-001",
+   "g": "611599393546171",
+   "ok": true,
+   "why": "Waiting for admin approval"
+  },
+  {
+   "d": "2026-10-02",
+   "t": "2026-10-02T19:31:35.875Z",
+   "p": "FAV-001",
+   "g": "oppbiz",
+   "ok": true,
+   "why": "Waiting for admin approval"
+  },
+  {
+   "d": "2026-10-02",
+   "t": "2026-10-02T19:37:19.155Z",
+   "p": "FAV-001",
+   "g": "3295010260530139",
+   "ok": true
+  },
+  {
+   "d": "2026-10-02",
+   "t": "2026-10-02T19:39:07.324Z",
+   "p": "FAV-001",
+   "g": "1781509128744735",
+   "ok": false,
+   "why": "Not a member of this group"
+  },
+  {
+   "d": "2026-10-02",
+   "t": "2026-10-02T19:39:35.508Z",
+   "p": "FAV-001",
+   "g": "dealsformamasofficial",
+   "ok": true,
+   "why": "Waiting for admin approval"
+  },
+  {
+   "d": "2026-10-02",
+   "t": "2026-10-02T19:42:32.831Z",
+   "p": "FAV-001",
+   "g": "247630922377452",
+   "ok": false,
+   "why": "Not a member of this group"
+  },
+  {
+   "d": "2026-10-02",
+   "t": "2026-10-02T19:43:03.716Z",
+   "p": "FAV-001",
+   "g": "ghanashs",
+   "ok": true,
+   "why": "Waiting for admin approval"
+  },
+  {
+   "d": "2026-10-02",
+   "t": "2026-10-02T19:45:21.870Z",
+   "p": "FAV-001",
+   "g": "433382596714655",
+   "ok": true
+  },
+  {
+   "d": "2026-10-02",
+   "t": "2026-10-02T19:46:43.963Z",
+   "p": "FAV-001",
+   "g": "910798219668535",
+   "ok": true,
+   "why": "Waiting for admin approval"
+  },
+  {
+   "d": "2026-10-02",
+   "t": "2026-10-02T19:48:30.716Z",
+   "p": "FAV-001",
+   "g": "128000729380895",
+   "ok": true,
+   "why": "Waiting for admin approval"
+  },
+  {
+   "d": "2026-10-02",
+   "t": "2026-10-02T19:51:49.700Z",
+   "p": "FAV-001",
+   "g": "455961835149809",
+   "ok": true,
+   "why": "Waiting for admin approval"
+  },
+  {
+   "d": "2026-10-02",
+   "t": "2026-10-02T19:54:55.857Z",
+   "p": "FAV-001",
+   "g": "tltshopgroup",
+   "ok": true
+  },
+  {
+   "d": "2026-10-02",
+   "t": "2026-10-02T19:57:36.536Z",
+   "p": "FAV-001",
+   "g": "555856695137297",
+   "ok": true,
+   "why": "Waiting for admin approval"
+  },
+  {
+   "d": "2026-10-02",
+   "t": "2026-10-02T20:00:06.169Z",
+   "p": "FAV-001",
+   "g": "613910549123146",
+   "ok": false,
+   "why": "Not a member of this group"
+  }
+ ],
  "resets": {},
  "today": {
   "d": "2026-10-02",
@@ -245,6 +386,15 @@
    "listed": "2026-08-03",
    "ok": true,
    "why": "Renewed in live test"
+  }
+ ],
+ "runs": [
+  {
+   "d": "2026-10-02",
+   "t": "2026-10-02T20:00:23.285Z",
+   "kind": "post",
+   "tried": 18,
+   "ok": 14
   }
  ]
 }
